@@ -2,9 +2,9 @@
 export default class BaseSection {
   constructor({ el }) {
     // accept selector string or actual element
-    if (!el) throw new Error("ScrollSection requires { el }");
+    if (!el) throw new Error("BaseSection requires { el }");
     this.el = typeof el === "string" ? document.querySelector(el) : el;
-    if (!this.el) throw new Error("ScrollSection: element not found: " + el);
+    if (!this.el) throw new Error("BaseSection: element not found: " + el);
 
     // public layout vars
     this.start = 0;

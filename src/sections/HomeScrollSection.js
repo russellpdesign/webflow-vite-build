@@ -2,8 +2,8 @@ import BaseSection from "../engine/BaseSection.js";
 
 export default class HomeScrollSection extends BaseSection {
 
-  constructor({ root }) {
-    super({ root });
+  constructor({ el }) {
+    super({ el });
 
     // Cache DOM
     this.progressBarInside = document.querySelector(".vertical-progress-bar-inside");
