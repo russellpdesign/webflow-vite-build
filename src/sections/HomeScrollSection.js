@@ -7,7 +7,7 @@ export default class HomeScrollSection extends BaseSection {
 
     // Cache DOM
     this.progressBarInside = document.querySelector(".vertical-progress-bar-inside");
-    this.homeScrollSection = document.querySelector(".home-scroll-section.is-don");
+    this.homeScrollSection = this.el;
 
     this.triggers = document.querySelectorAll(".overview_trigger");
     this.titleItems = document.querySelectorAll(".home-scroll-title");
@@ -18,10 +18,10 @@ export default class HomeScrollSection extends BaseSection {
     this.scrollbar = document.querySelector(".vertical-progress-bar");
 
     this.calculateBounds();
-    window.addEventListener("resize", this.calculateBounds.bind(this));
+    window.addEventListener("resize", this.measure.bind(this));
   }
 
-  calculateBounds() {
+  measure() {
     const rect = this.homeScrollSection.getBoundingClientRect();
     const current = window.scrollY;
 

@@ -1,26 +1,25 @@
-import { lerp } from "./utils.js";
-
 export default class SmoothScroll {
-  constructor({
-    lerpEase = 0.1,
-    onUpdate = () => {}
-  } = {}) {
-    this.lerpEase = lerpEase;
-    this.current = 0;
-    this.target = 0;
-    this.onUpdate = onUpdate;
+  constructor({ ease = 0.08 } = {}) {
+    this.ease = ease;
+    this.current = window.scrollY;
+    this.target = window.scrollY;
 
-    this.handle = this.handle.bind(this);
-    window.addEventListener("scroll", this.handle);
+    this._onScroll = this._onScroll.bind(this);
+    window.addEventListener("scroll", this._onScroll, { passive: true });
   }
 
-  handle() {
+  _onScroll() {
     this.target = window.scrollY;
   }
 
   update() {
-    this.current = lerp(this.current, this.target, this.lerpEase);
-    this.onUpdate(this.current);
+    this.current += (this.target - this.current) * this.ease;
+
+    if (Math.abs(this.target - this.current) < 0.05) {
+      this.current = this.target;
+    }
+
     return this.current;
   }
 }
+

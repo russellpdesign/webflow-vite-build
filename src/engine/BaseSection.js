@@ -10,13 +10,11 @@ export default class BaseSection {
     this.start = 0;
     this.end = 0;
     this.length = 0;
-
-    // call measure when created is optional (usually done by engine)
   }
 
-  // override: compute start/end/length/etc
+  // Every subclass MUST implement this
   measure() {}
 
-  // override: perform per-frame updates; receives smoothed scrollY
+  // Every subclass MUST implement this
   update(scrollY) {}
 }
