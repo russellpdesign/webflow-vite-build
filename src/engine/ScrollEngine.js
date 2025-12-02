@@ -1,3 +1,4 @@
+// src/engine/ScrollEngine.js
 export default class ScrollEngine {
   constructor({ smooth } = {}) {
     this.smooth = smooth || null;
@@ -10,21 +11,19 @@ export default class ScrollEngine {
   }
 
   register(section) {
-    if (typeof section.measure !== "function" ||
-        typeof section.update !== "function") {
-      throw new Error("Section must implement measure() and update(scrollY)");
-    }
-
+    if (!section) return;
     this.sections.push(section);
   }
 
   measureAll() {
-    this.sections.forEach(section => section.measure());
+    this.sections.forEach(section => {
+      section.measure();
+    });
   }
 
   start() {
     this.measureAll();
-    this._raf();
+    requestAnimationFrame(this._raf);
   }
 
   _onResize() {
@@ -35,6 +34,7 @@ export default class ScrollEngine {
     const scrollY = this.smooth ? this.smooth.update() : window.scrollY;
 
     for (const section of this.sections) {
+      if (!section.enabled) continue;
       section.update(scrollY);
     }
 

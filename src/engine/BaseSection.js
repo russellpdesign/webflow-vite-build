@@ -1,20 +1,31 @@
-// src/engine/ScrollSection.js
+// src/engine/BaseSection.js
 export default class BaseSection {
   constructor({ el }) {
-    // accept selector string or actual element
     if (!el) throw new Error("BaseSection requires { el }");
-    this.el = typeof el === "string" ? document.querySelector(el) : el;
-    if (!this.el) throw new Error("BaseSection: element not found: " + el);
 
-    // public layout vars
+    // Accept selector or element
+    this.el = typeof el === "string" ? document.querySelector(el) : el;
+
+    // Enable/disable flag
+    this.enabled = true;
+
+    if (!this.el) {
+      console.warn("⚠️ BaseSection: element not found:", el);
+      this.enabled = false;
+      return;
+    }
+
+    // Standard scroll bounds
     this.start = 0;
     this.end = 0;
     this.length = 0;
   }
 
-  // Every subclass MUST implement this
-  measure() {}
+  measure() {
+    // Override in subclass
+  }
 
-  // Every subclass MUST implement this
-  update(scrollY) {}
+  update(scrollY) {
+    // Override in subclass
+  }
 }
