@@ -11,31 +11,29 @@ export default class ScrollEngine {
   }
 
   register(section) {
-    if (!section) return;
     this.sections.push(section);
   }
 
-  measureAll() {
-    this.sections.forEach(section => {
-      section.measure();
-    });
-  }
-
   start() {
-    this.measureAll();
+    // measure everything first
+    this.sections.forEach(sec => sec.measure());
+
+    // start RAF loop
     requestAnimationFrame(this._raf);
   }
 
   _onResize() {
-    this.measureAll();
+    this.sections.forEach(sec => sec.measure());
   }
 
   _raf() {
     const scrollY = this.smooth ? this.smooth.update() : window.scrollY;
 
-    for (const section of this.sections) {
-      if (!section.enabled) continue;
-      section.update(scrollY);
+    // always update each enabled section — no conditions
+    for (const sec of this.sections) {
+      if (sec.enabled) {
+        sec.update(scrollY);
+      }
     }
 
     requestAnimationFrame(this._raf);

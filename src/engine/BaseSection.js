@@ -6,9 +6,6 @@ export default class BaseSection {
     // Accept selector or element
     this.el = typeof el === "string" ? document.querySelector(el) : el;
 
-    // Enable/disable flag
-    this.enabled = true;
-
     if (!this.el) {
       console.warn("⚠️ BaseSection: element not found:", el);
       this.enabled = false;
@@ -19,6 +16,9 @@ export default class BaseSection {
     this.start = 0;
     this.end = 0;
     this.length = 0;
+
+    // Enable/disable flag
+    this.enabled = true;
   }
 
   measure() {
