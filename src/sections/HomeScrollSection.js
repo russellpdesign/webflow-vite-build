@@ -39,6 +39,7 @@ export default class HomeScrollSection extends BaseSection {
     this.thirdStart  = this.start + window.innerHeight * 2;
 
     this.end = this.start + this.length;
+    console.log(`start: ${this.start}, secondStart: ${this.secondStart}, thirdStart: ${this.thirdStart}`)
   }
 
   update(scrollY) {
