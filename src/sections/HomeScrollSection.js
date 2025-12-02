@@ -33,10 +33,14 @@ export default class HomeScrollSection extends BaseSection {
     this.secondStart = this.start + window.innerHeight;
     this.thirdStart  = this.start + window.innerHeight * 2;
     this.end = this.start + this.length;
+
+    console.log("📏 measure() ran");
+    console.log(`start: ${this.start}, secondStart: ${this.secondStart}, thirdStart: ${this.thirdStart}, end: ${this.end}`);
   }
 
   update(scrollY) {
     const pos = scrollY;
+    console.log("🔄 update():", scrollY);
 
     if (pos < this.start) {
       this._deactivateAll();
