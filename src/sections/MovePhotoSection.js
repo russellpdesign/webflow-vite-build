@@ -28,7 +28,7 @@ export default class MovePhotoSection extends BaseSection {
     this.leftSideImageHide = document.querySelector("#left-side-hide");
 	  this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
 
-    this.enabled = false;
+    this.enabled = true;
 
     window.addEventListener("resize", () => this.measure());
   }
@@ -96,7 +96,7 @@ export default class MovePhotoSection extends BaseSection {
         this.sectionBoothDesignBodyText.classList.remove("is-active");
         this.sectionBoothDesignEyebrowText.classList.remove("is-active");
         this.sectionBoothNumberText[0].classList.remove("is-active");
-        return;
+        // return;
     }
 
    if ( scrollY >= this.end ) {
