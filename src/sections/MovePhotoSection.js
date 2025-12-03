@@ -90,7 +90,7 @@ export default class MovePhotoSection extends BaseSection {
 
         // translates the image container from right side to left
         this.homeScrollVisual.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
-        this.behindImageWrapper.style.transform = `translate3d(${behindImageXPercent}%, 0, 0)`;
+        this.behindImageWrapper.style.transform = `translate3d(-${behindImageXPercent}%, 0, 0)`;
         this.lastImage.style.opacity = `${opacityPercent}%`;
         
         this.sectionBoothDesignBodyText.classList.remove("is-active");
