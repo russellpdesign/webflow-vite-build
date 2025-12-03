@@ -46,6 +46,7 @@ export default class HomeScrollSection extends BaseSection {
     // compute progress for scrollbar
     const t = clamp01((scrollY - this.start) / (this.end - this.start));
     const yPercent = mapRange(0, 1, 0, 200, t);
+    console.log(`yPercent: ${yPercent}`)
 
     if (scrollY < this.start) {
       this._deactivateAll();
@@ -92,7 +93,7 @@ export default class HomeScrollSection extends BaseSection {
       this.scrollbar.classList.add("is-gone");
       this.imgItems[2].classList.add("is-active");
       this.progressBar.style.transform = "translate3d(0, 200%, 0)";
-      return;
+      // return;
     }
   }
 
