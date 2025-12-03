@@ -10,14 +10,14 @@ export default class MovePhotoSection extends BaseSection {
     this.triggersHeight = this.triggers[0].getBoundingClientRect().height * this.triggers.length;
     // set that value to our sectionLength to make our code more readable
     this.sectionLength = this.triggersHeight;
-    this.lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
-    this.start = this.lastSectionsEnd + this.sectionLength;
+    this.lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top + window.scrollY;
+    // this.start = this.lastSectionsEnd + this.sectionLength;
     this.viewportHeight = window.innerHeight;
     this.stickySection = document.querySelector(".sticky-section.heroic-members-wrapper.reversed");
     this.stickySectionHeight = this.stickySection.getBoundingClientRect().height;
     this.sticky100vh =  document.querySelector(".sticky-section-100vh");
     this.sticky100Height = this.sticky100vh.getBoundingClientRect().height;
-    this.end = start + (this.sticky100Height * 1.38);
+    // this.end = start + (this.sticky100Height * 1.38);
     this.homeScrollVisual = document.querySelector(".home-scroll-visual");
     this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
     this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
@@ -33,8 +33,8 @@ export default class MovePhotoSection extends BaseSection {
   }
 
   measure() {
-    this.start = this.sticky100vh.getBoundingClientRect().top - document.documentElement.getBoundingClientRect().top;
-    this.end   = this.start + (this.sticky100Height * 1.38);
+    this.start = this.sticky100vh.getBoundingClientRect().top + window.scrollY;
+    this.end = this.start + (this.sticky100Height * 1.38);
 
     // secondary breakpoints
     this.photoRemoveCheckpoint = this.end + (this.viewportHeight * 1.5);
