@@ -74,6 +74,7 @@ export default class MovePhotoSection extends BaseSection {
 
         const xPercent = mapRange(t, 0, 1, 0, 100);
         const opacityPercent = mapRange(t, 0, 1, 100, 0);
+        const behindImageXPercent = 100 - xPercent;
 
         // this.percentageTraveled = scrollY - this.start;
         // // The .38 comes from the previous sections padding of 38vh
@@ -85,7 +86,7 @@ export default class MovePhotoSection extends BaseSection {
 
         // translates the image container from right side to left
         this.homeScrollVisual.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
-        this.behindImageWrapper.style.transform = `translate3d(${100-xPercent}%, 0, 0)`;
+        this.behindImageWrapper.style.transform = `translate3d(${behindImageXPercent}%, 0, 0)`;
         this.lastImage.style.opacity = `${opacityPercent}%`;
         
         this.sectionBoothDesignBodyText.classList.remove("is-active");
