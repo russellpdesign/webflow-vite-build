@@ -16,12 +16,13 @@ export default class HomeScrollSection extends BaseSection {
     this.progressBar = document.querySelector(".vertical-progress-bar-inside");
 
     window.addEventListener("resize", () => this.measure());
+
   }
 
   measure() {
     // absolute top of section (regardless of sticky layout)
     const rect = this.el.getBoundingClientRect();
-    const absoluteTop = rect.top + window.scrollY;
+    const absoluteTop = rect.top - document.body.getBoundingClientRect().top;
 
     // animation length determined by triggers
     const triggerHeight = this.triggers[0]?.getBoundingClientRect().height || 0;
@@ -46,14 +47,18 @@ export default class HomeScrollSection extends BaseSection {
   }
 
   update(scrollY) {
-    console.log("update() →", scrollY); // THIS SHOULD FIRE ON EVERY FRAME
-
     const pos = scrollY;
+    const yPercent = (((pos - start) / (end - start)) * 100) * 2;
 
     // BEFORE START
     if (pos < this.start) {
       this._deactivateAll();
+      this.progressBar.style.transform = "translate3d(0, 0%, 0)";
       return;
+    }
+
+    if (pos >= start && pos <= end ) {
+      this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`
     }
 
     // SECTION 1
@@ -82,6 +87,7 @@ export default class HomeScrollSection extends BaseSection {
     // AFTER END
     if (pos >= this.end) {
       this._deactivate(2);
+      this.progressBar.style.transform = "translate3d(0, 200%, 0)";
       return;
     }
   }
