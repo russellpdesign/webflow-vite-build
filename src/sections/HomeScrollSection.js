@@ -1,5 +1,6 @@
 // src/sections/HomeScrollSection.js
 import BaseSection from "../engine/BaseSection.js";
+import { clamp01, mapRange } from "../utils/utils.js";
 
 export default class HomeScrollSection extends BaseSection {
   constructor({ el }) {
@@ -32,11 +33,18 @@ export default class HomeScrollSection extends BaseSection {
     this.start = absoluteTop;
     this.end = this.start + this.length;
 
+    // secondary text animation breakpoints
     this.secondStart = this.start + window.innerHeight;
     this.thirdStart  = this.start + window.innerHeight * 2;
   }
 
   update(scrollY) {
+    if(!this.enabled) return;
+
+    // compute progress for scrollbar
+    const t = clamp01((scrollY - this.start) / (this.end - this.start));
+    const yPercent = mapRange(0, 1, 0, 200, t);
+
     if (scrollY < this.start) {
       this._deactivateAll();
       this.progressBar.style.transform = "translate3d(0, 0%, 0)";
@@ -45,7 +53,7 @@ export default class HomeScrollSection extends BaseSection {
 
     // progress bar always animates inside range
     if (scrollY >= this.start && scrollY <= this.end) {
-      const yPercent = ((scrollY - this.start) / (this.end - this.start)) * 200;
+      // const yPercent = ((scrollY - this.start) / (this.end - this.start)) * 200;
       this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`;
       this.scrollbar.classList.remove("is-gone");
       this.sectionHeader.classList.add("is-active");
@@ -82,6 +90,7 @@ export default class HomeScrollSection extends BaseSection {
       this.scrollbar.classList.add("is-gone");
       this.imgItems[2].classList.add("is-active");
       this.progressBar.style.transform = "translate3d(0, 200%, 0)";
+      return;
     }
   }
 
