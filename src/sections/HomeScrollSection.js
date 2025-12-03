@@ -93,7 +93,7 @@ export default class HomeScrollSection extends BaseSection {
       this.scrollbar.classList.add("is-gone");
       this.imgItems[2].classList.add("is-active");
       this.progressBar.style.transform = "translate3d(0, 200%, 0)";
-      // return;
+      return;
     }
   }
 
