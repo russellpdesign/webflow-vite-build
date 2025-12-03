@@ -31,9 +31,9 @@ export default class ScrollEngine {
     const scrollY = this.smooth ? this.smooth.update() : window.scrollY;
 
     // always update each enabled section — no conditions
-    for (const sec of this.sections) {
+    for (const section of this.sections) {
       // if (sec.enabled) {
-        sec.update(scrollY);
+        section.update(scrollY);
       // }
     }
 
