@@ -28,6 +28,8 @@ export default class MovePhotoSection extends BaseSection {
     this.leftSideImageHide = document.querySelector("#left-side-hide");
 	  this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
 
+    this.enabled = true;
+
     window.addEventListener("resize", () => this.measure());
   }
 
