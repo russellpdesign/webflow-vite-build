@@ -7,7 +7,7 @@ export default class MovePhotoSection extends BaseSection {
     this.homeScrollSection = document.querySelector(".home-scroll-section.is-don");
     // To get height of section we measure the height of all the triggers (since it takes one trigger per one 100vh sticky section in this type of section)
     this.triggers = document.querySelectorAll(".overview_trigger");
-    this.triggersHeight = this.triggers[0].getBoundingClientRect().height * triggers.length;
+    this.triggersHeight = this.triggers[0].getBoundingClientRect().height * this.triggers.length;
     // set that value to our sectionLength to make our code more readable
     this.sectionLength = this.triggersHeight;
     this.lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
