@@ -46,6 +46,10 @@ export default class MovePhotoSection extends BaseSection {
     this.rightSideRevealCheckpoint = this.end + (this.viewportHeight * 3); // 3 is amount of sections (not including spacer, since we use that moment to animate in right side)
     this.zedIndexSwitchCheckpoint = this.rightSideRevealCheckpoint + (this.viewportHeight * .9);
 
+  }
+
+  update(scrollY) {
+
     console.table("MovePhotoSection measured:", {
       current: scrollY,
       start: this.start,
@@ -54,10 +58,6 @@ export default class MovePhotoSection extends BaseSection {
       rightSideRevealCheckpoint: this.rightSideRevealCheckpoint,
       zedIndexSwitchCheckpoint: this.zedIndexSwitchCheckpoint
     });
-  }
-
-  update(scrollY) {
-
     // const t = clamp01((scrollY - this.start) / (this.end - this.start));
     // const xPercent = mapRange(t, 0, 1, 0, 200);
 
@@ -75,6 +75,8 @@ export default class MovePhotoSection extends BaseSection {
         const xPercent = mapRange(t, 0, 1, 0, 100);
         const opacityPercent = mapRange(t, 0, 1, 100, 0);
         const behindImageXPercent = 100 - xPercent;
+
+        console.log(t, xPercent, opacityPercent, behindImageXPercent);
 
         // this.percentageTraveled = scrollY - this.start;
         // // The .38 comes from the previous sections padding of 38vh
