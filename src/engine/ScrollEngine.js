@@ -11,13 +11,19 @@ export default class ScrollEngine {
   }
 
   register(section) {
+    if (!section) return;
     this.sections.push(section);
   }
 
+  measureAll() {
+    this.sections.forEach(section => {
+      section.measure();
+    });
+  }
+
   start() {
+    this.measureAll();
     if (!this.enabled) return;
-    // measure everything first
-    this.sections.forEach(section => section.measure());
 
     // start RAF loop
     requestAnimationFrame(this._raf);
@@ -30,11 +36,9 @@ export default class ScrollEngine {
   _raf() {
     const scrollY = this.smooth ? this.smooth.update() : window.scrollY;
 
-    // always update each enabled section — no conditions
     for (const section of this.sections) {
-      // if (sec.enabled) {
-        section.update(scrollY);
-      // }
+      if (!section.enabled) continue;
+      section.update(scrollY);
     }
 
     requestAnimationFrame(this._raf);

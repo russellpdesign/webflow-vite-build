@@ -5,6 +5,7 @@ export default class HomeScrollSection extends BaseSection {
   constructor({ el }) {
     super({ el });
 
+    if (!this.enabled) return;
     // DOM caches
     this.triggers = document.querySelectorAll(".overview_trigger");
 
@@ -20,6 +21,7 @@ export default class HomeScrollSection extends BaseSection {
   }
 
   measure() {
+    if (!this.enabled) return;
     // absolute top of section (regardless of sticky layout)
     const rect = this.el.getBoundingClientRect();
     const absoluteTop = rect.top - document.documentElement.getBoundingClientRect().top;
@@ -31,7 +33,7 @@ export default class HomeScrollSection extends BaseSection {
     this.length = triggerHeight * triggerCount;
 
     this.start = absoluteTop;
-    this.end   = this.start + this.length;
+    this.end = this.start + this.length;
 
     console.log(`start: ${this.start} end: ${this.end}`)
 
@@ -49,32 +51,33 @@ export default class HomeScrollSection extends BaseSection {
   }
 
   update(scrollY) {
-    const pos = scrollY;
-    this.yPercent = (((pos - this.start) / (this.end - this.start)) * 100) * 2;
+    if (!this.enabled) return;
+    const yPercent = (((scrollY - this.start) / (this.end - this.start)) * 100) * 2;
     console.log(`yPercent: ${yPercent}`);
 
     // BEFORE START
-    if (pos < this.start) {
+    if (scrollY < this.start) {
       this._deactivateAll();
       this.progressBar.style.transform = "translate3d(0, 0%, 0)";
       return;
     }
 
-    if (pos >= this.start && pos <= this.end ) {
-      this.progressBar.style.transform = `translate3d(0, ${this.yPercent}%, 0)`
+    if (scrollY >= this.start && scrollY <= this.end ) {
+      this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`
       this.scrollbar.classList.remove("is-gone");
       this.sectionHeader.classList.add("is-active");
+      return;
     }
 
     // SECTION 1
-    if (pos >= this.start && pos < this.secondStart) {
+    if (scrollY >= this.start && scrollY < this.secondStart) {
       this._activate(0);
       this._deactivate(1);
       return;
     }
 
     // SECTION 2
-    if (pos >= this.secondStart && pos < this.thirdStart) {
+    if (scrollY >= this.secondStart && scrollY < this.thirdStart) {
       this._deactivate(0);
       this._activate(1);
       this._deactivate(2);
@@ -82,14 +85,14 @@ export default class HomeScrollSection extends BaseSection {
     }
 
     // SECTION 3
-    if (pos >= this.thirdStart && pos < this.end) {
+    if (scrollY >= this.thirdStart && scrollY < this.end) {
       this._activate(2);
       this._deactivate(1);
       return;
     }
 
     // AFTER END
-    if (pos >= this.end) {
+    if (scrollY >= this.end) {
       this.sectionHeader.classList.remove("is-active");
       this.titleItems[2].classList.remove("is-active");
       this.textItems[2].classList.remove("is-active");
