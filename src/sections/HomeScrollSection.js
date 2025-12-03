@@ -62,7 +62,7 @@ export default class HomeScrollSection extends BaseSection {
 
     if (pos >= this.start && pos <= this.end ) {
       this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`
-      this.scrollbar.classList.add("is-gone");
+      this.scrollbar.classList.remove("is-gone");
       this.sectionHeader.classList.add("is-active");
     }
 
