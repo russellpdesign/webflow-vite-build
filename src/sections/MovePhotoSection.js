@@ -71,7 +71,7 @@ export default class MovePhotoSection extends BaseSection {
        // return;
     }
 
-    if (scrollY >= this.start && scrollY < this.end) {
+    if ( scrollY >= this.start ) {
         const t = clamp01((scrollY - this.start) / (this.end - this.start));
 
         const xPercent = mapRange(t, 0, 1, 0, 100);
@@ -79,14 +79,6 @@ export default class MovePhotoSection extends BaseSection {
         const behindImageXPercent = 100 - xPercent;
 
         console.log(t, xPercent, opacityPercent, behindImageXPercent);
-
-        // this.percentageTraveled = scrollY - this.start;
-        // // The .38 comes from the previous sections padding of 38vh
-        // this.wholeAmount = this.sticky100Height * 1.38;
-        // this.xPercent = (this.percentageTraveled / this.wholeAmount) * 100;
-        // // transforms the opacity from 100% to o% so image behind can show through
-        // this.opacityPercent = 100 - ((this.percentageTraveled / this.wholeAmount) * 100);
-        // this.imageTransformPercent = 100 - this.xPercent;
 
         // translates the image container from right side to left
         this.homeScrollVisual.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
@@ -99,23 +91,17 @@ export default class MovePhotoSection extends BaseSection {
         // return;
     }
 
-   if ( scrollY >= this.end ) {
+   if ( scrollY > this.end ) {
     	this.lastImage.style.opacity = "0";
         this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
         this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
         this.lastImage.style.opacity = '0%';
-        // force it in position once past (x = 100%, y is scrolldistance from end / viewportHeight since the image needs to scroll off screen as we scroll)
-        // this.yDistanceTraveled = scrollY - this.end;
-        // this.yPercent = (this.yDistanceTraveled / this.viewportHeight) * 100;
-        // homeScrollVisual.style.transform = `translate3d(-100%, -${yPercent}%, 0)`;
-        // lastImage.style.opacity = '0%';
         
         this.sectionBoothDesignBodyText.classList.add("is-active");
         this.sectionBoothDesignEyebrowText.classList.add("is-active");
         this.sectionBoothNumberText[0].classList.add("is-active");
         this.projectTextHeading.classList.add("is-active");
         
-        // console.log("Stop animating the image and allow it to be scrolled!");
         this.behindImageWrapper.style.opacity = "1";
         // return;
     }
@@ -125,17 +111,9 @@ export default class MovePhotoSection extends BaseSection {
         this.behindImageWrapper.style.opacity = "0";
         this.leftSideImageHide.style.opacity = "1";
     }
-
-     // once a photo from the next section has overlayed our right to left traveling photo, we need to set its opacity to 0 so that the next sections sticky photo reveal works
-    if (scrollY > this.photoRemoveCheckpoint ) {
-        this.behindImageWrapper.style.opacity = "0";
-        this.leftSideImageHide.style.opacity = "1";
-    }
     
     // now we need to remove the left side sticky scroll container using opacity: 0 in time when the section below scrolls into place right unederneath it
     if ( scrollY > this.rightSideRevealCheckpoint ) {
-    // console.log("Animate text - remove is-active class on all")
-    
     this.sectionBoothDesignBodyText.classList.remove("is-active");
     this.sectionBoothDesignEyebrowText.classList.remove("is-active");
     this.sectionBoothNumberText[0].classList.remove("is-active");
