@@ -45,18 +45,19 @@ export default class MovePhotoSection extends BaseSection {
   }
 
   update(scrollY) {
-    const yPercent = (((scrollY - this.start) / (this.end - this.start)) * 100) * 2;
-    console.log(`yPercent: ${yPercent}`);
+
+    // const t = clamp01((scrollY - this.start) / (this.end - this.start));
+    // const xPercent = mapRange(t, 0, 1, 0, 200);
 
     // BEFORE START
     if (scrollY < this.start) {
        this.imageRevealSection.style.zIndex = "-1"; 
        this.homeScrollVisual.style.transform = `translate3d(0%, 0, 0)`;
        this.behindImageWrapper.style.transform = "translate3d(-100%, 0, 0)";
-      return;
+       // return;
     }
 
-    if (scrollY > this.start) {
+    if (scrollY >= this.start) {
         this.percentageTraveled = scrollY - this.start;
         // The .38 comes from the previous sections padding of 38vh
         this.wholeAmount = this.sticky100Height * 1.38;
@@ -74,10 +75,10 @@ export default class MovePhotoSection extends BaseSection {
         this.sectionBoothDesignBodyText.classList.remove("is-active");
         this.sectionBoothDesignEyebrowText.classList.remove("is-active");
         this.sectionBoothNumberText[0].classList.remove("is-active");
-        return;
+        // return;
     }
 
-   if ( scrollY > this.end ) {
+   if ( scrollY >= this.end ) {
     	this.lastImage.style.opacity = "0";
         this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
         this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
@@ -94,7 +95,7 @@ export default class MovePhotoSection extends BaseSection {
         
         // console.log("Stop animating the image and allow it to be scrolled!");
         this.behindImageWrapper.style.opacity = "1";
-        return;
+        // return;
     }
 
    // once a photo from the next section has overlayed our right to left traveling photo, we need to set its opacity to 0 so that the next sections sticky photo reveal works
@@ -128,7 +129,6 @@ export default class MovePhotoSection extends BaseSection {
     if ( scrollY < this.zedIndexSwitchCheckpoint ) {
         this.imageRevealSection.style.zIndex = "-1";
         }
-
     }
 
 }
