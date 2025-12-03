@@ -7,25 +7,25 @@ export default class MovePhotoSection extends BaseSection {
     this.homeScrollSection = document.querySelector(".home-scroll-section.is-don");
     // To get height of section we measure the height of all the triggers (since it takes one trigger per one 100vh sticky section in this type of section)
     this.triggers = document.querySelectorAll(".overview_trigger");
-    this.triggersHeight = triggers[0].getBoundingClientRect().height * triggers.length;
+    this.triggersHeight = this.triggers[0].getBoundingClientRect().height * triggers.length;
     // set that value to our sectionLength to make our code more readable
-    this.sectionLength = triggersHeight;
-    this.lastSectionsEnd = homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
-    this.start = lastSectionsEnd + sectionLength;
+    this.sectionLength = this.triggersHeight;
+    this.lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
+    this.start = this.lastSectionsEnd + this.sectionLength;
     this.viewportHeight = window.innerHeight;
     this.stickySection = document.querySelector(".sticky-section.heroic-members-wrapper.reversed");
-    this.stickySectionHeight = stickySection.getBoundingClientRect().height;
+    this.stickySectionHeight = this.stickySection.getBoundingClientRect().height;
     this.sticky100vh =  document.querySelector(".sticky-section-100vh");
-    this.sticky100Height = sticky100vh.getBoundingClientRect().height;
-    this.end = start + (sticky100Height * 1.38);
+    this.sticky100Height = this.sticky100vh.getBoundingClientRect().height;
+    this.end = start + (this.sticky100Height * 1.38);
     this.homeScrollVisual = document.querySelector(".home-scroll-visual");
     this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
     this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
     this.sectionBoothDesign = document.querySelector(".sticky-section.heroic-members-wrapper.reversed");
-    this.projectTextHeading = sectionBoothDesign.querySelector(".project-text-heading");
-    this.sectionBoothDesignBodyText = sectionBoothDesign.querySelector(".body-text.home-scroll");
-    this.sectionBoothDesignEyebrowText = sectionBoothDesign.querySelector(".section-header-text");
-    this.sectionBoothNumberText = sectionBoothDesign.querySelectorAll(".home-scroll-item-number");
+    this.projectTextHeading = this.sectionBoothDesign.querySelector(".project-text-heading");
+    this.sectionBoothDesignBodyText = this.sectionBoothDesign.querySelector(".body-text.home-scroll");
+    this.sectionBoothDesignEyebrowText = this.sectionBoothDesign.querySelector(".section-header-text");
+    this.sectionBoothNumberText = this.sectionBoothDesign.querySelectorAll(".home-scroll-item-number");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
 	this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
 
