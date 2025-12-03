@@ -47,6 +47,7 @@ export default class MovePhotoSection extends BaseSection {
     this.zedIndexSwitchCheckpoint = this.rightSideRevealCheckpoint + (this.viewportHeight * .9);
 
     console.table("MovePhotoSection measured:", {
+      current: scrollY,
       start: this.start,
       end: this.end,
       photoRemoveCheckpoint: this.photoRemoveCheckpoint,
