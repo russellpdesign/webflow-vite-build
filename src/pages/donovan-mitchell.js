@@ -1,7 +1,7 @@
 import ScrollEngine from "../engine/ScrollEngine.js";
 import SmoothScroll from "../engine/SmoothScroll.js";
 import HomeScrollSection from "../sections/HomeScrollSection.js";
-import PhotoTravelOver from "../sections/PhotoTravelOver.js";
+// import PhotoTravelOver from "../sections/PhotoTravelOver.js";
 
 window.addEventListener("DOMContentLoaded", () => {
   const smooth = new SmoothScroll({ ease: 0.08 });
