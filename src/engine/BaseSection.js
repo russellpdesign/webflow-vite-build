@@ -17,8 +17,8 @@ export default class BaseSection {
     this.end = 0;
     this.length = 0;
 
-    // Enable/disable flag
-    this.enabled = true;
+    // // Enable/disable flag
+    // this.enabled = true;
   }
 
   measure() {
