@@ -3,6 +3,7 @@ export default class ScrollEngine {
   constructor({ smooth } = {}) {
     this.smooth = smooth || null;
     this.sections = [];
+    this.enabled = true;        // FIX #1 — MUST BE SET!
 
     this._raf = this._raf.bind(this);
     this._onResize = this._onResize.bind(this);
@@ -16,17 +17,15 @@ export default class ScrollEngine {
   }
 
   measureAll() {
-    this.sections.forEach(section => {
-      section.measure();
-    });
+    this.sections.forEach(section => section.measure());
   }
 
   start() {
-    this.measureAll();
     if (!this.enabled) return;
 
-    // start RAF loop
-    requestAnimationFrame(this._raf);
+    this.measureAll();
+
+    requestAnimationFrame(this._raf); // Start RAF loop
   }
 
   _onResize() {
@@ -34,11 +33,14 @@ export default class ScrollEngine {
   }
 
   _raf() {
-    const scrollY = this.smooth ? this.smooth.update() : window.scrollY;
+    const scrollY = this.smooth
+      ? this.smooth.update()
+      : window.scrollY;
 
     for (const section of this.sections) {
-      if (!section.enabled) continue;
-      section.update(scrollY);
+      if (section.enabled) {
+        section.update(scrollY);
+      }
     }
 
     requestAnimationFrame(this._raf);
