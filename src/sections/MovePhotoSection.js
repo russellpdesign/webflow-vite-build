@@ -1,4 +1,5 @@
 import BaseSection from "../engine/BaseSection.js";
+import { clamp, clamp01, mapRange } from "@utils";
 
 export default class MovePhotoSection extends BaseSection {
   constructor({ el }) {
@@ -47,7 +48,6 @@ export default class MovePhotoSection extends BaseSection {
     this.photoRemoveCheckpoint = this.end + (this.viewportHeight * 1.5);
     this.rightSideRevealCheckpoint = this.end + (this.viewportHeight * 3); // 3 is amount of sections (not including spacer, since we use that moment to animate in right side)
     this.zedIndexSwitchCheckpoint = this.rightSideRevealCheckpoint + (this.viewportHeight * .9);
-
   }
 
   update(scrollY) {
