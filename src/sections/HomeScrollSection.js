@@ -45,7 +45,7 @@ export default class HomeScrollSection extends BaseSection {
 
     // compute progress for scrollbar
     const t = clamp01((scrollY - this.start) / (this.end - this.start));
-    const yPercent = mapRange(0, 1, 0, 200, t);
+    const yPercent = mapRange(t, 0, 1, 0, 200);
     console.log(`yPercent: ${yPercent}`)
 
     if (scrollY < this.start) {

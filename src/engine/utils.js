@@ -5,9 +5,11 @@ export function lerp(start, end, t) {
 export const clamp = (min, max) => value =>
   value < min ? min : value > max ? max : value;
 
-export const clamp01 = clamp(0, 1);
+export function clamp01(n) {
+  return n < 0 ? 0 : n > 1 ? 1 : n;
+}
 
-export const mapRange = (inMin, inMax, outMin, outMax) => value => {
-  const v = (value - inMin) / (inMax - inMin);
-  return outMin + (clamp01(v) * (outMax - outMin));
-};
+export function mapRange(value, inMin, inMax, outMin, outMax) {
+  const p = clamp01((value - inMin) / (inMax - inMin));
+  return outMin + (outMax - outMin) * p;
+}
