@@ -82,12 +82,13 @@ export default class HomeScrollSection extends BaseSection {
     // SECTION 3
     if (pos >= this.thirdStart && pos < this.end) {
       this._activate(2);
-      this.sectionHeader.classList.add("is-active");
+      this._deactivate(1);
       return;
     }
 
     // AFTER END
     if (pos >= this.end) {
+      this.sectionHeader.classList.remove("is-active");
       this._deactivate(2);
       this.progressBar.style.transform = "translate3d(0, 200%, 0)";
       return;
