@@ -75,8 +75,12 @@ export default class HomeScrollSection extends BaseSection {
 
     // AFTER END
     if (scrollY >= this.end) {
-      this._deactivateAll();
+      this.sectionHeader.classList.remove("is-active");
+      this.titleItems[2].classList.remove("is-active");
+      this.textItems[2].classList.remove("is-active");
+      this.numberItems[2].classList.remove("is-active");
       this.scrollbar.classList.add("is-gone");
+      this.imgItems[2].classList.add("is-active");
       this.progressBar.style.transform = "translate3d(0, 200%, 0)";
     }
   }
