@@ -7,7 +7,9 @@ window.addEventListener("DOMContentLoaded", () => {
   const smooth = new SmoothScroll({ ease: 0.08 });
   const engine = new ScrollEngine({ smooth });
 
-  engine.register(new HomeScrollSection({ el: ".home-scroll-section.is-don" }));
+  const homeScrollSectionFeed = new HomeScrollSection({ el: ".home-scroll-section.is-don" });
+
+  engine.register(homeScrollSectionFeed);
   // engine.register(new PhotoTravelOver({ el: ".sticky-section.heroic-members-wrapper.reversed" }));
 
   engine.start();
