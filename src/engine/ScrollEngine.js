@@ -17,14 +17,14 @@ export default class ScrollEngine {
   start() {
     if (!this.enabled) return;
     // measure everything first
-    this.sections.forEach(sec => sec.measure());
+    this.sections.forEach(section => section.measure());
 
     // start RAF loop
     requestAnimationFrame(this._raf);
   }
 
   _onResize() {
-    this.sections.forEach(sec => sec.measure());
+    this.sections.forEach(section => section.measure());
   }
 
   _raf() {
