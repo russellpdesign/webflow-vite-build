@@ -14,6 +14,7 @@ export default class HomeScrollSection extends BaseSection {
     this.numberItems = document.querySelectorAll(".home-scroll-item-number");
     this.imgItems = document.querySelectorAll(".home-scroll-img-item");
     this.progressBar = document.querySelector(".vertical-progress-bar-inside");
+    this.scrollbar = document.querySelector(".vertical-progress-bar");
 
     window.addEventListener("resize", () => this.measure());
   }
@@ -61,11 +62,12 @@ export default class HomeScrollSection extends BaseSection {
 
     if (pos >= this.start && pos <= this.end ) {
       this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`
+      this.scrollbar.classList.add("is-gone");
+      this.sectionHeader.classList.add("is-active");
     }
 
     // SECTION 1
     if (pos >= this.start && pos < this.secondStart) {
-      this.sectionHeader.classList.add("is-active");
       this._activate(0);
       this._deactivate(1);
       return;
@@ -89,7 +91,11 @@ export default class HomeScrollSection extends BaseSection {
     // AFTER END
     if (pos >= this.end) {
       this.sectionHeader.classList.remove("is-active");
-      this._deactivate(2);
+      this.titleItems[2].classList.remove("is-active");
+      this.textItems[2].classList.remove("is-active");
+      this.numberItems[2].classList.remove("is-active");
+      this.scrollbar.classList.add("is-gone");
+      this.imgItems[2].classList.add("is-active");
       this.progressBar.style.transform = "translate3d(0, 200%, 0)";
       return;
     }
