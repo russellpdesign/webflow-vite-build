@@ -1,6 +1,6 @@
 import BaseSection from "../engine/BaseSection.js";
 
-export default class PhotoTravelOver extends BaseSection {
+export default class MovePhotoSection extends BaseSection {
   constructor({ el }) {
     super({ el });
 
