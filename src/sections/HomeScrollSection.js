@@ -48,7 +48,7 @@ export default class HomeScrollSection extends BaseSection {
 
   update(scrollY) {
     const pos = scrollY;
-    const yPercent = (((pos - start) / (end - start)) * 100) * 2;
+    const yPercent = (((pos - this.start) / (this.end - this.start)) * 100) * 2;
 
     // BEFORE START
     if (pos < this.start) {
