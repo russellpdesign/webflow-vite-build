@@ -4,7 +4,8 @@ import HomeScrollSection from "../sections/HomeScrollSection.js";
 // import PhotoTravelOver from "../sections/PhotoTravelOver.js";
 
 window.addEventListener("DOMContentLoaded", () => {
-  const smooth = new SmoothScroll({ ease: 0.5 });
+  // the lower the ease value, the more easing there is
+  const smooth = new SmoothScroll({ ease: 0.05 });
   const engine = new ScrollEngine({ smooth });
 
   const section = new HomeScrollSection({ el: ".home-scroll-section.is-don" });
