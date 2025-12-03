@@ -32,9 +32,9 @@ export default class ScrollEngine {
 
     // always update each enabled section — no conditions
     for (const sec of this.sections) {
-      if (sec.enabled) {
+      // if (sec.enabled) {
         sec.update(scrollY);
-      }
+      // }
     }
 
     requestAnimationFrame(this._raf);

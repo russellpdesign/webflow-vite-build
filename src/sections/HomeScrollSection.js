@@ -49,7 +49,7 @@ export default class HomeScrollSection extends BaseSection {
   }
 
   update(scrollY) {
-    const yPercent = (((scrollY - this.start) / (this.end - this.start)) * 100) * 2;
+    this.yPercent = (((scrollY - this.start) / (this.end - this.start)) * 100) * 2;
     console.log(`yPercent: ${yPercent}`);
 
     // BEFORE START
@@ -60,7 +60,7 @@ export default class HomeScrollSection extends BaseSection {
     }
 
     if (scrollY >= this.start && scrollY <= this.end ) {
-      this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`
+      this.progressBar.style.transform = `translate3d(0, ${this.yPercent}%, 0)`
       this.scrollbar.classList.remove("is-gone");
       this.sectionHeader.classList.add("is-active");
     }
