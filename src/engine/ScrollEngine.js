@@ -15,6 +15,7 @@ export default class ScrollEngine {
   }
 
   start() {
+    if (!this.enabled) return;
     // measure everything first
     this.sections.forEach(sec => sec.measure());
 
