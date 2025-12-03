@@ -17,6 +17,8 @@ export default class HomeScrollSection extends BaseSection {
     this.progressBar = document.querySelector(".vertical-progress-bar-inside");
     this.scrollbar   = document.querySelector(".vertical-progress-bar");
 
+    this.enabled = true;
+
     window.addEventListener("resize", () => this.measure());
   }
 
