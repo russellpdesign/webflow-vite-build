@@ -1,6 +1,6 @@
 // src/sections/HomeScrollSection.js
 import BaseSection from "../engine/BaseSection.js";
-import { clamp, clamp01, mapRange } from "../engine/utils.js";
+import { clamp, clamp01, mapRange } from "@utils";
 
 export default class HomeScrollSection extends BaseSection {
   constructor({ el }) {
@@ -46,7 +46,7 @@ export default class HomeScrollSection extends BaseSection {
     // compute progress for scrollbar
     const t = clamp01((scrollY - this.start) / (this.end - this.start));
     const yPercent = mapRange(t, 0, 1, 0, 200);
-    console.log(`yPercent: ${yPercent}`)
+    // console.log(`yPercent: ${yPercent}`)
 
     if (scrollY < this.start) {
       this._deactivateAll();

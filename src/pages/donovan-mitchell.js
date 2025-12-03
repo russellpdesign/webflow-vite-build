@@ -5,7 +5,7 @@ import HomeScrollSection from "../sections/HomeScrollSection.js";
 
 window.addEventListener("DOMContentLoaded", () => {
   // the lower the ease value, the more easing there is
-  const smooth = new SmoothScroll({ ease: 0.05 });
+  const smooth = new SmoothScroll({ ease: 0.09 });
   const engine = new ScrollEngine({ smooth });
 
   const section = new HomeScrollSection({ el: ".home-scroll-section.is-don" });

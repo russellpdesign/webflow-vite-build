@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-     "build": "vite build",
-     "preview": "vite preview"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +14,8 @@
   "type": "commonjs",
   "dependencies": {
     "vite": "^7.2.6"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.4"
   }
 }
