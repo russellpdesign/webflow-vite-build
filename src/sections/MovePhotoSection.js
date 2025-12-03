@@ -37,7 +37,7 @@ export default class MovePhotoSection extends BaseSection {
     const rect = this.sticky100vh.getBoundingClientRect();
     const absoluteTop = rect.top + window.scrollY;
 
-    this.start = absoluteTop;
+    this.start = absoluteTop - this.viewportHeight;
 
     this.sticky100Height = this.sticky100vh.getBoundingClientRect().height;
 
