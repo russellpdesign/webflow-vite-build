@@ -20,11 +20,11 @@ export default class MovePhotoSection extends BaseSection {
     this.homeScrollVisual = document.querySelector(".home-scroll-visual");
     this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
     this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
-    this.sectionBoothDesign = document.querySelector(".sticky-section.heroic-members-wrapper.reversed");
-    this.projectTextHeading = this.sectionBoothDesign.querySelector(".project-text-heading");
-    this.sectionBoothDesignBodyText = this.sectionBoothDesign.querySelector(".body-text.home-scroll");
-    this.sectionBoothDesignEyebrowText = this.sectionBoothDesign.querySelector(".section-header-text");
-    this.sectionBoothNumberText = this.sectionBoothDesign.querySelectorAll(".home-scroll-item-number");
+    this.el = document.querySelector(".sticky-section.heroic-members-wrapper.reversed");
+    this.projectTextHeading = this.el.querySelector(".project-text-heading");
+    this.sectionBoothDesignBodyText = this.el.querySelector(".body-text.home-scroll");
+    this.sectionBoothDesignEyebrowText = this.el.querySelector(".section-header-text");
+    this.sectionBoothNumberText = this.el.querySelectorAll(".home-scroll-item-number");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
 	  this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
 
