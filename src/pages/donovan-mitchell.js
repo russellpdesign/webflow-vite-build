@@ -1,7 +1,7 @@
 import ScrollEngine from "../engine/ScrollEngine.js";
 import SmoothScroll from "../engine/SmoothScroll.js";
 import HomeScrollSection from "../sections/HomeScrollSection.js";
-import PhotoMoveSection from "../sections/MovePhotoSection.js";
+import MovePhotoSection from "../sections/MovePhotoSection.js";
 
 window.addEventListener("DOMContentLoaded", () => {
   // the lower the ease value, the more easing there is
@@ -11,7 +11,7 @@ window.addEventListener("DOMContentLoaded", () => {
 //  const section = new HomeScrollSection({ el: ".home-scroll-section.is-don" });
 
   engine.register(new HomeScrollSection({ el: ".home-scroll-section.is-don" }));
-  engine.register(new PhotoMoveSection({ el: ".sticky-section.heroic-members-wrapper.reversed" }));
+  engine.register(new MovePhotoSection({ el: ".sticky-section.heroic-members-wrapper.reversed" }));
 
   engine.start();
 });
