@@ -59,7 +59,7 @@ export default class HomeScrollSection extends BaseSection {
       return;
     }
 
-    if (pos >= start && pos <= end ) {
+    if (pos >= this.start && pos <= this.end ) {
       this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`
     }
 
