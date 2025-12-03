@@ -6,7 +6,8 @@ export default class HomeScrollSection extends BaseSection {
     super({ el });
 
     if (!this.enabled) return;
-    // DOM caches
+
+    // Cache DOM
     this.triggers = document.querySelectorAll(".overview_trigger");
 
     this.sectionHeader = document.querySelector(".section-header-text");
@@ -22,26 +23,22 @@ export default class HomeScrollSection extends BaseSection {
 
   measure() {
     if (!this.enabled) return;
-    // absolute top of section (regardless of sticky layout)
-    const rect = this.el.getBoundingClientRect();
-    const absoluteTop = rect.top - document.documentElement.getBoundingClientRect().top;
 
-    // animation length determined by triggers
+    const rect = this.el.getBoundingClientRect();
+    const docTop = document.documentElement.getBoundingClientRect().top;
+
+    this.start = rect.top - docTop;
+
     const triggerHeight = this.triggers[0]?.getBoundingClientRect().height || 0;
     const triggerCount  = this.triggers.length;
 
     this.length = triggerHeight * triggerCount;
-
-    this.start = absoluteTop;
     this.end = this.start + this.length;
 
-    console.log(`start: ${this.start} end: ${this.end}`)
-
-    // secondary breakpoints
     this.secondStart = this.start + window.innerHeight;
-    this.thirdStart  = this.start + window.innerHeight * 2;
+    this.thirdStart = this.start + window.innerHeight * 2;
 
-    console.log("📏 HomeScrollSection measured:", {
+    console.log("📏 HomeScrollSection.measure()", {
       start: this.start,
       secondStart: this.secondStart,
       thirdStart: this.thirdStart,
@@ -52,32 +49,28 @@ export default class HomeScrollSection extends BaseSection {
 
   update(scrollY) {
     if (!this.enabled) return;
-    const yPercent = (((scrollY - this.start) / (this.end - this.start)) * 100) * 2;
-    console.log(`yPercent: ${yPercent}`);
 
     // BEFORE START
     if (scrollY < this.start) {
-      this._deactivateAll();
-      this.progressBar.style.transform = "translate3d(0, 0%, 0)";
-      return;
-    }
-
-    if (scrollY >= this.start && scrollY <= this.end ) {
-      this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`
-      this.scrollbar.classList.remove("is-gone");
-      this.sectionHeader.classList.add("is-active");
+      this._resetBeforeStart();
       return;
     }
 
     // SECTION 1
     if (scrollY >= this.start && scrollY < this.secondStart) {
+      this._updateProgress(scrollY);
+      this.sectionHeader.classList.add("is-active");
+
       this._activate(0);
       this._deactivate(1);
+      this._deactivate(2);
       return;
     }
 
     // SECTION 2
     if (scrollY >= this.secondStart && scrollY < this.thirdStart) {
+      this._updateProgress(scrollY);
+
       this._deactivate(0);
       this._activate(1);
       this._deactivate(2);
@@ -86,22 +79,48 @@ export default class HomeScrollSection extends BaseSection {
 
     // SECTION 3
     if (scrollY >= this.thirdStart && scrollY < this.end) {
-      this._activate(2);
+      this._updateProgress(scrollY);
+
+      this._deactivate(0);
       this._deactivate(1);
+      this._activate(2);
+
+      this.sectionHeader.classList.add("is-active");
+      this.scrollbar.classList.remove("is-gone");
       return;
     }
 
     // AFTER END
     if (scrollY >= this.end) {
-      this.sectionHeader.classList.remove("is-active");
-      this.titleItems[2].classList.remove("is-active");
-      this.textItems[2].classList.remove("is-active");
-      this.numberItems[2].classList.remove("is-active");
-      this.scrollbar.classList.add("is-gone");
-      this.imgItems[2].classList.add("is-active");
-      this.progressBar.style.transform = "translate3d(0, 200%, 0)";
+      this._afterEnd();
       return;
     }
+  }
+
+  // -----------------------------
+  // HELPERS
+  // -----------------------------
+
+  _updateProgress(scrollY) {
+    const percent = ((scrollY - this.start) / (this.end - this.start)) * 200;
+    this.progressBar.style.transform = `translate3d(0, ${percent}%, 0)`;
+  }
+
+  _resetBeforeStart() {
+    this._deactivateAll();
+    this.sectionHeader.classList.remove("is-active");
+    this.scrollbar.classList.add("is-gone");
+    this.progressBar.style.transform = "translate3d(0, 0%, 0)";
+  }
+
+  _afterEnd() {
+    this.sectionHeader.classList.remove("is-active");
+    this._deactivate(2);
+
+    this.scrollbar.classList.add("is-gone");
+    this.imgItems[2].classList.add("is-active");
+
+    this.progressBar.style.transform = "translate3d(0, 200%, 0)";
   }
 
   _activate(i) {
@@ -123,6 +142,5 @@ export default class HomeScrollSection extends BaseSection {
     this.textItems.forEach(el => el.classList.remove("is-active"));
     this.numberItems.forEach(el => el.classList.remove("is-active"));
     this.imgItems.forEach(el => el.classList.remove("is-active"));
-    this.sectionHeader.classList.remove("is-active");
   }
 }
