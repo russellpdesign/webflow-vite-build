@@ -92,6 +92,7 @@ export default class MovePhotoSection extends BaseSection {
         this.sectionBoothDesignBodyText.classList.remove("is-active");
         this.sectionBoothDesignEyebrowText.classList.remove("is-active");
         this.sectionBoothNumberText[0].classList.remove("is-active");
+        this.imageRevealSection.style.zIndex = "-1";
     }
 
    if ( scrollY > this.end && scrollY < this.photoRemoveCheckpoint ) {
@@ -108,6 +109,7 @@ export default class MovePhotoSection extends BaseSection {
         
         this.lastImage.style.opacity = "0";
         this.behindImageWrapper.style.opacity = "1";
+        this.imageRevealSection.style.zIndex = "-1";
     }
 
    // once a photo from the next section has overlayed our right to left traveling photo, we need to set its opacity to 0 so that the next sections sticky photo reveal works
@@ -123,6 +125,7 @@ export default class MovePhotoSection extends BaseSection {
         this.projectTextHeading.classList.add("is-active");
         this.behindImageWrapper.style.opacity = "0";
         this.lastImage.style.opacity = "0";
+        this.imageRevealSection.style.zIndex = "-1";
         return;
     }
     
@@ -134,6 +137,7 @@ export default class MovePhotoSection extends BaseSection {
         this.projectTextHeading.classList.remove("is-active");
         this.leftSideImageHide.style.opacity = "1";
         this.lastImage.style.opacity = "0";
+        this.imageRevealSection.style.zIndex = "-1";
         return;
     }
     
