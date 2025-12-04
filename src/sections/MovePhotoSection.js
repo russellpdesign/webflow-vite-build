@@ -128,7 +128,5 @@ export default class MovePhotoSection extends BaseSection {
     } else {
       this.imageRevealSection.style.zIndex = "-1";
     }
-      return;
-      }
   }
 }
