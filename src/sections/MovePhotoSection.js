@@ -71,7 +71,7 @@ export default class MovePhotoSection extends BaseSection {
        return;
     }
 
-    if ( scrollY >= this.start && scrollY <= this.end) {
+    if ( scrollY > this.start && scrollY < this.end) {
         const t = clamp01((scrollY - this.start) / (this.end - this.start));
 
         const xPercent = mapRange(t, 0, 1, 0, 100);
@@ -91,7 +91,7 @@ export default class MovePhotoSection extends BaseSection {
         return;
     }
 
-   if ( scrollY > this.end && scrollY <= this.photoRemoveCheckpoint ) {
+   if ( scrollY > this.end && scrollY < this.photoRemoveCheckpoint ) {
     	  this.lastImage.style.opacity = "0";
         this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
         this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
@@ -106,8 +106,7 @@ export default class MovePhotoSection extends BaseSection {
     }
 
    // once a photo from the next section has overlayed our right to left traveling photo, we need to set its opacity to 0 so that the next sections sticky photo reveal works
-    if ( scrollY > this.photoRemoveCheckpoint && scrollY <= this.rightSideRevealCheckpoint ) {
-        this.lastImage.style.opacity = "0";
+    if ( scrollY > this.photoRemoveCheckpoint && scrollY < this.rightSideRevealCheckpoint ) {
         this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
         this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
         
@@ -118,11 +117,12 @@ export default class MovePhotoSection extends BaseSection {
 
         this.behindImageWrapper.style.opacity = "0";
         this.leftSideImageHide.style.opacity = "1";
+        this.lastImage.style.opacity = "0";
         return;
     }
     
     // now we need to remove the left side sticky scroll container using opacity: 0 in time when the section below scrolls into place right unederneath it
-    if ( scrollY > this.rightSideRevealCheckpoint && scrollY <= this.zedIndexSwitchCheckpoint) {
+    if ( scrollY > this.rightSideRevealCheckpoint && scrollY < this.zedIndexSwitchCheckpoint) {
         this.sectionBoothDesignBodyText.classList.remove("is-active");
         this.sectionBoothDesignEyebrowText.classList.remove("is-active");
         this.sectionBoothNumberText[0].classList.remove("is-active");
