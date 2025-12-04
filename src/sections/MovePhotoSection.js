@@ -14,17 +14,17 @@ export default class MovePhotoSection extends BaseSection {
     this.lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top + window.scrollY;
     // this.start = this.lastSectionsEnd + this.sectionLength;
     this.viewportHeight = window.innerHeight;
-    this.stickySection = document.querySelector(".sticky-section.heroic-members-wrapper.reversed");
-    this.stickySectionHeight = this.stickySection.getBoundingClientRect().height;
+    this.boothSection = document.querySelector(".sticky-section.heroic-members-wrapper.reversed");
+    this.stickySectionHeight = this.boothSection.getBoundingClientRect().height;
     this.sticky100vh =  document.querySelector(".sticky-section-100vh");
     // this.end = start + (this.sticky100Height * 1.38);
     this.homeScrollVisual = document.querySelector(".home-scroll-visual");
     this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
     this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
-    this.projectTextHeading = this.el.querySelector(".project-text-heading");
-    this.sectionBoothDesignBodyText = this.el.querySelector(".body-text.home-scroll");
-    this.sectionBoothDesignEyebrowText = this.el.querySelector(".section-header-text");
-    this.sectionBoothNumberText = this.el.querySelectorAll(".home-scroll-item-number");
+    this.projectTextHeading = this.boothSection.querySelector(".project-text-heading");
+    this.sectionBoothDesignBodyText = this.boothSection.querySelector(".body-text.home-scroll");
+    this.sectionBoothDesignEyebrowText = this.boothSection.querySelector(".section-header-text");
+    this.sectionBoothNumberText = this.boothSection.querySelectorAll(".home-scroll-item-number");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
 	  this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
 
