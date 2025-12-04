@@ -113,7 +113,7 @@ export default class MovePhotoSection extends BaseSection {
     }
     
     // now we need to remove the left side sticky scroll container using opacity: 0 in time when the section below scrolls into place right unederneath it
-    if ( scrollY > this.rightSideRevealCheckpoint ) {
+    if ( scrollY > this.rightSideRevealCheckpoint && scrollY <= this.zedIndexSwitchCheckpoint) {
         this.sectionBoothDesignBodyText.classList.remove("is-active");
         this.sectionBoothDesignEyebrowText.classList.remove("is-active");
         this.sectionBoothNumberText[0].classList.remove("is-active");
