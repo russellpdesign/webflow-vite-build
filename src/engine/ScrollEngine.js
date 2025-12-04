@@ -1,111 +1,99 @@
+import { clamp01 } from "@utils";
+
 export default class ScrollEngine {
+  static lastY = 0;          // last frame's scrollY (smoothed or raw)
+  static velocity = 0;       // px per frame
+  static predictedY = 0;     // predicted scroll position based on velocity
+  static smoothingEnabled = false;
+
   constructor({ smooth = null } = {}) {
-    this.smooth = smooth;             // optional smoothing module
     this.sections = [];
-    this.frame = null;
 
-    // Velocity tracking
-    this.lastRawY = window.scrollY;
-    this.lastTimestamp = performance.now();
+    this.smooth = smooth;  // optional SmoothScroll instance
+    ScrollEngine.smoothingEnabled = !!smooth;
 
-    // Set initial static globals
-    ScrollEngine.rawY = window.scrollY;
-    ScrollEngine.smoothedY = window.scrollY;
-    ScrollEngine.velocity = 0;
-    ScrollEngine.predictedY = window.scrollY;
+    this._running = false;
 
-    // Bind resize handler
-    window.addEventListener("resize", this._onResize);
+    this._onResize = this._onResize.bind(this);
+    this._raf = this._raf.bind(this);
   }
 
-  /* ---------------------------------------------------------
-   * STATIC GLOBAL SCROLL STATE (available to ALL sections)
-   * --------------------------------------------------------- */
-  static rawY = 0;         // raw window.scrollY each frame
-  static smoothedY = 0;    // smoothed scroll (if enabled)
-  static velocity = 0;     // px per ms
-  static predictedY = 0;   // anticipated future scroll position
-
-  /* ---------------------------------------------------------
-   * REGISTER SECTION
-   * --------------------------------------------------------- */
+  /* -------------------------------------------------------------
+   * REGISTRATION
+   * ------------------------------------------------------------- */
   register(section) {
     this.sections.push(section);
   }
 
-  /* ---------------------------------------------------------
-   * MEASURE ALL SECTIONS (called on start + resize)
-   * --------------------------------------------------------- */
+  /* -------------------------------------------------------------
+   * RESIZE HANDLING
+   * ------------------------------------------------------------- */
   measureAll() {
-    this.sections.forEach(s => s.measure?.());
+    for (const s of this.sections) {
+      if (s.enabled !== false) {
+        s.measure();
+      }
+    }
   }
 
-  /* ---------------------------------------------------------
-   * RESIZE HANDLER
-   * --------------------------------------------------------- */
-  _onResize = () => {
+  _onResize() {
     this.measureAll();
   }
 
-  /* ---------------------------------------------------------
-   * MAIN RAF LOOP
-   * --------------------------------------------------------- */
-  _raf = (timestamp) => {
-    const rawY = window.scrollY;
-    ScrollEngine.rawY = rawY;
-
-    /* -----------------------------------------------------
-     * 1. UPDATE SMOOTH SCROLL (if enabled)
-     * ----------------------------------------------------- */
-    const smoothedY = this.smooth ? this.smooth.update() : rawY;
-    ScrollEngine.smoothedY = smoothedY;
-
-    /* -----------------------------------------------------
-     * 2. COMPUTE VELOCITY
-     * ----------------------------------------------------- */
-    const dt = timestamp - this.lastTimestamp || 16.7;
-    const dy = rawY - this.lastRawY;
-
-    const velocity = dy / dt; // px/ms
-    ScrollEngine.velocity = velocity;
-
-    this.lastRawY = rawY;
-    this.lastTimestamp = timestamp;
-
-    /* -----------------------------------------------------
-     * 3. PREDICT FUTURE SCROLL POSITION
-     * ----------------------------------------------------- */
-    // Predict about one frame ahead (~16ms)
-    const anticipateFactor = 16.7;
-    ScrollEngine.predictedY = rawY + velocity * anticipateFactor;
-
-    /* -----------------------------------------------------
-     * 4. UPDATE ALL REGISTERED SECTIONS
-     * ----------------------------------------------------- */
-    this.sections.forEach(section => {
-      if (!section.enabled) return;
-      section.update(smoothedY);
-    });
-
-    /* -----------------------------------------------------
-     * 5. REQUEST NEXT FRAME
-     * ----------------------------------------------------- */
-    this.frame = requestAnimationFrame(this._raf);
-  }
-
-  /* ---------------------------------------------------------
+  /* -------------------------------------------------------------
    * START ENGINE
-   * --------------------------------------------------------- */
+   * ------------------------------------------------------------- */
   start() {
+    if (this._running) return;
+
+    this._running = true;
+
     this.measureAll();
-    this.frame = requestAnimationFrame(this._raf);
+
+    window.addEventListener("resize", this._onResize);
+
+    ScrollEngine.lastY = window.scrollY;
+    ScrollEngine.predictedY = ScrollEngine.lastY;
+
+    requestAnimationFrame(this._raf);
   }
 
-  /* ---------------------------------------------------------
+  /* -------------------------------------------------------------
+   * RAF LOOP
+   * ------------------------------------------------------------- */
+  _raf() {
+    if (!this._running) return;
+
+    // Raw scroll input
+    const rawY = window.scrollY;
+
+    // Smooth or raw scroll
+    const currentY = this.smooth ? this.smooth.update() : rawY;
+
+    // Compute velocity (difference per frame)
+    ScrollEngine.velocity = currentY - ScrollEngine.lastY;
+
+    // GSAP-like anticipate prediction (small multiplier)
+    ScrollEngine.predictedY = currentY + ScrollEngine.velocity * 5;
+
+    // Update lastY AFTER computing velocity
+    ScrollEngine.lastY = currentY;
+
+    // Update all sections
+    for (const section of this.sections) {
+      if (section.enabled !== false) {
+        section.update(currentY); // pass smoothed scrollY
+      }
+    }
+
+    requestAnimationFrame(this._raf);
+  }
+
+  /* -------------------------------------------------------------
    * STOP ENGINE
-   * --------------------------------------------------------- */
+   * ------------------------------------------------------------- */
   stop() {
-    cancelAnimationFrame(this.frame);
+    this._running = false;
     window.removeEventListener("resize", this._onResize);
   }
 }

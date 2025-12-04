@@ -1,12 +1,14 @@
 import BaseSection from "@engine/BaseSection";
 import ScrollEngine from "@engine/ScrollEngine";
 import { clamp01 } from "@utils";
+import { Debug } from "@engine/Debug";
 
 export default class StickyBaseSection extends BaseSection {
   constructor({ el, anticipate = 1 }) {
     super({ el });
 
     this.anticipate = anticipate;   // GSAP-like anticipatePin multiplier
+
     this.pinned = false;
 
     this.spacer = null;
@@ -56,11 +58,14 @@ export default class StickyBaseSection extends BaseSection {
     const rect = this.el.getBoundingClientRect();
     const rawY = window.scrollY;
 
-    this.start = rect.top + rawY;            // pin start position
+    this.pinOffset = window.innerHeight * 0.38;  // your old “delay” mapped correctly
+
+    this.start = (rect.top + rawY) + this.pinOffset;
+
     this.height = this.content.offsetHeight; // height of sticky content
     this.end = this.start + this.height;     // pin end position
-
     this.length = this.end - this.start;
+
 
     // Preserve layout space equal to sticky content height
     this.spacer.style.height = `${this.height}px`;
@@ -71,6 +76,8 @@ export default class StickyBaseSection extends BaseSection {
    * ------------------------------------------------------------- */
   pin() {
     if (this.pinned) return;
+
+    Debug.write("StickyBaseSection", "PIN ACTIVE");
 
     this.pinned = true;
 
@@ -84,6 +91,8 @@ export default class StickyBaseSection extends BaseSection {
 
   unpin() {
     if (!this.pinned) return;
+
+    Debug.write("StickyBaseSection", "PIN RELEASED");
 
     this.pinned = false;
 
