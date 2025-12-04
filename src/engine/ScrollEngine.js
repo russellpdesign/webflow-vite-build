@@ -61,33 +61,54 @@ export default class ScrollEngine {
   /* -------------------------------------------------------------
    * RAF LOOP
    * ------------------------------------------------------------- */
-  _raf() {
-    if (!this._running) return;
+_raf = (timestamp) => {
+  if (!this._running) return;
 
-    // Raw scroll input
-    const rawY = window.scrollY;
+  // -------------------------------
+  // 1. RAW SCROLL INPUT
+  // -------------------------------
+  const rawY = window.scrollY;
+  ScrollEngine.rawY = rawY;
 
-    // Smooth or raw scroll
-    const currentY = this.smooth ? this.smooth.update() : rawY;
+  // -------------------------------
+  // 2. SMOOTHING (if enabled)
+  // -------------------------------
+  const currentY = this.smooth ? this.smooth.update() : rawY;
+  ScrollEngine.smoothedY = currentY;
 
-    // Compute velocity (difference per frame)
-    ScrollEngine.velocity = currentY - ScrollEngine.lastY;
+  // -------------------------------
+  // 3. VELOCITY (px per ms)
+  // -------------------------------
+  const dt = timestamp - this.lastTimestamp || 16.7;
+  const dy = rawY - this.lastRawY;
 
-    // GSAP-like anticipate prediction (small multiplier)
-    ScrollEngine.predictedY = currentY + ScrollEngine.velocity * 5;
+  const velocity = dy / dt;   // GSAP-style px/ms velocity
+  ScrollEngine.velocity = velocity;
 
-    // Update lastY AFTER computing velocity
-    ScrollEngine.lastY = currentY;
+  this.lastRawY = rawY;
+  this.lastTimestamp = timestamp;
 
-    // Update all sections
-    for (const section of this.sections) {
-      if (section.enabled !== false) {
-        section.update(currentY); // pass smoothed scrollY
-      }
+  // -------------------------------
+  // 4. PREDICTED POSITION (anticipate)
+  // -------------------------------
+  // Predict ~1 frame ahead (~16ms)
+  const anticipateFactor = 16.7;
+  ScrollEngine.predictedY = rawY + velocity * anticipateFactor;
+
+  // -------------------------------
+  // 5. UPDATE ALL SECTIONS
+  // -------------------------------
+  for (const section of this.sections) {
+    if (section.enabled !== false) {
+      section.update(currentY);  // pass smoothed scrollY
     }
-
-    requestAnimationFrame(this._raf);
   }
+
+  // -------------------------------
+  // 6. NEXT FRAME
+  // -------------------------------
+  requestAnimationFrame(this._raf);
+};
 
   /* -------------------------------------------------------------
    * STOP ENGINE
