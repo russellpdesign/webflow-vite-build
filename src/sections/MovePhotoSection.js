@@ -37,7 +37,7 @@ export default class MovePhotoSection extends StickyBaseSection {
    * PIN LIFECYCLE
    * ------------------------------------------------------------- */
   onPin() {
-    this.homeScrollVisual.style.transform = "translate3d(0%, 0, 0)";
+    this.homeScrollVisual.style.transform = "translate3d(0, 0, 0)";
     this.behindImageWrapper.style.transform = "translate3d(-100%, 0, 0)";
     this.lastImage.style.opacity = "100%";
     this.imageRevealSection.style.zIndex = "-1";
