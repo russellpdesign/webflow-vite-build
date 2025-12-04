@@ -46,6 +46,8 @@ export default class StickyBaseSection extends BaseSection {
   measure() {
     if (!this.el) return;
 
+    console.log("StickyBaseSection measure() executed for:", this.el);
+
     this.setupPinWrapper();
 
     // Reset styles for clean measurement
