@@ -1,4 +1,4 @@
-let DEBUG_ENABLED = false;
+let DEBUG_ENABLED = true;
 
 class DebugController {
   constructor() {
