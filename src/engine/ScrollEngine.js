@@ -1,38 +1,37 @@
 import { clamp01 } from "@utils";
 
 export default class ScrollEngine {
-  static lastY = 0;          // last frame's scrollY (smoothed or raw)
-  static velocity = 0;       // px per frame
-  static predictedY = 0;     // predicted scroll position based on velocity
+  // ---- STATIC GLOBALS read by sections ----
+  static rawY = 0;
+  static smoothedY = 0;
+  static velocity = 0;      
+  static predictedY = 0;    
   static smoothingEnabled = false;
 
   constructor({ smooth = null } = {}) {
     this.sections = [];
 
-    this.smooth = smooth;  // optional SmoothScroll instance
+    this.smooth = smooth;
     ScrollEngine.smoothingEnabled = !!smooth;
 
     this._running = false;
 
+    // initialize for velocity calculation
+    this.lastRawY = window.scrollY;
+    this.lastTimestamp = performance.now();
+
+    // bind
     this._onResize = this._onResize.bind(this);
     this._raf = this._raf.bind(this);
   }
 
-  /* -------------------------------------------------------------
-   * REGISTRATION
-   * ------------------------------------------------------------- */
   register(section) {
     this.sections.push(section);
   }
 
-  /* -------------------------------------------------------------
-   * RESIZE HANDLING
-   * ------------------------------------------------------------- */
   measureAll() {
     for (const s of this.sections) {
-      if (s.enabled !== false) {
-        s.measure();
-      }
+      if (s.enabled !== false) s.measure();
     }
   }
 
@@ -40,9 +39,6 @@ export default class ScrollEngine {
     this.measureAll();
   }
 
-  /* -------------------------------------------------------------
-   * START ENGINE
-   * ------------------------------------------------------------- */
   start() {
     if (this._running) return;
 
@@ -52,69 +48,54 @@ export default class ScrollEngine {
 
     window.addEventListener("resize", this._onResize);
 
-    ScrollEngine.lastY = window.scrollY;
-    ScrollEngine.predictedY = ScrollEngine.lastY;
+    // initialize static globals
+    ScrollEngine.rawY = window.scrollY;
+    ScrollEngine.smoothedY = ScrollEngine.rawY;
+    ScrollEngine.velocity = 0;
+    ScrollEngine.predictedY = ScrollEngine.rawY;
 
     requestAnimationFrame(this._raf);
   }
 
-  /* -------------------------------------------------------------
-   * RAF LOOP
-   * ------------------------------------------------------------- */
-_raf = (timestamp) => {
-  if (!this._running) return;
-
-  // -------------------------------
-  // 1. RAW SCROLL INPUT
-  // -------------------------------
-  const rawY = window.scrollY;
-  ScrollEngine.rawY = rawY;
-
-  // -------------------------------
-  // 2. SMOOTHING (if enabled)
-  // -------------------------------
-  const currentY = this.smooth ? this.smooth.update() : rawY;
-  ScrollEngine.smoothedY = currentY;
-
-  // -------------------------------
-  // 3. VELOCITY (px per ms)
-  // -------------------------------
-  const dt = timestamp - this.lastTimestamp || 16.7;
-  const dy = rawY - this.lastRawY;
-
-  const velocity = dy / dt;   // GSAP-style px/ms velocity
-  ScrollEngine.velocity = velocity;
-
-  this.lastRawY = rawY;
-  this.lastTimestamp = timestamp;
-
-  // -------------------------------
-  // 4. PREDICTED POSITION (anticipate)
-  // -------------------------------
-  // Predict ~1 frame ahead (~16ms)
-  const anticipateFactor = 16.7;
-  ScrollEngine.predictedY = rawY + velocity * anticipateFactor;
-
-  // -------------------------------
-  // 5. UPDATE ALL SECTIONS
-  // -------------------------------
-  for (const section of this.sections) {
-    if (section.enabled !== false) {
-      section.update(currentY);  // pass smoothed scrollY
-    }
-  }
-
-  // -------------------------------
-  // 6. NEXT FRAME
-  // -------------------------------
-  requestAnimationFrame(this._raf);
-};
-
-  /* -------------------------------------------------------------
-   * STOP ENGINE
-   * ------------------------------------------------------------- */
   stop() {
     this._running = false;
     window.removeEventListener("resize", this._onResize);
+  }
+
+  // ---- MAIN RAF LOOP ----
+  _raf(timestamp) {
+    if (!this._running) return;
+
+    // 1) RAW SCROLL
+    const rawY = window.scrollY;
+    ScrollEngine.rawY = rawY;
+
+    // 2) SMOOTHED SCROLL
+    const currentY = this.smooth ? this.smooth.update() : rawY;
+    ScrollEngine.smoothedY = currentY;
+
+    // 3) VELOCITY (px/ms)
+    const dt = timestamp - this.lastTimestamp || 16.7;
+    const dy = rawY - this.lastRawY;
+
+    const velocity = dy / dt;
+    ScrollEngine.velocity = velocity;
+
+    this.lastRawY = rawY;
+    this.lastTimestamp = timestamp;
+
+    // 4) PREDICT FORWARD ONE FRAME (~16ms)
+    const anticipateFactor = 16.7;
+    ScrollEngine.predictedY = rawY + velocity * anticipateFactor;
+
+    // 5) UPDATE SECTIONS
+    for (const section of this.sections) {
+      if (section.enabled !== false) {
+        section.update(currentY);
+      }
+    }
+
+    // 6) NEXT FRAME
+    requestAnimationFrame(this._raf);
   }
 }
