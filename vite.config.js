@@ -19,9 +19,8 @@ export default defineConfig({
   build: {
     minify: "terser",
     terserOptions: {
-      mangle: {
-        reserved: ["ScrollEngine"]
-      }
+      keep_classnames: true,
+      keep_fnames: true,
     },
     outDir: "dist",
     emptyOutDir: true,
