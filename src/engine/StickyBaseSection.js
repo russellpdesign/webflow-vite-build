@@ -130,6 +130,8 @@ measure() {
   update(scrollY) {
     if (!this.enabled) return;
 
+    console.log("sticky update", scrollY);
+
     const rawY = ScrollEngine.scrollY;
     const velocity = ScrollEngine.velocity;
     const predictedY = ScrollEngine.predictedY; // static getter
