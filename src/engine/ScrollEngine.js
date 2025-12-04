@@ -1,26 +1,21 @@
-import { clamp01 } from "@utils";
-
 export default class ScrollEngine {
-  // ---- STATIC GLOBALS read by sections ----
   static rawY = 0;
   static smoothedY = 0;
-  static velocity = 0;      
-  static predictedY = 0;    
+  static velocity = 0;
+  static predictedY = 0;
   static smoothingEnabled = false;
 
   constructor({ smooth = null } = {}) {
     this.sections = [];
-
     this.smooth = smooth;
     ScrollEngine.smoothingEnabled = !!smooth;
 
     this._running = false;
 
-    // initialize for velocity calculation
+    // Init for velocity & prediction
     this.lastRawY = window.scrollY;
     this.lastTimestamp = performance.now();
 
-    // bind
     this._onResize = this._onResize.bind(this);
     this._raf = this._raf.bind(this);
   }
@@ -41,14 +36,11 @@ export default class ScrollEngine {
 
   start() {
     if (this._running) return;
-
     this._running = true;
 
     this.measureAll();
-
     window.addEventListener("resize", this._onResize);
 
-    // initialize static globals
     ScrollEngine.rawY = window.scrollY;
     ScrollEngine.smoothedY = ScrollEngine.rawY;
     ScrollEngine.velocity = 0;
@@ -63,32 +55,43 @@ export default class ScrollEngine {
   }
 
   _raf(timestamp) {
-  if (!this._running) return;
+    if (!this._running) return;
 
-  // LOG TIMESTAMP
-  console.log("RAF timestamp:", timestamp);
+    // Ensure timestamp is valid
+    if (!Number.isFinite(timestamp)) {
+      timestamp = performance.now();
+    }
 
-  const rawY = window.scrollY;
-  ScrollEngine.rawY = rawY;
+    // RAW SCROLL
+    const rawY = window.scrollY;
+    ScrollEngine.rawY = rawY;
 
-  const currentY = this.smooth ? this.smooth.update() : rawY;
-  ScrollEngine.smoothedY = currentY;
+    // SMOOTHED SCROLL
+    const currentY = this.smooth ? this.smooth.update() : rawY;
+    ScrollEngine.smoothedY = currentY;
 
-  const dt = timestamp - this.lastTimestamp || 16.7;
-  const dy = rawY - this.lastRawY;
+    // VELOCITY (px/ms)
+    let dt = timestamp - this.lastTimestamp;
+    if (!Number.isFinite(dt) || dt <= 0) dt = 16.7;
 
-  const velocity = dt > 0 ? dy / dt : 0;
-  ScrollEngine.velocity = velocity;
+    const dy = rawY - this.lastRawY;
+    const velocity = dy / dt;
 
-  this.lastRawY = rawY;
-  this.lastTimestamp = timestamp;
+    ScrollEngine.velocity = velocity;
 
-  ScrollEngine.predictedY = rawY + velocity * 16.7;
+    this.lastRawY = rawY;
+    this.lastTimestamp = timestamp;
 
-  for (const section of this.sections) {
-    if (section.enabled !== false) section.update(currentY);
-  }
+    // PREDICT ~1 FRAME AHEAD
+    ScrollEngine.predictedY = rawY + velocity * 16.7;
 
-  requestAnimationFrame(this._raf);
+    // UPDATE SECTIONS
+    for (const section of this.sections) {
+      if (section.enabled !== false) {
+        section.update(currentY);
+      }
+    }
+
+    requestAnimationFrame(this._raf);
   }
 }
