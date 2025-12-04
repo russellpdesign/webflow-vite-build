@@ -107,13 +107,7 @@ export default class MovePhotoSection extends BaseSection {
     }
 
    // once a photo from the next section has overlayed our right to left traveling photo, we need to set its opacity to 0 so that the next sections sticky photo reveal works
-    if ( scrollY > this.photoRemoveCheckpoint ) {
-        this.behindImageWrapper.style.opacity = "0";
-        this.leftSideImageHide.style.opacity = "1";
-    }
-
-    // once a photo from the next section has overlayed our right to left traveling photo, we need to set its opacity to 0 so that the next sections sticky photo reveal works
-    if ( scrollY < this.rightSideRevealCheckpoint ) {
+    if ( scrollY > this.photoRemoveCheckpoint && scrollY < this.rightSideRevealCheckpoint) {
         this.behindImageWrapper.style.opacity = "0";
         this.leftSideImageHide.style.opacity = "1";
     }
