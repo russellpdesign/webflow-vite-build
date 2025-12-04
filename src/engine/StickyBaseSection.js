@@ -94,6 +94,19 @@ measure() {
   pin() {
     if (this.pinned) return;
 
+    console.log("[StickyBaseSection.update]", {
+        rawY: ScrollEngine.rawY,
+        smoothedY: ScrollEngine.smoothedY,
+        velocity: ScrollEngine.velocity,
+        predictedY: ScrollEngine.predictedY,
+        start: this.start,
+        end: this.end,
+        pinned: this.pinned
+    });
+
+    const t = clamp01((e - this.start) / this.length);
+    console.log("[StickyBaseSection] sticky t=", t);
+
     Debug.write("StickyBaseSection", "PIN ACTIVE");
 
     this.pinned = true;
@@ -129,8 +142,6 @@ measure() {
    * ------------------------------------------------------------- */
   update(scrollY) {
     if (!this.enabled) return;
-
-    console.log("Sticky update t=", t, "raw=", ScrollEngine.rawY, "pred=", ScrollEngine.predictedY);
 
     // console.log("sticky update", scrollY);
 
