@@ -52,6 +52,8 @@ export default class MovePhotoSection extends BaseSection {
 
   update(scrollY) {
 
+    const rawY = window.scrollY;
+
     console.table("MovePhotoSection measured:", {
       current: scrollY,
       start: this.start,
@@ -64,7 +66,7 @@ export default class MovePhotoSection extends BaseSection {
     // const xPercent = mapRange(t, 0, 1, 0, 200);
 
     // BEFORE START
-    if (scrollY < this.start) {
+    if (rawY < this.start) {
        this.imageRevealSection.style.zIndex = "-1"; 
        this.homeScrollVisual.style.transform = `translate3d(0%, 0, 0)`;
        this.behindImageWrapper.style.transform = "translate3d(-100%, 0, 0)";
@@ -84,14 +86,15 @@ export default class MovePhotoSection extends BaseSection {
         this.homeScrollVisual.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
         this.behindImageWrapper.style.transform = `translate3d(-${behindImageXPercent}%, 0, 0)`;
         this.lastImage.style.opacity = `${opacityPercent}%`;
-        
+    }
+    
+    if ( rawY > this.start && rawY < this.end) {
         this.sectionBoothDesignBodyText.classList.remove("is-active");
         this.sectionBoothDesignEyebrowText.classList.remove("is-active");
         this.sectionBoothNumberText[0].classList.remove("is-active");
-        return;
     }
 
-   if ( scrollY > this.end && scrollY < this.photoRemoveCheckpoint ) {
+   if ( rawY > this.end && rawY < this.photoRemoveCheckpoint ) {
     	  this.lastImage.style.opacity = "0";
         this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
         this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
@@ -106,7 +109,7 @@ export default class MovePhotoSection extends BaseSection {
     }
 
    // once a photo from the next section has overlayed our right to left traveling photo, we need to set its opacity to 0 so that the next sections sticky photo reveal works
-    if ( scrollY > this.photoRemoveCheckpoint && scrollY < this.rightSideRevealCheckpoint ) {
+    if ( rawY > this.photoRemoveCheckpoint && rawY < this.rightSideRevealCheckpoint ) {
         this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
         this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
         
@@ -122,7 +125,7 @@ export default class MovePhotoSection extends BaseSection {
     }
     
     // now we need to remove the left side sticky scroll container using opacity: 0 in time when the section below scrolls into place right unederneath it
-    if ( scrollY > this.rightSideRevealCheckpoint && scrollY < this.zedIndexSwitchCheckpoint) {
+    if ( rawY > this.rightSideRevealCheckpoint && rawY < this.zedIndexSwitchCheckpoint) {
         this.sectionBoothDesignBodyText.classList.remove("is-active");
         this.sectionBoothDesignEyebrowText.classList.remove("is-active");
         this.sectionBoothNumberText[0].classList.remove("is-active");
@@ -131,7 +134,7 @@ export default class MovePhotoSection extends BaseSection {
         return;
     }
     
-    if ( scrollY > this.zedIndexSwitchCheckpoint ) {
+    if ( rawY > this.zedIndexSwitchCheckpoint ) {
         console.log("I am revealing the image and waiting until the very top to switch the zed indexes");
         this.imageRevealSection.style.zIndex = "3";
       } else {
