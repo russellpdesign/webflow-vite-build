@@ -91,7 +91,7 @@ export default class MovePhotoSection extends BaseSection {
         return;
     }
 
-   if ( scrollY > this.end ) {
+   if ( scrollY > this.end && scrollY < this.photoRemoveCheckpoint ) {
     	  this.lastImage.style.opacity = "0";
         this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
         this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
@@ -114,19 +114,19 @@ export default class MovePhotoSection extends BaseSection {
     
     // now we need to remove the left side sticky scroll container using opacity: 0 in time when the section below scrolls into place right unederneath it
     if ( scrollY > this.rightSideRevealCheckpoint ) {
-    this.sectionBoothDesignBodyText.classList.remove("is-active");
-    this.sectionBoothDesignEyebrowText.classList.remove("is-active");
-    this.sectionBoothNumberText[0].classList.remove("is-active");
-    this.projectTextHeading.classList.remove("is-active");
-    this.leftSideImageHide.style.opacity = "0%";
-    return;
+        this.sectionBoothDesignBodyText.classList.remove("is-active");
+        this.sectionBoothDesignEyebrowText.classList.remove("is-active");
+        this.sectionBoothNumberText[0].classList.remove("is-active");
+        this.projectTextHeading.classList.remove("is-active");
+        this.leftSideImageHide.style.opacity = "0%";
+        return;
     }
     
     if ( scrollY > this.zedIndexSwitchCheckpoint ) {
-      console.log("I am revealing the image and waiting until the very top to switch the zed indexes");
-      this.imageRevealSection.style.zIndex = "3";
-    } else {
-      this.imageRevealSection.style.zIndex = "-1";
-    }
+        console.log("I am revealing the image and waiting until the very top to switch the zed indexes");
+        this.imageRevealSection.style.zIndex = "3";
+      } else {
+        this.imageRevealSection.style.zIndex = "-1";
+      }
   }
 }
