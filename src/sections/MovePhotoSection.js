@@ -1,5 +1,5 @@
-import StickyBaseSection from "engine/StickyBaseSection";
-import { Debug } from "@engine/Debug";
+import StickyBaseSection from "../engine/StickyBaseSection";
+import { Debug } from "../engine/Debug";
 import { clamp01, mapRange } from "@utils";
 
 export default class MovePhotoSection extends StickyBaseSection {
