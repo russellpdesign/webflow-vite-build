@@ -6,7 +6,10 @@ import MovePhotoSection from "../sections/MovePhotoSection.js";
 window.addEventListener("DOMContentLoaded", () => {
   // the lower the ease value, the more easing there is
   const smooth = new SmoothScroll({ ease: 0.09 });
+  
   const engine = new ScrollEngine({ smooth });
+  window.engine = engine;          // <-- expose the engine instance
+  window.ScrollEngine = ScrollEngine; // <-- expose static class so console can access it
 
 //  const section = new HomeScrollSection({ el: ".home-scroll-section.is-don" });
 

@@ -14,7 +14,6 @@ export default class StickyBaseSection extends BaseSection {
     this.spacer = null;
     this.content = null;
     this.height = 0;
-    this.enabled = true;
 
     // Base amount of buffer used at low speeds
     this.baseReleaseBuffer = 20; 
