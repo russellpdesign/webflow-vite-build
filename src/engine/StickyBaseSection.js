@@ -15,6 +15,12 @@ export default class StickyBaseSection extends BaseSection {
     this.content = null;
     this.height = 0;
     this.enabled = true;
+
+    // Base amount of buffer used at low speeds
+    this.baseReleaseBuffer = 20; 
+
+    // Multiplier amplifies velocity into additional buffer
+    this.releaseMultiplier = 300; 
   }
 
   /* -------------------------------------------------------------
@@ -59,7 +65,7 @@ measure() {
   this.content.style.width = "";
 
   const rect = this.el.getBoundingClientRect();
-  const rawY = window.scrollY;
+  const rawY = ScrollEngine.scrollY;
 
   /* ---------------------------------------------------------
    * BASE PIN START (MovePhotoSection will add pinOffset later)
@@ -89,8 +95,6 @@ measure() {
   pin() {
     if (this.pinned) return;
 
-    Debug.write("StickyBaseSection", "PIN ACTIVE");
-
     this.pinned = true;
 
     this.content.style.position = "fixed";
@@ -99,6 +103,9 @@ measure() {
     this.content.style.width = "100%";
 
     this.onPin?.();
+
+
+    Debug.write("StickyBaseSection", "PIN ACTIVE");
   }
 
   unpin() {
@@ -125,7 +132,8 @@ measure() {
   update(scrollY) {
     if (!this.enabled) return;
 
-    const rawY = window.scrollY;
+    const rawY = ScrollEngine.scrollY;
+    const velocity = ScrollEngine.velocity;
     const predictedY = ScrollEngine.predictedY; // static getter
     const anticipateOffset = 20 * this.anticipate;
 
@@ -134,6 +142,18 @@ measure() {
      * --------------------------------------------- */
     if (!this.pinned && predictedY >= this.start - anticipateOffset) {
       this.pin();
+    }
+
+     /* -------------------------------------------------------------
+     * 2. DYNAMIC UNPIN BUFFER (smooth reverse direction)
+     * ------------------------------------------------------------- */
+    const dynamicReleaseBuffer =
+      this.baseReleaseBuffer + Math.abs(velocity) * this.releaseMultiplier;
+
+    // When scrolling UP, release AFTER passing above the start threshold
+    if (this.pinned && rawY < this.start - dynamicReleaseBuffer) {
+      this.unpin();
+      return;
     }
 
     /* ---------------------------------------------
