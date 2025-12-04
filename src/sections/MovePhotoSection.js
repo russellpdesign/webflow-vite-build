@@ -33,6 +33,10 @@ export default class MovePhotoSection extends StickyBaseSection {
     // These come from the *next* section
     this.imageRevealSection       = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide        = document.querySelector("#left-side-hide");
+
+    // This section moves FAST during reverse scroll; we give it a larger buffer.
+    this.baseReleaseBuffer = 30;        // default from base is 20
+    this.releaseMultiplier = 350;       // default from base is 300
   }
 
   /* -------------------------------------------------------------
