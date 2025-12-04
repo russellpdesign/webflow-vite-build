@@ -21,6 +21,13 @@ export default defineConfig({
     terserOptions: {
       keep_classnames: true,
       keep_fnames: true,
+      mangle: {
+        reserved: [
+          "ScrollEngine",
+          "StickyBaseSection",
+          "MovePhotoSection"
+        ],
+      },
     },
     outDir: "dist",
     emptyOutDir: true,
