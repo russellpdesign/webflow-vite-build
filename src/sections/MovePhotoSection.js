@@ -54,14 +54,14 @@ export default class MovePhotoSection extends BaseSection {
 
     const rawY = window.scrollY;
 
-    console.table("MovePhotoSection measured:", {
-      current: scrollY,
-      start: this.start,
-      end: this.end,
-      photoRemoveCheckpoint: this.photoRemoveCheckpoint,
-      rightSideRevealCheckpoint: this.rightSideRevealCheckpoint,
-      zedIndexSwitchCheckpoint: this.zedIndexSwitchCheckpoint
-    });
+    // console.table("MovePhotoSection measured:", {
+    //   current: scrollY,
+    //   start: this.start,
+    //   end: this.end,
+    //   photoRemoveCheckpoint: this.photoRemoveCheckpoint,
+    //   rightSideRevealCheckpoint: this.rightSideRevealCheckpoint,
+    //   zedIndexSwitchCheckpoint: this.zedIndexSwitchCheckpoint
+    // });
     // const t = clamp01((scrollY - this.start) / (this.end - this.start));
     // const xPercent = mapRange(t, 0, 1, 0, 200);
 
@@ -123,7 +123,7 @@ export default class MovePhotoSection extends BaseSection {
         this.projectTextHeading.classList.add("is-active");
         this.behindImageWrapper.style.opacity = "0";
         this.lastImage.style.opacity = "0";
-        // return;
+        return;
     }
     
     // now we need to remove the left side sticky scroll container using opacity: 0 in time when the section below scrolls into place right unederneath it
@@ -138,10 +138,10 @@ export default class MovePhotoSection extends BaseSection {
     if ( rawY > this.zedIndexSwitchCheckpoint ) {
         console.log("I am revealing the image and waiting until the very top to switch the zed indexes");
         this.imageRevealSection.style.zIndex = "3";
-        this.leftSideImageHide.style.opacity = "0";
+        // this.leftSideImageHide.style.opacity = "0";
       } else {
         this.imageRevealSection.style.zIndex = "-1";
-        this.leftSideImageHide.style.opacity = "1";
+        // this.leftSideImageHide.style.opacity = "1";
       }
   }
 }
