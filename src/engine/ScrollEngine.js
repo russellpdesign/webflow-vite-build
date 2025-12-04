@@ -62,40 +62,33 @@ export default class ScrollEngine {
     window.removeEventListener("resize", this._onResize);
   }
 
-  // ---- MAIN RAF LOOP ----
   _raf(timestamp) {
-    if (!this._running) return;
+  if (!this._running) return;
 
-    // 1) RAW SCROLL
-    const rawY = window.scrollY;
-    ScrollEngine.rawY = rawY;
+  // LOG TIMESTAMP
+  console.log("RAF timestamp:", timestamp);
 
-    // 2) SMOOTHED SCROLL
-    const currentY = this.smooth ? this.smooth.update() : rawY;
-    ScrollEngine.smoothedY = currentY;
+  const rawY = window.scrollY;
+  ScrollEngine.rawY = rawY;
 
-    // 3) VELOCITY (px/ms)
-    const dt = timestamp - this.lastTimestamp || 16.7;
-    const dy = rawY - this.lastRawY;
+  const currentY = this.smooth ? this.smooth.update() : rawY;
+  ScrollEngine.smoothedY = currentY;
 
-    const velocity = dy / dt;
-    ScrollEngine.velocity = velocity;
+  const dt = timestamp - this.lastTimestamp || 16.7;
+  const dy = rawY - this.lastRawY;
 
-    this.lastRawY = rawY;
-    this.lastTimestamp = timestamp;
+  const velocity = dt > 0 ? dy / dt : 0;
+  ScrollEngine.velocity = velocity;
 
-    // 4) PREDICT FORWARD ONE FRAME (~16ms)
-    const anticipateFactor = 16.7;
-    ScrollEngine.predictedY = rawY + velocity * anticipateFactor;
+  this.lastRawY = rawY;
+  this.lastTimestamp = timestamp;
 
-    // 5) UPDATE SECTIONS
-    for (const section of this.sections) {
-      if (section.enabled !== false) {
-        section.update(currentY);
-      }
-    }
+  ScrollEngine.predictedY = rawY + velocity * 16.7;
 
-    // 6) NEXT FRAME
-    requestAnimationFrame(this._raf);
+  for (const section of this.sections) {
+    if (section.enabled !== false) section.update(currentY);
+  }
+
+  requestAnimationFrame(this._raf);
   }
 }
