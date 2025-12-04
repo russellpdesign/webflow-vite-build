@@ -1,4 +1,4 @@
-import StickyBaseSection from "./StickyBaseSection";
+import StickyBaseSection from "engine/StickyBaseSection";
 import { Debug } from "@engine/Debug";
 import { clamp01, mapRange } from "@utils";
 
