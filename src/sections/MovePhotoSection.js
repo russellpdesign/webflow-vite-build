@@ -132,16 +132,16 @@ export default class MovePhotoSection extends BaseSection {
         this.sectionBoothDesignEyebrowText.classList.remove("is-active");
         this.sectionBoothNumberText[0].classList.remove("is-active");
         this.projectTextHeading.classList.remove("is-active");
+        this.leftSideImageHide.style.opacity = "1";
         return;
     }
     
     if ( rawY > this.zedIndexSwitchCheckpoint ) {
         console.log("I am revealing the image and waiting until the very top to switch the zed indexes");
         this.imageRevealSection.style.zIndex = "3";
-        // this.leftSideImageHide.style.opacity = "0";
+        this.leftSideImageHide.style.opacity = "0";
       } else {
         this.imageRevealSection.style.zIndex = "-1";
-        // this.leftSideImageHide.style.opacity = "1";
       }
   }
 }
