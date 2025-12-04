@@ -17,6 +17,12 @@ export default defineConfig({
     },
 
   build: {
+    minify: "terser",
+    terserOptions: {
+      mangle: {
+        reserved: ["ScrollEngine"]
+      }
+    },
     outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {
