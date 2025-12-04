@@ -104,7 +104,6 @@ measure() {
         pinned: this.pinned
     });
 
-    const t = clamp01((e - this.start) / this.length);
     console.log("[StickyBaseSection] sticky t=", t);
 
     Debug.write("StickyBaseSection", "PIN ACTIVE");
