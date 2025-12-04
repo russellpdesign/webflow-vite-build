@@ -94,8 +94,9 @@ measure() {
    * ------------------------------------------------------------- */
   pin() {
     if (this.pinned) return;
+
     Debug.write("StickyBaseSection", "PIN ACTIVE");
-    
+
     this.pinned = true;
 
     this.content.style.position = "fixed";
@@ -104,8 +105,6 @@ measure() {
     this.content.style.width = "100%";
 
     this.onPin?.();
-
-
   }
 
   unpin() {

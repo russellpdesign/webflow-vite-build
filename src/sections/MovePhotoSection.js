@@ -37,6 +37,8 @@ export default class MovePhotoSection extends StickyBaseSection {
     // This section moves FAST during reverse scroll; we give it a larger buffer.
     this.baseReleaseBuffer = 30;        // default from base is 20
     this.releaseMultiplier = 350;       // default from base is 300
+
+    this.enabled = true;
   }
 
   /* -------------------------------------------------------------
