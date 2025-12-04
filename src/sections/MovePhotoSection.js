@@ -6,8 +6,6 @@ export default class MovePhotoSection extends StickyBaseSection {
   constructor({ el }) {
     super({ el, anticipate: 1.5 });
 
-    console.log("Sticky update t=", t, "raw=", ScrollEngine.rawY, "pred=", ScrollEngine.predictedY);
-
     /* -------------------------------------------------------------
      * DECLARATIVE TIMELINE FOR PINNED PERIOD (t = 0 → 1)
      * ------------------------------------------------------------- */
