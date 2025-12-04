@@ -29,9 +29,10 @@ export default class MovePhotoSection extends StickyBaseSection {
     this.homeScrollVisual = document.querySelector(".home-scroll-visual");
     this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
     this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
-
-    this.imageRevealSection = this.el.querySelector(".double-wide-reveal-img");
-    this.leftSideImageHide = this.el.querySelector("#left-side-hide");
+    
+    // these are technically in the section after our current section
+    this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
+    this.leftSideImageHide = document.querySelector("#left-side-hide");
   }
 
   /* -------------------------------------------------------------
