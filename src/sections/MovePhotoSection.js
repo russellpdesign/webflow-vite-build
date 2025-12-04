@@ -92,10 +92,9 @@ export default class MovePhotoSection extends BaseSection {
     }
 
    if ( scrollY > this.end ) {
-    	this.lastImage.style.opacity = "0";
+    	  this.lastImage.style.opacity = "0";
         this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
         this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
-        this.lastImage.style.opacity = '0%';
         
         this.sectionBoothDesignBodyText.classList.add("is-active");
         this.sectionBoothDesignEyebrowText.classList.add("is-active");
@@ -107,7 +106,7 @@ export default class MovePhotoSection extends BaseSection {
     }
 
    // once a photo from the next section has overlayed our right to left traveling photo, we need to set its opacity to 0 so that the next sections sticky photo reveal works
-    if ( scrollY > this.photoRemoveCheckpoint && scrollY < this.rightSideRevealCheckpoint) {
+    if ( scrollY > this.photoRemoveCheckpoint) {
         this.behindImageWrapper.style.opacity = "0";
         this.leftSideImageHide.style.opacity = "1";
     }
