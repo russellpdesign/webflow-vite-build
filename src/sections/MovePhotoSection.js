@@ -91,7 +91,7 @@ export default class MovePhotoSection extends BaseSection {
         return;
     }
 
-   if ( scrollY > this.end && scrollY < this.photoRemoveCheckpoint ) {
+   if ( scrollY > this.end && scrollY <= this.photoRemoveCheckpoint ) {
     	  this.lastImage.style.opacity = "0";
         this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
         this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
