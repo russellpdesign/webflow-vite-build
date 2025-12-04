@@ -66,7 +66,7 @@ export default class MovePhotoSection extends BaseSection {
     // const xPercent = mapRange(t, 0, 1, 0, 200);
 
     // BEFORE START
-    if (rawY < this.start) {
+    if (scrollY < this.start) {
        this.imageRevealSection.style.zIndex = "-1"; 
        this.homeScrollVisual.style.transform = `translate3d(0%, 0, 0)`;
        this.behindImageWrapper.style.transform = "translate3d(-100%, 0, 0)";
@@ -94,34 +94,37 @@ export default class MovePhotoSection extends BaseSection {
         this.sectionBoothNumberText[0].classList.remove("is-active");
     }
 
-   if ( rawY > this.end && rawY < this.photoRemoveCheckpoint ) {
-    	  this.lastImage.style.opacity = "0";
+   if ( scrollY > this.end && scrollY < this.photoRemoveCheckpoint ) {
         this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
         this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
-        
+        // return;
+    }
+
+    if ( rawY > this.end && rawY < this.photoRemoveCheckpoint) {
         this.sectionBoothDesignBodyText.classList.add("is-active");
         this.sectionBoothDesignEyebrowText.classList.add("is-active");
         this.sectionBoothNumberText[0].classList.add("is-active");
         this.projectTextHeading.classList.add("is-active");
         
+        this.lastImage.style.opacity = "0";
         this.behindImageWrapper.style.opacity = "1";
-        return;
     }
 
    // once a photo from the next section has overlayed our right to left traveling photo, we need to set its opacity to 0 so that the next sections sticky photo reveal works
-    if ( rawY > this.photoRemoveCheckpoint && rawY < this.rightSideRevealCheckpoint ) {
+    if ( scrollY > this.photoRemoveCheckpoint && scrollY < this.rightSideRevealCheckpoint ) {
         this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
         this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
-        
+    }
+
+     if ( rawY > this.photoRemoveCheckpoint && rawY < this.rightSideRevealCheckpoint ) {  
         this.sectionBoothDesignBodyText.classList.add("is-active");
         this.sectionBoothDesignEyebrowText.classList.add("is-active");
         this.sectionBoothNumberText[0].classList.add("is-active");
         this.projectTextHeading.classList.add("is-active");
-
         this.behindImageWrapper.style.opacity = "0";
         this.leftSideImageHide.style.opacity = "1";
         this.lastImage.style.opacity = "0";
-        return;
+        // return;
     }
     
     // now we need to remove the left side sticky scroll container using opacity: 0 in time when the section below scrolls into place right unederneath it
