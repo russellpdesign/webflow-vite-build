@@ -133,6 +133,7 @@ export default class MovePhotoSection extends BaseSection {
         this.sectionBoothNumberText[0].classList.remove("is-active");
         this.projectTextHeading.classList.remove("is-active");
         this.leftSideImageHide.style.opacity = "1";
+        this.lastImage.style.opacity = "0";
         return;
     }
     
@@ -140,6 +141,7 @@ export default class MovePhotoSection extends BaseSection {
         console.log("I am revealing the image and waiting until the very top to switch the zed indexes");
         this.imageRevealSection.style.zIndex = "3";
         this.leftSideImageHide.style.opacity = "0";
+        this.lastImage.style.opacity = "0";
       } else {
         this.imageRevealSection.style.zIndex = "-1";
       }
