@@ -43,35 +43,45 @@ export default class StickyBaseSection extends BaseSection {
   /* -------------------------------------------------------------
    * MEASUREMENT (CALLED BY ENGINE ON LOAD & RESIZE)
    * ------------------------------------------------------------- */
-  measure() {
-    if (!this.el) return;
+measure() {
+  if (!this.el) return;
 
-    console.log("StickyBaseSection measure() executed for:", this.el);
+  // Ensure wrappers exist
+  this.setupPinWrapper();
 
-    this.setupPinWrapper();
+  /* ---------------------------------------------------------
+   * Reset transforms and positioning for clean measurement
+   * --------------------------------------------------------- */
+  this.content.style.transform = "";
+  this.content.style.position = "";
+  this.content.style.top = "";
+  this.content.style.left = "";
+  this.content.style.width = "";
 
-    // Reset styles for clean measurement
-    this.content.style.transform = "";
-    this.content.style.position = "";
-    this.content.style.top = "";
-    this.content.style.left = "";
-    this.content.style.width = "";
+  const rect = this.el.getBoundingClientRect();
+  const rawY = window.scrollY;
 
-    const rect = this.el.getBoundingClientRect();
-    const rawY = window.scrollY;
+  /* ---------------------------------------------------------
+   * BASE PIN START (MovePhotoSection will add pinOffset later)
+   * --------------------------------------------------------- */
+  this.start = rect.top + rawY;
 
-    this.pinOffset = window.innerHeight * 0.38;  // your old “delay” mapped correctly
+  /* ---------------------------------------------------------
+   * Height of pinned content determines pinned duration
+   * --------------------------------------------------------- */
+  this.height = this.content.offsetHeight;
 
-    this.start = (rect.top + rawY) + this.pinOffset;
+  /* ---------------------------------------------------------
+   * END OF PIN RANGE
+   * --------------------------------------------------------- */
+  this.end = this.start + this.height;
+  this.length = this.end - this.start;
 
-    this.height = this.content.offsetHeight; // height of sticky content
-    this.end = this.start + this.height;     // pin end position
-    this.length = this.end - this.start;
-
-
-    // Preserve layout space equal to sticky content height
-    this.spacer.style.height = `${this.height}px`;
-  }
+  /* ---------------------------------------------------------
+   * Spacer preserves layout when content becomes fixed
+   * --------------------------------------------------------- */
+  this.spacer.style.height = `${this.height}px`;
+}
 
   /* -------------------------------------------------------------
    * PIN / UNPIN
