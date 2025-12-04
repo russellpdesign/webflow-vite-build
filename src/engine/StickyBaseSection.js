@@ -7,8 +7,6 @@ export default class StickyBaseSection extends BaseSection {
   constructor({ el, anticipate = 1 }) {
     super({ el });
 
-    console.log("Sticky update t=", t, "raw=", ScrollEngine.rawY, "pred=", ScrollEngine.predictedY);
-
     this.anticipate = anticipate;   // GSAP-like anticipatePin multiplier
 
     this.pinned = false;
@@ -131,6 +129,8 @@ measure() {
    * ------------------------------------------------------------- */
   update(scrollY) {
     if (!this.enabled) return;
+
+    console.log("Sticky update t=", t, "raw=", ScrollEngine.rawY, "pred=", ScrollEngine.predictedY);
 
     // console.log("sticky update", scrollY);
 
