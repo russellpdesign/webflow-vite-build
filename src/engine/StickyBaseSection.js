@@ -4,7 +4,7 @@ import { clamp01 } from "@utils";
 import { Debug } from "@engine/Debug";
 
 export default class StickyBaseSection extends BaseSection {
-  constructor({ el, anticipate = 1 }) {
+  constructor({ el, anticipate = 0 }) {
     super({ el });
 
     this.anticipate = anticipate;
@@ -17,6 +17,8 @@ export default class StickyBaseSection extends BaseSection {
 
     this.baseReleaseBuffer = 20;
     this.releaseMultiplier = 300;
+
+    this.enable = true;
   }
 
   setupPinWrapper() {
@@ -105,7 +107,6 @@ export default class StickyBaseSection extends BaseSection {
   update(scrollY) {
     if (!this.enabled) return;
 
-    // ❗ FIX — use rawY instead of nonexistent scrollY
     const rawY = ScrollEngine.rawY;
     const velocity = ScrollEngine.velocity;
     const predictedY = ScrollEngine.predictedY;
@@ -116,13 +117,13 @@ export default class StickyBaseSection extends BaseSection {
       this.pin();
     }
 
-    const dynamicReleaseBuffer =
-      this.baseReleaseBuffer + Math.abs(velocity) * this.releaseMultiplier;
+    // const dynamicReleaseBuffer =
+    //   this.baseReleaseBuffer + Math.abs(velocity) * this.releaseMultiplier;
 
-    if (this.pinned && rawY < this.start - dynamicReleaseBuffer) {
-      this.unpin();
-      return;
-    }
+    // if (this.pinned && rawY < this.start - dynamicReleaseBuffer) {
+    //   this.unpin();
+    //   return;
+    // }
 
     if (this.pinned && rawY >= this.end) {
       this.unpin();
@@ -135,7 +136,7 @@ export default class StickyBaseSection extends BaseSection {
     }
 
     if (this.pinned) {
-      const t = clamp01((scrollY - this.start) / this.length);
+      const t = clamp01((ScrollEngine.smoothedY - this.start) / this.length);
       const translateY = -t * this.height;
 
       this.content.style.transform = `translateY(${translateY}px)`;
