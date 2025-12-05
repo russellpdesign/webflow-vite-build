@@ -48,7 +48,7 @@ export default class MovePhotoSection extends StickyBaseSection {
     super.measure();
 
     // custom timing offset into the pin start (old 138vh logic simplified)
-    this.pinOffset = 0;
+    this.pinOffset = -window.innerHeight * 4;
 
     // shift pin start to match your original flow
     this.start += this.pinOffset;
