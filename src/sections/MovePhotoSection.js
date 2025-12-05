@@ -33,6 +33,8 @@ export default class MovePhotoSection extends StickyBaseSection {
     // Elements from upcoming sections
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
+
+    this.enabled = true;
   }
 
   /* -------------------------------------------------------------
