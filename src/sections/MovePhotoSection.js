@@ -63,20 +63,20 @@ export default class MovePhotoSection extends StickyBaseSection {
    * ------------------------------------------------------------- */
   onPin() {
     // Apply initial pinned state
-    this.homeScrollVisual.style.transform = "translate3d(0, 0, 0)";
-    this.behindImageWrapper.style.transform = "translate3d(-100%, 0, 0)";
-    this.lastImage.style.opacity = "100%";
-    this.imageRevealSection.style.zIndex = "-1";
+    // this.homeScrollVisual.style.transform = "translate3d(0, 0, 0)";
+    // this.behindImageWrapper.style.transform = "translate3d(-100%, 0, 0)";
+    // this.lastImage.style.opacity = "100%";
+    // this.imageRevealSection.style.zIndex = "-1";
 
     Debug.write("MovePhoto", "PIN STARTED");
   }
 
   onUnpin() {
     // Reset back to unpinned state
-    this.homeScrollVisual.style.transform = "";
-    this.behindImageWrapper.style.transform = "";
-    this.lastImage.style.opacity = "";
-    this.imageRevealSection.style.zIndex = "-1";
+    // this.homeScrollVisual.style.transform = "";
+    // this.behindImageWrapper.style.transform = "";
+    // this.lastImage.style.opacity = "";
+    // this.imageRevealSection.style.zIndex = "-1";
 
     Debug.write("MovePhoto", "PIN RELEASED");
     Debug.clear("MovePhoto");
@@ -114,15 +114,15 @@ export default class MovePhotoSection extends StickyBaseSection {
        * IMAGE MOVE PHASE (0 → 0.28)
        * ------------------------------- */
       case "MAIN_MOVE": {
-        const localT = clamp01(t / this.timeline[0].end);
+        // const localT = clamp01(t / this.timeline[0].end);
 
-        const x = mapRange(localT, 0, 1, 0, 100);
-        const behindX = 100 - x;
-        const opacity = mapRange(localT, 0, 1, 100, 0);
+        // const x = mapRange(localT, 0, 1, 0, 100);
+        // const behindX = 100 - x;
+        // const opacity = mapRange(localT, 0, 1, 100, 0);
 
-        this.homeScrollVisual.style.transform = `translate3d(-${x}%, 0, 0)`;
-        this.behindImageWrapper.style.transform = `translate3d(-${behindX}%, 0, 0)`;
-        this.lastImage.style.opacity = `${opacity}%`;
+        // this.homeScrollVisual.style.transform = `translate3d(-${x}%, 0, 0)`;
+        // this.behindImageWrapper.style.transform = `translate3d(-${behindX}%, 0, 0)`;
+        // this.lastImage.style.opacity = `${opacity}%`;
         break;
       }
 
@@ -130,26 +130,26 @@ export default class MovePhotoSection extends StickyBaseSection {
        * TEXT ACTIVATION + BEHIND IMAGE
        * ------------------------------- */
       case "TEXT_REVEAL":
-        this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
-        this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
+        // this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
+        // this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
         break;
 
       case "BEHIND_FADE":
-        this.behindImageWrapper.style.opacity = "0";
+        // this.behindImageWrapper.style.opacity = "0";
         break;
 
       /* -------------------------------
        * LEFT SIDE FADE OUT
        * ------------------------------- */
       case "LEFT_FADE_OUT":
-        this.leftSideImageHide.style.opacity = "1";
+        // this.leftSideImageHide.style.opacity = "1";
         break;
 
       /* -------------------------------
        * FINAL Z-INDEX POP
        * ------------------------------- */
       case "COMPLETE":
-        this.imageRevealSection.style.zIndex = "3";
+        // this.imageRevealSection.style.zIndex = "3";
         break;
     }
   }
