@@ -44,7 +44,7 @@ export default class MovePhotoSection extends StickyBaseSection {
     super.measure();
 
     // Optional timing shift (from your old 38vh padding trick)
-    this.pinOffset = window.innerHeight * 0.38;
+    this.pinOffset = window.innerHeight * 4;
     this.start += this.pinOffset;
 
     // Recompute end after modifying start
