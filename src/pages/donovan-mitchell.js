@@ -11,10 +11,15 @@ window.addEventListener("DOMContentLoaded", () => {
   window.engine = engine;          // <-- expose the engine instance
   window.ScrollEngine = ScrollEngine; // <-- expose static class so console can access it
 
+  const movePhoto = new MovePhotoSection({ el: ".sticky-section.heroic-members-wrapper.reversed" });
+  engine.register(movePhoto);
+
+  // expose to console
+  window.movePhoto = movePhoto;
+
 //  const section = new HomeScrollSection({ el: ".home-scroll-section.is-don" });
 
   engine.register(new HomeScrollSection({ el: ".home-scroll-section.is-don" }));
-  engine.register(new MovePhotoSection({ el: ".sticky-section.heroic-members-wrapper.reversed" }));
 
   engine.start();
 });
