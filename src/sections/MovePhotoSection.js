@@ -4,86 +4,80 @@ import { clamp01, mapRange } from "@utils";
 
 export default class MovePhotoSection extends StickyBaseSection {
   constructor({ el }) {
-    super({ el, anticipate: 1.5 });
+    super({ el });
 
     /* -------------------------------------------------------------
-     * DECLARATIVE TIMELINE FOR PINNED PERIOD (t = 0 → 1)
+     * DECLARATIVE TIMELINE (normalized progress)
      * ------------------------------------------------------------- */
     this.timeline = [
-      { end: 0.28, name: "MAIN_MOVE",     textActive: false },
-      { end: 0.52, name: "TEXT_REVEAL",   textActive: true  },
-      { end: 0.78, name: "BEHIND_FADE",   textActive: true  },
+      { end: 0.28, name: "MAIN_MOVE", textActive: false },
+      { end: 0.52, name: "TEXT_REVEAL", textActive: true },
+      { end: 0.78, name: "BEHIND_FADE", textActive: true },
       { end: 1.00, name: "LEFT_FADE_OUT", textActive: false },
-      { end: Infinity, name: "COMPLETE",  textActive: false }
+      { end: Infinity, name: "COMPLETE", textActive: false }
     ];
 
     /* -------------------------------------------------------------
-     * DOM CACHING
+     * DOM ELEMENTS
      * ------------------------------------------------------------- */
     this.projectTextHeading = this.el.querySelector(".project-text-heading");
-    this.sectionBoothDesignBody = this.el.querySelector(".body-text.home-scroll");
-    this.sectionBoothEyebrow = this.el.querySelector(".section-header-text");
-    this.sectionBoothNumbers = this.el.querySelectorAll(".home-scroll-item-number");
+    this.sectionBoothDesignBodyText = this.el.querySelector(".body-text.home-scroll");
+    this.sectionBoothDesignEyebrowText = this.el.querySelector(".section-header-text");
+    this.sectionBoothNumberText = this.el.querySelectorAll(".home-scroll-item-number");
 
-    // These come from the *previous* section
+    // Elements from previous sections
     this.homeScrollVisual = document.querySelector(".home-scroll-visual");
     this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
     this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
 
-    // These come from the *next* section
+    // Elements from upcoming sections
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
-
-    // // // This section moves FAST during reverse scroll; we give it a larger buffer.
-    // this.baseReleaseBuffer = 30;        // default from base is 20
-    // this.releaseMultiplier = 350;       // default from base is 300
-
-    this.enabled = true;
   }
 
   /* -------------------------------------------------------------
-   * MEASUREMENT (PinOffset added AFTER StickyBaseSection logic)
+   * MEASURE — add pinOffset ONLY here
    * ------------------------------------------------------------- */
   measure() {
     super.measure();
 
-    // custom timing offset into the pin start (old 138vh logic simplified)
-    this.pinOffset = 0;
-
-    // shift pin start to match your original flow
+    // Optional timing shift (from your old 38vh padding trick)
+    this.pinOffset = window.innerHeight * 0.38;
     this.start += this.pinOffset;
 
-    // recompute end + length using StickyBaseSection height
+    // Recompute end after modifying start
     this.end = this.start + this.height;
-    this.length = this.end - this.start;
+    this.length = this.height;
   }
 
   /* -------------------------------------------------------------
-   * PIN EVENT HOOKS
+   * PIN LIFECYCLE
    * ------------------------------------------------------------- */
   onPin() {
-    // Apply initial pinned state
-    // this.homeScrollVisual.style.transform = "translate3d(0, 0, 0)";
-    // this.behindImageWrapper.style.transform = "translate3d(-100%, 0, 0)";
-    // this.lastImage.style.opacity = "100%";
-    // this.imageRevealSection.style.zIndex = "-1";
-
     Debug.write("MovePhoto", "PIN STARTED");
+
+    // Initial visual state for pinned animation
+    this.homeScrollVisual.style.transform = "translate3d(0, 0, 0)";
+    this.behindImageWrapper.style.transform = "translate3d(-100%, 0, 0)";
+    this.lastImage.style.opacity = "100%";
+    this.imageRevealSection.style.zIndex = "-1";
   }
 
   onUnpin() {
-    // Reset back to unpinned state
-    // this.homeScrollVisual.style.transform = "";
-    // this.behindImageWrapper.style.transform = "";
-    // this.lastImage.style.opacity = "";
-    // this.imageRevealSection.style.zIndex = "-1";
-
     Debug.write("MovePhoto", "PIN RELEASED");
     Debug.clear("MovePhoto");
+
+    // Reset transforms so next section behaves correctly
+    this.homeScrollVisual.style.transform = "";
+    this.behindImageWrapper.style.transform = "";
+    this.lastImage.style.opacity = "";
+    this.imageRevealSection.style.zIndex = "-1";
+
+    this.setTextActive(false);
   }
 
   /* -------------------------------------------------------------
-   * DETERMINE CURRENT PHASE FROM TIMELINE
+   * RESOLVE PHASE FROM NORMALIZED t
    * ------------------------------------------------------------- */
   resolvePhase(t) {
     for (let i = 0; i < this.timeline.length; i++) {
@@ -93,80 +87,93 @@ export default class MovePhotoSection extends StickyBaseSection {
   }
 
   /* -------------------------------------------------------------
-   * MAIN TWEEN LOOP (runs when pinned, receives 0→1 progress t)
+   * MAIN ANIMATION LOOP — receives normalized t from StickyBaseSection
    * ------------------------------------------------------------- */
   onStickyUpdate(t) {
     const phase = this.resolvePhase(t);
 
-    Debug.write("MovePhoto", `t=${t.toFixed(3)}, phase=${phase.name}`);
+    Debug.write("MovePhoto", `t=${t.toFixed(3)} phase=${phase.name}`);
 
+    // Global text activation control
     this.setTextActive(phase.textActive);
+
+    // Run animation associated with phase
     this.runPhaseAnimations(t, phase.name);
   }
 
   /* -------------------------------------------------------------
-   * PHASE ANIMATION LOGIC
+   * ANIMATION LOGIC PER PHASE
    * ------------------------------------------------------------- */
-  runPhaseAnimations(t, phaseName) {
-    switch (phaseName) {
+  runPhaseAnimations(t, name) {
+    switch (name) {
 
-      /* -------------------------------
-       * IMAGE MOVE PHASE (0 → 0.28)
-       * ------------------------------- */
+      /* -----------------------------------------------------------
+       * 1. MAIN LEFT→RIGHT IMAGE MOVE
+       * ----------------------------------------------------------- */
       case "MAIN_MOVE": {
-        // const localT = clamp01(t / this.timeline[0].end);
+        const localT = clamp01(t / this.timeline[0].end);
 
-        // const x = mapRange(localT, 0, 1, 0, 100);
-        // const behindX = 100 - x;
-        // const opacity = mapRange(localT, 0, 1, 100, 0);
+        const x = mapRange(localT, 0, 1, 0, 100);
+        const behindX = 100 - x;
+        const opacity = mapRange(localT, 0, 1, 100, 0);
 
-        // this.homeScrollVisual.style.transform = `translate3d(-${x}%, 0, 0)`;
-        // this.behindImageWrapper.style.transform = `translate3d(-${behindX}%, 0, 0)`;
-        // this.lastImage.style.opacity = `${opacity}%`;
+        this.homeScrollVisual.style.transform = `translate3d(-${x}%, 0, 0)`;
+        this.behindImageWrapper.style.transform = `translate3d(-${behindX}%, 0, 0)`;
+        this.lastImage.style.opacity = `${opacity}%`;
         break;
       }
 
-      /* -------------------------------
-       * TEXT ACTIVATION + BEHIND IMAGE
-       * ------------------------------- */
-      case "TEXT_REVEAL":
-        // this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
-        // this.behindImageWrapper.style.transform = "translate3d(0%, 0, 0)";
-        break;
+      /* -----------------------------------------------------------
+       * 2. TEXT REVEAL PHASE
+       * ----------------------------------------------------------- */
+      case "TEXT_REVEAL": {
+        this.homeScrollVisual.style.transform = "translate3d(-100%, 0, 0)";
+        this.behindImageWrapper.style.transform = "translate3d(0, 0, 0)";
 
-      case "BEHIND_FADE":
-        // this.behindImageWrapper.style.opacity = "0";
+        this.lastImage.style.opacity = "0";
+        this.behindImageWrapper.style.opacity = "1";
         break;
+      }
 
-      /* -------------------------------
-       * LEFT SIDE FADE OUT
-       * ------------------------------- */
-      case "LEFT_FADE_OUT":
-        // this.leftSideImageHide.style.opacity = "1";
+      /* -----------------------------------------------------------
+       * 3. BEHIND IMAGE FADE OUT
+       * ----------------------------------------------------------- */
+      case "BEHIND_FADE": {
+        this.behindImageWrapper.style.opacity = "0";
+        this.lastImage.style.opacity = "0";
         break;
+      }
 
-      /* -------------------------------
-       * FINAL Z-INDEX POP
-       * ------------------------------- */
-      case "COMPLETE":
-        // this.imageRevealSection.style.zIndex = "3";
+      /* -----------------------------------------------------------
+       * 4. LEFT SIDE FADE OUT (revealing next section)
+       * ----------------------------------------------------------- */
+      case "LEFT_FADE_OUT": {
+        this.leftSideImageHide.style.opacity = "1";
         break;
+      }
+
+      /* -----------------------------------------------------------
+       * 5. COMPLETE — hand control to next section
+       * ----------------------------------------------------------- */
+      case "COMPLETE": {
+        this.imageRevealSection.style.zIndex = "3";
+        this.leftSideImageHide.style.opacity = "0";
+        break;
+      }
     }
   }
 
   /* -------------------------------------------------------------
-   * TEXT ACTIVATION HELPER
+   * TEXT ACTIVATION CONTROL
    * ------------------------------------------------------------- */
   setTextActive(active) {
-    const method = active ? "add" : "remove";
-
-    this.sectionBoothDesignBody.classList[method]("is-active");
-    this.sectionBoothEyebrow.classList[method]("is-active");
-    this.sectionBoothNumbers[0].classList[method]("is-active");
-    this.projectTextHeading.classList[method]("is-active");
+    const m = active ? "add" : "remove";
+    this.sectionBoothDesignBodyText.classList[m]("is-active");
+    this.sectionBoothDesignEyebrowText.classList[m]("is-active");
+    this.sectionBoothNumberText[0].classList[m]("is-active");
+    this.projectTextHeading.classList[m]("is-active");
   }
 }
-
 
 
 // OLD

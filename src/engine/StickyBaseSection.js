@@ -63,18 +63,12 @@ export default class StickyBaseSection extends BaseSection {
 
     this.spacer.style.height = `${this.height}px`;
   }
-
   pin() {
     if (this.pinned) return;
 
-    console.log("[StickyBaseSection.pin]", {
-      rawY: ScrollEngine.rawY,
-      smoothedY: ScrollEngine.smoothedY,
-      velocity: ScrollEngine.velocity,
-      predictedY: ScrollEngine.predictedY,
-      start: this.start,
-      end: this.end
-    });
+    // Current on-screen position of the content before becoming fixed
+    const rect = this.content.getBoundingClientRect();
+    this.pinCompensation = rect.top; // distance from viewport top
 
     Debug.write("StickyBaseSection", "PIN ACTIVE");
 
@@ -84,6 +78,9 @@ export default class StickyBaseSection extends BaseSection {
     this.content.style.top = "0";
     this.content.style.left = "0";
     this.content.style.width = "100%";
+
+    // Compensation transform
+    this.content.style.transform = `translateY(${this.pinCompensation}px)`;
 
     this.onPin?.();
   }
@@ -104,38 +101,48 @@ export default class StickyBaseSection extends BaseSection {
     this.onUnpin?.();
   }
 
-  update(scrollY) {
+  /* -------------------------------------------------------------
+   * UPDATE (called every RAF)
+   * ------------------------------------------------------------- */
+  update() {
     if (!this.enabled) return;
 
     const rawY = ScrollEngine.rawY;
-    const velocity = ScrollEngine.velocity;
-    const predictedY = ScrollEngine.predictedY;
+    const smoothedY = ScrollEngine.smoothedY;
 
-    const anticipateOffset = 20 * this.anticipate;
+    /* ---------------------------------------------------------
+     * BASIC PIN / UNPIN (no anticipate, no dynamic buffering)
+     * --------------------------------------------------------- */
 
-    if (!this.pinned && predictedY >= this.start - anticipateOffset) {
+    // PIN when raw scroll passes start
+    if (!this.pinned && rawY >= this.start) {
       this.pin();
     }
 
-    // const dynamicReleaseBuffer =
-    //   this.baseReleaseBuffer + Math.abs(velocity) * this.releaseMultiplier;
-
-    // if (this.pinned && rawY < this.start - dynamicReleaseBuffer) {
-    //   this.unpin();
-    //   return;
-    // }
-
+    // UNPIN when raw scroll passes end
     if (this.pinned && rawY >= this.end) {
       this.unpin();
       return;
     }
 
-    if (rawY < this.start && this.pinned) {
+    // UNPIN when scrolling back above start
+    if (this.pinned && rawY < this.start) {
       this.unpin();
       return;
     }
 
+    /* ---------------------------------------------------------
+     * IF PINNED → animate translate using smoothed scroll
+     * --------------------------------------------------------- */
     if (this.pinned) {
+      // On first frame after pin, let compensation hold position
+      if (this.pinCompensation !== 0) {
+        requestAnimationFrame(() => {
+          this.pinCompensation = 0;
+        });
+        return;
+      }
+
       const t = clamp01((ScrollEngine.smoothedY - this.start) / this.length);
       const translateY = -t * this.height;
 
