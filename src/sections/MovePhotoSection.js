@@ -20,19 +20,19 @@ export default class MovePhotoSection extends StickyBaseSection {
     /* -------------------------------------------------------------
      * DOM CACHING
      * ------------------------------------------------------------- */
-    this.projectTextHeading       = this.el.querySelector(".project-text-heading");
-    this.sectionBoothDesignBody   = this.el.querySelector(".body-text.home-scroll");
-    this.sectionBoothEyebrow      = this.el.querySelector(".section-header-text");
-    this.sectionBoothNumbers      = this.el.querySelectorAll(".home-scroll-item-number");
+    this.projectTextHeading = this.el.querySelector(".project-text-heading");
+    this.sectionBoothDesignBody = this.el.querySelector(".body-text.home-scroll");
+    this.sectionBoothEyebrow = this.el.querySelector(".section-header-text");
+    this.sectionBoothNumbers = this.el.querySelectorAll(".home-scroll-item-number");
 
     // These come from the *previous* section
-    this.homeScrollVisual         = document.querySelector(".home-scroll-visual");
-    this.lastImage                = document.querySelector(".home-scroll-img.is-r-pad.wider");
-    this.behindImageWrapper       = document.querySelector(".home-scroll-img-behind-wrapper");
+    this.homeScrollVisual = document.querySelector(".home-scroll-visual");
+    this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
+    this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
 
     // These come from the *next* section
-    this.imageRevealSection       = document.querySelector(".double-wide-reveal-img");
-    this.leftSideImageHide        = document.querySelector("#left-side-hide");
+    this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
+    this.leftSideImageHide = document.querySelector("#left-side-hide");
 
     // // // This section moves FAST during reverse scroll; we give it a larger buffer.
     // this.baseReleaseBuffer = 30;        // default from base is 20
@@ -48,7 +48,7 @@ export default class MovePhotoSection extends StickyBaseSection {
     super.measure();
 
     // custom timing offset into the pin start (old 138vh logic simplified)
-    this.pinOffset = -window.innerHeight * 2;
+    this.pinOffset = 0;
 
     // shift pin start to match your original flow
     this.start += this.pinOffset;
