@@ -4,8 +4,8 @@ import HomeScrollSection from "../sections/HomeScrollSection.js";
 import MovePhotoSection from "../sections/MovePhotoSection.js";
 
 window.addEventListener("DOMContentLoaded", () => {
-  // the lower the ease value, the more easing there is
-  const smooth = new SmoothScroll({ ease: 0.09 });
+  // the lower the ease value, the more smoothing inertia there is
+  const smooth = new SmoothScroll({ ease: 0.07 });
   
   const engine = new ScrollEngine({ smooth });
   window.engine = engine;          // <-- expose the engine instance

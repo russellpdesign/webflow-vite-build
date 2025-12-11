@@ -67,7 +67,6 @@ export default class MovePhotoSection extends StickyBaseSection {
 
   onUnpin() {
     Debug.write("MovePhoto", "PIN RELEASED");
-    Debug.clear("MovePhoto");
 
     // Reset transforms so next section behaves correctly
     this.homeScrollVisual.style.transform = "";

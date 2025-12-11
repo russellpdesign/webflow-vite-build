@@ -36,8 +36,8 @@ class DebugController {
     el.style.bottom = "20px";
     el.style.right = "20px";
     el.style.padding = "12px 14px";
-    el.style.background = "rgba(0,0,0,0.65)";
-    el.style.color = "#0f0";
+    el.style.background = "rgba(72, 157, 255, 1)";
+    el.style.color = "rgba(0, 0, 0, 1)";
     el.style.fontSize = "13px";
     el.style.fontFamily = "monospace";
     el.style.borderRadius = "6px";
