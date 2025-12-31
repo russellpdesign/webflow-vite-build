@@ -5,7 +5,7 @@ import MovePhotoSection from "../sections/MovePhotoSection.js";
 
 window.addEventListener("DOMContentLoaded", () => {
   // the lower the ease value, the more smoothing inertia there is
-  const smooth = new SmoothScroll({ ease: 0.07 });
+  const smooth = new SmoothScroll({ ease: 0.07 }); // overriding default of .08 as defined in class constructor method
   
   const engine = new ScrollEngine({ smooth });
   window.engine = engine;          // <-- expose the engine instance
