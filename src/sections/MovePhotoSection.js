@@ -52,7 +52,7 @@ export default class MovePhotoSection extends BaseSection {
     }
 
     if ( scrollY > this.start ) {
-
+      console.log("I should move the photo now");
     }
   }
 }
