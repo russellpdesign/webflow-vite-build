@@ -38,7 +38,7 @@ export default class MovePhotoSection extends BaseSection {
     this.triggersHeight = this.triggers[0].getBoundingClientRect().height * this.triggers.length;
     this.sectionLength = this.triggersHeight;
     this.lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
-    this.start = lastSectionsEnd + this.sectionLength;
+    this.start = this.lastSectionsEnd + this.sectionLength;
     this.percentageTraveled = this.scrollY - this.start;
   }
 
