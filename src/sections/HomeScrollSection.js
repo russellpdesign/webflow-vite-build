@@ -6,7 +6,9 @@ import { Debug } from "../engine/Debug";
 export default class HomeScrollSection extends BaseSection {
   constructor({ el }) {
     super({ el });
-
+    /* -------------------------------------------------------------
+     * DOM ELEMENTS
+     * ------------------------------------------------------------- */
     this.triggers = document.querySelectorAll(".overview_trigger");
 
     this.sectionHeader = document.querySelector(".section-header-text");
@@ -43,6 +45,8 @@ export default class HomeScrollSection extends BaseSection {
 
   update(scrollY) {
     if(!this.enabled) return;
+
+    console.log(`Inside HomeScrollSection our scrollY is: ${scrollY}`);
 
     // compute progress for scrollbar
     const t = clamp01((scrollY - this.start) / (this.end - this.start));

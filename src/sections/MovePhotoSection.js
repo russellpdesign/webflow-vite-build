@@ -47,6 +47,8 @@ export default class MovePhotoSection extends BaseSection {
   update(scrollY) {
     if(!this.enabled) return;
 
+    console.log(`Inside MovePhotoSection our scrollY is: ${scrollY}`);
+
      if ( scrollY < this.start ) {
       this.imageRevealSection.style.zIndex = "-1";
     }
