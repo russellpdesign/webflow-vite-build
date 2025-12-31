@@ -46,7 +46,7 @@ export default class HomeScrollSection extends BaseSection {
   update(scrollY) {
     if(!this.enabled) return;
 
-    console.log(`Inside HomeScrollSection our scrollY is: ${scrollY}`);
+    // console.log(`Inside HomeScrollSection our scrollY is: ${scrollY}`);
 
     // compute progress for scrollbar
     const t = clamp01((scrollY - this.start) / (this.end - this.start));
