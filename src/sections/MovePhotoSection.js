@@ -49,7 +49,7 @@ export default class MovePhotoSection extends BaseSection {
 
      if ( scrollY < this.start ) {
       this.imageRevealSection.style.zIndex = "-1";
-      ebug.write("MovePhotoSection", "I should not move the photo yet");
+      Debug.write("MovePhotoSection", "I should not move the photo yet");
     }
 
     if ( scrollY > this.start ) {
