@@ -25,8 +25,6 @@ export default class MovePhotoSection extends BaseSection {
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
 
-    debug.enable();
-
     this.enabled = true;
 
     window.addEventListener("resize", () => this.measure());
@@ -54,7 +52,7 @@ export default class MovePhotoSection extends BaseSection {
     }
 
     if ( scrollY > this.start ) {
-      console.log("I should move the photo now");
+      Debug.write("MovePhotoSection", "I should move the photo now");
     }
   }
 }
