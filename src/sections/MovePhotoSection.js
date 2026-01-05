@@ -8,6 +8,8 @@ export default class MovePhotoSection extends BaseSection {
     /* -------------------------------------------------------------
      * DOM ELEMENTS
      * ------------------------------------------------------------- */
+    // el = document.querySelector(".home-scroll-visual")
+
     this.homeScrollSection = document.querySelector(".home-scroll-section.is-don");
     this.triggers = document.querySelectorAll(".overview_trigger");
 
@@ -16,8 +18,10 @@ export default class MovePhotoSection extends BaseSection {
     this.sectionBoothDesignEyebrowText = this.el.querySelector(".section-header-text");
     this.sectionBoothNumberText = this.el.querySelectorAll(".home-scroll-item-number");
 
+    this.sticky100vh =  document.querySelector(".sticky-section-100vh");
+    this.stickySection = document.querySelector(".sticky-section.heroic-members-wrapper.reversed");
+
     // Elements from previous sections
-    this.homeScrollVisual = document.querySelector(".home-scroll-visual");
     this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
     this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
 
@@ -31,15 +35,25 @@ export default class MovePhotoSection extends BaseSection {
   }
 
   /* -------------------------------------------------------------
-   * MEASURE — add pinOffset ONLY here
-   * ------------------------------------------------------------- */
+   * MEASURE
+   * ------------------------------------------------------------- 
+   * */
   measure() {
     // super.measure();
     this.triggersHeight = this.triggers[0].getBoundingClientRect().height * this.triggers.length;
     this.sectionLength = this.triggersHeight;
     this.lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
     this.start = this.lastSectionsEnd + this.sectionLength;
-    this.percentageTraveled = this.scrollY - this.start;
+    this.sticky100Height = this.sticky100vh.getBoundingClientRect().height;
+    this.stickySectionHeight = this.stickySection.getBoundingClientRect().height;
+    this.end = this.start + (this.sticky100Height * 1.38);
+    this.percentageTraveled = window.scrollY - this.start;
+    this.wholeAmount = this.sticky100Height * 1.38;
+     this.xPercent = (this.percentageTraveled / this.wholeAmount) * 100;
+
+
+    this.sticky100Height = this.sticky100vh.getBoundingClientRect().height;
+    this.stickySectionHeight = this.stickySection.getBoundingClientRect().height;
   }
 
   update(scrollY) {
@@ -51,7 +65,7 @@ export default class MovePhotoSection extends BaseSection {
     }
 
     if ( scrollY > this.start ) {
-      Debug.write("MovePhotoSection", "I should move the photo now");
+      Debug.write("MovePhotoSection", `I should move the photo ${this.percentageTraveled}%`);
     }
   }
 }
