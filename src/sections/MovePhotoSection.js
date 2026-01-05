@@ -60,8 +60,12 @@ export default class MovePhotoSection extends BaseSection {
     }
 
     if ( scrollY > this.start ) {
-      const percentageTraveled = window.scrollY - this.start;
-      const xPercent = (percentageTraveled / this.wholeAmount) * 100;
+          // compute progress for scrollbar
+      const t = clamp01((scrollY - this.start) / (this.wholeAmount));
+      const xPercent = mapRange(t, 0, 1, 0, 100);
+
+      const percentageTraveled = scrollY - this.start;
+      // const xPercent = (percentageTraveled / this.wholeAmount) * 100;
       const imageTransformPercent = 100 - xPercent;
       const opacityPercent = 100 - ((percentageTraveled / this.wholeAmount) * 100);
 
