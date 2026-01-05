@@ -40,21 +40,15 @@ export default class MovePhotoSection extends BaseSection {
    * */
   measure() {
     // super.measure();
-    const triggersHeight = this.triggers[0]?.getBoundingClientRect().height * this.triggers.length;
-    const sectionLength = triggersHeight;
-    const sticky100Height = this.sticky100vh.getBoundingClientRect().height;
-    const lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
-    const stickySectionHeight = this.stickySection.getBoundingClientRect().height;
-    const wholeAmount = sticky100Height * 1.38;
+    this.triggersHeight = this.triggers[0]?.getBoundingClientRect().height * this.triggers.length;
+    this.sectionLength = this.triggersHeight;
+    this.sticky100Height = this.sticky100vh.getBoundingClientRect().height;
+    this.lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
+    this.stickySectionHeight = this.stickySection.getBoundingClientRect().height;
+    this.wholeAmount = this.sticky100Height * 1.38;
 
     this.start = lastSectionsEnd + sectionLength;
     this.end = this.start + wholeAmount;
-
-
-    const percentageTraveled = window.scrollY - this.start;
-    const xPercent = (percentageTraveled / wholeAmount) * 100;
-    const imageTransformPercent = 100 - xPercent;
-    const opacityPercent = 100 - ((percentageTraveled / wholeAmount) * 100);
   }
 
   update(scrollY) {
@@ -66,6 +60,11 @@ export default class MovePhotoSection extends BaseSection {
     }
 
     if ( scrollY > this.start ) {
+      const percentageTraveled = window.scrollY - this.start;
+      const xPercent = (percentageTraveled / this.wholeAmount) * 100;
+      const imageTransformPercent = 100 - xPercent;
+      const opacityPercent = 100 - ((percentageTraveled / this.wholeAmount) * 100);
+
       Debug.write("MovePhotoSection", `I should move the right photo ${xPercent}%`);
       // translates the image container from right side to left
       this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
