@@ -45,17 +45,16 @@ export default class MovePhotoSection extends BaseSection {
     const sticky100Height = this.sticky100vh.getBoundingClientRect().height;
     const lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
     const stickySectionHeight = this.stickySection.getBoundingClientRect().height;
-
     const wholeAmount = sticky100Height * 1.38;
 
     this.start = lastSectionsEnd + sectionLength;
-
-    const percentageTraveled = window.scrollY - this.start;
-
     this.end = this.start + wholeAmount;
 
+
+    const percentageTraveled = window.scrollY - this.start;
     const xPercent = (percentageTraveled / wholeAmount) * 100;
     const imageTransformPercent = 100 - xPercent;
+    const opacityPercent = 100 - ((percentageTraveled / wholeAmount) * 100);
   }
 
   update(scrollY) {
@@ -71,6 +70,8 @@ export default class MovePhotoSection extends BaseSection {
       // translates the image container from right side to left
       this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
       this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
+      // transforms the opacity from 100% to o% so image behind can show through
+      this.lastImage.style.opacity = `${opacityPercent}%`;
     }
   }
 }
