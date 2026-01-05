@@ -53,14 +53,8 @@ export default class MovePhotoSection extends BaseSection {
     this.imageTransformPercent = 100 - this.xPercent;
 
     // translates the image container from right side to left
-    this.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
-    this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
-
-
-
-
-    this.sticky100Height = this.sticky100vh.getBoundingClientRect().height;
-    this.stickySectionHeight = this.stickySection.getBoundingClientRect().height;
+    this.style.transform = `translate3d(-${this.xPercent}%, 0, 0)`;
+    this.behindImageWrapper.style.transform = `translate3d(-${this.imageTransformPercent}%, 0, 0)`;
   }
 
   update(scrollY) {
