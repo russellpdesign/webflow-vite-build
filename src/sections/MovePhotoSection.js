@@ -47,8 +47,8 @@ export default class MovePhotoSection extends BaseSection {
     this.stickySectionHeight = this.stickySection.getBoundingClientRect().height;
     this.wholeAmount = this.sticky100Height * 1.38;
 
-    this.start = lastSectionsEnd + sectionLength;
-    this.end = this.start + wholeAmount;
+    this.start = this.lastSectionsEnd + this.sectionLength;
+    this.end = this.start + this.wholeAmount;
   }
 
   update(scrollY) {
