@@ -59,7 +59,7 @@ export default class MovePhotoSection extends BaseSection {
       Debug.write("MovePhotoSection", "I should not move the photo yet");
     }
 
-    if ( scrollY > this.start ) {
+    if ( scrollY >= this.start ) {
           // compute progress for scrollbar
       const t = clamp01((scrollY - this.start) / (this.wholeAmount));
       const xPercent = mapRange(t, 0, 1, 0, 100);
