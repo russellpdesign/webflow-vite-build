@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
 //  const section = new HomeScrollSection({ el: ".home-scroll-section.is-don" });
 
   engine.register(new HomeScrollSection({ el: ".home-scroll-section.is-don" }));
-  // engine.register(new MovePhotoSection({ el: ".home-scroll-visual" }));
+  engine.register(new MovePhotoSection({ el: ".home-scroll-visual" }));
 
   engine.start();
 });

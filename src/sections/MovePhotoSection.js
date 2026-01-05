@@ -40,21 +40,22 @@ export default class MovePhotoSection extends BaseSection {
    * */
   measure() {
     // super.measure();
-    this.triggersHeight = this.triggers[0].getBoundingClientRect().height * this.triggers.length;
-    this.sectionLength = this.triggersHeight;
-    this.lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
-    this.start = this.lastSectionsEnd + this.sectionLength;
-    this.sticky100Height = this.sticky100vh.getBoundingClientRect().height;
-    this.stickySectionHeight = this.stickySection.getBoundingClientRect().height;
-    this.end = this.start + (this.sticky100Height * 1.38);
-    this.percentageTraveled = window.scrollY - this.start;
-    this.wholeAmount = this.sticky100Height * 1.38;
-    this.xPercent = (this.percentageTraveled / this.wholeAmount) * 100;
-    this.imageTransformPercent = 100 - this.xPercent;
+    const triggersHeight = this.triggers[0]?.getBoundingClientRect().height * this.triggers.length;
+    const sectionLength = triggersHeight;
+    const sticky100Height = this.sticky100vh.getBoundingClientRect().height;
+    const lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
+    const stickySectionHeight = this.stickySection.getBoundingClientRect().height;
 
-    // translates the image container from right side to left
-    this.style.transform = `translate3d(-${this.xPercent}%, 0, 0)`;
-    this.behindImageWrapper.style.transform = `translate3d(-${this.imageTransformPercent}%, 0, 0)`;
+    const wholeAmount = sticky100Height * 1.38;
+
+    this.start = lastSectionsEnd + sectionLength;
+
+    const percentageTraveled = window.scrollY - this.start;
+
+    this.end = this.start + wholeAmount;
+
+    const xPercent = (percentageTraveled / wholeAmount) * 100;
+    const imageTransformPercent = 100 - xPercent;
   }
 
   update(scrollY) {
@@ -66,7 +67,10 @@ export default class MovePhotoSection extends BaseSection {
     }
 
     if ( scrollY > this.start ) {
-      Debug.write("MovePhotoSection", `I should move the photo ${this.percentageTraveled}%`);
+      Debug.write("MovePhotoSection", `I should move the photo ${percentageTraveled}%`);
+      // translates the image container from right side to left
+      this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
+      this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
     }
   }
 }
