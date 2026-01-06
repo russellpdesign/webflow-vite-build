@@ -25,6 +25,10 @@ export default class MovePhotoSection extends BaseSection {
     this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
     this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
 
+    // Elements from section after image translates left to right
+    this.projectTextSection = document.querySelector(".project-text-section.is-sticky.heroic-members");
+
+
     // Elements from upcoming sections
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
@@ -70,6 +74,10 @@ export default class MovePhotoSection extends BaseSection {
       // transforms the opacity from 100% to o% so image behind can show through
       this.lastImage.style.opacity = `${opacityPercent}%`;
       this.imageRevealSection.style.zIndex = "-1";
+
+      // translate vertically text from next section
+      this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
+
       Debug.write("MovePhotoSection", "I should be at its original location");
     }
 
@@ -80,6 +88,9 @@ export default class MovePhotoSection extends BaseSection {
       this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
       // transforms the opacity from 100% to o% so image behind can show through
       this.lastImage.style.opacity = `${opacityPercent}%`;
+
+      // translate vertically text from next section
+      this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
     }
   }
 }
