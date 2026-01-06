@@ -91,10 +91,10 @@ export default class MovePhotoSection extends BaseSection {
       this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
     }
 
-    // if (scrollY >= end) {
-    //   this._activate(1);
-    //   return;
-    // }
+    if (scrollY >= this.end) {
+      this._activate(1);
+      return;
+    }
   }
 
   _activate(i) {
