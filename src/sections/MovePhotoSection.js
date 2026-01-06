@@ -54,21 +54,26 @@ export default class MovePhotoSection extends BaseSection {
   update(scrollY) {
     if(!this.enabled) return;
 
-     if ( scrollY < this.start ) {
-      this.imageRevealSection.style.zIndex = "-1";
-      Debug.write("MovePhotoSection", "I should not move the photo yet");
-    }
-
-    if ( scrollY >= this.start ) {
-          // compute progress for scrollbar
+      // compute progress for image translation
       const t = clamp01((scrollY - this.start) / (this.wholeAmount));
       const xPercent = mapRange(t, 0, 1, 0, 100);
-
       const percentageTraveled = scrollY - this.start;
+
       // const xPercent = (percentageTraveled / this.wholeAmount) * 100;
       const imageTransformPercent = 100 - xPercent;
       const opacityPercent = 100 - ((percentageTraveled / this.wholeAmount) * 100);
 
+     if ( scrollY < this.start ) {
+      // translates the image container from right side to left
+      this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
+      this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
+      // transforms the opacity from 100% to o% so image behind can show through
+      this.lastImage.style.opacity = `${opacityPercent}%`;
+      this.imageRevealSection.style.zIndex = "-1";
+      Debug.write("MovePhotoSection", "I should be at its original location");
+    }
+
+    if ( scrollY >= this.start ) {
       Debug.write("MovePhotoSection", `I should move the right photo ${xPercent}%`);
       // translates the image container from right side to left
       this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
