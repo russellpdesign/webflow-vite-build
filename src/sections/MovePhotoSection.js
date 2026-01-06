@@ -89,6 +89,7 @@ export default class MovePhotoSection extends BaseSection {
 
       // translate vertically text from next section
       this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
+      this._deactivate(0);
     }
 
     if (scrollY >= this.end ) {
@@ -106,7 +107,7 @@ export default class MovePhotoSection extends BaseSection {
 
   _deactivate(i) {
     this.sectionHeaderText[i]?.classList.remove("is-active");
-    this.projectTextHeading[i]?.classList.remove("is-active");
+    // this.projectTextHeading[i]?.classList.remove("is-active");
     this.bodyText[i]?.classList.remove("is-active");
     this.itemNumberText[i]?.classList.remove("is-active");
   }
