@@ -79,7 +79,7 @@ export default class MovePhotoSection extends BaseSection {
       Debug.write("MovePhotoSection", "I should be at its original location");
     }
 
-    if ( scrollY >= this.start && scrollY < this.end) {
+    if ( scrollY >= this.start ) {
       Debug.write("MovePhotoSection", `I should move the right photo ${xPercent}%`);
       // translates the image container from right side to left
       this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
@@ -92,7 +92,7 @@ export default class MovePhotoSection extends BaseSection {
     }
 
     if (scrollY >= this.end ) {
-      this._activate(1);
+      this._activate(0);
       return;
     }
   }
