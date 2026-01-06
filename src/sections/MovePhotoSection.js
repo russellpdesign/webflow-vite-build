@@ -13,11 +13,6 @@ export default class MovePhotoSection extends BaseSection {
     this.homeScrollSection = document.querySelector(".home-scroll-section.is-don");
     this.triggers = document.querySelectorAll(".overview_trigger");
 
-    this.projectTextHeading = this.el.querySelector(".project-text-heading");
-    this.sectionBoothDesignBodyText = this.el.querySelector(".body-text.home-scroll");
-    this.sectionBoothDesignEyebrowText = this.el.querySelector(".section-header-text");
-    this.sectionBoothNumberText = this.el.querySelectorAll(".home-scroll-item-number");
-
     this.sticky100vh =  document.querySelector(".sticky-section-100vh");
     this.stickySection = document.querySelector(".sticky-section.heroic-members-wrapper.reversed");
 
@@ -27,7 +22,10 @@ export default class MovePhotoSection extends BaseSection {
 
     // Elements from section after image translates left to right
     this.projectTextSection = document.querySelector(".project-text-section.is-sticky.heroic-members");
-
+    this.sectionHeaderText = this.projectTextSection.querySelectorAll(".section-header-text");
+    this.projectTextHeading = this.projectTextSection.querySelectorAll(".project-text-heading");
+    this.bodyText = this.projectTextSection.querySelectorAll(".body-text.home-scroll");
+    this.itemNumberText = this.projectTextSection.querySelectorAll(".home-scroll-item-number");
 
     // Elements from upcoming sections
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
@@ -92,6 +90,32 @@ export default class MovePhotoSection extends BaseSection {
       // translate vertically text from next section
       this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
     }
+
+    if (scrollY >= end) {
+      this._activate(1);
+      return;
+    }
+  }
+
+  _activate(i) {
+    this.sectionHeaderText[i]?.classList.add("is-active");
+    this.projectTextHeading[i]?.classList.add("is-active");
+    this.bodyText[i]?.classList.add("is-active");
+    this.itemNumberText[i]?.classList.add("is-active");
+  }
+
+  _deactivate(i) {
+    this.sectionHeaderText[i]?.classList.remove("is-active");
+    this.projectTextHeading[i]?.classList.remove("is-active");
+    this.bodyText[i]?.classList.remove("is-active");
+    this.itemNumberText[i]?.classList.remove("is-active");
+  }
+
+  _deactivateAll() {
+    this.sectionHeaderText.forEach(el => el.classList.remove("is-active"));
+    this.projectTextHeading.forEach(el => el.classList.remove("is-active"));
+    this.bodyText.forEach(el => el.classList.remove("is-active"));
+    this.itemNumberText.forEach(el => el.classList.remove("is-active"));
   }
 }
 
