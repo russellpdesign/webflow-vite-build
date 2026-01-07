@@ -4,7 +4,7 @@ import { clamp01, mapRange } from "@utils";
 
 export default class MovePhotoSection extends BaseSection {
   constructor({ el }) {
-    // super({ el });
+    super({ el });
     /* -------------------------------------------------------------
      * DOM ELEMENTS
      * ------------------------------------------------------------- */
