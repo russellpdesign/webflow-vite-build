@@ -11,7 +11,6 @@ export default class HomeScrollSection extends BaseSection {
      * ------------------------------------------------------------- */
     
     /* el = document.querySelector(".home-scroll-section.is-don"); */
-
     this.triggers = document.querySelectorAll(".overview_trigger");
 
     this.sectionHeader = document.querySelector(".section-header-text");

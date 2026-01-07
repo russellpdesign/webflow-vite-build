@@ -10,6 +10,7 @@ export default class MovePhotoSection extends BaseSection {
      * ------------------------------------------------------------- */
     // el = document.querySelector(".home-scroll-visual")
 
+    // Elements in our desired section
     this.homeScrollSection = document.querySelector(".home-scroll-section.is-don");
     this.triggers = document.querySelectorAll(".overview_trigger");
 
@@ -20,19 +21,20 @@ export default class MovePhotoSection extends BaseSection {
     this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
     this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
 
-    // Elements from section after image translates left to right
+    // Elements from section after image translates left to right (text animations)
     this.projectTextSection = document.querySelector(".project-text-section.is-sticky.heroic-members");
     this.sectionHeaderText = this.projectTextSection.querySelectorAll(".section-header-text");
     this.projectTextHeading = this.projectTextSection.querySelectorAll(".project-text-heading");
     this.bodyText = this.projectTextSection.querySelectorAll(".body-text.home-scroll");
     this.itemNumberText = this.projectTextSection.querySelectorAll(".home-scroll-item-number");
 
-    // Elements from upcoming sections
+    // Elements from upcoming sections (for controlling z-indexing)
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
 
     this.enabled = true;
 
+    // put here to trigger new measuring since our animation is dependent on accurate real-time measurements
     window.addEventListener("resize", () => this.measure());
   }
 
