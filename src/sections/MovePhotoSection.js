@@ -43,7 +43,7 @@ export default class MovePhotoSection extends BaseSection {
    * ------------------------------------------------------------- 
    * */
   measure() {
-    // super.measure();
+    super.measure();
     this.triggersHeight = this.triggers[0]?.getBoundingClientRect().height * this.triggers.length;
     this.sectionLength = this.triggersHeight;
     this.sticky100Height = this.sticky100vh.getBoundingClientRect().height;
