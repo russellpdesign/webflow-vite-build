@@ -41,7 +41,6 @@ export default class PhotoOverlapSection extends BaseSection {
     if(!this.enabled) return;
 
     console.log(`this is the start of the photoOverlap section: ${this.start}`);
-    console.log(el.getBoundingClientRect().top);
     console.log(this.realTriggers);
     // console.table(`${this, el, this.el}`);
 
