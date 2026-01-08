@@ -53,7 +53,6 @@ export default class PhotoOverlapSection extends BaseSection {
         const t = clamp01((scrollY - this.start) / (window.innerHeight));
         const yPercent = mapRange(t, 0, 1, 0, 100);
         this.initialImages[0].style.transform = `translate3d(0, -${yPercent}%, 0)`;
-        return;
     }
 
     if (scrollY >= this.start && scrollY < this.secondPhotoTrigger) {
