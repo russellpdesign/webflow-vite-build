@@ -38,6 +38,7 @@ export default class PhotoOverlapSection extends BaseSection {
     if(!this.enabled) return;
 
     console.table(`${this.triggers}`);
+    console.table(`${this, el, this.el}`);
 
       // compute progress for image translation
       const t = clamp01((scrollY - (this.start * photoCount)) / (window.innerHeight));
