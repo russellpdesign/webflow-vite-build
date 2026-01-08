@@ -39,72 +39,66 @@ export default class PhotoOverlapSection extends BaseSection {
 
     console.table(`${this.triggers}`);
 
-    let photoCount = 1;
-
-    if (scrollY > this.start && scrollY < this.secondStart) {
-        this.photoCount = 2;
-    }
-
       // compute progress for image translation
       const t = clamp01((scrollY - (this.start * photoCount)) / (window.innerHeight));
       const yPercent = mapRange(t, 0, 1, 0, 100);
       const percentageTraveled = scrollY - this.start;
 
-      // const xPercent = (percentageTraveled / this.wholeAmount) * 100;
-      const imageTransformPercent = 100 - xPercent;
-      const opacityPercent = 100 - ((percentageTraveled / this.wholeAmount) * 100);
+    //   // const xPercent = (percentageTraveled / this.wholeAmount) * 100;
+    //   const imageTransformPercent = 100 - xPercent;
+    //   const opacityPercent = 100 - ((percentageTraveled / this.wholeAmount) * 100);
 
-     if ( scrollY < this.start ) {
-      // translates the image container from right side to left
-      this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
-      this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
-      // transforms the opacity from 100% to o% so image behind can show through
-      this.lastImage.style.opacity = `${opacityPercent}%`;
-      this.imageRevealSection.style.zIndex = "-1";
+//      if ( scrollY < this.start ) {
+//       // translates the image container from right side to left
+//       this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
+//       this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
+//       // transforms the opacity from 100% to o% so image behind can show through
+//       this.lastImage.style.opacity = `${opacityPercent}%`;
+//       this.imageRevealSection.style.zIndex = "-1";
 
-      // translate vertically text from next section
-      this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
+//       // translate vertically text from next section
+//       this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
 
-      Debug.write("MovePhotoSection", "I should be at its original location");
-    }
+//       Debug.write("MovePhotoSection", "I should be at its original location");
+//     }
 
-    if ( scrollY >= this.start ) {
-      Debug.write("MovePhotoSection", `I should move the right photo ${xPercent}%`);
-      // translates the image container from right side to left
-      this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
-      this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
-      // transforms the opacity from 100% to o% so image behind can show through
-      this.lastImage.style.opacity = `${opacityPercent}%`;
+//     if ( scrollY >= this.start ) {
+//       Debug.write("MovePhotoSection", `I should move the right photo ${xPercent}%`);
+//       // translates the image container from right side to left
+//       this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
+//       this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
+//       // transforms the opacity from 100% to o% so image behind can show through
+//       this.lastImage.style.opacity = `${opacityPercent}%`;
 
-      // translate vertically text from next section
-      this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
-      this._deactivate(0);
-    }
+//       // translate vertically text from next section
+//       this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
+//       this._deactivate(0);
+//     }
 
-    if (scrollY >= this.end ) {
-      this._activate(0);
-      return;
-    }
-  }
+//     if (scrollY >= this.end ) {
+//       this._activate(0);
+//       return;
+//     }
+//   }
 
-  _activate(i) {
-    this.sectionHeaderText[i]?.classList.add("is-active");
-    this.projectTextHeading[i]?.classList.add("is-active");
-    this.bodyText[i]?.classList.add("is-active");
-    this.itemNumberText[i]?.classList.add("is-active");
-  }
+//   _activate(i) {
+//     this.sectionHeaderText[i]?.classList.add("is-active");
+//     this.projectTextHeading[i]?.classList.add("is-active");
+//     this.bodyText[i]?.classList.add("is-active");
+//     this.itemNumberText[i]?.classList.add("is-active");
+//   }
 
-  _deactivate(i) {
-    this.sectionHeaderText[i]?.classList.remove("is-active");
-    // this.projectTextHeading[i]?.classList.remove("is-active");
-    this.bodyText[i]?.classList.remove("is-active");
-    this.itemNumberText[i]?.classList.remove("is-active");
-  }
+//   _deactivate(i) {
+//     this.sectionHeaderText[i]?.classList.remove("is-active");
+//     // this.projectTextHeading[i]?.classList.remove("is-active");
+//     this.bodyText[i]?.classList.remove("is-active");
+//     this.itemNumberText[i]?.classList.remove("is-active");
+//   }
 
-  _deactivateAll() {
-    this.sectionHeaderText.forEach(el => el.classList.remove("is-active"));
-    this.projectTextHeading.forEach(el => el.classList.remove("is-active"));
-    this.bodyText.forEach(el => el.classList.remove("is-active"));
-    this.itemNumberText.forEach(el => el.classList.remove("is-active"));
-  }
+//   _deactivateAll() {
+//     this.sectionHeaderText.forEach(el => el.classList.remove("is-active"));
+//     this.projectTextHeading.forEach(el => el.classList.remove("is-active"));
+//     this.bodyText.forEach(el => el.classList.remove("is-active"));
+//     this.itemNumberText.forEach(el => el.classList.remove("is-active"));
+//   }
 }
