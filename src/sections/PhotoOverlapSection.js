@@ -53,7 +53,7 @@ export default class PhotoOverlapSection extends BaseSection {
         Debug.write("PhotoOverlapSection", "Do nada");
     }
 
-    if (scrollY >= this.start ) {
+    if (scrollY > this.start ) {
         // compute progress for image translation
         const t = clamp01((scrollY - this.start) / (window.innerHeight));
         const yPercent = mapRange(t, 0, 1, 0, 100);
@@ -62,7 +62,7 @@ export default class PhotoOverlapSection extends BaseSection {
         Debug.write("PhotoOverlapSection", `Slide first photo up ${yPercent}`);
     }
 
-    if (scrollY >= this.secondPhotoTrigger ) {
+    if (scrollY > this.secondPhotoTrigger ) {
         // compute progress for image translation
         const t = clamp01((scrollY - this.secondPhotoTrigger) / (window.innerHeight));
         const yPercent = mapRange(t, 0, 1, 0, 100);
@@ -71,7 +71,7 @@ export default class PhotoOverlapSection extends BaseSection {
         Debug.write("PhotoOverlapSection", `Slide second photo up ${yPercent}`);
     }
 
-    if (scrollY >= this.thirdPhotoTrigger ) {
+    if (scrollY > this.thirdPhotoTrigger ) {
         // compute progress for image translation
         const t = clamp01((scrollY - this.thirdPhotoTrigger) / (window.innerHeight));
         const yPercent = mapRange(t, 0, 1, 0, 100);
