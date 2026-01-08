@@ -98,25 +98,25 @@ export default class PhotoOverlapSection extends BaseSection {
         const yPercent = mapRange(t, 0, 1, 0, 100);
         this.initialImages[2].style.transform = `translate3d(0, -${yPercent}%, 0)`;
 
-        // // compute progress for next image, for when scrolling back up page and alignment
-        // const tAfter = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
-        // const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
-        // this.initialImages[3].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
+        // compute progress for next image, for when scrolling back up page and alignment
+        const tAfter = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
+        const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
+        this.initialImages[3].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
 
 
         Debug.write("PhotoOverlapSection", `Slide third photo up ${yPercent}`);
     }
 
     if (scrollY >= this.fourthPhotoTrigger) {
-        // compute progress for image in previous section
-        const tBefore = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
-        const yPercentBefore = mapRange(tBefore, 0, 1, 0, 100);
-        this.initialImages[2].style.transform = `translate3d(0, -${yPercentBefore}%, 0)`;
+        // // compute progress for image in previous section
+        // const tBefore = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
+        // const yPercentBefore = mapRange(tBefore, 0, 1, 0, 100);
+        // this.initialImages[2].style.transform = `translate3d(0, -${yPercentBefore}%, 0)`;
 
-    //     // compute progress for image translation
-    //     const t = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
-    //     const yPercent = mapRange(t, 0, 1, 0, 100);
-    //     this.initialImages[3].style.transform = `translate3d(0, -${yPercent}%, 0)`;
+        // compute progress for image translation
+        const t = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
+        const yPercent = mapRange(t, 0, 1, 0, 100);
+        this.initialImages[3].style.transform = `translate3d(0, -${yPercent}%, 0)`;
 
     //     const tAfter = clamp01((scrollY - this.end) / (window.innerHeight));
     //     const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
