@@ -10,10 +10,10 @@ export default class PhotoOverlapSection extends BaseSection {
      * ------------------------------------------------------------- */
     // el = document.querySelector(".photo-overlap-section");
 
-    this.stickyScrollerContainer = this.el.querySelector(".sticky-scroller-container");
-    this.sectionTrigger = this.el.querySelector(".photo-overlap-section-trigger");
-    this.initialImages = this.el.querySelectorAll(".sticky-img-container");
-    this.itemNumberText = this.el.querySelectorAll(".home-scroll-item-number");
+    this.stickyScrollerContainer = document.querySelector(".sticky-scroller-container");
+    this.sectionTrigger = document.querySelector(".photo-overlap-section-trigger");
+    this.initialImages = document.querySelectorAll(".sticky-img-container");
+    this.itemNumberText = document.querySelectorAll(".home-scroll-item-number");
 
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
