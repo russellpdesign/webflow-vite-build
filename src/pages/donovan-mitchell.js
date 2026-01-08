@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   engine.register(new HomeScrollSection({ el: ".home-scroll-section.is-don" }));
   engine.register(new MovePhotoSection({ el: ".home-scroll-visual" }));
-  ngine.register(new PhotoOverlapSection({ el: ".photo-overlap-section" }));
+  engine.register(new PhotoOverlapSection({ el: ".photo-overlap-section" }));
 
   engine.start();
 });
