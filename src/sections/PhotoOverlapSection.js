@@ -17,6 +17,7 @@ export default class PhotoOverlapSection extends BaseSection {
     this.initialImages = this.sectionTrigger.querySelectorAll(".sticky-img-container");
     this.initialImages.forEach(image => {
         image.style.willChange = "transform";
+        image.style.transformStyle = "preserve-3d"
     })
 
     this.itemNumberText = document.querySelectorAll(".home-scroll-item-number");
@@ -28,7 +29,6 @@ export default class PhotoOverlapSection extends BaseSection {
     this.enabled = true;
 
     window.addEventListener("resize", () => this.measure());
-    console.log(`the initial images array is ${this.initialImages}`)
   }
 
   /* -------------------------------------------------------------
