@@ -37,7 +37,7 @@ export default class PhotoOverlapSection extends BaseSection {
   update(scrollY) {
     if(!this.enabled) return;
 
-    console.table(`${this.triggers}`);
+    console.table(`${scrollY, this.start, this.triggers}`);
     // console.table(`${this, el, this.el}`);
 
       // compute progress for image translation
