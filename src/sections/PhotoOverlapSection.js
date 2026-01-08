@@ -43,7 +43,7 @@ export default class PhotoOverlapSection extends BaseSection {
   update(scrollY) {
     if(!this.enabled) return;
 
-    console.table("PhotoOverlapSection", `Our trigger points for each image are: ${this.triggers}`);
+    console.table(`${this.triggers}`);
 
     let photoCount = 1;
 
