@@ -107,11 +107,11 @@ export default class PhotoOverlapSection extends BaseSection {
         Debug.write("PhotoOverlapSection", `Slide third photo up ${yPercent}`);
     }
 
-    // if (scrollY >= this.fourthPhotoTrigger  && scrollY < this.end) {
-    //     // compute progress for image in previous section
-    //     const tBefore = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
-    //     const yPercentBefore = mapRange(tBefore, 0, 1, 0, 100);
-    //     this.initialImages[2].style.transform = `translate3d(0, -${yPercentBefore}%, 0)`;
+    if (scrollY >= this.fourthPhotoTrigger) {
+        // compute progress for image in previous section
+        const tBefore = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
+        const yPercentBefore = mapRange(tBefore, 0, 1, 0, 100);
+        this.initialImages[2].style.transform = `translate3d(0, -${yPercentBefore}%, 0)`;
 
     //     // compute progress for image translation
     //     const t = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
@@ -123,7 +123,7 @@ export default class PhotoOverlapSection extends BaseSection {
     //     this.initialImages[4].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
 
     //     Debug.write("PhotoOverlapSection", `Slide fourth photo up ${yPercent}`);
-    // }
+    }
     // console.table(`${this, el, this.el}`);
 
       // compute progress for image translation
