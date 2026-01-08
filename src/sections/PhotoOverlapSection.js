@@ -41,9 +41,9 @@ export default class PhotoOverlapSection extends BaseSection {
     // console.table(`${this, el, this.el}`);
 
       // compute progress for image translation
-      const t = clamp01((scrollY - (this.start * photoCount)) / (window.innerHeight));
-      const yPercent = mapRange(t, 0, 1, 0, 100);
-      const percentageTraveled = scrollY - this.start;
+    //   const t = clamp01((scrollY - (this.start * photoCount)) / (window.innerHeight));
+    //   const yPercent = mapRange(t, 0, 1, 0, 100);
+    //   const percentageTraveled = scrollY - this.start;
 
     //   // const xPercent = (percentageTraveled / this.wholeAmount) * 100;
     //   const imageTransformPercent = 100 - xPercent;
