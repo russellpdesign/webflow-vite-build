@@ -15,7 +15,7 @@ export default class PhotoOverlapSection extends BaseSection {
     this.sectionTrigger = document.querySelector(".photo-overlap-section-trigger");
 
     this.initialImages = this.sectionTrigger.querySelectorAll(".sticky-img-container");
-    console.log(`the initial images array is ${this.initialImages}`)
+    console.log(this.initialImages)
     // const imagesPreset = this.initialImages.map((value) => { return value.style.willChange = "transform" });
     // applyPresets(...imagesPreset);
 
