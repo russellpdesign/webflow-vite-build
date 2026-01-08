@@ -38,15 +38,16 @@ export default class PhotoOverlapSection extends BaseSection {
     this.secondPhotoTrigger = this.realTriggers[1];
     this.thirdPhotoTrigger = this.realTriggers[2];
     this.fourthPhotoTrigger = this.thirdPhotoTrigger + window.innerHeight;
+    this.end = this.fourthPhotoTrigger + window.innerHeight;
   }
 
   update(scrollY) {
     if(!this.enabled) return;
 
-    let triggerNow = this.realTriggers[0];
+    let animationWholeAmount = this.secondPhotoTrigger;
 
     // compute progress for image translation
-    const t = clamp01((scrollY - this.start) / (triggerNow));
+    const t = clamp01((scrollY - this.start) / (animationWholeAmount));
     const yPercent = mapRange(t, 0, 1, 0, 100);
 
     // console.log(`this is the start of the photoOverlap section: ${this.start} and each image should get triggered at ${this.realTriggers}`);
@@ -60,17 +61,17 @@ export default class PhotoOverlapSection extends BaseSection {
     }
 
     if (scrollY >= this.secondPhotoTrigger ) {
-        triggerNow = this.realTriggers[1];
+        animationWholeAmount = this.thirdPhotoTrigger;
         Debug.write("PhotoOverlapSection", `Slide second photo up ${yPercent}`);
     }
 
     if (scrollY >= this.thirdPhotoTrigger ) {
-        triggerNow = this.realTriggers[2];
+        animationWholeAmount = this.fourthPhotoTrigger;
         Debug.write("PhotoOverlapSection", `Slide second photo up ${yPercent}`);
     }
 
     if (scrollY >= this.fourthPhotoTrigger ) {
-        triggerNow = this.realTriggers[3];
+        animationWholeAmount = this.end;
         Debug.write("PhotoOverlapSection", `Slide second photo up ${yPercent}`);
     }
     // console.table(`${this, el, this.el}`);
