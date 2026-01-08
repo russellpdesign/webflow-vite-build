@@ -28,13 +28,7 @@ export default class PhotoOverlapSection extends BaseSection {
    * ------------------------------------------------------------- 
    * */
   measure() {
-    // super.measure();
-    // this.triggersHeight = this.triggers[0]?.getBoundingClientRect().height * this.triggers.length;
-    // this.sectionLength = this.triggersHeight;
-    // this.sticky100Height = this.sticky100vh.getBoundingClientRect().height;
-    // this.lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
-    // this.stickySectionHeight = this.stickySection.getBoundingClientRect().height;
-    // this.wholeAmount = this.sticky100Height * 1.38;
+    super.measure();
 
     this.start = this.sectionTrigger.getBoundingClientRect().top + window.scrollY + window.innerHeight;
     this.triggers = Array(this.initialImages.length + 1).fill(this.start);
