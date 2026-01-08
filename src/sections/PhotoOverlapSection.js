@@ -9,7 +9,7 @@ export default class PhotoOverlapSection extends BaseSection {
      * DOM ELEMENTS
      * ------------------------------------------------------------- */
     // el = document.querySelector(".photo-overlap-section");
-    console.log(this.el);
+    // console.log(this.el);
 
     this.stickyScrollerContainer = document.querySelector(".sticky-scroller-container");
     this.sectionTrigger = document.querySelector(".photo-overlap-section-trigger");
