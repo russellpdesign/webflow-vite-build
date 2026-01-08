@@ -33,7 +33,6 @@ export default class PhotoOverlapSection extends BaseSection {
     super.measure();
 
     this.start = window.scrollY + this.sectionTrigger.getBoundingClientRect().top + ((window.innerHeight * 1.38) + this.progressBarHeight);
-    //  ((window.innerHeight * .38) + this.progressBarHeight)
     this.triggers = Array(this.initialImages.length).fill(this.start);
     this.realTriggers = this.triggers.map((value, i) => { return value + (window.innerHeight * i) });
   }
@@ -41,7 +40,7 @@ export default class PhotoOverlapSection extends BaseSection {
   update(scrollY) {
     if(!this.enabled) return;
 
-    console.log(`this is the start of the photoOverlap section: ${this.start}`);
+    console.log(`this is the start of the photoOverlap section: ${this.start} and each image should get triggered at ${this.realTriggers}`);
     // console.table(`${this, el, this.el}`);
 
       // compute progress for image translation
