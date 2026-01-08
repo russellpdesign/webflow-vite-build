@@ -43,9 +43,6 @@ export default class PhotoOverlapSection extends BaseSection {
 
   update(scrollY) {
     if(!this.enabled) return;
-        // // compute progress for image translation
-        // const t = clamp01((scrollY - this.start) / (window.innerHeight));
-        // const yPercent = mapRange(t, 0, 1, 0, 100);
 
     // console.log(`this is the start of the photoOverlap section: ${this.start} and each image should get triggered at ${this.realTriggers}`);
 
@@ -58,7 +55,11 @@ export default class PhotoOverlapSection extends BaseSection {
         const t = clamp01((scrollY - this.start) / (window.innerHeight));
         const yPercent = mapRange(t, 0, 1, 0, 100);
 
+        const t2 = clamp01((scrollY - this.secondPhotoTrigger) / (window.innerHeight));
+        const yPercent2 = mapRange(t2, 0, 1, 0, 100);
+
         this.initialImages[0].style.transform = `translate3d(0, -${yPercent}%, 0)`;
+        this.initialImages[1].style.transform = `translate3d(0, -${yPercent2}%, 0)`;
         Debug.write("PhotoOverlapSection", `Slide first photo up ${yPercent}`);
     }
 
@@ -67,7 +68,11 @@ export default class PhotoOverlapSection extends BaseSection {
         const t = clamp01((scrollY - this.secondPhotoTrigger) / (window.innerHeight));
         const yPercent = mapRange(t, 0, 1, 0, 100);
 
+        const t2 = clamp01((scrollY - this.thirdPhotoTrigger) / (window.innerHeight));
+        const yPercent2 = mapRange(t2, 0, 1, 0, 100);
+
         this.initialImages[1].style.transform = `translate3d(0, -${yPercent}%, 0)`;
+        this.initialImages[2].style.transform = `translate3d(0, -${yPercent2}%, 0)`;
         Debug.write("PhotoOverlapSection", `Slide second photo up ${yPercent}`);
     }
 
@@ -76,7 +81,11 @@ export default class PhotoOverlapSection extends BaseSection {
         const t = clamp01((scrollY - this.thirdPhotoTrigger) / (window.innerHeight));
         const yPercent = mapRange(t, 0, 1, 0, 100);
 
+        const t2 = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
+        const yPercent2 = mapRange(t2, 0, 1, 0, 100);
+
         this.initialImages[2].style.transform = `translate3d(0, -${yPercent}%, 0)`;
+        this.initialImages[3].style.transform = `translate3d(0, -${yPercent2}%, 0)`;
         Debug.write("PhotoOverlapSection", `Slide third photo up ${yPercent}`);
     }
 
@@ -85,7 +94,11 @@ export default class PhotoOverlapSection extends BaseSection {
         const t = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
         const yPercent = mapRange(t, 0, 1, 0, 100);
 
+        const t2 = clamp01((scrollY - this.end) / (window.innerHeight));
+        const yPercent2 = mapRange(t2, 0, 1, 0, 100);
+
         this.initialImages[3].style.transform = `translate3d(0, -${yPercent}%, 0)`;
+        this.initialImages[4].style.transform = `translate3d(0, -${yPercent2}%, 0)`;
         Debug.write("PhotoOverlapSection", `Slide fourth photo up ${yPercent}`);
     }
     // console.table(`${this, el, this.el}`);
