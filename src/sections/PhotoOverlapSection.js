@@ -98,10 +98,10 @@ export default class PhotoOverlapSection extends BaseSection {
         const yPercent = mapRange(t, 0, 1, 0, 100);
         this.initialImages[2].style.transform = `translate3d(0, -${yPercent}%, 0)`;
 
-        // compute progress for next image, for when scrolling back up page and alignment
-        const tAfter = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
-        const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
-        this.initialImages[3].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
+        // // compute progress for next image, for when scrolling back up page and alignment
+        // const tAfter = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
+        // const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
+        // this.initialImages[3].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
 
 
         Debug.write("PhotoOverlapSection", `Slide third photo up ${yPercent}`);
