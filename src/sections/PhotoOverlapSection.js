@@ -31,7 +31,7 @@ export default class PhotoOverlapSection extends BaseSection {
   measure() {
     super.measure();
 
-    this.start = window.scrollY + this.el.getBoundingClientRect().top - window.innerHeight;
+    this.start = window.scrollY + el.getBoundingClientRect().top - window.innerHeight;
     //  ((window.innerHeight * .38) + this.progressBarHeight)
     this.triggers = Array(this.initialImages.length).fill(this.start);
     this.realTriggers = this.triggers.map((value, i) => { return value + (window.innerHeight * i) });
@@ -41,7 +41,7 @@ export default class PhotoOverlapSection extends BaseSection {
     if(!this.enabled) return;
 
     console.log(`this is the start of the photoOverlap section: ${this.start}`);
-    console.log(this.el.getBoundingClientRect().top);
+    console.log(el.getBoundingClientRect().top);
     console.log(this.realTriggers);
     // console.table(`${this, el, this.el}`);
 
