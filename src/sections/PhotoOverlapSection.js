@@ -40,7 +40,7 @@ export default class PhotoOverlapSection extends BaseSection {
     if(!this.enabled) return;
 
     console.log(`this is the start of the photoOverlap section: ${this.start}`);
-    console.log(this.realTriggers);
+    console.log(this.triggers);
     // console.table(`${this, el, this.el}`);
 
       // compute progress for image translation
