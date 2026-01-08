@@ -14,6 +14,7 @@ export default class PhotoOverlapSection extends BaseSection {
     this.sectionTrigger = document.querySelector(".photo-overlap-section-trigger");
     this.initialImages = this.sectionTrigger.querySelectorAll(".sticky-img-container");
     this.itemNumberText = document.querySelectorAll(".home-scroll-item-number");
+    this.progressBarHeight = document.querySelector(".progress-container").getBoundingClientRect().height;
 
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
@@ -30,7 +31,7 @@ export default class PhotoOverlapSection extends BaseSection {
   measure() {
     super.measure();
 
-    this.start = this.el.getBoundingClientRect().top + window.scrollY + (window.innerHeight * .38);
+    this.start = this.el.getBoundingClientRect().top + window.scrollY + (window.innerHeight * .38) + this.progressBarHeight;
     this.triggers = Array(this.initialImages.length).fill(this.start);
   }
 
