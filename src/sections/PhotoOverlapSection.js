@@ -9,6 +9,7 @@ export default class PhotoOverlapSection extends BaseSection {
      * DOM ELEMENTS
      * ------------------------------------------------------------- */
     // el = document.querySelector(".photo-overlap-section");
+    console.log(this.el);
 
     this.stickyScrollerContainer = document.querySelector(".sticky-scroller-container");
     this.sectionTrigger = document.querySelector(".photo-overlap-section-trigger");
@@ -41,7 +42,6 @@ export default class PhotoOverlapSection extends BaseSection {
     if(!this.enabled) return;
 
     console.log(`this is the start of the photoOverlap section: ${this.start}`);
-    console.log(this.el);
     // console.table(`${this, el, this.el}`);
 
       // compute progress for image translation
