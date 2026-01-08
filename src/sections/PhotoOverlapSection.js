@@ -12,7 +12,7 @@ export default class PhotoOverlapSection extends BaseSection {
 
     this.stickyScrollerContainer = document.querySelector(".sticky-scroller-container");
     this.sectionTrigger = document.querySelector(".photo-overlap-section-trigger");
-    this.initialImages = document.querySelectorAll(".sticky-img-container");
+    this.initialImages = this.sectionTrigger.querySelectorAll(".sticky-img-container");
     this.itemNumberText = document.querySelectorAll(".home-scroll-item-number");
 
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
@@ -31,7 +31,7 @@ export default class PhotoOverlapSection extends BaseSection {
     super.measure();
 
     this.start = this.sectionTrigger.getBoundingClientRect().top + window.scrollY + window.innerHeight;
-    this.triggers = Array(this.initialImages.length + 1).fill(this.start);
+    this.triggers = Array(this.initialImages.length).fill(this.start);
   }
 
   update(scrollY) {
