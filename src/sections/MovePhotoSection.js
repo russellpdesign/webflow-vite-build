@@ -58,7 +58,7 @@ export default class MovePhotoSection extends BaseSection {
   update(scrollY) {
     if(!this.enabled) return;
 
-    console.log(`This is the end of the movephotosection: ${this.end}`)
+    // console.log(`This is the end of the movephotosection: ${this.end}`)
 
       // compute progress for image translation
       const t = clamp01((scrollY - this.start) / (this.wholeAmount));
@@ -80,11 +80,11 @@ export default class MovePhotoSection extends BaseSection {
       // translate vertically text from next section
       this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
 
-      Debug.write("MovePhotoSection", "I should be at its original location");
+      // Debug.write("MovePhotoSection", "I should be at its original location");
     }
 
     if ( scrollY >= this.start ) {
-      Debug.write("MovePhotoSection", `I should move the right photo ${xPercent}%`);
+      // Debug.write("MovePhotoSection", `I should move the right photo ${xPercent}%`);
       // translates the image container from right side to left
       this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
       this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;

@@ -35,12 +35,35 @@ export default class PhotoOverlapSection extends BaseSection {
     this.start = window.scrollY + this.sectionTrigger.getBoundingClientRect().top + ((window.innerHeight * 1.38) + this.progressBarHeight);
     this.triggers = Array(this.initialImages.length).fill(this.start);
     this.realTriggers = this.triggers.map((value, i) => { return value + (window.innerHeight * i) });
+    this.secondPhotoTrigger = this.realTriggers[1];
+    this.thirdPhotoTrigger = this.realTriggers[2];
+    this.fourthPhotoTrigger = this.thirdPhotoTrigger + window.innerHeight;
   }
 
   update(scrollY) {
     if(!this.enabled) return;
 
-    console.log(`this is the start of the photoOverlap section: ${this.start} and each image should get triggered at ${this.realTriggers}`);
+    // console.log(`this is the start of the photoOverlap section: ${this.start} and each image should get triggered at ${this.realTriggers}`);
+
+    if ( scrollY < this.start ) {
+        Debug.write("PhotoOverlapSection", "Do nada");
+    }
+
+    if (scrollY >= this.start ) {
+        Debug.write("PhotoOverlapSection", "Slide first photo up");
+    }
+
+    if (scrollY >= this.secondPhotoTrigger ) {
+        Debug.write("PhotoOverlapSection", "Slide second photo up");
+    }
+
+    if (scrollY >= this.thirdPhotoTrigger ) {
+        Debug.write("PhotoOverlapSection", "Slide third photo up");
+    }
+
+    if (scrollY >= this.fourthPhotoTrigger ) {
+        Debug.write("PhotoOverlapSection", "Slide fourth photo up");
+    }
     // console.table(`${this, el, this.el}`);
 
       // compute progress for image translation
