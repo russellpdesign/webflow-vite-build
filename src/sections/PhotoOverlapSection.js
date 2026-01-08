@@ -32,7 +32,7 @@ export default class PhotoOverlapSection extends BaseSection {
     super.measure();
 
     this.start = this.el.getBoundingClientRect().top + window.scrollY + (window.innerHeight * .38) + this.progressBarHeight;
-    this.triggers = Array(this.initialImages.length).fill(this.start).map((trigger, i) => { trigger * i });
+    this.triggers = Array(this.initialImages.length).fill(this.start).map((trigger, i) => { trigger + (trigger * i) });
   }
 
   update(scrollY) {
