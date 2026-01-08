@@ -15,9 +15,9 @@ export default class PhotoOverlapSection extends BaseSection {
     this.sectionTrigger = document.querySelector(".photo-overlap-section-trigger");
 
     this.initialImages = this.sectionTrigger.querySelectorAll(".sticky-img-container");
-    console.log(this.initialImages)
-    const imagesPreset = this.initialImages.map(value => { return value.style.willChange = "transform" });
-    console.log(imagesPreset);
+    this.initialImages.forEach(image => {
+        image.style.willChange = "transform";
+    })
 
     this.itemNumberText = document.querySelectorAll(".home-scroll-item-number");
     this.progressBarHeight = document.querySelector(".progress-container").getBoundingClientRect().height;
