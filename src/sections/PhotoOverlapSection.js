@@ -23,6 +23,7 @@ export default class PhotoOverlapSection extends BaseSection {
     this.enabled = true;
 
     window.addEventListener("resize", () => this.measure());
+    console.log(`the initial images array is ${this.initialImages}`)
   }
 
   /* -------------------------------------------------------------
@@ -44,7 +45,7 @@ export default class PhotoOverlapSection extends BaseSection {
   update(scrollY) {
     if(!this.enabled) return;
 
-    this.initialImages.map((item) => { return item.style.willChange = "transform" });
+    this.initialImages.map((value) => { return value.style.willChange = "transform" });
 
     // console.log(`this is the start of the photoOverlap section: ${this.start} and each image should get triggered at ${this.realTriggers}`);
 
