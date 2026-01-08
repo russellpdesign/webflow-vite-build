@@ -44,12 +44,6 @@ export default class PhotoOverlapSection extends BaseSection {
   update(scrollY) {
     if(!this.enabled) return;
 
-    let triggerNow = this.start;
-
-    // compute progress for image translation
-    const t = clamp01((scrollY - triggerNow) / (window.innerHeight));
-    const yPercent = mapRange(t, 0, 1, 0, 100);
-
     // console.log(`this is the start of the photoOverlap section: ${this.start} and each image should get triggered at ${this.realTriggers}`);
 
     if ( scrollY < this.start ) {
@@ -57,21 +51,30 @@ export default class PhotoOverlapSection extends BaseSection {
     }
 
     if (scrollY >= this.start ) {
+        // compute progress for image translation
+        const t = clamp01((scrollY - this.start) / (window.innerHeight));
+        const yPercent = mapRange(t, 0, 1, 0, 100);
         Debug.write("PhotoOverlapSection", `Slide first photo up ${yPercent}`);
     }
 
     if (scrollY >= this.secondPhotoTrigger ) {
-        triggerNow = this.secondPhotoTrigger;
+        // compute progress for image translation
+        const t = clamp01((scrollY - this.secondPhotoTrigger) / (window.innerHeight));
+        const yPercent = mapRange(t, 0, 1, 0, 100);
         Debug.write("PhotoOverlapSection", `Slide second photo up ${yPercent}`);
     }
 
     if (scrollY >= this.thirdPhotoTrigger ) {
-        triggerNow = this.thirdPhotoTrigger;
+        // compute progress for image translation
+        const t = clamp01((scrollY - this.thirdPhotoTrigger) / (window.innerHeight));
+        const yPercent = mapRange(t, 0, 1, 0, 100);
         Debug.write("PhotoOverlapSection", `Slide second photo up ${yPercent}`);
     }
 
     if (scrollY >= this.fourthPhotoTrigger ) {
-        triggerNow = this.fourthPhotoTrigger;
+        // compute progress for image translation
+        const t = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
+        const yPercent = mapRange(t, 0, 1, 0, 100);
         Debug.write("PhotoOverlapSection", `Slide second photo up ${yPercent}`);
     }
     // console.table(`${this, el, this.el}`);
