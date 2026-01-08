@@ -101,4 +101,5 @@ export default class PhotoOverlapSection extends BaseSection {
 //     this.bodyText.forEach(el => el.classList.remove("is-active"));
 //     this.itemNumberText.forEach(el => el.classList.remove("is-active"));
 //   }
+  }
 }
