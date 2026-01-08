@@ -17,7 +17,7 @@ export default class BaseSection {
     this.end = 0;
     this.length = 0;
 
-    // // Enable/disable flag
+    // // Enable/disable flag, can set on all animations here, generally set on a specific module to help troubleshoot and isolate issues
     // this.enabled = true;
   }
 

@@ -2,32 +2,19 @@ import BaseSection from "../engine/BaseSection";
 import { Debug } from "../engine/Debug";
 import { clamp01, mapRange } from "@utils";
 
-export default class MovePhotoSection extends BaseSection {
+export default class PhotoOverlapSection extends BaseSection {
   constructor({ el }) {
     super({ el });
     /* -------------------------------------------------------------
      * DOM ELEMENTS
      * ------------------------------------------------------------- */
-    // el = document.querySelector(".home-scroll-visual")
+    // el = document.querySelector(".photo-overlap-section");
 
-    this.homeScrollSection = document.querySelector(".home-scroll-section.is-don");
-    this.triggers = document.querySelectorAll(".overview_trigger");
+    this.stickyScrollerContainer = this.querySelector(".sticky-scroller-container");
+    this.sectionTrigger = this.querySelector(".photo-overlap-section-trigger");
+    this.initialImages = this.querySelectorAll(".sticky-img-container");
+    this.itemNumberText = this.querySelectorAll(".home-scroll-item-number");
 
-    this.sticky100vh =  document.querySelector(".sticky-section-100vh");
-    this.stickySection = document.querySelector(".sticky-section.heroic-members-wrapper.reversed");
-
-    // Elements from previous sections
-    this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
-    this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
-
-    // Elements from section after image translates left to right
-    this.projectTextSection = document.querySelector(".project-text-section.is-sticky.heroic-members");
-    this.sectionHeaderText = this.projectTextSection.querySelectorAll(".section-header-text");
-    this.projectTextHeading = this.projectTextSection.querySelectorAll(".project-text-heading");
-    this.bodyText = this.projectTextSection.querySelectorAll(".body-text.home-scroll");
-    this.itemNumberText = this.projectTextSection.querySelectorAll(".home-scroll-item-number");
-
-    // Elements from upcoming sections
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
 
@@ -49,16 +36,24 @@ export default class MovePhotoSection extends BaseSection {
     this.stickySectionHeight = this.stickySection.getBoundingClientRect().height;
     this.wholeAmount = this.sticky100Height * 1.38;
 
-    this.start = this.lastSectionsEnd + this.sectionLength;
-    this.end = this.start + this.wholeAmount;
+    this.start = this.sectionTrigger.getBoundingClientRect().top + window.scrollY + window.innerHeight;
+    this.triggers = Array(this.initialImages.length + 1).fill(this.start);
   }
 
   update(scrollY) {
     if(!this.enabled) return;
 
+    console.table("PhotoOverlapSection", `Our trigger points for each image are: ${this.triggers}`);
+
+    let photoCount = 1;
+
+    if (scrollY > this.start && scrollY < this.secondStart) {
+        this.photoCount = 2;
+    }
+
       // compute progress for image translation
-      const t = clamp01((scrollY - this.start) / (this.wholeAmount));
-      const xPercent = mapRange(t, 0, 1, 0, 100);
+      const t = clamp01((scrollY - (this.start * photoCount)) / (window.innerHeight));
+      const yPercent = mapRange(t, 0, 1, 0, 100);
       const percentageTraveled = scrollY - this.start;
 
       // const xPercent = (percentageTraveled / this.wholeAmount) * 100;
