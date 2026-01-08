@@ -61,11 +61,11 @@ export default class PhotoOverlapSection extends BaseSection {
         const yPercent = mapRange(t, 0, 1, 0, 100);
         this.initialImages[0].style.transform = `translate3d(0, -${yPercent}%, 0)`;
 
-        // // for when scrolling back page, resolves previous animation alignment once scrollY is now in current if statement
-        // const tAfter = clamp01((scrollY - this.secondPhotoTrigger) / (window.innerHeight));
-        // const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
-        // this.initialImages[1].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
-        // Debug.write("PhotoOverlapSection", `Slide first photo up ${yPercent}`);
+        // for when scrolling back page, resolves previous animation alignment once scrollY is now in current if statement
+        const tAfter = clamp01((scrollY - this.secondPhotoTrigger) / (window.innerHeight));
+        const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
+        this.initialImages[1].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
+        Debug.write("PhotoOverlapSection", `Slide first photo up ${yPercent}`);
     }
 
     if (scrollY >= this.secondPhotoTrigger && scrollY < this.thirdPhotoTrigger) {
@@ -79,10 +79,10 @@ export default class PhotoOverlapSection extends BaseSection {
         const yPercent = mapRange(t, 0, 1, 0, 100);
         this.initialImages[1].style.transform = `translate3d(0, -${yPercent}%, 0)`;
 
-        // // compute progress for image in section after current - ensures a completely aligned top/bottom position even if scrolling very fast
-        // const tAfter = clamp01((scrollY - this.thirdPhotoTrigger) / (window.innerHeight));
-        // const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
-        // this.initialImages[2].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
+        // compute progress for image in section after current - ensures a completely aligned top/bottom position even if scrolling very fast
+        const tAfter = clamp01((scrollY - this.thirdPhotoTrigger) / (window.innerHeight));
+        const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
+        this.initialImages[2].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
 
         Debug.write("PhotoOverlapSection", `Slide second photo up ${yPercent}`);
     }
@@ -98,10 +98,10 @@ export default class PhotoOverlapSection extends BaseSection {
         const yPercent = mapRange(t, 0, 1, 0, 100);
         this.initialImages[2].style.transform = `translate3d(0, -${yPercent}%, 0)`;
 
-        // // compute progress for next image, for when scrolling back up page and alignment
-        // const tAfter = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
-        // const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
-        // this.initialImages[3].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
+        // compute progress for next image, for when scrolling back up page and alignment
+        const tAfter = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
+        const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
+        this.initialImages[3].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
 
 
         Debug.write("PhotoOverlapSection", `Slide third photo up ${yPercent}`);
