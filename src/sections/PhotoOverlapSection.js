@@ -116,7 +116,7 @@ export default class PhotoOverlapSection extends BaseSection {
 
     if (scrollY >= this.fourthPhotoTrigger) {
         // compute progress for image in previous section
-        const tBefore = clamp01((scrollY - this.fourthPhotoTrigger) / (window.innerHeight));
+        const tBefore = clamp01((scrollY - this.thirdPhotoTrigger) / (window.innerHeight));
         const yPercentBefore = mapRange(tBefore, 0, 1, 0, 100);
         this.initialImages[2].style.transform = `translate3d(0, -${yPercentBefore}%, 0)`;
 
