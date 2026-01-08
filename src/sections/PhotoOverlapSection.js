@@ -45,7 +45,8 @@ export default class PhotoOverlapSection extends BaseSection {
   update(scrollY) {
     if(!this.enabled) return;
 
-    this.initialImages.map((value) => { value.style.willChange = "transform" });
+    const imagesPreset = this.initialImages.map((value) => { return value.style.willChange = "transform" });
+    applyPresets(...imagesPreset);
 
     // console.log(`this is the start of the photoOverlap section: ${this.start} and each image should get triggered at ${this.realTriggers}`);
 
