@@ -15,10 +15,6 @@ export default class PhotoOverlapSection extends BaseSection {
     this.sectionTrigger = document.querySelector(".photo-overlap-section-trigger");
 
     this.initialImages = this.sectionTrigger.querySelectorAll(".sticky-img-container");
-    this.initialImages.forEach(image => {
-        image.style.willChange = "transform";
-        image.style.transformStyle = "preserve-3d"
-    })
 
     this.itemNumberText = document.querySelectorAll(".home-scroll-item-number");
     this.progressBarHeight = document.querySelector(".progress-container").getBoundingClientRect().height;
@@ -49,6 +45,11 @@ export default class PhotoOverlapSection extends BaseSection {
 
   update(scrollY) {
     if(!this.enabled) return;
+
+    this.initialImages.forEach(image => {
+        image.style.willChange = "transform";
+        image.style.transformStyle = "preserve-3d";
+    })
 
     // console.log(`this is the start of the photoOverlap section: ${this.start} and each image should get triggered at ${this.realTriggers}`);
 
