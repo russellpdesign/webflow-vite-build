@@ -91,7 +91,7 @@ export default class PhotoOverlapSection extends BaseSection {
         const yPercentAfter = mapRange(tAfter, 0, 1, 0, 100);
         this.initialImages[2].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
 
-        Debug.write("PhotoOverlapSection", `Slide second photo up ${yPercent}`);
+        // Debug.write("PhotoOverlapSection", `Slide second photo up ${yPercent}`);
     }
 
     if (scrollY >= this.thirdPhotoTrigger && scrollY < this.fourthPhotoTrigger) {
@@ -111,7 +111,7 @@ export default class PhotoOverlapSection extends BaseSection {
         // this.initialImages[3].style.transform = `translate3d(0, -${yPercentAfter}%, 0)`;
 
 
-        Debug.write("PhotoOverlapSection", `Slide third photo up ${yPercent}`);
+        // Debug.write("PhotoOverlapSection", `Slide third photo up ${yPercent}`);
     }
 
     if (scrollY >= this.fourthPhotoTrigger) {
