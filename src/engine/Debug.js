@@ -59,14 +59,9 @@ class DebugController {
     if (!DEBUG_ENABLED) return;
     this.ensureOverlay();
 
-    // Auto-stringify non-string values
-    let text;
-    if (typeof value === "string") {
+    if (typeof value === "string" || typeof value === "number") {
       text = value;
-    } else if (typeof value === "number") {
-      text = value.toString();
     } else {
-      // Objects, arrays, etc.
       text = JSON.stringify(value, null, 2);
     }
 
