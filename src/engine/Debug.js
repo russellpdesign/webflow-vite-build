@@ -63,9 +63,6 @@ class DebugController {
 
     // Update overlay content
     this.overlay.textContent = Object.values(this.lines).join("\n");
-
-    // Also log to console for convenience
-    console.log(`${key}:`, value);
   }
 
   /* ------------------------------------------
