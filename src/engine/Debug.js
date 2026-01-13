@@ -59,6 +59,8 @@ class DebugController {
     if (!DEBUG_ENABLED) return;
     this.ensureOverlay();
 
+    this.lines[key] = text;
+
     if (typeof value === "string" || typeof value === "number") {
       text = value;
     } else {
