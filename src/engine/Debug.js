@@ -61,14 +61,6 @@ class DebugController {
 
     this.lines[key] = text;
 
-    if (typeof value === "string" || typeof value === "number") {
-      text = value;
-    } else {
-      text = JSON.stringify(value, null, 2);
-    }
-
-    this.lines[key] = `${key}: ${text}`;
-
     // Update overlay content
     this.overlay.textContent = Object.values(this.lines).join("\n");
 
