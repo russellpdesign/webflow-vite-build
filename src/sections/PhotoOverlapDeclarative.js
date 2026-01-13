@@ -18,8 +18,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       ...this.sectionTrigger.querySelectorAll(".sticky-img-container")
     ];
 
-    // Used to offset the start position so animation aligns
-    // visually with the progress UI
+    // Used to offset the start position so animation aligns visually with the progress UI
     this.progressBarHeight =
       document
         .querySelector(".progress-container")
@@ -45,8 +44,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       window.innerHeight * 1.38 +
       this.progressBarHeight;
 
-    // Declarative trigger generation:
-    // Each image animates over exactly one viewport height
+    // Declarative trigger generation: Each image animates over exactly one viewport height - the image dom node value is not important aka "_", just creating the trigger values array is priority
     this.triggers = this.initialImages.map(
       (_, i) => this.start + window.innerHeight * i
     );
