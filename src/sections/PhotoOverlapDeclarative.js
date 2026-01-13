@@ -90,7 +90,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
       // Optional per-image debug output
       Debug.write(
-        `PhotoOverlapSection:image-${index}`,
+        "PhotoOverlapSection:image-"`${index}`,
         `progress: ${t.toFixed(2)}, y: ${Math.round(yPercent)}%`
       );
     });
