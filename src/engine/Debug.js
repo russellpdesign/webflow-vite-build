@@ -59,9 +59,24 @@ class DebugController {
     if (!DEBUG_ENABLED) return;
     this.ensureOverlay();
 
-    this.lines[key] = text;
+    // Auto-stringify non-string values
+    let text;
+    if (typeof value === "string") {
+      text = value;
+    } else if (typeof value === "number") {
+      text = value.toString();
+    } else {
+      // Objects, arrays, etc.
+      text = JSON.stringify(value, null, 2);
+    }
 
+    this.lines[key] = `${key}: ${text}`;
+
+    // Update overlay content
     this.overlay.textContent = Object.values(this.lines).join("\n");
+
+    // Also log to console for convenience
+    console.log(`${key}:`, value);
   }
 
   /* ------------------------------------------
@@ -72,6 +87,16 @@ class DebugController {
 
     if (this.overlay) {
       this.overlay.textContent = Object.values(this.lines).join("\n");
+    }
+  }
+
+/* ------------------------------------------
+   * Public API: clear all debug lines
+   * ------------------------------------------ */
+  clearAll() {
+    this.lines = {};
+    if (this.overlay) {
+      this.overlay.textContent = "";
     }
   }
 }
