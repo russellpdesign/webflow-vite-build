@@ -2,7 +2,7 @@ import ScrollEngine from "../engine/ScrollEngine.js";
 import SmoothScroll from "../engine/SmoothScroll.js";
 import HomeScrollSection from "../sections/HomeScrollSection.js";
 import MovePhotoSection from "../sections/MovePhotoSection.js";
-import PhotoOverlapDeclarative from "../sections/PhotoOverlapDeclarative.js";
+import PhotoOverlapDeclarative from "../sections/PhotoOverlapSection.js";
 
 window.addEventListener("DOMContentLoaded", () => {
   // the lower the ease value, the more smoothing inertia there is
