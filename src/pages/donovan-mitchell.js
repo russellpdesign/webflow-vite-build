@@ -2,7 +2,7 @@ import ScrollEngine from "../engine/ScrollEngine.js";
 import SmoothScroll from "../engine/SmoothScroll.js";
 import HomeScrollSection from "../sections/HomeScrollSection.js";
 import MovePhotoSection from "../sections/MovePhotoSection.js";
-import PhotoOverlapSection from "../sections/PhotoOverlapSection.js";
+import PhotoOverlapDeclarative from "../sections/PhotoOverlapSection.js";
 
 window.addEventListener("DOMContentLoaded", () => {
   // the lower the ease value, the more smoothing inertia there is
@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   engine.register(new HomeScrollSection({ el: ".home-scroll-section.is-don" }));
   engine.register(new MovePhotoSection({ el: ".home-scroll-visual" }));
-  engine.register(new PhotoOverlapSection({ el: ".photo-overlap-section" }));
+  engine.register(new PhotoOverlapDeclarative({ el: ".photo-overlap-section" }));
 
   engine.start();
 });
