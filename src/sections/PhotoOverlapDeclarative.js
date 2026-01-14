@@ -58,6 +58,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       triggers: this.triggers.map(v => Math.round(v)),
       end: Math.round(this.end),
     });
+
+    this.totalProgress = window.scrollY / this.end,
   }
 
   /* -------------------------------------------------------------
@@ -92,8 +94,9 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       Debug.write(
         `PhotoOverlapSection:image-${index}`,
         `progress: ${t.toFixed(2)}, y: ${Math.round(yPercent)}%`,
-        `total progress: (${scrollY} - ${this.start}) / (${this.end} - ${this.start})`,
       );
+
+      console.log(`totalProgess: ${totalProgress}`);
     });
   }
 }
