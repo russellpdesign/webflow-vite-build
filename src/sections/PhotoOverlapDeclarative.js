@@ -87,7 +87,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
       const yPercent = mapRange(t, 0, 1, 0, 100);
 
-     this.totalProgress = scrollY / this.end;
+     this.totalProgress = Math.round(scrollY / this.end);
 
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
 
