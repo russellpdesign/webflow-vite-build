@@ -91,7 +91,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
 
-      console.log(`total progess: ${this.totalProgress}`);
+    //   console.log(`total progess: ${this.totalProgress}`);
 
       // Optional per-image debug output
       Debug.write(
