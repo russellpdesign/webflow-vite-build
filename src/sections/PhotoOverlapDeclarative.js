@@ -53,13 +53,15 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.end =
       this.triggers[this.triggers.length - 1] + window.innerHeight;
 
+
+    this.totalProgress = window.scrollY / this.end;
+
     Debug.write("PhotoOverlapSection", {
       start: Math.round(this.start),
       triggers: this.triggers.map(v => Math.round(v)),
       end: Math.round(this.end),
     });
 
-    this.totalProgress = window.scrollY / this.end,
   }
 
   /* -------------------------------------------------------------
@@ -90,13 +92,13 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
 
+      console.log(`total progess: ${this.totalProgress}`);
+
       // Optional per-image debug output
       Debug.write(
         `PhotoOverlapSection:image-${index}`,
         `progress: ${t.toFixed(2)}, y: ${Math.round(yPercent)}%`,
       );
-
-      console.log(`totalProgess: ${totalProgress}`);
     });
   }
 }
