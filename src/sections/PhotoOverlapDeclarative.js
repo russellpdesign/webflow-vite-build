@@ -53,9 +53,6 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.end =
       this.triggers[this.triggers.length - 1] + window.innerHeight;
 
-
-    this.totalProgress = window.scrollY / this.end;
-
     Debug.write("PhotoOverlapSection", {
       start: Math.round(this.start),
       triggers: this.triggers.map(v => Math.round(v)),
@@ -89,6 +86,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       );
 
       const yPercent = mapRange(t, 0, 1, 0, 100);
+
+     this.totalProgress = scrollY / this.end;
 
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
 
