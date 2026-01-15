@@ -53,11 +53,11 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.end =
       this.triggers[this.triggers.length - 1] + window.innerHeight;
 
-    Debug.write("PhotoOverlapSection", {
-      start: Math.round(this.start),
-      triggers: this.triggers.map(v => Math.round(v)),
-      end: Math.round(this.end),
-    });
+    // Debug.write("PhotoOverlapSection", {
+    //   start: Math.round(this.start),
+    //   triggers: this.triggers.map(v => Math.round(v)),
+    //   end: Math.round(this.end),
+    // });
 
   }
 
@@ -94,10 +94,10 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     //   console.log(`total progess: ${this.totalProgress}`);
 
       // Optional per-image debug output
-      Debug.write(
-        `PhotoOverlapSection:image-${index}`,
-        `progress: ${t.toFixed(2)}, y: ${Math.round(yPercent)}%`,
-      );
+    //   Debug.write(
+    //     `PhotoOverlapSection:image-${index}`,
+    //     `progress: ${t.toFixed(2)}, y: ${Math.round(yPercent)}%`,
+    //   );
     });
   }
 }
