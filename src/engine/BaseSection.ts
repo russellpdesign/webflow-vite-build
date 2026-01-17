@@ -1,35 +1,34 @@
-// src/engine/BaseSection.js
-export interface BaseSectionOptions {
+interface BaseSectionOptions {
   el: string | HTMLElement;
 }
 
 export default class BaseSection {
-  constructor({ el }) {
+  el: HTMLElement | null;
+  enabled: boolean = true;
+  start: number = 0;
+  end: number = 0;
+  length: number = 0;
+
+  constructor({ el }: BaseSectionOptions) {
     if (!el) throw new Error("BaseSection requires { el }");
 
-    // Accept selector or element
+    // Accept selector or element, ternary operator says if it's a string, use it in a query selector, otherwise,  use it as is, as its already an HTMLElement / DOM Object value
     this.el = typeof el === "string" ? document.querySelector(el) : el;
 
     if (!this.el) {
-      console.warn("⚠️ BaseSection: element not found:", el);
+      // Soft fail: disable this section so it doesn't run
+      console.warn(`BaseSection: element not found. Module: ${this.constructor.name}, el: ${el}`);
       this.enabled = false;
       return;
     }
 
-    // Standard scroll bounds
-    this.start = 0;
-    this.end = 0;
-    this.length = 0;
-
-    // // Enable/disable flag, can set on all animations here, generally set on a specific module to help troubleshoot and isolate issues
-    this.enabled = true;
   }
 
-  measure() {
+  measure(): void {
     // Override in subclass
   }
 
-  update(scrollY) {
+  update(scrollY: number): void {
     // Override in subclass
   }
 }
