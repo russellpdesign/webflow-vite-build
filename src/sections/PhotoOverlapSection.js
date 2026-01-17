@@ -1,4 +1,4 @@
-import BaseSection from "../engine/BaseSection";
+import BaseSection from "../engine/BaseSection.ts";
 import { Debug } from "../engine/Debug";
 import { clamp01, mapRange } from "@utils";
 
@@ -39,7 +39,7 @@ export default class PhotoOverlapSection extends BaseSection {
         this.sectionTrigger.getBoundingClientRect().top + 
         ((window.innerHeight * 1.38) + 
         this.progressBarHeight);
-        
+
     this.triggers = Array(this.initialImages.length).fill(this.start);
     this.realTriggers = this.triggers.map((value, i) => { return value + (window.innerHeight * i) });
     this.secondPhotoTrigger = this.realTriggers[1];
