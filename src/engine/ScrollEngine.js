@@ -2,7 +2,6 @@ export default class ScrollEngine {
   static rawY = 0;
   static smoothedY = 0;
   static velocity = 0;
-  static predictedY = 0;
   static smoothingEnabled = false;
 
   constructor({ smooth = null } = {}) {
@@ -44,7 +43,6 @@ export default class ScrollEngine {
     ScrollEngine.rawY = window.scrollY;
     ScrollEngine.smoothedY = ScrollEngine.rawY;
     ScrollEngine.velocity = 0;
-    ScrollEngine.predictedY = ScrollEngine.rawY;
 
     requestAnimationFrame(this._raf);
   }
@@ -81,9 +79,6 @@ export default class ScrollEngine {
 
     this.lastRawY = rawY;
     this.lastTimestamp = timestamp;
-
-    // PREDICT ~1 FRAME AHEAD
-    ScrollEngine.predictedY = rawY + velocity * 16.7;
 
     // UPDATE SECTIONS
     for (const section of this.sections) {
