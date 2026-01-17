@@ -1,4 +1,8 @@
 // src/engine/BaseSection.js
+export interface BaseSectionOptions {
+  el: string | HTMLElement;
+}
+
 export default class BaseSection {
   constructor({ el }) {
     if (!el) throw new Error("BaseSection requires { el }");
