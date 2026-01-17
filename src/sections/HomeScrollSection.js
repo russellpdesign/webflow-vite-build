@@ -24,7 +24,7 @@ export default class HomeScrollSection extends BaseSection {
 
     this.enabled = true;
 
-    window.addEventListener("resize", () => this.measure());
+    // window.addEventListener("resize", () => this.measure());
   }
 
   measure() {
