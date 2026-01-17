@@ -1,5 +1,5 @@
 // src/sections/HomeScrollSection.js
-import BaseSection from "../engine/BaseSection.js";
+import BaseSection from "../engine/BaseSection.ts";
 import { clamp, clamp01, mapRange } from "@utils";
 import { Debug } from "../engine/Debug";
 
