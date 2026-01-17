@@ -1,7 +1,7 @@
 // src/sections/HomeScrollSection.js
-import BaseSection from "../engine/BaseSection.js";
+import BaseSection from "../engine/BaseSection.ts";
 import { clamp, clamp01, mapRange } from "@utils";
-import { Debug } from "../engine/Debug";
+import { Debug } from "../engine/Debug.js";
 
 export default class HomeScrollSection extends BaseSection {
   constructor({ el }) {
