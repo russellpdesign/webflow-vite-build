@@ -1,6 +1,6 @@
 // src/sections/HomeScrollSection.js
 import BaseSection from "../engine/BaseSection.ts";
-import { clamp, clamp01, mapRange } from "@utils";
+import { clamp, clamp01, mapRange } from "../engine/utils";
 import { Debug } from "../engine/Debug.js";
 
 type HomeScrollConfig = {
@@ -67,7 +67,7 @@ export default class HomeScrollSection extends BaseSection {
     this.thirdStart  = this.start + window.innerHeight * 2;
   }
 
-  update(scrollY) {
+  update(scrollY: number): void {
     if(!this.enabled) return;
 
     if (!this.progressBar || !this.scrollbar || !this.sectionHeader) return;
