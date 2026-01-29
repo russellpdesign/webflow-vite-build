@@ -14,7 +14,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     // All images that participate in the overlap animation
     this.initialImages = [...this.sectionTrigger.querySelectorAll(".sticky-img-container")];
 
-    this.textElements = [...this.sectionTrigger.querySelectorAll("")]
+    // this.textElements = [...this.sectionTrigger.querySelectorAll("")]
 
     // Used to offset the start position so animation aligns visually with the progress UI
     this.progressBarHeight = document.querySelector(".progress-container").getBoundingClientRect().height;
@@ -43,8 +43,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
 
     // Used by the engine for section bounds
-    this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
-    // this.end = this.initialImages[this.initialImages.length - 1].getBoundingClientRect().bottom + window.scrollY;
+    // this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
+    this.end = this.initialImages[this.initialImages.length - 1].getBoundingClientRect().bottom + window.scrollY;
 
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
