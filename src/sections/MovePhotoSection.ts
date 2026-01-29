@@ -109,7 +109,7 @@ export default class MovePhotoSection extends BaseSection {
     // apply transforms and opacity changes declaritively
     this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
     this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
-    this.lastImage.style.opacity = `${opacityPercent}%`;
+    this.lastImage.style.opacity = `${opacityPercent / 100}`;
     this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
 
     // section header activation
