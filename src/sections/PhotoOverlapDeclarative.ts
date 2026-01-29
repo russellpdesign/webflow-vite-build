@@ -1,25 +1,37 @@
 import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug.js";
-import { clamp01, mapRange } from "@utils";
-import { ElementConfig } from "../engine/types"
+import { clamp, clamp01, mapRange } from "../engine/utils";
+
+type PhotoOverlapDeclarativeConfig = {
+  el: string | HTMLElement;
+}
 
 export default class PhotoOverlapDeclarative extends BaseSection {
+  // DOM collections
+  sectionTrigger: HTMLElement;
+  initialImages: HTMLElement[] = [];
+  progressBar: HTMLElement;
+  progressBarHeight!: number;
+  totalProgress!: string;
 
-  constructor({ el }: ElementConfig ) {
+  triggers!: number[];
+
+  constructor({ el }: PhotoOverlapDeclarativeConfig ) {
     super({ el });
 
     /* -------------------------------------------------------------
      * DOM ELEMENTS
      * ------------------------------------------------------------- */
-    this.sectionTrigger = document.querySelector(".photo-overlap-section-trigger");
+    this.sectionTrigger = document.querySelector<HTMLElement>(".photo-overlap-section-trigger")!;
 
     // All images that participate in the overlap animation
-    this.initialImages = [...this.sectionTrigger.querySelectorAll(".sticky-img-container")];
+    this.initialImages = Array.from(
+      this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container")
+    );
+
+    this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
     // this.textElements = [...this.sectionTrigger.querySelectorAll("")]
-
-    // Used to offset the start position so animation aligns visually with the progress UI
-    this.progressBarHeight = document.querySelector(".progress-container").getBoundingClientRect().height;
 
     this.enabled = true;
 
@@ -32,8 +44,11 @@ export default class PhotoOverlapDeclarative extends BaseSection {
    * Calculates all scroll trigger points.
    * Each image gets its own trigger spaced by 1 viewport height.
    * ------------------------------------------------------------- */
-  measure() {
+  measure(): void {
     super.measure();
+
+    // Used to offset the start position so animation aligns visually with the progress UI
+    this.progressBarHeight = this.progressBar!.getBoundingClientRect().height;
 
     this.start =
       window.scrollY +
@@ -56,7 +71,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
   }
 
-  update(scrollY) {
+  update(scrollY: number): void {
     if (!this.enabled) return;
 
     this.initialImages.forEach((image, index) => {
@@ -73,7 +88,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
       const yPercent = mapRange(t, 0, 1, 0, 100);
 
-      this.totalProgress = (scrollY / this.end).toFixed(2);
+      // this.totalProgress = (scrollY / this.end).toFixed(2);
 
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
     });
