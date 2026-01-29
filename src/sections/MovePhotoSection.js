@@ -58,7 +58,8 @@ export default class MovePhotoSection extends BaseSection {
   update(scrollY) {
     if(!this.enabled) return;
 
-    // console.log(`This is the end of the movephotosection: ${this.end}`)
+      let isActive = false;
+      // console.log(`This is the end of the movephotosection: ${this.end}`)
 
       // compute progress for image translation
       const t = clamp01((scrollY - this.start) / (this.wholeAmount));
