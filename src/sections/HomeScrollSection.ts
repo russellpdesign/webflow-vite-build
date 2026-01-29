@@ -27,6 +27,10 @@ export default class HomeScrollSection extends BaseSection {
   // each section start/end
   sectionRanges:[number, number][] = [];
 
+  private sectionHeaderActive = false;
+  private scrollbarVisible = false;
+  private activeSectionIndex: number | null = null;
+
   constructor({ el }: HomeScrollConfig ) {
     super({ el });
     /* -------------------------------------------------------------
@@ -86,27 +90,45 @@ export default class HomeScrollSection extends BaseSection {
     const yPercent = mapRange(t, 0, 1, 0, 200);
     this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`;
     
-    // global header/scrollbar
-    if (scrollY < this.start) {
-      this.sectionHeader.classList.remove("is-active");
-      this.scrollbar.classList.add("is-gone");
-      this._deactivateAll();
-      return;
-    } else if (scrollY <= this.end) {
+    // global header handling
+    const shouldHeaderBeActive = scrollY >= this.start && scrollY <= this.end;
+
+    if (shouldHeaderBeActive && !this.sectionHeaderActive) {
       this.sectionHeader.classList.add("is-active");
-      this.scrollbar.classList.remove("is-gone");
-    } else {
+      this.sectionHeaderActive = true;
+    } else if (!shouldHeaderBeActive && this.sectionHeaderActive) {
       this.sectionHeader.classList.remove("is-active");
-      this.scrollbar.classList.add("is-gone");
+      this.sectionHeaderActive = false;
+    }
+
+    // global scrollbar handling
+    const shouldScrollBarBeVisible = scrollY >= this.start && scrollY <= this.end;
+
+    if (shouldScrollBarBeVisible && !this.scrollbarVisible) {
+      this.scrollbar.classList.remove(".is-gone");
+      this.scrollbarVisible = true;
+    } else if (!shouldScrollBarBeVisible && this.scrollbarVisible) {
+      this.scrollbar.classList.add(".is-gone");
+      this.scrollbarVisible = false;
     }
 
     // declarative section activation
+    let newActiveIndex: number | null = null;
+
     this.sectionRanges.forEach(([start, end], index) => {
-      if (scrollY >= start && scrollY < end) {
-        this._activate(index);
-        [0, 1, 2].filter(i => i !== index).forEach(i => this._deactivate(i));
-      }
-    });
+      if (scrollY >= start && scrollY < end)
+        newActiveIndex = index;
+      });
+
+     if (newActiveIndex !== this.activeSectionIndex) {
+        // deactivate previous section
+        if (this.activeSectionIndex !== null) this._deactivate(this.activeSectionIndex);
+
+        //activate new section
+        if (newActiveIndex !== null) this._activate(newActiveIndex);
+
+        this.activeSectionIndex = newActiveIndex;
+    }
 
     // after last section, activate last img
     if (scrollY >= this.end) {
