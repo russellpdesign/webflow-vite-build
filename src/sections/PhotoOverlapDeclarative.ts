@@ -1,9 +1,11 @@
 import BaseSection from "../engine/BaseSection.js";
-import { Debug } from "../engine/Debug";
+import { Debug } from "../engine/Debug.js";
 import { clamp01, mapRange } from "@utils";
+import { ElementConfig } from "../engine/types"
 
 export default class PhotoOverlapDeclarative extends BaseSection {
-  constructor({ el }) {
+
+  constructor({ el }: ElementConfig ) {
     super({ el });
 
     /* -------------------------------------------------------------

@@ -3,37 +3,59 @@ import BaseSection from "../engine/BaseSection.ts";
 import { clamp, clamp01, mapRange } from "@utils";
 import { Debug } from "../engine/Debug.js";
 
+type HomeScrollConfig = {
+  el: string | HTMLElement;
+};
+
 export default class HomeScrollSection extends BaseSection {
-  constructor({ el }) {
+  // DOM collections
+  triggers: NodeListOf<HTMLElement>;
+
+  sectionHeader: HTMLElement | null;
+  titleItems: NodeListOf<HTMLElement>;
+  textItems: NodeListOf<HTMLElement>;
+  numberItems: NodeListOf<HTMLElement>;
+  imgItems: NodeListOf<HTMLElement>;
+
+  progressBar: HTMLElement | null;
+  scrollbar: HTMLElement | null;
+
+  // scroll breakpoints
+  secondStart!: number;
+  thirdStart!: number;
+
+  constructor({ el }: HomeScrollConfig ) {
     super({ el });
     /* -------------------------------------------------------------
      * DOM ELEMENTS
      * ------------------------------------------------------------- */
     
     /* el = document.querySelector(".home-scroll-section.is-don"); */
-    this.triggers = document.querySelectorAll(".overview_trigger");
+    this.triggers = document.querySelectorAll<HTMLElement>(".overview_trigger");
 
-    this.sectionHeader = document.querySelector(".section-header-text");
-    this.titleItems = document.querySelectorAll(".home-scroll-title");
-    this.textItems = document.querySelectorAll(".body-text.home-scroll");
-    this.numberItems = document.querySelectorAll(".home-scroll-item-number");
-    this.imgItems = document.querySelectorAll(".home-scroll-img-item");
+    this.sectionHeader = document.querySelector<HTMLElement>(".section-header-text");
+    this.titleItems = document.querySelectorAll<HTMLElement>(".home-scroll-title");
+    this.textItems = document.querySelectorAll<HTMLElement>(".body-text.home-scroll");
+    this.numberItems = document.querySelectorAll<HTMLElement>(".home-scroll-item-number");
+    this.imgItems = document.querySelectorAll<HTMLElement>(".home-scroll-img-item");
 
-    this.progressBar = document.querySelector(".vertical-progress-bar-inside");
-    this.scrollbar   = document.querySelector(".vertical-progress-bar");
+    this.progressBar = document.querySelector<HTMLElement>(".vertical-progress-bar-inside");
+    this.scrollbar = document.querySelector<HTMLElement>(".vertical-progress-bar");
 
     this.enabled = true;
 
     window.addEventListener("resize", () => this.measure());
   }
 
-  measure() {
+  measure(): void {
+    if (!this.el) return;
+
     const rect = this.el.getBoundingClientRect();
 
-    // FIXED: correct absolute top
+    // absolute top
     const absoluteTop = rect.top + window.scrollY;
 
-    const triggerHeight = this.triggers[0]?.getBoundingClientRect().height || 0;
+    const triggerHeight = this.triggers[0]?.getBoundingClientRect().height ?? 0;
     const triggerCount = this.triggers.length;
 
     this.length = triggerHeight * triggerCount;
@@ -47,6 +69,8 @@ export default class HomeScrollSection extends BaseSection {
 
   update(scrollY) {
     if(!this.enabled) return;
+
+    if (!this.progressBar || !this.scrollbar || !this.sectionHeader) return;
 
     // compute progress for scrollbar
     const t = clamp01((scrollY - this.start) / (this.end - this.start));
@@ -102,25 +126,25 @@ export default class HomeScrollSection extends BaseSection {
     }
   }
 
-  _activate(i) {
+  private _activate(i: number): void {
     this.titleItems[i]?.classList.add("is-active");
     this.textItems[i]?.classList.add("is-active");
     this.numberItems[i]?.classList.add("is-active");
     this.imgItems[i]?.classList.add("is-active");
   }
 
-  _deactivate(i) {
+  private _deactivate(i: number): void {
     this.titleItems[i]?.classList.remove("is-active");
     this.textItems[i]?.classList.remove("is-active");
     this.numberItems[i]?.classList.remove("is-active");
     this.imgItems[i]?.classList.remove("is-active");
   }
 
-  _deactivateAll() {
+  private _deactivateAll(): void {
     this.titleItems.forEach(el => el.classList.remove("is-active"));
     this.textItems.forEach(el => el.classList.remove("is-active"));
     this.numberItems.forEach(el => el.classList.remove("is-active"));
     this.imgItems.forEach(el => el.classList.remove("is-active"));
-    this.sectionHeader.classList.remove("is-active");
+    this.sectionHeader?.classList.remove("is-active");
   }
 }

@@ -1,8 +1,8 @@
-import ScrollEngine from "../engine/ScrollEngine.js";
+import ScrollEngine from "../engine/ScrollEngine.ts";
 import SmoothScroll from "../engine/SmoothScroll.js";
-import HomeScrollSection from "../sections/HomeScrollSection.js";
+import HomeScrollSection from "../sections/HomeScrollSection.ts";
 import MovePhotoSection from "../sections/MovePhotoSection.js";
-import PhotoOverlapDeclarative from "../sections/PhotoOverlapDeclarative.js";
+import PhotoOverlapDeclarative from "../sections/PhotoOverlapDeclarative.ts";
 
 window.addEventListener("DOMContentLoaded", () => {
   // the lower the ease value, the more smoothing inertia there is
