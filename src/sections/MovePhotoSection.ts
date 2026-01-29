@@ -1,9 +1,43 @@
 import BaseSection from "../engine/BaseSection.js";
-import { Debug } from "../engine/Debug";
-import { clamp01, mapRange } from "@utils";
+import { Debug } from "../engine/Debug.js";
+import { clamp, clamp01, mapRange } from "../engine/utils";
+
+type MovePhotoConfig = {
+  el: string | HTMLElement;
+};
 
 export default class MovePhotoSection extends BaseSection {
-  constructor({ el }) {
+  // dom elements
+  homeScrollSection: HTMLElement | null;
+  triggers: NodeListOf<HTMLElement>;
+
+  sticky100vh: HTMLElement | null;
+  stickySection: HTMLElement | null;
+
+  lastImage: HTMLElement | null;
+  behindImageWrapper: HTMLElement | null;
+
+  projectTextSection: HTMLElement | null;
+  sectionHeaderText: NodeListOf<HTMLElement>;
+  projectTextHeading: NodeListOf<HTMLElement>;
+  bodyText: NodeListOf<HTMLElement>;
+  itemNumberText: NodeListOf<HTMLElement>;
+
+  imageRevealSection: HTMLElement | null;
+  leftSideImageHide: HTMLElement | null;
+
+  // Scroll state
+  triggersHeight!: number;
+  sectionLength!: number;
+  sticky100Height!: number;
+  stickySectionHeight!: number;
+  lastSectionsEnd!: number;
+  wholeAmount!: number;
+
+  // Flags to prevent repeated DOM writes
+  private activatedSections: boolean[] = [];
+
+  constructor({ el }: MovePhotoConfig ) {
     super({ el });
     /* -------------------------------------------------------------
      * DOM ELEMENTS
@@ -11,30 +45,29 @@ export default class MovePhotoSection extends BaseSection {
     // el = document.querySelector(".home-scroll-visual")
 
     // Elements in our desired section
-    this.homeScrollSection = document.querySelector(".home-scroll-section.is-don");
-    this.triggers = document.querySelectorAll(".overview_trigger");
+    this.homeScrollSection = document.querySelector<HTMLElement>(".home-scroll-section.is-don");
+    this.triggers = document.querySelectorAll<HTMLElement>(".overview_trigger");
 
-    this.sticky100vh =  document.querySelector(".sticky-section-100vh");
-    this.stickySection = document.querySelector(".sticky-section.heroic-members-wrapper.reversed");
+    this.sticky100vh = document.querySelector<HTMLElement>(".sticky-section-100vh");
+    this.stickySection = document.querySelector<HTMLElement>(".sticky-section.heroic-members-wrapper.reversed");
 
     // Elements from previous sections
-    this.lastImage = document.querySelector(".home-scroll-img.is-r-pad.wider");
-    this.behindImageWrapper = document.querySelector(".home-scroll-img-behind-wrapper");
+    this.lastImage = document.querySelector<HTMLElement>(".home-scroll-img.is-r-pad.wider");
+    this.behindImageWrapper = document.querySelector<HTMLElement>(".home-scroll-img-behind-wrapper");
 
     // Elements from section after image translates left to right (text animations)
-    this.projectTextSection = document.querySelector(".project-text-section.is-sticky.heroic-members");
-    this.sectionHeaderText = this.projectTextSection.querySelectorAll(".section-header-text");
-    this.projectTextHeading = this.projectTextSection.querySelectorAll(".project-text-heading");
-    this.bodyText = this.projectTextSection.querySelectorAll(".body-text.home-scroll");
-    this.itemNumberText = this.projectTextSection.querySelectorAll(".home-scroll-item-number");
+    this.projectTextSection = document.querySelector<HTMLElement>(".project-text-section.is-sticky.heroic-members");
+    this.sectionHeaderText = this.projectTextSection?.querySelectorAll<HTMLElement>(".section-header-text") ?? [] as NodeListOf<HTMLElement>;
+    this.projectTextHeading = this.projectTextSection?.querySelectorAll<HTMLElement>(".project-text-heading") ?? [] as NodeListOf<HTMLElement>;
+    this.bodyText = this.projectTextSection?.querySelectorAll<HTMLElement>(".body-text.home-scroll") ?? [] as NodeListOf<HTMLElement>;
+    this.itemNumberText = this.projectTextSection?.querySelectorAll<HTMLElement>(".home-scroll-item-number") ?? [] as NodeListOf<HTMLElement>;
 
     // Elements from upcoming sections (for controlling z-indexing)
-    this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
-    this.leftSideImageHide = document.querySelector("#left-side-hide");
+    this.imageRevealSection = document.querySelector<HTMLElement>(".double-wide-reveal-img");
+    this.leftSideImageHide = document.querySelector<HTMLElement>("#left-side-hide");
 
     this.enabled = true;
 
-    // put here to trigger new measuring since our animation is dependent on accurate real-time measurements
     window.addEventListener("resize", () => this.measure());
   }
 
@@ -42,9 +75,11 @@ export default class MovePhotoSection extends BaseSection {
    * MEASURE
    * ------------------------------------------------------------- 
    * */
-  measure() {
+  measure(): void {
     super.measure();
-    this.triggersHeight = this.triggers[0]?.getBoundingClientRect().height * this.triggers.length;
+    if (!this.sticky100vh || !this.stickySection || !this.homeScrollSection) return;
+
+    this.triggersHeight = (this.triggers[0]?.getBoundingClientRect().height ?? 0) * this.triggers.length;
     this.sectionLength = this.triggersHeight;
     this.sticky100Height = this.sticky100vh.getBoundingClientRect().height;
     this.lastSectionsEnd = this.homeScrollSection.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
@@ -53,71 +88,66 @@ export default class MovePhotoSection extends BaseSection {
 
     this.start = this.lastSectionsEnd + this.sectionLength;
     this.end = this.start + this.wholeAmount;
+
+    // performance hints
+    this.el?.style.setProperty("will-change", "transform");
+    this.behindImageWrapper?.style.setProperty("will-change", "transform");
+    this.lastImage?.style.setProperty("will-change", "opacity");
+    this.projectTextSection?.style.setProperty("will-change", "transform");
   }
 
-  update(scrollY) {
-    if(!this.enabled) return;
-      let isActive = false;
-      // console.log(`This is the end of the movephotosection: ${this.end}`)
+  update(scrollY: number): void {
+    if (!this.enabled || !this.el || !this.behindImageWrapper || !this.lastImage || !this.projectTextSection) return;
 
-      // compute progress for image translation
-      const t = clamp01((scrollY - this.start) / (this.wholeAmount));
-      const xPercent = mapRange(t, 0, 1, 0, 100);
-      const percentageTraveled = scrollY - this.start;
+    // compute progress for image translation
+    const t = clamp01((scrollY - this.start) / (this.wholeAmount));
+    const xPercent = mapRange(t, 0, 1, 0, 100);
+    const percentageTraveled = scrollY - this.start;
+    const imageTransformPercent = 100 - xPercent;
+    const opacityPercent = 100 - ((percentageTraveled / this.wholeAmount) * 100);
 
-      // const xPercent = (percentageTraveled / this.wholeAmount) * 100;
-      const imageTransformPercent = 100 - xPercent;
-      const opacityPercent = 100 - ((percentageTraveled / this.wholeAmount) * 100);
+    // apply transforms and opacity changes declaritively
+    this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
+    this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
+    this.lastImage.style.opacity = `${opacityPercent}%`;
+    this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
 
-     if ( scrollY < this.start ) {
-      // translates the image container from right side to left
-      this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
-      this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
-      // transforms the opacity from 100% to o% so image behind can show through
-      this.lastImage.style.opacity = `${opacityPercent}%`;
-      this.imageRevealSection.style.zIndex = "-1";
+    // section header activation
+    const sectionIndex = 0;
 
-      // translate vertically text from next section
-      this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
-
-      // Debug.write("MovePhotoSection", "I should be at its original location");
+    if (scrollY >= this.end) {
+      if (!this.activatedSections[sectionIndex]) {
+        this._activate(sectionIndex);
+        this.activatedSections[sectionIndex] = true;
+      }
+    } else {
+      if (this.activatedSections[sectionIndex]) {
+        this._deactivate(sectionIndex);
+        this.activatedSections[sectionIndex] = false;
+      }
     }
 
-    if ( scrollY >= this.start ) {
-      // Debug.write("MovePhotoSection", `I should move the right photo ${xPercent}%`);
-      // translates the image container from right side to left
-      this.el.style.transform = `translate3d(-${xPercent}%, 0, 0)`;
-      this.behindImageWrapper.style.transform = `translate3d(-${imageTransformPercent}%, 0, 0)`;
-      // transforms the opacity from 100% to o% so image behind can show through
-      this.lastImage.style.opacity = `${opacityPercent}%`;
-
-      // translate vertically text from next section
-      this.projectTextSection.style.transform = `translate3d(0, -${xPercent}%, 0)`;
-      this._deactivate(0);
-    }
-
-    if (scrollY >= this.end ) {
-      if (!isActive) {this._activate(0);}
-      isActive = true;
-      return;
+    // z-index control
+    if (this.imageRevealSection) {
+      this.imageRevealSection.style.zIndex = scrollY < this.start ? "-1" : "0";
     }
   }
 
-  _activate(i) {
+  _activate(i: number): void {
     this.sectionHeaderText[i]?.classList.add("is-active");
     this.projectTextHeading[i]?.classList.add("is-active");
     this.bodyText[i]?.classList.add("is-active");
     this.itemNumberText[i]?.classList.add("is-active");
   }
 
-  _deactivate(i) {
+  _deactivate(i: number): void {
     this.sectionHeaderText[i]?.classList.remove("is-active");
     // this.projectTextHeading[i]?.classList.remove("is-active");
     this.bodyText[i]?.classList.remove("is-active");
     this.itemNumberText[i]?.classList.remove("is-active");
   }
 
-  _deactivateAll() {
+  _deactivateAll(): void {
     this.sectionHeaderText.forEach(el => el.classList.remove("is-active"));
     this.projectTextHeading.forEach(el => el.classList.remove("is-active"));
     this.bodyText.forEach(el => el.classList.remove("is-active"));

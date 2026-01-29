@@ -1,7 +1,7 @@
 import ScrollEngine from "../engine/ScrollEngine.ts";
 import SmoothScroll from "../engine/SmoothScroll.js";
 import HomeScrollSection from "../sections/HomeScrollSection.ts";
-import MovePhotoSection from "../sections/MovePhotoSection.js";
+import MovePhotoSection from "../sections/MovePhotoSection.ts";
 import PhotoOverlapDeclarative from "../sections/PhotoOverlapDeclarative.ts";
 
 window.addEventListener("DOMContentLoaded", () => {
