@@ -32,6 +32,8 @@ export default class MovePhotoSection extends BaseSection {
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
 
+    this.isActive = false;
+
     this.enabled = true;
 
     // put here to trigger new measuring since our animation is dependent on accurate real-time measurements
@@ -57,8 +59,6 @@ export default class MovePhotoSection extends BaseSection {
 
   update(scrollY) {
     if(!this.enabled) return;
-
-      let isActive = false;
       // console.log(`This is the end of the movephotosection: ${this.end}`)
 
       // compute progress for image translation
@@ -98,8 +98,8 @@ export default class MovePhotoSection extends BaseSection {
     }
 
     if (scrollY >= this.end ) {
-      if (!isActive) {this._activate(0);}
-      else return;
+      if (!this.isActive) {this._activate(0);}
+      return;
     }
   }
 
@@ -108,7 +108,7 @@ export default class MovePhotoSection extends BaseSection {
     this.projectTextHeading[i]?.classList.add("is-active");
     this.bodyText[i]?.classList.add("is-active");
     this.itemNumberText[i]?.classList.add("is-active");
-    isActive = true;
+    this.isActive = true;
   }
 
   _deactivate(i) {
