@@ -1,15 +1,12 @@
 interface BaseSectionOptions {
-  el: string | HTMLElement;
+  
 }
 
-export default class BaseSection {
-  el: HTMLElement | null;
-  enabled: boolean = true;
-  start: number = 0;
-  end: number = 0;
-  length: number = 0;
+type Element = string | HTMLElement | null;
 
-  constructor({ el }: BaseSectionOptions) {
+export default class BaseSection {
+
+  constructor({ el: Element }) {
     if (!el) throw new Error("BaseSection requires { el }");
 
     // Accept selector or element, ternary operator says if it's a string, use it in a query selector, otherwise,  use it as is, as its already an HTMLElement / DOM Object value

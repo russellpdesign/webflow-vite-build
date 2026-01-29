@@ -1,4 +1,4 @@
-import BaseSection from "../engine/BaseSection.ts";
+import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug";
 import { clamp01, mapRange } from "@utils";
 

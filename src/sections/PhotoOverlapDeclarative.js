@@ -1,4 +1,4 @@
-import BaseSection from "../engine/BaseSection.ts";
+import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug";
 import { clamp01, mapRange } from "@utils";
 
@@ -9,20 +9,13 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     /* -------------------------------------------------------------
      * DOM ELEMENTS
      * ------------------------------------------------------------- */
-    this.sectionTrigger = document.querySelector(
-      ".photo-overlap-section-trigger"
-    );
+    this.sectionTrigger = document.querySelector(".photo-overlap-section-trigger");
 
     // All images that participate in the overlap animation
-    this.initialImages = [
-      ...this.sectionTrigger.querySelectorAll(".sticky-img-container")
-    ];
+    this.initialImages = [...this.sectionTrigger.querySelectorAll(".sticky-img-container")];
 
     // Used to offset the start position so animation aligns visually with the progress UI
-    this.progressBarHeight =
-      document
-        .querySelector(".progress-container")
-        .getBoundingClientRect().height;
+    this.progressBarHeight = document.querySelector(".progress-container").getBoundingClientRect().height;
 
     this.enabled = true;
 
@@ -45,13 +38,11 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       this.progressBarHeight;
 
     // Declarative trigger generation: Each image animates over exactly one viewport height - the image dom node value is not important aka "_", just creating the trigger values array is priority
-    this.triggers = this.initialImages.map(
-      (_, i) => this.start + window.innerHeight * i
-    );
+    this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
 
     // Used by the engine for section bounds
-    this.end =
-      this.triggers[this.triggers.length - 1] + window.innerHeight;
+    // this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
+    this.end = ( this.triggers[this.triggers.length - 1].getBoundingClientRect().bottom ) + window.scrollY;
 
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
@@ -61,15 +52,6 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
   }
 
-  /* -------------------------------------------------------------
-   * UPDATE
-   * -------------------------------------------------------------
-   * Declarative scroll behavior:
-   * - Each image computes its own progress based on its trigger
-   * - No branching or special cases required
-   * - Progress is clamped to ensure correct alignment even
-   *   during fast scrolling or reverse scrolling
-   * ------------------------------------------------------------- */
   update(scrollY) {
     if (!this.enabled) return;
 
@@ -87,17 +69,9 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
       const yPercent = mapRange(t, 0, 1, 0, 100);
 
-     this.totalProgress = (scrollY / this.end).toFixed(2);
+      this.totalProgress = (scrollY / this.end).toFixed(2);
 
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
-
-    //   console.log(`total progess: ${this.totalProgress}`);
-
-      // Optional per-image debug output
-    //   Debug.write(
-    //     `PhotoOverlapSection:image-${index}`,
-    //     `progress: ${t.toFixed(2)}, y: ${Math.round(yPercent)}%`,
-    //   );
     });
   }
 }
