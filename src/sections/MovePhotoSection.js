@@ -99,6 +99,7 @@ export default class MovePhotoSection extends BaseSection {
 
     if (scrollY >= this.end ) {
       if (!this.isActive) {this._activate(0);}
+      this.isActive = true;
       return;
     }
   }
@@ -108,7 +109,6 @@ export default class MovePhotoSection extends BaseSection {
     this.projectTextHeading[i]?.classList.add("is-active");
     this.bodyText[i]?.classList.add("is-active");
     this.itemNumberText[i]?.classList.add("is-active");
-    this.isActive = true;
   }
 
   _deactivate(i) {
