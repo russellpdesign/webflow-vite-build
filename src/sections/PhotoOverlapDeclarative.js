@@ -14,6 +14,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     // All images that participate in the overlap animation
     this.initialImages = [...this.sectionTrigger.querySelectorAll(".sticky-img-container")];
 
+    this.textElements = [...this.sectionTrigger.querySelectorAll("")]
+
     // Used to offset the start position so animation aligns visually with the progress UI
     this.progressBarHeight = document.querySelector(".progress-container").getBoundingClientRect().height;
 

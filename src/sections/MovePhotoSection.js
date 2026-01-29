@@ -32,7 +32,7 @@ export default class MovePhotoSection extends BaseSection {
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
 
-    this.isActive = false;
+    let isActive = false;
 
     this.enabled = true;
 
@@ -98,8 +98,8 @@ export default class MovePhotoSection extends BaseSection {
     }
 
     if (scrollY >= this.end ) {
-      if (!this.isActive) {this._activate(0);}
-      this.isActive = true;
+      if (!isActive) {this._activate(0);}
+      isActive = true;
       return;
     }
   }
