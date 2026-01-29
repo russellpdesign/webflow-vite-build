@@ -32,8 +32,6 @@ export default class MovePhotoSection extends BaseSection {
     this.imageRevealSection = document.querySelector(".double-wide-reveal-img");
     this.leftSideImageHide = document.querySelector("#left-side-hide");
 
-    let isActive = false;
-
     this.enabled = true;
 
     // put here to trigger new measuring since our animation is dependent on accurate real-time measurements
@@ -59,6 +57,7 @@ export default class MovePhotoSection extends BaseSection {
 
   update(scrollY) {
     if(!this.enabled) return;
+      let isActive = false;
       // console.log(`This is the end of the movephotosection: ${this.end}`)
 
       // compute progress for image translation
