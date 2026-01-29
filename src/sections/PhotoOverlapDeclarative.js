@@ -43,8 +43,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
 
     // Used by the engine for section bounds
-    // this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
-    this.end = this.initialImages[this.initialImages.length - 1].getBoundingClientRect().bottom + window.scrollY;
+    this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
+    // this.end = this.initialImages[this.initialImages.length - 1].getBoundingClientRect().bottom + window.scrollY;
 
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
