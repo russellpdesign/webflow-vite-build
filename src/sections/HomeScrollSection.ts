@@ -24,6 +24,9 @@ export default class HomeScrollSection extends BaseSection {
   secondStart!: number;
   thirdStart!: number;
 
+  // each section start/end
+  sectionRanges:[number, number][] = [];
+
   constructor({ el }: HomeScrollConfig ) {
     super({ el });
     /* -------------------------------------------------------------
@@ -65,68 +68,53 @@ export default class HomeScrollSection extends BaseSection {
     // secondary text animation breakpoints
     this.secondStart = this.start + window.innerHeight;
     this.thirdStart  = this.start + window.innerHeight * 2;
+
+    // define simple section ranges
+    const viewport = window.innerHeight;
+    this.sectionRanges = [
+      [this.start, this.start + viewport],        // section 1
+      [this.start + viewport, this.start + viewport * 2], // section 2
+      [this.start + viewport * 2, this.end],      // section 3
+    ];
   }
 
   update(scrollY: number): void {
-    if(!this.enabled) return;
-
-    if (!this.progressBar || !this.scrollbar || !this.sectionHeader) return;
+    if(!this.enabled || !this.progressBar || !this.scrollbar || !this.sectionHeader) return;
 
     // compute progress for scrollbar
     const t = clamp01((scrollY - this.start) / (this.end - this.start));
     const yPercent = mapRange(t, 0, 1, 0, 200);
-    // console.log(`yPercent: ${yPercent}`)
-
+    this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`;
+    
+    // global header/scrollbar
     if (scrollY < this.start) {
-      this._deactivateAll();
-      this.progressBar.style.transform = "translate3d(0, 0%, 0)";
-      return;
-    }
-
-    // progress bar always animates inside range
-    if (scrollY >= this.start && scrollY <= this.end) {
-      // const yPercent = ((scrollY - this.start) / (this.end - this.start)) * 200;
-      this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`;
-      this.scrollbar.classList.remove("is-gone");
-      this.sectionHeader.classList.add("is-active");
-    }
-
-    // SECTION 1
-    if (scrollY >= this.start && scrollY < this.secondStart) {
-      this._activate(0);
-      this._deactivate(1);
-      return;
-    }
-
-    // SECTION 2
-    if (scrollY >= this.secondStart && scrollY < this.thirdStart) {
-      this._deactivate(0);
-      this._activate(1);
-      this._deactivate(2);
-      return;
-    }
-
-    // SECTION 3
-    if (scrollY >= this.thirdStart && scrollY < this.end) {
-      this._deactivate(1);
-      this._activate(2);
-      return;
-    }
-
-    // AFTER END
-    if (scrollY >= this.end) {
       this.sectionHeader.classList.remove("is-active");
-      this.titleItems[2].classList.remove("is-active");
-      this.textItems[2].classList.remove("is-active");
-      this.numberItems[2].classList.remove("is-active");
       this.scrollbar.classList.add("is-gone");
-      this.imgItems[2].classList.add("is-active");
-      this.progressBar.style.transform = "translate3d(0, 200%, 0)";
+      this._deactivateAll();
       return;
+    } else if (scrollY <= this.end) {
+      this.sectionHeader.classList.add("is-active");
+      this.scrollbar.classList.remove("is-gone");
+    } else {
+      this.sectionHeader.classList.remove("is-active");
+      this.scrollbar.classList.add("is-gone");
+    }
+
+    // declarative section activation
+    this.sectionRanges.forEach(([start, end], index) => {
+      if (scrollY >= start && scrollY < end) {
+        this._activate(index);
+        [0, 1, 2].filter(i => i !== index).forEach(i => this._deactivate(i));
+      }
+    });
+
+    // after last section, activate last img
+    if (scrollY >= this.end) {
+      this.imgItems[2]?.classList.add("is-active");
     }
   }
 
-  private _activate(i: number): void {
+    private _activate(i: number): void {
     this.titleItems[i]?.classList.add("is-active");
     this.textItems[i]?.classList.add("is-active");
     this.numberItems[i]?.classList.add("is-active");
@@ -148,3 +136,54 @@ export default class HomeScrollSection extends BaseSection {
     this.sectionHeader?.classList.remove("is-active");
   }
 }
+
+  //   if (scrollY < this.start) {
+  //     this._deactivateAll();
+  //     this.progressBar.style.transform = "translate3d(0, 0%, 0)";
+  //     return;
+  //   }
+
+  //   // progress bar always animates inside range
+  //   if (scrollY >= this.start && scrollY <= this.end) {
+  //     // const yPercent = ((scrollY - this.start) / (this.end - this.start)) * 200;
+  //     this.progressBar.style.transform = `translate3d(0, ${yPercent}%, 0)`;
+  //     this.scrollbar.classList.remove("is-gone");
+  //     this.sectionHeader.classList.add("is-active");
+  //   }
+
+  //   // SECTION 1
+  //   if (scrollY >= this.start && scrollY < this.secondStart) {
+  //     this._activate(0);
+  //     this._deactivate(1);
+  //     return;
+  //   }
+
+  //   // SECTION 2
+  //   if (scrollY >= this.secondStart && scrollY < this.thirdStart) {
+  //     this._deactivate(0);
+  //     this._activate(1);
+  //     this._deactivate(2);
+  //     return;
+  //   }
+
+  //   // SECTION 3
+  //   if (scrollY >= this.thirdStart && scrollY < this.end) {
+  //     this._deactivate(1);
+  //     this._activate(2);
+  //     return;
+  //   }
+
+  //   // AFTER END
+  //   if (scrollY >= this.end) {
+  //     this.sectionHeader.classList.remove("is-active");
+  //     this.titleItems[2].classList.remove("is-active");
+  //     this.textItems[2].classList.remove("is-active");
+  //     this.numberItems[2].classList.remove("is-active");
+  //     this.scrollbar.classList.add("is-gone");
+  //     this.imgItems[2].classList.add("is-active");
+  //     this.progressBar.style.transform = "translate3d(0, 200%, 0)";
+  //     return;
+  //   }
+  // }
+
+
