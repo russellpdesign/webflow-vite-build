@@ -1,3 +1,8 @@
+// handles deactivation of previous section image
+// handles photos overlapping as we scroll
+// handles text is-active class removal
+
+
 import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug.js";
 import { clamp, clamp01, mapRange } from "../engine/utils.js";
@@ -15,13 +20,26 @@ export default class PhotoOverlapDeclarative extends BaseSection {
   totalProgress!: string;
   behindImageWrapper!: HTMLElement;
 
+  // image toggle on and off
   triggers!: number[];
   behindImageToggleCheckpoint!: number;
 
+  // text elements
+  projectTextSection: HTMLElement | null;
+  sectionHeaderText!: HTMLElement;
+  projectTextHeading!: HTMLElement;
+  bodyText!: HTMLElement;
+  itemNumberText!: HTMLElement;
+  textElements!: HTMLElement[] = [];
+
   private behindImageVisible: boolean = false;
+
+  private textActive: boolean = false;
 
   constructor({ el }: PhotoOverlapDeclarativeConfig ) {
     super({ el });
+
+    // el = ".photo-overlap-section";
 
     /* -------------------------------------------------------------
      * DOM ELEMENTS
@@ -29,13 +47,20 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.sectionTrigger = document.querySelector<HTMLElement>(".photo-overlap-section-trigger")!;
 
     // All images that participate in the overlap animation
-    this.initialImages = Array.from(
-      this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container")
-    );
+    this.initialImages = Array.from(this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
 
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
     this.behindImageWrapper = document.querySelector<HTMLElement>(".home-scroll-img-behind-wrapper")!;
+
+    // text element gathering
+    this.projectTextSection = document.querySelector<HTMLElement>(".project-text-section.is-sticky.heroic-members")!;
+    this.sectionHeaderText = this.projectTextSection.querySelector<HTMLElement>(".section-header-text")!;
+    this.projectTextHeading = this.projectTextSection.querySelector<HTMLElement>(".project-text-heading")!;
+    this.bodyText = this.projectTextSection.querySelector<HTMLElement>(".body-text.home-scroll")!;
+    this.itemNumberText = this.projectTextSection.querySelector<HTMLElement>(".home-scroll-item-number")!;
+
+    this.textElements.push(this.sectionHeaderText, this.projectTextHeading, this.bodyText, this.itemNumberText);
 
     // this.textElements = [...this.sectionTrigger.querySelectorAll("")]
 
@@ -86,6 +111,13 @@ export default class PhotoOverlapDeclarative extends BaseSection {
   update(scrollY: number): void {
     if (!this.enabled) return;
 
+    // handles previous move photo section image toggle off on
+    const shouldBeVisible = scrollY <= this.behindImageToggleCheckpoint;
+    if (shouldBeVisible === this.behindImageVisible) return;
+    this.behindImageWrapper.style.opacity = shouldBeVisible ? "1" : "0";
+    this.behindImageVisible = shouldBeVisible;
+
+    // handles images sliding up on triggers
     this.initialImages.forEach((image, index) => {
       const trigger = this.triggers[index];
 
@@ -100,13 +132,14 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
     });
-     
-    const shouldBeVisible = scrollY <= this.behindImageToggleCheckpoint;
 
-    if (shouldBeVisible === this.behindImageVisible) return;
+    // handles deactivation of text elements
+    const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
+    if (shouldBeActive === this.textActive) return;
+    this.textElements.forEach((textEl) => {
+      textEl.classList.toggle("is-active", shouldBeActive);
+    });
 
-    this.behindImageWrapper.style.opacity = shouldBeVisible ? "1" : "0";
-
-    this.behindImageVisible = shouldBeVisible;
+    this.textActive = shouldBeActive;
   }
 }
