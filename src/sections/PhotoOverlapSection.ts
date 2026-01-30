@@ -119,6 +119,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     this.isLeftSideHidden = window.scrollY <= this.end;
 
+    this.textActive = this.textElements[0].classList.contains("is-active");
+
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
     //   triggers: this.triggers.map(v => Math.round(v)),
@@ -157,11 +159,9 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       this.textElements.forEach((textEl) => {
         textEl.classList.add("is-active");
       });
-      this.textActive = shouldBeActive;
     } if ( !shouldBeActive && this.textActive ) {
        this.textElementsMinusTitle.forEach((textEl) => {
         textEl.classList.remove("is-active");
-        this.textActive = !shouldBeActive;
        });
     } 
 
