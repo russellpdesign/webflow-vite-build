@@ -13,8 +13,12 @@ export default class PhotoOverlapDeclarative extends BaseSection {
   progressBar: HTMLElement;
   progressBarHeight!: number;
   totalProgress!: string;
+  behindImageWrapper!: HTMLElement;
 
   triggers!: number[];
+  behindImageToggleCheckpoint!: number;
+
+  private imageOff: boolean = false;
 
   constructor({ el }: PhotoOverlapDeclarativeConfig ) {
     super({ el });
@@ -30,6 +34,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     );
 
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
+
+    this.behindImageWrapper = document.querySelector<HTMLElement>(".home-scroll-img-behind-wrapper")!;
 
     // this.textElements = [...this.sectionTrigger.querySelectorAll("")]
 
@@ -59,6 +65,10 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     // Declarative trigger generation: Each image animates over exactly one viewport height - the image dom node value is not important aka "_", just creating the trigger values array is priority
     this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
 
+    this.behindImageToggleCheckpoint = this.triggers[1];
+
+    this.imageOff = scrollY >= this.behindImageToggleCheckpoint;
+
     // Used by the engine for section bounds
     // this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
     this.end = this.initialImages[this.initialImages.length - 1].getBoundingClientRect().bottom + window.scrollY;
@@ -73,7 +83,6 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     //   triggers: this.triggers.map(v => Math.round(v)),
     //   end: Math.round(this.end),
     // });
-
   }
 
   update(scrollY: number): void {
@@ -93,5 +102,11 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
     });
+
+    if (this.imageOff) {
+      this.behindImageWrapper.style.setProperty("opacity", "0");
+      this.imageOff = true;
+    }
+
   }
 }
