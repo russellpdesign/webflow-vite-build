@@ -40,6 +40,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
   private textActive: boolean = false;
 
   private leftSideHideAll: boolean = false;
+
   private leftSideHidden: boolean = false;
 
   constructor({ el }: PhotoOverlapDeclarativeConfig ) {
@@ -113,6 +114,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       // Performance hints
       image.style.willChange = "transform";
     });
+
+    this.leftSideHidden = scrollY <= this.end;
 
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
