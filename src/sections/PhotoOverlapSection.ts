@@ -30,7 +30,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
   projectTextHeading!: HTMLElement;
   bodyText!: HTMLElement;
   itemNumberText!: HTMLElement;
-  textElements!: HTMLElement[] = [];
+  textElements: HTMLElement[] = [];
 
   private behindImageVisible: boolean = false;
 
