@@ -41,7 +41,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
   private leftSideHideAll: boolean = false;
 
-  private leftSideHidden: boolean = false;
+  private isLeftSideHidden: boolean = false;
 
   constructor({ el }: PhotoOverlapDeclarativeConfig ) {
     super({ el });
@@ -115,7 +115,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       image.style.willChange = "transform";
     });
 
-    this.leftSideHidden = scrollY <= this.end;
+    this.isLeftSideHidden = scrollY <= this.end;
 
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
@@ -159,19 +159,19 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     // handles the turn off all left side images once the right side reaches the top (this.end)
     const shouldHideAll = scrollY >= this.end;
 
-    if (shouldHideAll && !this.leftSideHidden) {
+    if (shouldHideAll && !this.isLeftSideHidden) {
       this.leftSideImages.forEach((image) => {
         image.style.opacity = "0";
       });
-      this.leftSideHidden = true;
+      this.isLeftSideHidden = true;
     }
 
     // optional: if you want them to reappear when scrolling back above end
-    if (!shouldHideAll && this.leftSideHidden) {
+    if (!shouldHideAll && this.isLeftSideHidden) {
       this.leftSideImages.forEach((image) => {
         image.style.opacity = "1";
       });
-      this.leftSideHidden = false;
+      this.isLeftSideHidden = false;
     }
   }
 }
