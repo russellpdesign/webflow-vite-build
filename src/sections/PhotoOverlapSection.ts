@@ -158,7 +158,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     if (shouldHideAll && !this.leftSideHidden) {
       this.leftSideImages.forEach((image) => {
-        image.style.opacity = "0";
+        image.style.setProperty("opacity", "0");
       });
       this.leftSideHidden = true;
     }
@@ -166,7 +166,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     // optional: if you want them to reappear when scrolling back above end
     if (!shouldHideAll && this.leftSideHidden) {
       this.leftSideImages.forEach((image) => {
-        image.style.opacity = "1";
+        image.style.setProperty("opacity", "1");
       });
       this.leftSideHidden = false;
     }
