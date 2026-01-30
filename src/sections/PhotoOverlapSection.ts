@@ -119,8 +119,6 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     this.isLeftSideHidden = window.scrollY <= this.end;
 
-    this.textActive = this.textElements[0].classList.contains("is-active");
-
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
     //   triggers: this.triggers.map(v => Math.round(v)),
@@ -152,14 +150,18 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
     });
 
+
     // handles toggling visibility of text elements
-    const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
+    const shouldBeActive = window.scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
+
+    // handles when we scroll past our final image reaching the top and we need to remove text for right side image to scroll in
+    const toggleAll = window.scrollY >= this.triggers[this.triggers.length - 1];
+
+    this.textActive = this.textElements[0].classList.contains("is-active");
 
     this.textElementsMinusTitle.forEach((element) => {
       element.classList.toggle("is-active", shouldBeActive)
     })
-
-    const toggleAll = scrollY >= this.triggers[this.triggers.length - 1];
 
     this.textElements.forEach((element) => {
       element.classList.toggle("is-active", toggleAll);
