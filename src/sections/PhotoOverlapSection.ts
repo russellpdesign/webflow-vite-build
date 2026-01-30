@@ -163,7 +163,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
         textEl.classList.remove("is-active");
         this.textActive = !shouldBeActive;
        });
-    } if ( !shouldBeActive && this.textActive && scrollY > this.end ) {
+    } if ( !shouldBeActive && this.textActive && scrollY > this.triggers[this.triggers.length - 1] ) {
       this.textElements.forEach((textEl) => {
         textEl.classList.remove("is-active");
       });
