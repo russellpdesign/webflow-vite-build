@@ -2,7 +2,6 @@
 // handles photos overlapping as we scroll
 // handles text is-active class removal
 
-
 import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug.js";
 import { clamp, clamp01, mapRange } from "../engine/utils.js";
@@ -53,7 +52,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     this.behindImageWrapper = document.querySelector<HTMLElement>(".home-scroll-img-behind-wrapper")!;
 
-    // text element gathering
+    // text element gathering starting with parent and deriving from there
     this.projectTextSection = document.querySelector<HTMLElement>(".project-text-section.is-sticky.heroic-members")!;
     this.sectionHeaderText = this.projectTextSection.querySelector<HTMLElement>(".section-header-text")!;
     this.projectTextHeading = this.projectTextSection.querySelector<HTMLElement>(".project-text-heading")!;
@@ -135,13 +134,13 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
     });
 
-    // handles deactivation of text elements
-    const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
-    if (shouldBeActive === this.textActive) return;
-    this.textElements.forEach((textEl) => {
-      textEl.classList.toggle("is-active", shouldBeActive);
-    });
+    // // handles deactivation of text elements
+    // const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
+    // if (shouldBeActive === this.textActive) return;
+    // this.textElements.forEach((textEl) => {
+    //   textEl.classList.toggle("is-active", shouldBeActive);
+    // });
 
-    this.textActive = shouldBeActive;
+    // this.textActive = shouldBeActive;
   }
 }
