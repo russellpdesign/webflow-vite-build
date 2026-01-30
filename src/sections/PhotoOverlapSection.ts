@@ -1,6 +1,6 @@
 import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug.js";
-import { clamp, clamp01, mapRange } from "../engine/utils";
+import { clamp, clamp01, mapRange } from "../engine/utils.js";
 
 type PhotoOverlapDeclarativeConfig = {
   el: string | HTMLElement;
