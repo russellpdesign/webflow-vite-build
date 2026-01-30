@@ -17,7 +17,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
   progressBar: HTMLElement;
   progressBarHeight!: number;
   totalProgress!: string;
-  behindImageWrapper!: HTMLElement;
+  behindImageWrapper: HTMLElement;
 
   // image toggle on and off
   triggers!: number[];
@@ -50,7 +50,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
-    this.behindImageWrapper = document.querySelector<HTMLElement>(".home-scroll-img-behind-wrapper")!;
+    this.behindImageWrapper = document.querySelector<HTMLElement>(".home-scroll-img-behind-wrapper");
 
     // text element gathering starting with parent and deriving from there
     this.projectTextSection = document.querySelector<HTMLElement>(".project-text-section.is-sticky.heroic-members")!;
@@ -114,7 +114,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     // handles previous move photo section image toggle off on
     const shouldBeVisible = scrollY <= this.behindImageToggleCheckpoint;
-    if (shouldBeVisible === this.behindImageVisible) return;
+    // if (shouldBeVisible === this.behindImageVisible) return;
     this.behindImageWrapper.style.opacity = shouldBeVisible ? "1" : "0";
     this.behindImageVisible = shouldBeVisible;
 
@@ -134,13 +134,13 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
     });
 
-    // // handles deactivation of text elements
-    // const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
+    // handles deactivation of text elements
+    const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
     // if (shouldBeActive === this.textActive) return;
-    // this.textElements.forEach((textEl) => {
-    //   textEl.classList.toggle("is-active", shouldBeActive);
-    // });
+    this.textElements.forEach((textEl) => {
+      textEl.classList.toggle("is-active", shouldBeActive);
+    });
 
-    // this.textActive = shouldBeActive;
+    this.textActive = shouldBeActive;
   }
 }
