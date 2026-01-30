@@ -1,6 +1,7 @@
 // handles deactivation of previous section image
 // handles photos overlapping as we scroll
 // handles text is-active class removal
+// hide left side images once right side image gets to top of viewport
 
 import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug.js";
@@ -31,9 +32,15 @@ export default class PhotoOverlapDeclarative extends BaseSection {
   itemNumberText!: HTMLElement;
   textElements: HTMLElement[] = [];
 
+  // left side images only
+  leftSideImages: HTMLElement[];
+
   private behindImageVisible: boolean = false;
 
   private textActive: boolean = false;
+
+  private leftSideHideAll: boolean = false;
+  private leftSideHidden: boolean;
 
   constructor({ el }: PhotoOverlapDeclarativeConfig ) {
     super({ el });
@@ -47,6 +54,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     // All images that participate in the overlap animation
     this.initialImages = Array.from(this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
+    this.leftSideImages = this.initialImages.slice(0, -1);
 
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
@@ -62,7 +70,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.textElements.push(this.sectionHeaderText, this.projectTextHeading, this.bodyText, this.itemNumberText);
 
     console.log(this.textElements);
-
+    
     // this.textElements = [...this.sectionTrigger.querySelectorAll("")]
 
     this.enabled = true;
@@ -104,6 +112,16 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       image.style.willChange = "transform";
     });
 
+    if (this.leftSideImages.length > 0) {
+    // Check the first image's computed opacity
+    const firstOpacity = parseFloat(
+      window.getComputedStyle(this.leftSideImages[0]).opacity
+    );
+
+    this.leftSideHidden = firstOpacity === 0; // true if hidden, false if visible
+    } else {
+    this.leftSideHidden = false; // default fallback
+    };
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
     //   triggers: this.triggers.map(v => Math.round(v)),
@@ -116,7 +134,6 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     // handles previous move photo section image toggle off on
     const shouldBeVisible = scrollY <= this.behindImageToggleCheckpoint;
-    // if (shouldBeVisible === this.behindImageVisible) return;
     this.behindImageWrapper.style.opacity = shouldBeVisible ? "1" : "0";
     this.behindImageVisible = shouldBeVisible;
 
@@ -138,11 +155,24 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     // handles deactivation of text elements
     const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
-    // if (shouldBeActive === this.textActive) return;
     this.textElements.forEach((textEl) => {
       textEl.classList.toggle("is-active", shouldBeActive);
     });
 
     this.textActive = shouldBeActive;
+
+    // handles the turn off all left side images once the right side reaches the top (this.end)
+    const shouldHideAll = scrollY >= this.end;
+
+    if (shouldHideAll !== this.leftSideHidden) {
+      this.leftSideImages.forEach((image) => {
+        image.style.opacity = shouldHideAll ? "0" : "1";
+      });
+
+      this.leftSideHidden = shouldHideAll;
+    }
+
+
   }
+
 }
