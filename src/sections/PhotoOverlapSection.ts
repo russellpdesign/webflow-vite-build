@@ -115,7 +115,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       image.style.willChange = "transform";
     });
 
-    this.isLeftSideHidden = scrollY <= this.end;
+    this.isLeftSideHidden = window.scrollY <= this.end;
 
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
