@@ -62,6 +62,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     this.textElements.push(this.sectionHeaderText, this.projectTextHeading, this.bodyText, this.itemNumberText);
 
+    console.log(this.textElements);
+
     // this.textElements = [...this.sectionTrigger.querySelectorAll("")]
 
     this.enabled = true;
