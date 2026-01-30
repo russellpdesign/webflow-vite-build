@@ -40,7 +40,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
   private textActive: boolean = false;
 
   private leftSideHideAll: boolean = false;
-  private leftSideHidden: boolean;
+  private leftSideHidden: boolean = false;
 
   constructor({ el }: PhotoOverlapDeclarativeConfig ) {
     super({ el });
@@ -112,18 +112,6 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       image.style.willChange = "transform";
     });
 
-    if (this.leftSideImages.length > 0) {
-    // Check the first image's computed opacity
-    const firstOpacity = parseFloat(
-      window.getComputedStyle(this.leftSideImages[0]).opacity
-    );
-
-    this.leftSideHidden = firstOpacity === 0; // true if hidden, false if visible
-    } else {
-    this.leftSideHidden = false; // default fallback
-    };
-
-    console.log(this.leftSideHidden);
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
     //   triggers: this.triggers.map(v => Math.round(v)),
@@ -164,14 +152,21 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.textActive = shouldBeActive;
 
     // handles the turn off all left side images once the right side reaches the top (this.end)
-    const shouldToggleAll = scrollY >= this.end;
+    const shouldHideAll = scrollY >= this.end;
 
-    if (shouldToggleAll !== this.leftSideHidden) {
+    if (shouldHideAll && !this.leftSideHidden) {
       this.leftSideImages.forEach((image) => {
-        image.style.opacity = shouldToggleAll ? "0" : "1";
+        image.style.opacity = "0";
       });
-      this.leftSideHidden = shouldToggleAll;
+      this.leftSideHidden = true;
+    }
+
+    // optional: if you want them to reappear when scrolling back above end
+    if (!shouldHideAll && this.leftSideHidden) {
+      this.leftSideImages.forEach((image) => {
+        image.style.opacity = "1";
+      });
+      this.leftSideHidden = false;
     }
   }
-
 }
