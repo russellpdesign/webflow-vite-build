@@ -158,11 +158,16 @@ export default class PhotoOverlapDeclarative extends BaseSection {
         textEl.classList.add("is-active");
       });
       this.textActive = shouldBeActive;
-    } if ( !shouldBeActive && this.textActive ) {
+    } if ( !shouldBeActive && this.textActive && scrollY < this.end ) {
        this.textElementsMinusTitle.forEach((textEl) => {
         textEl.classList.remove("is-active");
         this.textActive = !shouldBeActive;
        });
+    } if ( !shouldBeActive && this.textActive && scrollY > this.end ) {
+      this.textElements.forEach((textEl) => {
+        textEl.classList.remove("is-active");
+      });
+      this.textActive = !shouldBeActive;
     }
 
     // handles the turn off all left side images once the right side reaches the top (this.end)
