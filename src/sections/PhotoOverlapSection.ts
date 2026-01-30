@@ -101,7 +101,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
     });
      
-    let shouldBeVisible = scrollY >= this.behindImageToggleCheckpoint;
+    let shouldBeVisible = scrollY <= this.behindImageToggleCheckpoint;
 
     if (shouldBeVisible === this.behindImageVisible) return;
 
