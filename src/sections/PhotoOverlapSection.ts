@@ -18,7 +18,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
   triggers!: number[];
   behindImageToggleCheckpoint!: number;
 
-  private imageOff: boolean = false;
+  private behindImageVisible: boolean = false;
 
   constructor({ el }: PhotoOverlapDeclarativeConfig ) {
     super({ el });
@@ -67,8 +67,6 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     this.behindImageToggleCheckpoint = this.triggers[1];
 
-    this.imageOff = scrollY >= this.behindImageToggleCheckpoint;
-
     // Used by the engine for section bounds
     // this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
     this.end = this.initialImages[this.initialImages.length - 1].getBoundingClientRect().bottom + window.scrollY;
@@ -102,14 +100,13 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
     });
+     
+    const shouldBeVisible = scrollY >= this.behindImageToggleCheckpoint;
 
-    if (this.imageOff) {
-      this.behindImageWrapper.style.setProperty("opacity", "0");
-      this.imageOff = true;
-    } else if (!this.imageOff) {
-      this.behindImageWrapper.style.setProperty("opacity", "1");
-      this.imageOff = false;
-    }
+    if (shouldBeVisible === this.behindImageVisible) return;
 
+    this.behindImageWrapper.style.opacity = shouldBeVisible ? "1" : "0";
+
+    this.behindImageVisible = shouldBeVisible;
   }
 }
