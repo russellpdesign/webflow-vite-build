@@ -56,7 +56,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.initialImages = Array.from(this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
     this.leftSideImages = this.initialImages.slice(0, -1);
 
-    console.log(this.leftSideImages);
+    console.log(this.leftSideImages)
 
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
@@ -105,8 +105,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     // Used by the engine for section bounds
     // this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
-    const rightImage = this.initialImages[this.initialImages.length - 1];
-    this.end = rightImage.offsetTop - window.innerHeight;
+    this.end = this.initialImages[this.initialImages.length - 1].getBoundingClientRect().bottom + window.scrollY;
 
     console.log(scrollY, this.end, this.triggers[this.triggers.length - 1]);
 
