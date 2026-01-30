@@ -56,6 +56,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.initialImages = Array.from(this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
     this.leftSideImages = this.initialImages.slice(0, -1);
 
+    console.log(this.leftSideImages);
+
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
     this.behindImageWrapper = document.querySelector<HTMLElement>(".home-scroll-img-behind-wrapper");
