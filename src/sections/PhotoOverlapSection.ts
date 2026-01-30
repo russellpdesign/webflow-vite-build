@@ -122,6 +122,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     } else {
     this.leftSideHidden = false; // default fallback
     };
+
+    console.log(this.leftSideHidden);
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
     //   triggers: this.triggers.map(v => Math.round(v)),
