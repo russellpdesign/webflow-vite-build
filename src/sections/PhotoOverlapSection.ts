@@ -106,6 +106,9 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     if (this.imageOff) {
       this.behindImageWrapper.style.setProperty("opacity", "0");
       this.imageOff = true;
+    } else if (!this.imageOff) {
+      this.behindImageWrapper.style.setProperty("opacity", "1");
+      this.imageOff = false;
     }
 
   }
