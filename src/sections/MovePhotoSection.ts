@@ -1,3 +1,8 @@
+// moves right side image over while animating opacity to 0
+// transforms the left side image from right to left thru js and css
+// 
+
+
 import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug.js";
 import { clamp, clamp01, mapRange } from "../engine/utils";

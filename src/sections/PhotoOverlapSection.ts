@@ -1,7 +1,7 @@
 // handles deactivation of previous section image
 // handles photos overlapping as we scroll
 // handles text is-active class removal
-// hide left side images once right side image gets to top of viewport
+// hides all left side images once the right side image gets to top of viewport via this.end
 
 import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug.js";
@@ -31,6 +31,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
   bodyText!: HTMLElement;
   itemNumberText!: HTMLElement;
   textElements: HTMLElement[] = [];
+  textElementsMinusTitle: HTMLElement[] = [];
 
   // left side images only
   leftSideImages: HTMLElement[];
@@ -71,6 +72,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.itemNumberText = this.projectTextSection.querySelector<HTMLElement>(".home-scroll-item-number")!;
 
     this.textElements.push(this.sectionHeaderText, this.projectTextHeading, this.bodyText, this.itemNumberText);
+    this.textElementsMinusTitle.push(this.sectionHeaderText, this.bodyText, this.itemNumberText);
 
     console.log(this.textElements);
     
@@ -150,11 +152,18 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     // handles deactivation of text elements
     const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
-    this.textElements.forEach((textEl) => {
-      textEl.classList.toggle("is-active", shouldBeActive);
-    });
 
-    this.textActive = shouldBeActive;
+    if ( shouldBeActive && !this.textActive ) {
+      this.textElements.forEach((textEl) => {
+        textEl.classList.add("is-active");
+      });
+      this.textActive = shouldBeActive;
+    } if ( !shouldBeActive && this.textActive ) {
+       this.textElementsMinusTitle.forEach((textEl) => {
+        textEl.classList.remove("is-active");
+        this.textActive = !shouldBeActive;
+       });
+    }
 
     // handles the turn off all left side images once the right side reaches the top (this.end)
     const shouldHideAll = scrollY >= this.end;
