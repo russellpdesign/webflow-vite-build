@@ -18,13 +18,13 @@ export default class MovePhotoSection extends BaseSection {
   behindImageWrapper: HTMLElement | null;
 
   projectTextSection: HTMLElement | null;
-  sectionHeaderText: NodeListOf<HTMLElement>;
-  projectTextHeading: NodeListOf<HTMLElement>;
-  bodyText: NodeListOf<HTMLElement>;
-  itemNumberText: NodeListOf<HTMLElement>;
+  sectionHeaderText!: NodeListOf<HTMLElement>;
+  projectTextHeading!: NodeListOf<HTMLElement>;
+  bodyText!: NodeListOf<HTMLElement>;
+  itemNumberText!: NodeListOf<HTMLElement>;
 
-  imageRevealSection: HTMLElement | null;
-  leftSideImageHide: HTMLElement | null;
+  imageRevealSection!: HTMLElement | null;
+  leftSideImageHide!: HTMLElement | null;
 
   // Scroll state
   triggersHeight!: number;
@@ -56,11 +56,11 @@ export default class MovePhotoSection extends BaseSection {
     this.behindImageWrapper = document.querySelector<HTMLElement>(".home-scroll-img-behind-wrapper");
 
     // Elements from section after image translates left to right (text animations)
-    this.projectTextSection = document.querySelector<HTMLElement>(".project-text-section.is-sticky.heroic-members");
-    this.sectionHeaderText = this.projectTextSection?.querySelectorAll<HTMLElement>(".section-header-text") ?? [] as NodeListOf<HTMLElement>;
-    this.projectTextHeading = this.projectTextSection?.querySelectorAll<HTMLElement>(".project-text-heading") ?? [] as NodeListOf<HTMLElement>;
-    this.bodyText = this.projectTextSection?.querySelectorAll<HTMLElement>(".body-text.home-scroll") ?? [] as NodeListOf<HTMLElement>;
-    this.itemNumberText = this.projectTextSection?.querySelectorAll<HTMLElement>(".home-scroll-item-number") ?? [] as NodeListOf<HTMLElement>;
+    this.projectTextSection = document.querySelector<HTMLElement>(".project-text-section.is-sticky.heroic-members")!;
+    this.sectionHeaderText = this.projectTextSection.querySelectorAll<HTMLElement>(".section-header-text");
+    this.projectTextHeading = this.projectTextSection.querySelectorAll<HTMLElement>(".project-text-heading");
+    this.bodyText = this.projectTextSection.querySelectorAll<HTMLElement>(".body-text.home-scroll");
+    this.itemNumberText = this.projectTextSection.querySelectorAll<HTMLElement>(".home-scroll-item-number");
 
     // Elements from upcoming sections (for controlling z-indexing)
     this.imageRevealSection = document.querySelector<HTMLElement>(".double-wide-reveal-img");

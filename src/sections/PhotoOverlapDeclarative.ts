@@ -63,6 +63,11 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     // this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
     this.end = this.initialImages[this.initialImages.length - 1].getBoundingClientRect().bottom + window.scrollY;
 
+    this.initialImages.forEach((image, _) => {
+      // Performance hints
+      image.style.willChange = "transform";
+    });
+
     // Debug.write("PhotoOverlapSection", {
     //   start: Math.round(this.start),
     //   triggers: this.triggers.map(v => Math.round(v)),
@@ -75,10 +80,6 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     if (!this.enabled) return;
 
     this.initialImages.forEach((image, index) => {
-      // Performance hints
-      image.style.willChange = "transform";
-      image.style.transformStyle = "preserve-3d";
-
       const trigger = this.triggers[index];
 
       // Normalized progress for this image
