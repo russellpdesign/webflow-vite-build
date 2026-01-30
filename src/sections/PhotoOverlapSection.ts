@@ -162,17 +162,14 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     this.textActive = shouldBeActive;
 
     // handles the turn off all left side images once the right side reaches the top (this.end)
-    const shouldHideAll = scrollY >= this.end;
+    const shouldToggleAll = scrollY === this.end;
 
-    if (shouldHideAll !== this.leftSideHidden) {
+    if (shouldToggleAll !== this.leftSideHidden) {
       this.leftSideImages.forEach((image) => {
-        image.style.opacity = shouldHideAll ? "0" : "1";
+        image.style.opacity = shouldToggleAll ? "0" : "1";
       });
-
-      this.leftSideHidden = shouldHideAll;
+      this.leftSideHidden = shouldToggleAll;
     }
-
-
   }
 
 }
