@@ -97,6 +97,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     // this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
     this.end = this.initialImages[this.initialImages.length - 1].getBoundingClientRect().bottom + window.scrollY;
 
+    console.log(scrollY, this.end, this.triggers[this.triggers.length - 1]);
+
     this.initialImages.forEach((image, _) => {
       // Performance hints
       image.style.willChange = "transform";
