@@ -105,7 +105,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     // Used by the engine for section bounds
     // this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
-    this.end = this.initialImages[this.initialImages.length - 1].getBoundingClientRect().bottom + window.scrollY;
+    const rightImage = this.initialImages[this.initialImages.length - 1];
+    this.end = rightImage.offsetTop - window.innerHeight;
 
     console.log(scrollY, this.end, this.triggers[this.triggers.length - 1]);
 
@@ -158,7 +159,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     if (shouldHideAll && !this.leftSideHidden) {
       this.leftSideImages.forEach((image) => {
-        image.style.setProperty("opacity", "0");
+        image.style.opacity = "0";
       });
       this.leftSideHidden = true;
     }
@@ -166,7 +167,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     // optional: if you want them to reappear when scrolling back above end
     if (!shouldHideAll && this.leftSideHidden) {
       this.leftSideImages.forEach((image) => {
-        image.style.setProperty("opacity", "1");
+        image.style.opacity = "1";
       });
       this.leftSideHidden = false;
     }
