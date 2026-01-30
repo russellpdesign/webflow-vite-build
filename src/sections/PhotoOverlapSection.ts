@@ -152,14 +152,14 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
     });
 
-    // handles deactivation of text elements
+    // handles toggling visibility of text elements
     const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
 
     this.textElementsMinusTitle.forEach((element) => {
       element.classList.toggle("is-active", shouldBeActive)
     })
 
-    const toggleAll = scrollY === this.triggers[this.triggers.length - 1];
+    const toggleAll = scrollY >= this.triggers[this.triggers.length - 1];
 
     this.textElements.forEach((element) => {
       element.classList.toggle("is-active", toggleAll);
