@@ -24,6 +24,7 @@ export default class PhotoScaleDown extends BaseSection {
   imageWrapWidth: number = 0;
   heightRange: number = 0;
   widthRange: number = 0;
+  startScale: number = 0;
   progressBar: HTMLElement;
 
   // image toggle on and off
@@ -62,12 +63,6 @@ export default class PhotoScaleDown extends BaseSection {
     window.addEventListener("resize", () => this.measure());
   }
 
-  /* -------------------------------------------------------------
-   * MEASURE
-   * -------------------------------------------------------------
-   * Calculates all scroll trigger points.
-   * Each image gets its own trigger spaced by 1 viewport height.
-   * ------------------------------------------------------------- */
   measure(): void {
     super.measure();
 
@@ -81,9 +76,9 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
 
-    this.start = this.triggers[this.triggers.length - 1] + window.innerHeight;
-    this.end = this.start + window.innerHeight;
-    this.range = this.end - this.start;
+    this.startScale = this.triggers[this.triggers.length - 1] + window.innerHeight;
+    this.end = this.startScale + window.innerHeight;
+    this.range = this.end - this.startScale;
     this.viewportHeight = window.innerHeight;
     this.viewportWidth = window.innerWidth;
 
@@ -97,12 +92,12 @@ export default class PhotoScaleDown extends BaseSection {
   update(scrollY: number): void {
     if (!this.enabled) return;
 
-    const scaleRange = scrollY >= this.start && scrollY <= this.end;
+    const scaleRange = scrollY >= this.startScale && scrollY <= this.end;
 
-    this.endingImage.classList.toggle("opacity", scaleRange);
+    scaleRange ? this.endingImage.style.opacity = "0" : "1";
 
     const t = clamp01(
-        (scrollY - this.start) / window.innerHeight
+        (scrollY - this.startScale) / window.innerHeight
     );
 
     const yPercent = mapRange(t, 0, 1, 0, 100);
