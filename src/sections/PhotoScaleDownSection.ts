@@ -51,7 +51,7 @@ export default class PhotoScaleDown extends BaseSection {
     this.leftSideImages = this.initialImages.slice(0, -1);
 
     this.scaleDownImg = document.querySelector("#scale-down-img");
-    this.scaleDownImgContainer = document.querySelector(".big-absolute-img");
+    this.scaleDownImgContainer = document.querySelector("#scale-down-img-container");
 
     this.itemImageWrap = document.querySelector(".single-item-image-wrap");
 
