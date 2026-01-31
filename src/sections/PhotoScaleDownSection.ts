@@ -83,22 +83,22 @@ export default class PhotoScaleDown extends BaseSection {
       window.innerHeight * 1.38 +
       this.progressBarHeight;
 
-    this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
-
-    this.startScale = this.triggers[this.triggers.length - 1] + window.innerHeight;
-    this.end = this.startScale + window.innerHeight;
-
-    this.opacityToggleStartingPoint = this.startScale;
-    this.opacityToggleEndpoint = this.end;
-
     this.range = this.end - this.startScale;
     this.viewportHeight = window.innerHeight;
     this.viewportWidth = window.innerWidth;
 
+    this.triggers = this.initialImages.map((_, i) => this.start + this.viewportHeight * i);
+
+    this.startScale = this.triggers[this.triggers.length - 1] + this.viewportHeight;
+    this.end = this.startScale + this.viewportHeight * .5;
+
+    this.opacityToggleStartingPoint = this.startScale;
+    this.opacityToggleEndpoint = this.end + (this.viewportHeight * .5);
+
     this.imageWrapHeight = this.itemImageWrap.getBoundingClientRect().height;
     this.imageWrapWidth = this.itemImageWrap.getBoundingClientRect().width;
 
-    this.heightRange = window.innerHeight - this.imageWrapHeight;
+    this.heightRange = this.viewportHeight - this.imageWrapHeight;
     this.widthRange = window.innerWidth - this.imageWrapWidth;
 
     this.scaleDownImgHeightStartingValue = 120; // in percentage hardcoded but can retreive like window.getComputedStyles(this.scaleDownImg); along with the parents styles and then converting to percentage. We know from webflow its 120%
