@@ -125,9 +125,7 @@ update(scrollY: number): void {
     const minWidthPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
 
     // scaledown image height (inside container)
-    const scaleDownImgHeightPercent =
-        this.scaleDownImgHeightStartingValue +
-        scaleProgress * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
+    const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - (scaleProgress * (-((this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue) / 100)) * 100);
 
     // -------------------------------------------------------------
     // 2️⃣ Hard toggle the ending image using display
