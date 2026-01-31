@@ -30,6 +30,7 @@ export default class PhotoScaleDown extends BaseSection {
   scaleDownImgHeightEndingValue: number = 0;
   opacityToggleStartingPoint: number = 0;
   opacityToggleEndpoint: number = 0;
+  fixedBackground: HTMLElement;
 
   // image toggle on and off
   triggers!: number[];
@@ -64,6 +65,7 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
+    this.fixedBackground = document.querySelector(".fixed-background");
 
     this.enabled = true;
 
@@ -121,6 +123,7 @@ export default class PhotoScaleDown extends BaseSection {
     const shouldHide = scrollY >= this.opacityToggleStartingPoint && scrollY <= this.end;
     this.endingImage.style.opacity = shouldHide ? "0" : "1";
     this.scaleDownImgContainer.style.opacity = shouldHide ? "1" : "0";
+    this.fixedBackground.style.display = shouldHide ? "none" : "block";
     this.endingImageHidden = shouldHide;
     
     const heightChangePercent = (this.heightRange / this.viewportHeight) * 100;
