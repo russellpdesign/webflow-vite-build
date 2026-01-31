@@ -28,6 +28,7 @@ export default class PhotoScaleDown extends BaseSection {
   progressBar: HTMLElement;
   scaleDownImgHeightStartingValue: number = 0;
   scaleDownImgHeightEndingValue: number = 0;
+  opacityToggleStartingPoint: number = 0;
   opacityToggleEndpoint: number = 0;
 
   // image toggle on and off
@@ -84,7 +85,9 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.startScale = this.triggers[this.triggers.length - 1] + window.innerHeight;
     this.end = this.startScale + window.innerHeight;
+
     this.opacityToggleEndpoint = this.end + ( this.viewportHeight * .5 );
+    this.opacityToggleStartingPoint = this.start - this.viewportHeight;
     this.range = this.end - this.startScale;
     this.viewportHeight = window.innerHeight;
     this.viewportWidth = window.innerWidth;
@@ -105,7 +108,7 @@ export default class PhotoScaleDown extends BaseSection {
     if (!this.enabled) return;
 
     // toggle image in our next section off at start of scale and back on when we land over it
-    const shouldHide = scrollY >= this.startScale && scrollY <= this.opacityToggleEndpoint;
+    const shouldHide = scrollY >= this.opacityToggleStartingPoint && scrollY <= this.opacityToggleEndpoint;
     this.endingImage.style.opacity = shouldHide ? "0" : "1";
     this.endingImageHidden = shouldHide;
 
