@@ -113,13 +113,13 @@ export default class PhotoScaleDown extends BaseSection {
         (scrollY - this.startScale) / this.viewportHeight
     );
 
-    const yPercent = mapRange(t, 0, 1, 0, 1);
+    const yPercent = mapRange(t, 0, 1, 0, 100);
 
     console.log(t, yPercent)
 
     // toggle image in our next section off at start of scale and back on when we land over it
     const shouldHide = scrollY >= this.opacityToggleStartingPoint && scrollY <= this.end;
-    this.endingImage.style.opacity = shouldHide ? "0" : "1";
+    this.endingImage.style.opacity = shouldHide ? "0" : "0";
     this.scaleDownImgContainer.style.opacity = shouldHide ? "1" : "0";
     this.fixedBackground.style.display = shouldHide ? "none" : "block";
     this.endingImageHidden = shouldHide;
@@ -133,7 +133,7 @@ export default class PhotoScaleDown extends BaseSection {
     const heightChangeFinalPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
     const widthChangeFinalPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
 
-    const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - (yPercent * (-((this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue) / 100)) * 100);
+    const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - (yPercent * (-(this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue)) * 100);
 
     // cleaner formula but not as readable for troubleshooting
     // const scaleDownImgHeightPercentSimplified = this.scaleDownImgHeightStartingValue + yPercent * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
