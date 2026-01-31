@@ -90,7 +90,7 @@ export default class PhotoScaleDown extends BaseSection {
     this.triggers = this.initialImages.map((_, i) => this.start + this.viewportHeight * i);
 
     this.startScale = this.triggers[this.triggers.length - 1] + this.viewportHeight;
-    this.end = this.startScale + this.viewportHeight * .5;
+    this.end = this.startScale + this.viewportHeight;
 
     this.opacityToggleStartingPoint = this.startScale;
     this.opacityToggleEndpoint = this.end + (this.viewportHeight * .5);
