@@ -107,42 +107,39 @@ export default class PhotoScaleDown extends BaseSection {
     console.log(`this.startScale: ${this.startScale} this.end: ${this.end}, this.opacityToggleStartingPoint: ${this.opacityToggleStartingPoint}, this.opacityToggleEndpoint: ${this.opacityToggleEndpoint}, scrollY:`, window.scrollY)
   }
 
-  update(scrollY: number): void {
+update(scrollY: number): void {
     if (!this.enabled) return;
 
-    const scaleProgress = clamp01(
-        (scrollY - this.startScale) / this.viewportHeight
-    );
+    // Normalize scroll progress over the viewport height
+    const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
+    const yPercent = mapRange(t, 0, 1, 0, 1);
 
-    const yPercent = mapRange(scaleProgress, 0, 1, 0, 1);
+    // ---- Opacity swap: fade out scaledown image, fade in ending image ----
+    const endingImageVisible = scrollY > this.opacityToggleEndpoint;
+    this.endingImage.style.opacity = endingImageVisible ? "1" : "0";
+    this.scaleDownImgContainer.style.opacity = endingImageVisible ? "0" : "1";
+    this.fixedBackground.style.display = endingImageVisible ? "block" : "none";
 
-    console.log(scaleProgress, yPercent)
-    
+    // ---- Container scaling ----
     const heightChangePercent = (this.heightRange / this.viewportHeight) * 100;
     const widthChangePercent = (this.widthRange / this.viewportWidth) * 100;
 
-    const scaleDownImgContainerHeightPercent = 100 - scaleProgress * heightChangePercent;
-    const scaleDownImgContainerWidthPercent = 100 - scaleProgress * widthChangePercent;
+    const containerHeightPercent = 100 - yPercent * heightChangePercent;
+    const containerWidthPercent = 100 - yPercent * widthChangePercent;
 
-    const heightFinalPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
-    const widthFinalPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
+    const minHeightPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
+    const minWidthPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
 
-    this.scaleDownImgContainer.style.height = `${scaleDownImgContainerHeightPercent}%`;
-    this.scaleDownImgContainer.style.minHeight = `${heightFinalPercent}%`;
-    this.scaleDownImgContainer.style.width = `${scaleDownImgContainerWidthPercent}%`;
-    this.scaleDownImgContainer.style.minWidth = `${widthFinalPercent}%`;
+    this.scaleDownImgContainer.style.height = `${containerHeightPercent}%`;
+    this.scaleDownImgContainer.style.minHeight = `${minHeightPercent}%`;
+    this.scaleDownImgContainer.style.width = `${containerWidthPercent}%`;
+    this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
 
-    // scale image inside container
-    const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue + scaleProgress * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
+    // ---- Image inside container scaling separately ----
+    const scaleDownImgHeightPercent =
+        this.scaleDownImgHeightStartingValue +
+        yPercent * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
+
     this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
-
-    // ending image visibility
-    const endingImageOpacity = scrollY >= this.end ? "1" : "0";
-    const scaleDownContainerOpacity = scrollY >= this.end ? "0" : "1";
-    const fixedBackgroundDisplay = scrollY >= this.end ? "block" : "none";
-
-    this.endingImage.style.opacity = endingImageOpacity;
-    this.scaleDownImgContainer.style.opacity = scaleDownContainerOpacity;
-    this.fixedBackground.style.display = fixedBackgroundDisplay;
   }
 }
