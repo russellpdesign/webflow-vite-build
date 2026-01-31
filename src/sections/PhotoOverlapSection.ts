@@ -145,11 +145,8 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
       const yPercent = mapRange(t, 0, 1, 0, 100);
 
-      // this.totalProgress = (scrollY / this.end).toFixed(2);
-
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
     });
-
 
     // handles toggling visibility of text elements
     const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
@@ -159,13 +156,13 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     this.textActive = this.textElements[0].classList.contains("is-active");
 
-    this.textElementsMinusTitle.forEach((element) => {
-      element.classList.toggle("is-active", shouldBeActive)
-    })
+    // this.textElementsMinusTitle.forEach((element) => {
+    //   element.classList.toggle("is-active", shouldBeActive)
+    // })
 
-    this.textElements.forEach((element) => {
-      element.classList.toggle("is-active", toggleAllOff);
-    });
+    // this.textElements.forEach((element) => {
+    //   element.classList.toggle("is-active", toggleAllOff);
+    // });
 
     // handles the turn off all left side images once the right side reaches the top (this.end)
     const shouldHideAll = scrollY >= this.end;
