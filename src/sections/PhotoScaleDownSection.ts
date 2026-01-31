@@ -78,6 +78,8 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.heightRange = window.innerHeight - this.imageWrapHeight;
     this.widthRange = window.innerWidth - this.imageWrapWidth;
+
+    this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
   }
 
   update(scrollY: number): void {
