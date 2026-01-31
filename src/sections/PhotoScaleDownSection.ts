@@ -89,7 +89,7 @@ export default class PhotoScaleDown extends BaseSection {
     this.end = this.startScale + window.innerHeight;
 
     this.opacityToggleStartingPoint = this.startScale;
-    this.opacityToggleEndpoint = this.opacityToggleStartingPoint +  this.viewportHeight;
+    this.opacityToggleEndpoint = this.end;
 
     this.range = this.end - this.startScale;
     this.viewportHeight = window.innerHeight;
@@ -104,7 +104,7 @@ export default class PhotoScaleDown extends BaseSection {
     this.scaleDownImgHeightStartingValue = 120; // in percentage hardcoded but can retreive like window.getComputedStyles(this.scaleDownImg); along with the parents styles and then converting to percentage. We know from webflow its 120%
     this.scaleDownImgHeightEndingValue = 150; // in percentage
 
-    console.log(`this.end: ${this.end}, this.opacityToggleEndpoint: ${this.opacityToggleEndpoint}, scrollY:`, window.scrollY)
+    console.log(`this.startScale: ${this.startScale} this.end: ${this.end}, this.opacityToggleStartingPoint: ${this.opacityToggleStartingPoint}, this.opacityToggleEndpoint: ${this.opacityToggleEndpoint}, scrollY:`, window.scrollY)
   }
 
   update(scrollY: number): void {
