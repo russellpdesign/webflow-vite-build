@@ -120,7 +120,8 @@ export default class PhotoScaleDown extends BaseSection {
 
     // toggle image in our next section off at start of scale and back on when we land over it
     const shouldHide = scrollY <= this.opacityToggleEndpoint;
-    this.endingImage.style.opacity = shouldHide ? "0" : "1";
+    const shouldShow = scrollY >= this.opacityToggleEndpoint + 300;
+    this.endingImage.style.opacity = shouldShow ? "0" : "0";
     this.scaleDownImgContainer.style.opacity = shouldHide ? "1" : "0";
     this.fixedBackground.style.display = shouldHide ? "none" : "block";
     this.endingImageHidden = shouldHide;
