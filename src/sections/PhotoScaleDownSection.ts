@@ -108,12 +108,12 @@ export default class PhotoScaleDown extends BaseSection {
     this.endingImageHidden = shouldHide;
 
     const t = clamp01(
-        (scrollY - this.startScale) / window.innerHeight
+        (scrollY - this.startScale) / this.viewportHeight
     );
 
     const yPercent = mapRange(t, 0, 1, 0, 100);
 
-    console.log(`${scrollY} - ${this.startScale}) / window.innerHeight`);
+    console.log(`${scrollY} - ${this.startScale}) / ${this.viewportHeight}`);
     
     const heightChangePercent = (this.heightRange / this.viewportHeight) * 100;
     const widthChangePercent = (this.widthRange / this.viewportWidth) * 100;
