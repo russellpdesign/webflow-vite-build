@@ -38,8 +38,6 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
   private behindImageVisible: boolean = false;
 
-  private textActive: boolean = false;
-
   private leftSideHideAll: boolean = false;
 
   private isLeftSideHidden: boolean = false;
@@ -110,8 +108,6 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     // this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
     this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
 
-    console.log(window.scrollY, this.end, this.triggers[this.triggers.length - 1]);
-
     this.initialImages.forEach((image, _) => {
       // Performance hints
       image.style.willChange = "transform";
@@ -148,19 +144,14 @@ export default class PhotoOverlapDeclarative extends BaseSection {
       image.style.transform = `translate3d(0, -${yPercent}%, 0)`;
     });
 
-    // handles toggling visibility of text elements
+    // handles animating in and out all text elements but the header, since it is special
     const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
 
-
-
-    this.textActive = this.textElements[0].classList.contains("is-active");
-
-    // handles animating in and out all other text elements
     this.textElementsMinusTitle.forEach((element) => {
       element.classList.toggle("is-active", shouldBeActive)
     })
 
-    // handles animating out header
+    // handles animating out the header
     const headingShouldBeActive = scrollY <= this.triggers[this.triggers.length - 1];
 
     this.projectTextHeading.classList.toggle("is-active", headingShouldBeActive);
