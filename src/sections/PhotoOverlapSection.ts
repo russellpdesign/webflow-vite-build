@@ -156,9 +156,9 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
     this.textActive = this.textElements[0].classList.contains("is-active");
 
-    // this.textElementsMinusTitle.forEach((element) => {
-    //   element.classList.toggle("is-active", shouldBeActive)
-    // })
+    this.textElementsMinusTitle.forEach((element) => {
+      element.classList.toggle("is-active", shouldBeActive)
+    })
 
     // this.textElements.forEach((element) => {
     //   element.classList.toggle("is-active", toggleAllOff);
