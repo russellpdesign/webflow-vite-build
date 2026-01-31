@@ -36,6 +36,9 @@ export default class PhotoScaleDown extends BaseSection {
   // left side images only
   leftSideImages: HTMLElement[];
 
+  //flags
+  private endingImageHidden: boolean | null = null;
+
   constructor({ el }: PhotoScaleDownConfig ) {
     super({ el });
 
@@ -99,11 +102,10 @@ export default class PhotoScaleDown extends BaseSection {
   update(scrollY: number): void {
     if (!this.enabled) return;
 
-    const scaleRange = scrollY >= this.startScale && scrollY <= this.end;
-
-    console.log(scaleRange);
-
-    scaleRange ? this.endingImage.style.opacity = "0" : this.endingImage.style.opacity = "1";
+    // toggle image in our next section off at start of scale and back on when we land over it
+    const shouldHide = scrollY >= this.startScale && scrollY <= this.end;
+    this.endingImage.style.opacity = shouldHide ? "0" : "1";
+    this.endingImageHidden = shouldHide;
 
     const t = clamp01(
         (scrollY - this.startScale) / window.innerHeight
