@@ -103,7 +103,7 @@ export default class PhotoScaleDown extends BaseSection {
 
     console.log(scaleRange);
 
-    scaleRange ? this.endingImage.style.opacity = "0" : "1";
+    scaleRange ? this.endingImage.style.opacity = "0" : this.endingImage.style.opacity = "1";
 
     const t = clamp01(
         (scrollY - this.startScale) / window.innerHeight
