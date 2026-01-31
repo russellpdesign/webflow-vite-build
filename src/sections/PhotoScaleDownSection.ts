@@ -112,34 +112,44 @@ update(scrollY: number): void {
 
     // Normalize scroll progress over the viewport height
     const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
-    const yPercent = mapRange(t, 0, 1, 0, 1);
+    const scaleProgress = mapRange(t, 0, 1, 0, 1);
 
-    // ---- Opacity swap: fade out scaledown image, fade in ending image ----
-    const endingImageVisible = scrollY > this.opacityToggleEndpoint;
-    this.endingImage.style.opacity = endingImageVisible ? "1" : "0";
-    this.scaleDownImgContainer.style.opacity = endingImageVisible ? "0" : "1";
-    this.fixedBackground.style.display = endingImageVisible ? "block" : "none";
-
-    // ---- Container scaling ----
+    // scale container transforms
     const heightChangePercent = (this.heightRange / this.viewportHeight) * 100;
     const widthChangePercent = (this.widthRange / this.viewportWidth) * 100;
 
-    const containerHeightPercent = 100 - yPercent * heightChangePercent;
-    const containerWidthPercent = 100 - yPercent * widthChangePercent;
+    const scaleDownImgContainerHeightPercent = 100 - scaleProgress * heightChangePercent;
+    const scaleDownImgContainerWidthPercent = 100 - scaleProgress * widthChangePercent;
 
     const minHeightPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
     const minWidthPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
 
-    this.scaleDownImgContainer.style.height = `${containerHeightPercent}%`;
-    this.scaleDownImgContainer.style.minHeight = `${minHeightPercent}%`;
-    this.scaleDownImgContainer.style.width = `${containerWidthPercent}%`;
-    this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
-
-    // ---- Image inside container scaling separately ----
+    // scaledown image height (inside container)
     const scaleDownImgHeightPercent =
         this.scaleDownImgHeightStartingValue +
-        yPercent * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
+        scaleProgress * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
+
+    // -------------------------------------------------------------
+    // 2️⃣ Hard toggle the ending image using display
+    // -------------------------------------------------------------
+    const endingImageVisible = scrollY > this.opacityToggleEndpoint;
+
+    this.endingImage.style.display = endingImageVisible ? "block" : "none";
+
+    // ensure the container for scaling image is shown only while scaling
+    this.scaleDownImgContainer.style.display = endingImageVisible ? "none" : "block";
+
+    // optional fixed background visibility
+    this.fixedBackground.style.display = endingImageVisible ? "block" : "none";
+
+    // -------------------------------------------------------------
+    // 3️⃣ Apply scaling / transforms to container and inner image
+    // -------------------------------------------------------------
+    this.scaleDownImgContainer.style.height = `${scaleDownImgContainerHeightPercent}%`;
+    this.scaleDownImgContainer.style.minHeight = `${minHeightPercent}%`;
+    this.scaleDownImgContainer.style.width = `${scaleDownImgContainerWidthPercent}%`;
+    this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
 
     this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
-  }
+    }
 }
