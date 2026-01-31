@@ -117,28 +117,6 @@ export default class PhotoScaleDown extends BaseSection {
     const yPercent = mapRange(scaleProgress, 0, 1, 0, 1);
 
     console.log(scaleProgress, yPercent)
-
-    // Early exit if section is completely done
-    if (scrollY >= this.end) {
-        if (!this.endingImageHidden) {
-        // Lock the ending image and container off
-        this.endingImage.style.opacity = "0";
-        this.scaleDownImgContainer.style.opacity = "0";
-        this.fixedBackground.style.display = "none";
-
-        this.endingImageHidden = true;
-        }
-
-        // Stop any further transforms to prevent stale render
-        return;
-    } else {
-        // Section is active
-        this.endingImageHidden = false;
-
-        this.endingImage.style.opacity = "1";
-        this.scaleDownImgContainer.style.opacity = "1";
-        this.fixedBackground.style.display = "block";
-    }
     
     const heightChangePercent = (this.heightRange / this.viewportHeight) * 100;
     const widthChangePercent = (this.widthRange / this.viewportWidth) * 100;
@@ -157,5 +135,16 @@ export default class PhotoScaleDown extends BaseSection {
     // scale image inside container
     const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue + scaleProgress * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
     this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
+
+    // ending image visibility
+    const endingImageShouldBeVisible = scrollY >= this.end;
+
+    if (endingImageShouldBeVisible !== this.endingImageHidden) {
+        this.endingImage.style.opacity = endingImageShouldBeVisible ? "1" : "0";
+        this.scaleDownImgContainer.style.opacity = endingImageShouldBeVisible ? "0" : "1";
+        this.fixedBackground.style.display = endingImageShouldBeVisible ? "block" : "none";
+
+        this.endingImageHidden = endingImageShouldBeVisible;
+    }
   }
 }
