@@ -151,8 +151,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     // handles toggling visibility of text elements
     const shouldBeActive = scrollY >= this.start && scrollY <= this.triggers[this.triggers.length - 1];
 
-    // handles when we scroll past our final image reaching the top and we need to remove text for right side image to scroll in
-    const toggleBigHeadingOff = scrollY <= this.triggers[this.triggers.length - 1];
+
 
     this.textActive = this.textElements[0].classList.contains("is-active");
 
@@ -162,7 +161,9 @@ export default class PhotoOverlapDeclarative extends BaseSection {
     })
 
     // handles animating out header
-    this.projectTextHeading.classList.toggle("is-active", toggleBigHeadingOff);
+    const headingShouldBeActive = scrollY <= this.triggers[this.triggers.length - 1];
+
+    this.projectTextHeading.classList.toggle("is-active", headingShouldBeActive);
 
     // handles the turn off all left side images once the right side reaches the top (this.end)
     const shouldHideAll = scrollY >= this.end;
