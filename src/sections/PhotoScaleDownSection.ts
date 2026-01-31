@@ -110,41 +110,52 @@ export default class PhotoScaleDown extends BaseSection {
   update(scrollY: number): void {
     if (!this.enabled) return;
 
-    const t = clamp01(
+    const scaleProgress = clamp01(
         (scrollY - this.startScale) / this.viewportHeight
     );
 
-    const yPercent = mapRange(t, 0, 1, 0, 1);
+    const yPercent = mapRange(scaleProgress, 0, 1, 0, 1);
 
-    console.log(t, yPercent)
+    console.log(scaleProgress, yPercent)
 
-    // toggle image in our next section off at start of scale and back on when we land over it
-    const shouldHide = scrollY <= this.opacityToggleEndpoint;
-    this.endingImage.style.opacity = shouldHide ? "0" : "1";
-    this.scaleDownImgContainer.style.opacity = shouldHide ? "1" : "0";
-    this.fixedBackground.style.display = shouldHide ? "none" : "block";
-    this.endingImageHidden = shouldHide;
+    // Early exit if section is completely done
+    if (scrollY >= this.end) {
+        if (!this.endingImageHidden) {
+        // Lock the ending image and container off
+        this.endingImage.style.opacity = "0";
+        this.scaleDownImgContainer.style.opacity = "0";
+        this.fixedBackground.style.display = "none";
+
+        this.endingImageHidden = true;
+        }
+
+        // Stop any further transforms to prevent stale render
+        return;
+    } else {
+        // Section is active
+        this.endingImageHidden = false;
+
+        this.endingImage.style.opacity = "1";
+        this.scaleDownImgContainer.style.opacity = "1";
+        this.fixedBackground.style.display = "block";
+    }
     
     const heightChangePercent = (this.heightRange / this.viewportHeight) * 100;
     const widthChangePercent = (this.widthRange / this.viewportWidth) * 100;
 
-    const scaleDownImgContainerHeightPercent = 100 - (yPercent * heightChangePercent);
-    const scaleDownImgContainerWidthPercent = 100 - (yPercent * widthChangePercent);
+    const scaleDownImgContainerHeightPercent = 100 - scaleProgress * heightChangePercent;
+    const scaleDownImgContainerWidthPercent = 100 - scaleProgress * widthChangePercent;
 
-    const heightChangeFinalPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
-    const widthChangeFinalPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
-
-    const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - (yPercent * (-((this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue) / 100)) * 100);
-
-    // cleaner formula but not as readable for troubleshooting
-    // const scaleDownImgHeightPercentSimplified = this.scaleDownImgHeightStartingValue + yPercent * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
+    const heightFinalPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
+    const widthFinalPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
 
     this.scaleDownImgContainer.style.height = `${scaleDownImgContainerHeightPercent}%`;
-    this.scaleDownImgContainer.style.minHeight = `${heightChangeFinalPercent}%`;
+    this.scaleDownImgContainer.style.minHeight = `${heightFinalPercent}%`;
     this.scaleDownImgContainer.style.width = `${scaleDownImgContainerWidthPercent}%`;
-	this.scaleDownImgContainer.style.minWidth = `${widthChangeFinalPercent}%`;
+    this.scaleDownImgContainer.style.minWidth = `${widthFinalPercent}%`;
 
-    // scale down image fitment / img inside the container
+    // scale image inside container
+    const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue + scaleProgress * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
     this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
   }
 }
