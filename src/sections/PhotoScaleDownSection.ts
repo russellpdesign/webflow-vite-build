@@ -93,7 +93,7 @@ export default class PhotoScaleDown extends BaseSection {
     this.end = this.startScale + this.viewportHeight;
 
     this.opacityToggleStartingPoint = this.startScale;
-    this.opacityToggleEndpoint = this.end + (this.viewportHeight * .1);
+    this.opacityToggleEndpoint = this.end + (this.viewportHeight * .35);
 
     this.imageWrapHeight = this.itemImageWrap.getBoundingClientRect().height;
     this.imageWrapWidth = this.itemImageWrap.getBoundingClientRect().width;
