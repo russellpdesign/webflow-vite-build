@@ -113,7 +113,7 @@ export default class PhotoScaleDown extends BaseSection {
         (scrollY - this.startScale) / this.viewportHeight
     );
 
-    const yPercent = mapRange(t, 0, 1, 0, 100);
+    const yPercent = mapRange(t, 0, 1, 0, 1);
 
     console.log(t, yPercent)
 
@@ -133,7 +133,7 @@ export default class PhotoScaleDown extends BaseSection {
     const heightChangeFinalPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
     const widthChangeFinalPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
 
-    const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - ((yPercent/100) * (-((this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue) / 100)) * 100);
+    const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - (yPercent * (-((this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue) / 100)) * 100);
 
     // cleaner formula but not as readable for troubleshooting
     // const scaleDownImgHeightPercentSimplified = this.scaleDownImgHeightStartingValue + yPercent * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
