@@ -1,6 +1,6 @@
 // moves right side image over while animating opacity to 0
 // transforms the left side image from right to left thru js and css
-// 
+// animates text in and removes text out when scrolling into next section (PhotoOverlapSection)
 
 
 import BaseSection from "../engine/BaseSection.js";
