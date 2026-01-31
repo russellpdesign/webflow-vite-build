@@ -120,17 +120,17 @@ export default class MovePhotoSection extends BaseSection {
     // section header activation
     const sectionIndex = 0;
 
-    if (scrollY >= this.end) {
-      if (!this.activatedSections[sectionIndex]) {
-        this._activate(sectionIndex);
-        this.activatedSections[sectionIndex] = true;
-      }
-    } else {
-      if (this.activatedSections[sectionIndex]) {
-        this._deactivate(sectionIndex);
-        this.activatedSections[sectionIndex] = false;
-      }
-    }
+    // if (scrollY >= this.end) {
+    //   if (!this.activatedSections[sectionIndex]) {
+    //     this._activate(sectionIndex);
+    //     this.activatedSections[sectionIndex] = true;
+    //   }
+    // } else {
+    //   if (this.activatedSections[sectionIndex]) {
+    //     this._deactivate(sectionIndex);
+    //     this.activatedSections[sectionIndex] = false;
+    //   }
+    // }
 
     // z-index control
     if (this.imageRevealSection) {
