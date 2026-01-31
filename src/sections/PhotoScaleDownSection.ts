@@ -113,11 +113,9 @@ export default class PhotoScaleDown extends BaseSection {
         (scrollY - this.startScale) / this.viewportHeight
     );
 
-     console.log(t)
-
     const yPercent = mapRange(t, 0, 1, 0, 1);
 
-    console.log(t)
+    console.log(t, yPercent)
 
     // toggle image in our next section off at start of scale and back on when we land over it
     const shouldHide = scrollY >= this.opacityToggleStartingPoint && scrollY <= this.end;
