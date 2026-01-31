@@ -24,6 +24,7 @@ export default class PhotoScaleDown extends BaseSection {
   imageWrapWidth: number = 0;
   heightRange: number = 0;
   widthRange: number = 0;
+  progressBar: HTMLElement;
 
   // image toggle on and off
   triggers!: number[];
@@ -52,6 +53,9 @@ export default class PhotoScaleDown extends BaseSection {
     this.itemImageWrap = document.querySelector(".single-item-image-wrap");
 
     this.endingImage = document.querySelector("#scale-down-img-after");
+
+    this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
+
 
     this.enabled = true;
 
