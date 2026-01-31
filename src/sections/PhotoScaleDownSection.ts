@@ -67,6 +67,8 @@ export default class PhotoScaleDown extends BaseSection {
   measure(): void {
     super.measure();
 
+    this.progressBarHeight = this.progressBar!.getBoundingClientRect().height;
+
     this.start =
       window.scrollY +
       this.sectionTrigger.getBoundingClientRect().top +
@@ -74,7 +76,7 @@ export default class PhotoScaleDown extends BaseSection {
       this.progressBarHeight;
 
     this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
-    
+
     this.start = this.triggers[this.triggers.length - 1] + window.innerHeight;
     this.end = this.start + window.innerHeight;
     this.range = this.end - this.start;
@@ -86,8 +88,6 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.heightRange = window.innerHeight - this.imageWrapHeight;
     this.widthRange = window.innerWidth - this.imageWrapWidth;
-
-
   }
 
   update(scrollY: number): void {
