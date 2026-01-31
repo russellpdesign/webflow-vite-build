@@ -133,7 +133,7 @@ export default class PhotoScaleDown extends BaseSection {
     const heightChangeFinalPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
     const widthChangeFinalPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
 
-    const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - (yPercent * (-(this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue)) * 100);
+    const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - (yPercent * (-(this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue)));
 
     // cleaner formula but not as readable for troubleshooting
     // const scaleDownImgHeightPercentSimplified = this.scaleDownImgHeightStartingValue + yPercent * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
