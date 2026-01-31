@@ -26,6 +26,8 @@ export default class PhotoScaleDown extends BaseSection {
   widthRange: number = 0;
   startScale: number = 0;
   progressBar: HTMLElement;
+  scaleDownImgHeightStartingValue: number = 0;
+  scaleDownImgHeightEndingValue: number = 0;
 
   // image toggle on and off
   triggers!: number[];
@@ -87,6 +89,11 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.heightRange = window.innerHeight - this.imageWrapHeight;
     this.widthRange = window.innerWidth - this.imageWrapWidth;
+
+    this.scaleDownImgHeightStartingValue = 120; // in percentage hardcoded but can retreive like window.getComputedStyles(this.scaleDownImg); along with the parents styles and then converting to percentage. We know from webflow its 120%
+    this.scaleDownImgHeightEndingValue = 150; // in percentage
+
+    console.log(this.startScale, this.end, this.range, this.viewportHeight, this.viewportWidth, this.imageWrapHeight, this.imageWrapWidth, this.heightRange, this.widthRange)
   }
 
   update(scrollY: number): void {
@@ -108,13 +115,13 @@ export default class PhotoScaleDown extends BaseSection {
     const scaleDownImgContainerHeightPercent = 100 - (yPercent * heightChangePercent);
     const scaleDownImgContainerWidthPercent = 100 - (yPercent * widthChangePercent);
 
-    const scaleDownImgHeightStartingValue = 120; // in percentage
-    const scaleDownImgHeightEndingValue = 150; // in percentage
-
     const heightChangeFinalPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
     const widthChangeFinalPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
 
-    const scaleDownImgHeightPercent = scaleDownImgHeightStartingValue + yPercent * (scaleDownImgHeightEndingValue - scaleDownImgHeightStartingValue);
+    const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - (yPercent * (-((this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue) / 100)) * 100);
+
+    // cleaner formula but not as readable for troubleshooting
+    // const scaleDownImgHeightPercentSimplified = this.scaleDownImgHeightStartingValue + yPercent * (this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue);
 
     this.scaleDownImgContainer.style.height = `${scaleDownImgContainerHeightPercent}%`;
     this.scaleDownImgContainer.style.minHeight = `${heightChangeFinalPercent}%`;
