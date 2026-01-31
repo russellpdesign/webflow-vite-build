@@ -111,7 +111,7 @@ export default class PhotoScaleDown extends BaseSection {
         (scrollY - this.startScale) / this.viewportHeight
     );
 
-    const yPercent = mapRange(t, 0, 1, 0, 100);
+    const yPercent = mapRange(t, 0, 1, 0, 1);
 
     console.log(`${scrollY} - ${this.startScale}) / ${this.viewportHeight}`);
     
