@@ -99,7 +99,7 @@ export default class PhotoScaleDown extends BaseSection {
   update(scrollY: number): void {
     if (!this.enabled) return;
 
-    const scaleRange = scrollY >= this.startScale && scrollY <= this.end;
+    const scaleRange = scrollY >= this.startScale && scrollY >= this.end;
 
     scaleRange ? this.endingImage.style.opacity = "0" : "1";
 
