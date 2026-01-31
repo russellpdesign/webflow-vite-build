@@ -137,14 +137,12 @@ export default class PhotoScaleDown extends BaseSection {
     this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
 
     // ending image visibility
-    const endingImageShouldBeVisible = scrollY >= this.end;
+    const endingImageOpacity = scrollY >= this.end ? "1" : "0";
+    const scaleDownContainerOpacity = scrollY >= this.end ? "0" : "1";
+    const fixedBackgroundDisplay = scrollY >= this.end ? "block" : "none";
 
-    if (endingImageShouldBeVisible !== this.endingImageHidden) {
-        this.endingImage.style.opacity = endingImageShouldBeVisible ? "1" : "0";
-        this.scaleDownImgContainer.style.opacity = endingImageShouldBeVisible ? "0" : "1";
-        this.fixedBackground.style.display = endingImageShouldBeVisible ? "block" : "none";
-
-        this.endingImageHidden = endingImageShouldBeVisible;
-    }
+    this.endingImage.style.opacity = endingImageOpacity;
+    this.scaleDownImgContainer.style.opacity = scaleDownContainerOpacity;
+    this.fixedBackground.style.display = fixedBackgroundDisplay;
   }
 }
