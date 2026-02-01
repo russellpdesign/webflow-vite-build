@@ -124,7 +124,6 @@ update(scrollY: number): void {
     const minHeightPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
     const minWidthPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
     
-
     // scaledown image height (inside container)
     const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - (scaleProgress * (-((this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue) / 100)) * 100);
 
@@ -135,8 +134,8 @@ update(scrollY: number): void {
 
     this.endingImage.style.display = endingImageVisible ? "block" : "none";
 
-    // ensure the container for scaling image is shown only while scaling
-    this.scaleDownImgContainer.style.display = endingImageVisible ? "none" : "block";
+    // // ensure the container for scaling image is shown only while scaling
+    // this.scaleDownImgContainer.style.display = endingImageVisible ? "none" : "block";
 
     // -------------------------------------------------------------
     // 3️⃣ Apply scaling / transforms to container and inner image
