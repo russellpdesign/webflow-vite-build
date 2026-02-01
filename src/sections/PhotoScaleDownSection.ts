@@ -145,6 +145,20 @@ update(scrollY: number): void {
     this.scaleDownImgContainer.style.width = `${scaleDownImgContainerWidthPercent}%`;
     this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
 
+    // Ending image
+    const showEndingImage = scrollY >= this.opacityToggleEndpoint;
+
+    this.endingImage.style.visibility = showEndingImage ? "visible" : "hidden";
+    this.endingImage.style.pointerEvents = showEndingImage ? "auto" : "none";
+
+    // Scaling image container
+    this.scaleDownImgContainer.style.visibility = showEndingImage ? "hidden" : "visible";
+    this.scaleDownImgContainer.style.pointerEvents = showEndingImage ? "none" : "auto";
+
+    //z index handling
+    this.scaleDownImgContainer.style.zIndex = showEndingImage ? "0" : "2";
+    this.endingImage.style.zIndex = showEndingImage ? "2" : "0";
+
     // this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
     }
 }
