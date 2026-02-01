@@ -93,7 +93,7 @@ export default class PhotoScaleDown extends BaseSection {
     this.end = this.startScale + this.viewportHeight;
 
     this.opacityToggleStartingPoint = this.startScale;
-    this.opacityToggleEndpoint = this.end + (this.viewportHeight * 2);
+    this.opacityToggleEndpoint = this.end + (this.viewportHeight * .5);
 
     this.imageWrapHeight = this.itemImageWrap.getBoundingClientRect().height;
     this.imageWrapWidth = this.itemImageWrap.getBoundingClientRect().width;
@@ -123,6 +123,7 @@ update(scrollY: number): void {
 
     const minHeightPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
     const minWidthPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
+    
 
     // scaledown image height (inside container)
     const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - (scaleProgress * (-((this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue) / 100)) * 100);
@@ -136,9 +137,6 @@ update(scrollY: number): void {
 
     // ensure the container for scaling image is shown only while scaling
     this.scaleDownImgContainer.style.display = endingImageVisible ? "none" : "block";
-
-    // optional fixed background visibility
-    this.fixedBackground.style.display = endingImageVisible ? "block" : "none";
 
     // -------------------------------------------------------------
     // 3️⃣ Apply scaling / transforms to container and inner image
