@@ -145,6 +145,6 @@ update(scrollY: number): void {
     this.scaleDownImgContainer.style.width = `${scaleDownImgContainerWidthPercent}%`;
     this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
 
-    this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
+    // this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
     }
 }
