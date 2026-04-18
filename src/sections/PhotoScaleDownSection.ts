@@ -146,7 +146,7 @@ update(scrollY: number): void {
     this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
 
     // Ending image
-    // const showEndingImage = scrollY >= this.opacityToggleEndpoint;
+    const showEndingImage = scrollY >= this.opacityToggleEndpoint;
 
     this.endingImage.style.visibility = showEndingImage ? "visible" : "hidden";
     this.endingImage.style.pointerEvents = showEndingImage ? "auto" : "none";
