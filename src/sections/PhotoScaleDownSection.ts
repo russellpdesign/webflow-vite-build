@@ -67,6 +67,8 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.fixedBackground = document.querySelector(".fixed-background");
 
+    this.bigTitle = document.querySelector(".product-title-big")
+
     this.enabled = true;
 
     window.addEventListener("resize", () => this.measure());
@@ -144,6 +146,7 @@ update(scrollY: number): void {
     this.scaleDownImgContainer.style.minHeight = `${minHeightPercent}%`;
     this.scaleDownImgContainer.style.width = `${scaleDownImgContainerWidthPercent}%`;
     this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
+    this.bigTitle.stle.marginTop = `100-${scaleprogress}%`;
 
     // Ending image
     const showEndingImage = scrollY >= this.opacityToggleEndpoint;
