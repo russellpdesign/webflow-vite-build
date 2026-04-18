@@ -68,9 +68,9 @@ export default class PhotoScaleDown extends BaseSection {
     this.fixedBackground = document.querySelector(".fixed-background");
 
     this.supportingElements = [
-    this.bigTitles = document.querySelectorAll(".product-title-big")
-    this.mediumBigTexts = document.querySelectorAll(".medium-big-text")
-    this.productDescs = document.querySelectorAll(".product-desc")
+    this.bigTitles = document.querySelectorAll(".product-title-big");
+    this.mediumBigTexts = document.querySelectorAll(".medium-big-text");
+    this.productDescs = document.querySelectorAll(".product-desc");
     this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container");
     ]
 
