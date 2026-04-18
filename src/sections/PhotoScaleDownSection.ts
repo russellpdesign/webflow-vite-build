@@ -115,7 +115,7 @@ update(scrollY: number): void {
     // Normalize scroll progress over the viewport height
     const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
     const scaleProgress = mapRange(t, 0, 1, 0, 1);
-    const marginTopShrink = scaleProgress * 100;
+    const marginTopShrink = 100 - (scaleProgress * 100);
 
     // scale container transforms
     const heightChangePercent = (this.heightRange / this.viewportHeight) * 100;
