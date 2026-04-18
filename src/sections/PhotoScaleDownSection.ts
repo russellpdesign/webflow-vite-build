@@ -154,7 +154,6 @@ update(scrollY: number): void {
     this.scaleDownImgContainer.style.pointerEvents = showEndingImage ? "none" : "auto";
 
     // updating position
-    this.scaleDownImgContainer.style.display = endingImageVisible ? "block" : "none";
     this.scaleDownImgContainer.style.position = endingImageVisible ? "fixed" : "absolute";
 
     //z index handling
