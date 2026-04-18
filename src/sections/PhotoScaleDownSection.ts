@@ -67,7 +67,11 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.fixedBackground = document.querySelector(".fixed-background");
 
-    this.bigTitle = document.querySelector(".product-title-big")
+    this.supportingElements =
+    this.bigTitles = document.querySelectorAll(".product-title-big")
+    this.mediumBigTexts = document.querySelectorAll(".medium-big-text")
+    this.productDescs = document.querySelectorAll(".product-desc")
+    this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container");
 
     this.enabled = true;
 
@@ -106,7 +110,10 @@ export default class PhotoScaleDown extends BaseSection {
     this.scaleDownImgHeightStartingValue = 120; // in percentage hardcoded but can retreive like window.getComputedStyles(this.scaleDownImg); along with the parents styles and then converting to percentage. We know from webflow its 120%
     this.scaleDownImgHeightEndingValue = 150; // in percentage
 
-    console.log(`this.startScale: ${this.startScale} this.end: ${this.end}, this.opacityToggleStartingPoint: ${this.opacityToggleStartingPoint}, this.opacityToggleEndpoint: ${this.opacityToggleEndpoint}, scrollY:`, window.scrollY)
+    this.showSupportingElements >= this.end;
+    // this.showtimeTriggers = this.supportingElements.map((_, i) => this.start + window.innerHeight * i);
+
+    console.log(`this.supportingElements: ${this.supportingElements}`);
   }
 
 update(scrollY: number): void {
@@ -165,5 +172,17 @@ update(scrollY: number): void {
     this.endingImage.style.zIndex = showEndingImage ? "2" : "0";
 
     this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
+
+
+
+    // setActive(this.bigTitle, this.mediumBigText, this.productDesc, this.dropdownHeaders, i) {
+
+    //   one.classList.add("active");
+    //   two.classList.add("active");
+    //   three.classList.add("active");
+    //   four.classList.add("is-active");
+    // }
+
+    // const showTime = this.showSupportingElements = setActive ? removeActive
     }
 }
