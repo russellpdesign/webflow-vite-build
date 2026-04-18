@@ -155,7 +155,7 @@ update(scrollY: number): void {
     this.scaleDownImgContainer.style.minHeight = `${minHeightPercent}%`;
     this.scaleDownImgContainer.style.width = `${scaleDownImgContainerWidthPercent}%`;
     this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
-    this.bigTitles[0][0].style.marginTop = `${marginTopShrink}vh`;
+    this.supportingElements[0][0].style.marginTop = `${marginTopShrink}vh`;
 
     // Ending image
     const showEndingImage = scrollY >= this.opacityToggleEndpoint;
