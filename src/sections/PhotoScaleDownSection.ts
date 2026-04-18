@@ -150,6 +150,7 @@ update(scrollY: number): void {
 
     // this.endingImage.style.visibility = showEndingImage ? "visible" : "hidden";
     this.endingImage.style.pointerEvents = showEndingImage ? "auto" : "none";
+    this.scaleDownImgContainer.style.position = showEndingImage ? "absolute" : "none";
 
     // Scaling image container
     // this.scaleDownImgContainer.style.visibility = showEndingImage ? "hidden" : "visible";
