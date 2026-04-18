@@ -115,6 +115,7 @@ update(scrollY: number): void {
     // Normalize scroll progress over the viewport height
     const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
     const scaleProgress = mapRange(t, 0, 1, 0, 1);
+    const marginTopShrink = scaleProgress * 100;
 
     // scale container transforms
     const heightChangePercent = (this.heightRange / this.viewportHeight) * 100;
@@ -146,7 +147,7 @@ update(scrollY: number): void {
     this.scaleDownImgContainer.style.minHeight = `${minHeightPercent}%`;
     this.scaleDownImgContainer.style.width = `${scaleDownImgContainerWidthPercent}%`;
     this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
-    this.bigTitle.style.marginTop = `${scaleProgress}%`;
+    this.bigTitle.style.marginTop = `${marginTopShrink}vh`;
 
     // Ending image
     const showEndingImage = scrollY >= this.opacityToggleEndpoint;
