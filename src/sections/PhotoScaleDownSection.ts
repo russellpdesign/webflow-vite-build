@@ -130,7 +130,7 @@ update(scrollY: number): void {
     // -------------------------------------------------------------
     // 2️⃣ Hard toggle the ending image using display
     // -------------------------------------------------------------
-    // const endingImageVisible = scrollY > this.opacityToggleEndpoint;
+    const endingImageVisible = scrollY > this.opacityToggleEndpoint;
 
     // this.endingImage.style.display = endingImageVisible ? "block" : "none";
 
