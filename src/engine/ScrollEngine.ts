@@ -17,13 +17,15 @@ export default class ScrollEngine {
   static smoothedY: number = 0;
   static smoothingEnabled: boolean = false;
 
+  // variable that holds all of our scrollsections, they are updated sequentially based on their position in the array
   private sections: ScrollSection[] = [];
   private smooth: SmoothController | null;
 
+  // this makes sure multiple animation loops cant be created
   private _running: boolean = false;
 
-  private lastRawY: number;
-  private lastTimestamp: number;
+  // private lastRawY: number;
+  // private lastTimestamp: number;
 
   // private _onResize: () => void;
   // private _raf: (timestamp: number) => void;
@@ -33,14 +35,15 @@ export default class ScrollEngine {
     ScrollEngine.smoothingEnabled = !!smooth;
 
     // Init for velocity & prediction
-    this.lastRawY = window.scrollY;
-    this.lastTimestamp = performance.now();
+    // this.lastRawY = window.scrollY;
+    // this.lastTimestamp = performance.now();
 
     // this._onResize = this._onResize.bind(this);
     // this._raf = this._raf.bind(this);
   }
 
   register(section: ScrollSection): void {
+    // this creates our array containing our sections, which are object instances containing our dom caching objects, measure, and update methods
     this.sections.push(section);
   }
 
