@@ -148,11 +148,11 @@ update(scrollY: number): void {
     // Ending image
     const showEndingImage = scrollY >= this.opacityToggleEndpoint;
 
-    this.endingImage.style.visibility = showEndingImage ? "visible" : "hidden";
+    // this.endingImage.style.visibility = showEndingImage ? "visible" : "hidden";
     this.endingImage.style.pointerEvents = showEndingImage ? "auto" : "none";
 
     // Scaling image container
-    this.scaleDownImgContainer.style.visibility = showEndingImage ? "hidden" : "visible";
+    // this.scaleDownImgContainer.style.visibility = showEndingImage ? "hidden" : "visible";
     this.scaleDownImgContainer.style.pointerEvents = showEndingImage ? "none" : "auto";
 
     //z index handling
