@@ -132,7 +132,8 @@ update(scrollY: number): void {
     // -------------------------------------------------------------
     const endingImageVisible = scrollY > this.opacityToggleEndpoint;
 
-    this.endingImage.style.display = endingImageVisible ? "block" : "fixed";
+    this.endingImage.style.display = endingImageVisible ? "block" : "none";
+    this.endingImage.style.position = endingImageVisible ? "absolute" : "fixed";
 
     // ensure the container for scaling image is shown only while scaling
     // this.scaleDownImgContainer.style.display = endingImageVisible ? "none" : "flex";
