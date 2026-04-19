@@ -5,7 +5,7 @@ import HorizontalScrollSection from "../sections/horizontalScrollSection.ts";
 import MovePhotoSection from "../sections/MovePhotoSection.ts";
 import PhotoOverlapDeclarative from "../sections/PhotoOverlapSection.ts";
 import PhotoScaleDown from "../sections/PhotoScaleDownSection.ts";
-import HorizontalScrollSection from "../sections/horizontalScrollSection.ts";
+import HorizontalScrollSection from "../sections/HorizontalScrollSection.ts";
 
 window.addEventListener("DOMContentLoaded", () => {
   // the lower the ease value, the more smoothing inertia there is
