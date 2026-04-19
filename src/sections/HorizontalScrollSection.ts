@@ -79,7 +79,7 @@ update(scrollY: number): void {
     }
 
     if(activeSection) {
-      const i = this.slideSections.indexOf(activeSection);
+      const i = this.slideSections.findIndex(activeSection);
       const t = clamp01((scrollY - this.slideSection[i].start ) / this.viewportHeight);
       const slideProgress = mapRange(t, 0, 100, 0, 100);
       activeSection.style.transform = `translateX(${slideProgress}vw)`;
