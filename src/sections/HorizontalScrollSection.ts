@@ -70,9 +70,6 @@ update(scrollY: number): void {
       const slideProgress = mapRange(t, 0, 100, 0, 100);
       this.horizontalScrollSectContainer.style.transform = `translateX(${slideProgress}vw)`;
     })
-      
-
-    }
 
     // // Normalize scroll progress over the viewport height
     
