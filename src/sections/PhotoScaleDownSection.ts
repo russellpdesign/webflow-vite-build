@@ -114,7 +114,7 @@ export default class PhotoScaleDown extends BaseSection {
     this.showSupportingElements >= this.end;
     // this.showtimeTriggers = this.supportingElements.map((_, i) => this.start + window.innerHeight * i);
 
-    this.supportingElements.forEach(item)=>console.log([...item])
+    this.supportingElements.forEach(item)=>console.log(...item)
   }
 
 update(scrollY: number): void {
