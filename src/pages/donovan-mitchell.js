@@ -1,6 +1,7 @@
 import ScrollEngine from "../engine/ScrollEngine.ts";
 import SmoothScroll from "../engine/SmoothScroll.js";
 import HomeScrollSection from "../sections/HomeScrollSection.ts";
+import HorizontalScrollSection from "../sections/horizontalScrollSection.ts";
 import MovePhotoSection from "../sections/MovePhotoSection.ts";
 import PhotoOverlapDeclarative from "../sections/PhotoOverlapSection.ts";
 import PhotoScaleDown from "../sections/PhotoScaleDownSection.ts";
@@ -24,6 +25,7 @@ window.addEventListener("DOMContentLoaded", () => {
   engine.register(new MovePhotoSection({ el: ".home-scroll-visual" }));
   engine.register(new PhotoOverlapDeclarative({ el: ".photo-overlap-section" }));
   engine.register(new PhotoScaleDown({ el: ".photo-overlap-section" }));
+  engine.register(new HorizontalScrollSection({el: ".horizontal-scroll-product"}))
 
   engine.start();
 });

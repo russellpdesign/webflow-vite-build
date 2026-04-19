@@ -1,57 +1,19 @@
-// handles scaling the image down
-// handles the transition into the horizontal scroll section where
-// our text animates up into the viewport via margin top translation
-// our supporting horizontl scroll section text elements are toggled on off respectively
-// the headline is on when it scrolls into view and is toggled off
-// the supporting elements (eyebrow, description text, dropdown menu)
-// once the horizontal scroll section is in view, that is where the scope of this document ends
-
 import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug.js";
 import { clamp, clamp01, mapRange } from "../engine/utils.js";
 
-type PhotoScaleDownConfig = {
-  el: string | HTMLElement;
-}
-
-export default class PhotoScaleDown extends BaseSection {
+export default class HorizontalScrollSection extends BaseSection {
   // DOM collections
-  sectionTrigger: HTMLElement;
-  initialImages: HTMLElement[] = [];
-  scaleDownImg: HTMLElement;
-  scaleDownImgContainer: HTMLElement;
-  itemImageWrap: HTMLElement;
-  endingImage: HTMLElement;
   progressBarHeight!: number;
   range: number = 0;
   viewportWidth: number = 0;
   viewportHeight: number = 0;
-  imageWrapHeight: number = 0;
-  imageWrapWidth: number = 0;
-  heightRange: number = 0;
-  widthRange: number = 0;
-  startScale: number = 0;
-  progressBar: HTMLElement;
-  scaleDownImgHeightStartingValue: number = 0;
-  scaleDownImgHeightEndingValue: number = 0;
-  opacityToggleStartingPoint: number = 0;
-  opacityToggleEndpoint: number = 0;
-  fixedBackground: HTMLElement;
   supportingElements: HTMLElement[][];
 
-  // image toggle on and off
-  triggers!: number[];
-  behindImageToggleCheckpoint!: number;
-
-  // left side images only
-  leftSideImages: HTMLElement[];
-
   //flags
-  private endingImageHidden: boolean | null = null;
-  private showSupportingElements: boolean | null = null;
-  private endingImageHidden: boolean | null = null;
 
-  constructor({ el }: PhotoScaleDownConfig ) {
+
+  constructor({ el }: HorizontalScrollSection ) {
     super({ el });
 
     // el = ".photo-overlap-section";
@@ -59,22 +21,11 @@ export default class PhotoScaleDown extends BaseSection {
     /* -------------------------------------------------------------
      * DOM ELEMENTS
      * ------------------------------------------------------------- */
-    this.sectionTrigger = document.querySelector<HTMLElement>(".photo-overlap-section-trigger")!;
 
     // All images that participate in the overlap animation
-    this.initialImages = Array.from(this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
-    this.leftSideImages = this.initialImages.slice(0, -1);
-
-    this.scaleDownImg = document.querySelector("#scale-down-img");
-    this.scaleDownImgContainer = document.querySelector("#scale-down-img-container");
-
-    this.itemImageWrap = document.querySelector(".single-item-image-wrap");
-
     this.endingImage = document.querySelector("#scale-down-img-after");
 
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
-
-    this.fixedBackground = document.querySelector(".fixed-background");
 
     this.bigTitle = document.querySelector(".product-title-big")
 
@@ -84,7 +35,7 @@ export default class PhotoScaleDown extends BaseSection {
       this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container"),
     ];
 
-    this.bigText = document.querySelectorAll(".big-text")
+    this.bigText = document.querySelectorAll(".big-text");
 
     this.enabled = true;
 
@@ -96,11 +47,9 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.progressBarHeight = this.progressBar!.getBoundingClientRect().height;
 
-    this.start =
-      window.scrollY +
-      this.sectionTrigger.getBoundingClientRect().top +
-      window.innerHeight * 1.38 +
-      this.progressBarHeight;
+    this.start = this.el.getBoundingClientRect().top + this.viewportHeight;
+
+    console.log(`horizontal scroll section starting point = ${this.start}`)
 
     this.range = this.end - this.startScale;
     this.viewportHeight = window.innerHeight;
@@ -197,17 +146,5 @@ update(scrollY: number): void {
     this.endingImage.style.zIndex = showEndingImage ? "2" : "0";
 
     this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
-
-
-
-    // setActive(this.bigTitle, this.mediumBigText, this.productDesc, this.dropdownHeaders, i) {
-
-    //   one.classList.add("active");
-    //   two.classList.add("active");
-    //   three.classList.add("active");
-    //   four.classList.add("is-active");
-    // }
-
-    // const showTime = this.showSupportingElements = setActive ? removeActive
     }
 }
