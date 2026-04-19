@@ -79,9 +79,10 @@ update(scrollY: number): void {
     }
 
     if(activeSection) {
-        const t = clamp01((scrollY - object.start ) / this.viewportHeight);
-        const slideProgress = mapRange(t, 0, 100, 0, 100);
-        activeSection.style.transform = `translateX(${t}vw)`;
+      const i = this.slideSections.indexOf(activeSection);
+      const t = clamp01((scrollY - this.slideSection[i].start ) / this.viewportHeight);
+      const slideProgress = mapRange(t, 0, 100, 0, 100);
+      activeSection.style.transform = `translateX(${slideProgress}vw)`;
     }
 
     // // Normalize scroll progress over the viewport height
