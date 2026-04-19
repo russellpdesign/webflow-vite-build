@@ -1,7 +1,6 @@
 import ScrollEngine from "../engine/ScrollEngine.ts";
 import SmoothScroll from "../engine/SmoothScroll.js";
 import HomeScrollSection from "../sections/HomeScrollSection.ts";
-import HorizontalScrollSection from "../sections/horizontalScrollSection.ts";
 import MovePhotoSection from "../sections/MovePhotoSection.ts";
 import PhotoOverlapDeclarative from "../sections/PhotoOverlapSection.ts";
 import PhotoScaleDown from "../sections/PhotoScaleDownSection.ts";
