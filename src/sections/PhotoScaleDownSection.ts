@@ -31,6 +31,7 @@ export default class PhotoScaleDown extends BaseSection {
   opacityToggleStartingPoint: number = 0;
   opacityToggleEndpoint: number = 0;
   fixedBackground: HTMLElement;
+  supportingElements: HTMLElement[];
 
   // image toggle on and off
   triggers!: number[];
@@ -67,11 +68,12 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.fixedBackground = document.querySelector(".fixed-background");
 
+    this.bigTitle = document.querySelector(".product-title-big")
+
     this.supportingElements = [
-    this.bigTitles = document.querySelectorAll(".product-title-big"),
-    this.mediumBigTexts = document.querySelectorAll(".medium-big-text"),
-    this.productDescs = document.querySelectorAll(".product-desc"),
-    this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container"),
+      this.mediumBigTexts = document.querySelectorAll(".medium-big-text"),
+      this.productDescs = document.querySelectorAll(".product-desc"),
+      this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container"),
     ]
 
     this.enabled = true;
@@ -111,7 +113,6 @@ export default class PhotoScaleDown extends BaseSection {
     this.scaleDownImgHeightStartingValue = 120; // in percentage hardcoded but can retreive like window.getComputedStyles(this.scaleDownImg); along with the parents styles and then converting to percentage. We know from webflow its 120%
     this.scaleDownImgHeightEndingValue = 150; // in percentage
 
-    this.showSupportingElements >= this.end;
     // this.showtimeTriggers = this.supportingElements.map((_, i) => this.start + window.innerHeight * i);
 
     this.supportingElements.forEach(item => console.log(...item))
@@ -155,7 +156,14 @@ update(scrollY: number): void {
     this.scaleDownImgContainer.style.minHeight = `${minHeightPercent}%`;
     this.scaleDownImgContainer.style.width = `${scaleDownImgContainerWidthPercent}%`;
     this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
-    this.supportingElements[0][0].style.marginTop = `${marginTopShrink}vh`;
+
+    // while we are scaling the image, we transform our big title headline from our section below up using margin top so we get smoothing effect (versus pure scroll)
+    this.bigTitle.style.marginTop = `${marginTopShrink}vh`;
+
+    // we enable the other supporting text and dropdown elements once scale down finishes
+    const showSupportingElements = scrollY >= this.end;
+
+    this.supportingElements.forEach(element => element.classList.add("is-active"))
 
     // Ending image
     const showEndingImage = scrollY >= this.opacityToggleEndpoint;
