@@ -16,7 +16,7 @@ export default class HorizontalScrollSection extends BaseSection {
   constructor({ el }: HorizontalScrollSection ) {
     super({ el });
 
-    // el = ".photo-overlap-section";
+    //  el = ".horizontal-scroll-product";
 
     /* -------------------------------------------------------------
      * DOM ELEMENTS
@@ -27,7 +27,7 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
-    this.bigTitle = document.querySelector(".product-title-big")
+    this.bigTitle = document.querySelector(".product-title-big");
 
     this.supportingElements = [
       this.mediumBigTexts = document.querySelectorAll(".medium-big-text"),
@@ -36,6 +36,8 @@ export default class HorizontalScrollSection extends BaseSection {
     ];
 
     this.bigText = document.querySelectorAll(".big-text");
+
+    this.horizontalScrollSectContainer = document.querySelector(".horizontal-section-container");
 
     this.enabled = true;
 
@@ -47,6 +49,18 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.progressBarHeight = this.progressBar!.getBoundingClientRect().height;
 
+    this.viewportHeight = window.innerHeight;
+
+    this.slideSections = this.el.getBoundingClientRect().top + scrollY + this.viewportHeight;
+
+    this.slideSections = [
+        { start: this.start, end: this.start + this.viewportHeight },
+        { start: this.start + this.viewportHeight * 2, end: this.start + 3 * this.viewportHeight },
+        { start: this.start + this.viewportHeight * 4, end: this.start + 5 * this.viewportHeight }
+    ];
+
+
+
     this.start = this.el.getBoundingClientRect().top + this.viewportHeight;
 
     console.log(`horizontal scroll section starting point = ${this.start}`)
@@ -55,8 +69,23 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
+    let activeSection = null;
+
+    for (const section of this.slideSections) {
+        if(scrollY >= section.start && scrollY <= section.end) {
+            activeSection = section;
+            break;
+        }
+    }
+
+    if(activeSection) {
+        const t = clamp01((scrollY - object.start ) / this.viewportHeight);
+        const slideProgress = mapRange(t, 0, 100, 0, 100);
+        activeSection.style.transform = `translateX(${t}vw)`;
+    }
+
     // // Normalize scroll progress over the viewport height
-    // const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
+    
     // const scaleProgress = mapRange(t, 0, 1, 0, 1);
     // const marginTopShrink = 100 - (scaleProgress * 100);
 
