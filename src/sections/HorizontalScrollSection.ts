@@ -39,6 +39,8 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.horizontalScrollSectContainer = document.querySelector(".horizontal-section-container");
 
+    this.start = this.el.getBoundingClientRect().top + scrollY + this.viewportHeight;
+
     this.enabled = true;
 
     window.addEventListener("resize", () => this.measure());
@@ -50,8 +52,6 @@ export default class HorizontalScrollSection extends BaseSection {
     this.progressBarHeight = this.progressBar!.getBoundingClientRect().height;
 
     this.viewportHeight = window.innerHeight;
-
-    this.slideSections = this.el.getBoundingClientRect().top + scrollY + this.viewportHeight;
 
     this.slideSections = [
         { start: this.start, end: this.start + this.viewportHeight },
@@ -82,7 +82,7 @@ update(scrollY: number): void {
       const i = this.slideSections.indexOf(activeSection);
       const t = clamp01((scrollY - this.slideSection[i].start ) / this.viewportHeight);
       const slideProgress = mapRange(t, 0, 100, 0, 100);
-      activeSection.style.transform = `translateX(${slideProgress}vw)`;
+      this.horizontalScrollSectContainer.style.transform = `translateX(${slideProgress}vw)`;
     }
 
     // // Normalize scroll progress over the viewport height
