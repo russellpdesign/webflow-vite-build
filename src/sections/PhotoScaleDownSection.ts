@@ -161,7 +161,7 @@ update(scrollY: number): void {
     this.bigTitle.style.marginTop = `${marginTopShrink}vh`;
 
     // we enable the other supporting text and dropdown elements once scale down finishes
-    const showSupportingElements = scrollY >= this.end;
+    const showSupportingElements = scrollY >= this.end && scrollY <= this.end + (this.viewportHeight * 1.5);
 
     this.supportingElements.forEach(nodeList => {
       nodeList.forEach(el => {
