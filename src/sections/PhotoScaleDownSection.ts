@@ -197,17 +197,5 @@ update(scrollY: number): void {
     this.endingImage.style.zIndex = showEndingImage ? "2" : "0";
 
     this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
-
-
-
-    // setActive(this.bigTitle, this.mediumBigText, this.productDesc, this.dropdownHeaders, i) {
-
-    //   one.classList.add("active");
-    //   two.classList.add("active");
-    //   three.classList.add("active");
-    //   four.classList.add("is-active");
-    // }
-
-    // const showTime = this.showSupportingElements = setActive ? removeActive
     }
 }
