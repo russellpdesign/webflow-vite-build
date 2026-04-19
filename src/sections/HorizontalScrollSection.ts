@@ -59,10 +59,6 @@ export default class HorizontalScrollSection extends BaseSection {
         { start: this.start + this.viewportHeight * 4, end: this.start + 5 * this.viewportHeight }
     ];
 
-
-
-    this.start = this.el.getBoundingClientRect().top + this.viewportHeight;
-
     console.log(`horizontal scroll section starting point = ${this.start}`)
   }
 
