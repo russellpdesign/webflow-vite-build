@@ -76,7 +76,9 @@ export default class PhotoScaleDown extends BaseSection {
       this.mediumBigTexts = document.querySelectorAll(".medium-big-text"),
       this.productDescs = document.querySelectorAll(".product-desc"),
       this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container"),
-    ]
+    ];
+
+    this.bigText = document.querySelectorAll(".big-text")
 
     this.enabled = true;
 
@@ -165,7 +167,7 @@ update(scrollY: number): void {
     // we enable the other supporting text and dropdown elements once scale down finishes
     const showSupportingElements = scrollY >= this.end && scrollY <= this.end + (this.viewportHeight * 1.5);
 
-    this.bigTitle.classList.toggle("active", showSupportingElements);
+    this.bigText[0].classList.toggle("active", showSupportingElements);
 
     this.supportingElements.forEach(nodeList => {
       nodeList.forEach(el => {
