@@ -165,7 +165,7 @@ update(scrollY: number): void {
     // we enable the other supporting text and dropdown elements once scale down finishes
     const showSupportingElements = scrollY >= this.end && scrollY <= this.end + (this.viewportHeight * 1.5);
 
-    this.bigTitle.classList.remove = showSupportingElements ? "active" : null ;
+    this.bigTitle.classList.toggle("active", showSupportingElements);
 
     this.supportingElements.forEach(nodeList => {
       nodeList.forEach(el => {
