@@ -31,7 +31,7 @@ export default class PhotoScaleDown extends BaseSection {
   opacityToggleStartingPoint: number = 0;
   opacityToggleEndpoint: number = 0;
   fixedBackground: HTMLElement;
-  supportingElements: HTMLElement[];
+  supportingElements: HTMLElement[][];
 
   // image toggle on and off
   triggers!: number[];
@@ -163,7 +163,11 @@ update(scrollY: number): void {
     // we enable the other supporting text and dropdown elements once scale down finishes
     const showSupportingElements = scrollY >= this.end;
 
-    this.supportingElements.forEach(element => element.classList.add("is-active"))
+    this.supportingElements.forEach(nodeList => {
+      nodeList.forEach(el => {
+        el.classList.toggle("is-active", showSupportingElements);
+      });
+    });
 
     // Ending image
     const showEndingImage = scrollY >= this.opacityToggleEndpoint;
