@@ -39,8 +39,6 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.horizontalScrollSectContainer = document.querySelector(".horizontal-section-container");
 
-    this.start = this.el.getBoundingClientRect().top + scrollY + this.viewportHeight;
-
     this.enabled = true;
 
     window.addEventListener("resize", () => this.measure());
@@ -52,6 +50,8 @@ export default class HorizontalScrollSection extends BaseSection {
     this.progressBarHeight = this.progressBar!.getBoundingClientRect().height;
 
     this.viewportHeight = window.innerHeight;
+
+    this.start = this.el.getBoundingClientRect().top + scrollY + this.viewportHeight;
 
     this.slideSections = [
         { start: this.start, end: this.start + this.viewportHeight },
