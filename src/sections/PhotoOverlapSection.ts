@@ -38,7 +38,9 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
   private behindImageVisible: boolean = false;
 
-  private leftSideHideAll: boolean = false;
+  private leftSideHideAll: boolean | null = null;
+
+  private headingShouldBeActive: boolean | null = null;
 
   private isLeftSideHidden: boolean = false;
 

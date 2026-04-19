@@ -42,6 +42,8 @@ export default class PhotoScaleDown extends BaseSection {
 
   //flags
   private endingImageHidden: boolean | null = null;
+  private showSupportingElements: boolean | null = null;
+  private endingImageHidden: boolean | null = null;
 
   constructor({ el }: PhotoScaleDownConfig ) {
     super({ el });
