@@ -165,14 +165,13 @@ update(scrollY: number): void {
     this.bigTitle.style.marginTop = `${marginTopShrink}vh`;
 
     // we enable the other supporting text and dropdown elements once scale down finishes
-    const showSupportingElements = scrollY >= this.end && scrollY <= this.end + (this.viewportHeight * 1.5);
-    const hideBigText = scrollY >= this.end;
+    const transitionHorizontalScrollSection = scrollY >= this.end;
 
-    this.bigText[0].classList.toggle("active", hideBigText);
+    this.bigText[0].classList.toggle("active", transitionHorizontalScrollSection);
 
     this.supportingElements.forEach(nodeList => {
       nodeList.forEach(el => {
-        el.classList.toggle("active", showSupportingElements);
+        el.classList.toggle("active", transitionHorizontalScrollSection);
       });
     });
 
