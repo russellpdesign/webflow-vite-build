@@ -165,7 +165,7 @@ update(scrollY: number): void {
 
     this.supportingElements.forEach(nodeList => {
       nodeList.forEach(el => {
-        el.classList.toggle("is-active", showSupportingElements);
+        el.classList.toggle("active", showSupportingElements);
       });
     });
 
