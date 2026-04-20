@@ -74,7 +74,7 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    this.beforeScroll = scrollY <= this.start;
+    this.beforeScroll = scrollY <= scrollStart1;
     this.scrollRange1 = scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1;
     this.scrollGap1 = scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2;
     this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2;
