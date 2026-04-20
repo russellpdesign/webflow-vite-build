@@ -80,9 +80,9 @@ update(scrollY: number): void {
 
       if (this.scrollRange1) {
         const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
-        this.slideProgress1 = mapRange(t, 0, 100, 0, 100);
+        this.slideProgress1 = mapRange(t, 0, 1, 0, 1) * 100;
         console.log(t, this.slideProgress1);
-        this.horizontalScrollSectContainer.style.transform = `translateX(${this.slideProgress1}vw)`;
+        this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress1}vw)`;
       } if(this.scrollRange2) {
         const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
         this.slideProgress2 = mapRange(t, 100, 200, 100, 200)
