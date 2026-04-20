@@ -41,7 +41,7 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.scrollSections = document.querySelectorAll("#horizontal-scroll");
 
-    console.log(this.scrollSections.length)
+    console.log(`The amount of sections in our horizontal scroll section is: ${this.scrollSections.length}`)
 
     this.enabled = true;
 
