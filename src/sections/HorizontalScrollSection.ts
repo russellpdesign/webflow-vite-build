@@ -64,9 +64,7 @@ export default class HorizontalScrollSection extends BaseSection {
     this.scrollStart3 = this.start + (this.viewportHeight * 5);
     this.scrollEnd3 = this.start + (this.viewportHeight * 6);
 
-    this.scrollRange1 = scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1;
-    this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2;
-    this.scrollRange3 = scrollY >= this.scrollStart3 && scrollY <= this.scrollEnd3;
+
 
     console.log(`start scrolling 1 here: ${this.scrollStart1} then stop scrolling here: ${this.scrollEnd1}`)
     console.log(`start scrolling 2 here: ${this.scrollStart2} then stop scrolling here: ${this.scrollEnd2}`)
@@ -76,11 +74,14 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-
+    this.scrollRange1 = scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1;
+    this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2;
+    this.scrollRange3 = scrollY >= this.scrollStart3 && scrollY <= this.scrollEnd3;
 
       if (this.scrollRange1) {
         const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
-        this.slideProgress1 = mapRange(t, 0, 100, 0, 100)
+        this.slideProgress1 = mapRange(t, 0, 100, 0, 100);
+        console.log(t, this.slideProgress1);
         this.horizontalScrollSectContainer.style.transform = `translateX(${this.slideProgress1}vw)`;
       } if(this.scrollRange2) {
         const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
