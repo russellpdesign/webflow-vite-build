@@ -194,7 +194,7 @@ update(scrollY: number): void {
 
     //z index handling
     this.scaleDownImgContainer.style.zIndex = showEndingImage ? "0" : "2";
-    this.endingImage.style.zIndex = showEndingImage ? "2" : "0";
+    // this.endingImage.style.zIndex = showEndingImage ? "2" : "0";
 
     this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
     }
