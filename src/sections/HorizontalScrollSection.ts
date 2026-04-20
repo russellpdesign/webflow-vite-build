@@ -64,6 +64,7 @@ update(scrollY: number): void {
 
     for(let i = 1; i < this.scrollSections.length + 1; i++ ) {
       const scrollStart = this.start + (this.viewportHeight * i);
+      console.log(scrollStart);
       const scrollRange = scrollY >= scrollStart && scrollY <= this.start + (this.viewportHeight * i);
 
       const t = clamp01((scrollY - scrollStart ) / this.viewportHeight);
