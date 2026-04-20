@@ -57,12 +57,12 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.start = this.el.getBoundingClientRect().top + scrollY;
 
-    this.scrollStart1 = this.start + this.viewportHeight;
-    this.scrollEnd1 = this.start + (this.viewportHeight * 2);
-    this.scrollStart2 = this.start + (this.viewportHeight * 3);
-    this.scrollEnd2 = this.start + (this.viewportHeight * 4);
-    this.scrollStart3 = this.start + (this.viewportHeight * 5);
-    this.scrollEnd3 = this.start + (this.viewportHeight * 6);
+    this.scrollStart1 = this.start + this.viewportHeight * 2;
+    this.scrollEnd1 = this.start + (this.viewportHeight * 3);
+    this.scrollStart2 = this.start + (this.viewportHeight * 5);
+    this.scrollEnd2 = this.start + (this.viewportHeight * 6);
+    this.scrollStart3 = this.start + (this.viewportHeight * 8);
+    this.scrollEnd3 = this.start + (this.viewportHeight * 9);
 
 
 
@@ -80,9 +80,10 @@ update(scrollY: number): void {
 
       if (this.scrollRange1) {
         const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
-        this.slideProgress1 = mapRange(t, 0, 1, 0, 1) * 100;
+        this.slideProgress1 = mapRange(t, 0, 1, 0, 1);
+        this.scrollPosition1 = this.slideProgress1 * -100;
         console.log(t, this.slideProgress1);
-        this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress1}vw)`;
+        this.horizontalScrollSectContainer.style.transform = `translateX(-${this.scrollPosition1}vw)`;
       } if(this.scrollRange2) {
         const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
         this.slideProgress2 = mapRange(t, 100, 200, 100, 200)
