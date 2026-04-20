@@ -39,6 +39,8 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.horizontalScrollSectContainer = document.querySelector(".horizontal-section-container");
 
+    this.scrollSections = document.querySelectorAll("#horizontal-scroll");
+
     this.enabled = true;
 
     window.addEventListener("resize", () => this.measure());
@@ -51,13 +53,7 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.viewportHeight = window.innerHeight;
 
-    this.start = this.el.getBoundingClientRect().top + scrollY + this.viewportHeight;
-
-    this.slideSections = [
-        { start: this.start, end: this.start + this.viewportHeight },
-        { start: this.start + this.viewportHeight * 2, end: this.start + 3 * this.viewportHeight },
-        { start: this.start + this.viewportHeight * 4, end: this.start + 5 * this.viewportHeight }
-    ];
+    this.start = this.el.getBoundingClientRect().top + scrollY;
 
     console.log(`horizontal scroll section starting point = ${this.start}`)
   }
@@ -65,11 +61,15 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    this.slideSections.forEach(section => {
-      const t = clamp01((scrollY - section.start ) / this.viewportHeight);
+
+    for(let i = 1; i < this.scrollSections.length + 1; i++ ) {
+      const scrollStart = this.start + (this.viewportHeight * i);
+      const scrollRange = scrollY >= scrollStart && scrollY <= this.start + (this.viewportHeight * i);
+
+      const t = clamp01((scrollY - scrollStart ) / this.viewportHeight);
       const slideProgress = mapRange(t, 0, 100, 0, 100);
       this.horizontalScrollSectContainer.style.transform = `translateX(${slideProgress}vw)`;
-    })
+    }
 
     // // Normalize scroll progress over the viewport height
     
