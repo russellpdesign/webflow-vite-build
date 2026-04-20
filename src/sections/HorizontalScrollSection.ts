@@ -41,6 +41,8 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.scrollSections = document.querySelectorAll("#horizontal-scroll");
 
+    console.log(this.scrollSections.length)
+
     this.enabled = true;
 
     window.addEventListener("resize", () => this.measure());
@@ -62,7 +64,7 @@ update(scrollY: number): void {
     if (!this.enabled) return;
 
 
-    for(let i = 2; i < this.scrollSections.length + 1; i++ ) {
+    for(let i = 2; i < this.scrollSections.length + 2; i++ ) {
       const scrollStart = this.start + (this.viewportHeight * i);
       console.log(scrollStart);
       const scrollRange = scrollY >= scrollStart && scrollY <= this.start + (this.viewportHeight * i);
