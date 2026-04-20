@@ -70,7 +70,7 @@ update(scrollY: number): void {
       const scrollRange = scrollY >= scrollStart && scrollY <= this.start + (this.viewportHeight * i);
 
       const t = clamp01((scrollY - scrollStart ) / this.viewportHeight);
-      const slideProgress = mapRange(t, 0, 100, 0, 100);
+      const slideProgress = mapRange(t, ((i*100)-200), ((i * 100)-100), ((i*100)-200), ((i * 100)-100));
       while (scrollRange) {
         console.log("I should move now!")
         this.horizontalScrollSectContainer.style.transform = `translateX(${slideProgress}vw)`
