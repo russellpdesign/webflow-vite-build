@@ -41,6 +41,8 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.scrollSections = document.querySelectorAll("#horizontal_scroll");
 
+    this.firstImage = document.querySelector(".sticky-big-img-reveal");
+
     console.log(`The amount of sections in our horizontal scroll section is: ${this.scrollSections.length}`);
 
     this.enabled = true;
@@ -84,12 +86,14 @@ update(scrollY: number): void {
 
       if (this.beforeScroll) {
         this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
+        this.firstImage.style.transform = `translateX(0vw)`;
       } if (this.scrollRange1) {
         const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
         this.slideProgress1 = mapRange(t, 0, 1, 0, 100);
         this.scrollPosition1 = this.slideProgress1;
         console.log(t, this.slideProgress1);
         this.horizontalScrollSectContainer.style.transform = `translateX(-${this.scrollPosition1}vw)`;
+        this.firstImage.style.transform = `translateX(-${this.scrollPosition1}vw)`;
       } if (this.scrollGap1) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
       } if(this.scrollRange2) {
