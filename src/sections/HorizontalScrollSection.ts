@@ -63,18 +63,15 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-
     for(let i = 2; i < this.scrollSections.length + 2; i++ ) {
       const scrollStart = this.start + (this.viewportHeight * i);
       const scrollRange = scrollY >= scrollStart && scrollY <= this.start + (this.viewportHeight * i);
 
       const t = clamp01((scrollY - scrollStart ) / this.viewportHeight);
-      const slideProgress = mapRange(t, ((i*100)-200), ((i * 100)-100), ((i*100)-200), ((i * 100)-100));
-      // while (scrollRange) {
-      //  console.log("I should move now!")
-      //  this.horizontalScrollSectContainer.style.transform = `translateX(${slideProgress}vw)`
-      // }
+      return this.slideProgress = mapRange(t, ((i*100)-200), ((i * 100)-100), ((i*100)-200), ((i * 100)-100));
     }
+
+    this.horizontalScrollSectContainer.style.transform = `translateX(${this.slideProgress}vw)`
 
     // // Normalize scroll progress over the viewport height
     
