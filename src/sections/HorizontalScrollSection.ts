@@ -128,14 +128,14 @@ update(scrollY: number): void {
 
     // we add one to the index for these since we start activating things starting in our second section
     private _activate(i: number): void {
-      this.bigTexts[i+1].classList.add("active");
-      this.mediumBigTexts[+1].classList.add("active");
+      this.bigTexts[i+1].classList.add("active"); // this is confusing because adding the active class actually hides the text
+      this.mediumBigTexts[+1].classList.add("active"); // with these adding active reveals it
       this.productDescs[i+1].classList.add("active");
     }
 
-    private _deactivate(i: number): void {
-      this.bigTexts[i+1].classList.remove("active");
-      this.mediumBigTexts[i+1].classList.remove("active");
-      this.productDescs[i+1].classList.remove("active");
-    }
+    // private _deactivate(i: number): void {
+    //   this.bigTexts[i+1].classList.remove("active");
+    //   this.mediumBigTexts[i+1].classList.remove("active");
+    //   this.productDescs[i+1].classList.remove("active");
+    // }
 }
