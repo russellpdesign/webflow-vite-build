@@ -95,10 +95,6 @@ update(scrollY: number): void {
         newActiveIndex = index;
       });
 
-      // this would mean we are scrolling into the first section
-      if(newActiveIndex !== null && this.activeSectionIndex === null) {
-        this._activate(newActiveIndex);
-      }
       // if our current section is ahead of our previous
      if (newActiveIndex !== null && newActiveIndex > this.activeSectionIndex) {
         //activate new section
@@ -128,7 +124,7 @@ update(scrollY: number): void {
       } if (this.scrollGap2) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
       }
-    }
+      }
 
     // we add one to the index for these since we start activating things starting in our second section
     private _activate(i: number): void {
