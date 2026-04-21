@@ -104,6 +104,10 @@ update(scrollY: number): void {
 
       if(newActiveIndex && this.activeSectionIndex) {
         console.log(newActiveIndex, this.activeSectionIndex)
+
+        if(newActiveIndex > this.activeSectionIndex) {
+          this._activate(newActiveIndex)
+        }
       }
       
       this.activeSectionIndex = newActiveIndex;
