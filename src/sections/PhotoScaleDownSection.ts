@@ -77,7 +77,7 @@ export default class PhotoScaleDown extends BaseSection {
     this.fixedBackground = document.querySelector(".fixed-background");
 
     // this is actually the parent container of big-text
-    this.bigTitle = document.querySelector(".product-title-big");
+    this.bigTitles = document.querySelectorAll(".product-title-big");
 
     // for our fist section, index 0, second 1, third 2
     this.bigTexts = document.querySelectorAll(".big-text");
@@ -170,7 +170,10 @@ update(scrollY: number): void {
     const transitionHorizontalScrollSection = scrollY >= this.end;
 
     // while we are scaling the image, we transform our big title headline from our section below up using margin top so we get smoothing effect (versus pure scroll)
-    this.bigTitle.style.marginTop = `${marginTopShrink}vh`;
+    // we also then put all the other ones at margin-top 0 as well.
+    this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
+    this.bigTitles[1].style.marginTop = `0vh`;
+    this.bigTitles[2].style.marginTop = `0vh`;
 
     // once we've scrolled into position we toggle active on our supporting elements
     this.bigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
