@@ -112,6 +112,7 @@ update(scrollY: number): void {
       // scrolling back up the page
       if(newActiveIndex < this.activeSectionIndex) {
           console.log("i am scrolling backwards / up the page, so I should do nothing!")
+          this.activeSectionIndex = newActiveIndex;
           this._activate(newActiveIndex);
           // this.otherIndices = [];
           // // dynamically get our other sections
@@ -129,7 +130,8 @@ update(scrollY: number): void {
 
       // scrolling down the page
       if(newActiveIndex > this.activeSectionIndex) {
-          console.log("i am scrolling forward / down the page and should animate our eyebrow, desc and dropdown in, and remove our big title")
+          console.log("i am scrolling forward / down the page and should animate our eyebrow, desc and dropdown in, and remove our big title");
+          this.activeSectionIndex = newActiveIndex;
           this._activate(newActiveIndex);
       }
     }
