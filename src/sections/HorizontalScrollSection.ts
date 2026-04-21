@@ -8,7 +8,6 @@ export default class HorizontalScrollSection extends BaseSection {
   range: number = 0;
   viewportWidth: number = 0;
   viewportHeight: number = 0;
-
   //flags
 
 
