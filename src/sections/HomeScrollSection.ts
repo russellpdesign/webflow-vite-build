@@ -136,7 +136,7 @@ export default class HomeScrollSection extends BaseSection {
     }
   }
 
-    private _activate(i: number): void {
+  private _activate(i: number): void {
     this.titleItems[i]?.classList.add("is-active");
     this.textItems[i]?.classList.add("is-active");
     this.numberItems[i]?.classList.add("is-active");

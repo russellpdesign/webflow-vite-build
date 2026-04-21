@@ -68,10 +68,10 @@ export default class HorizontalScrollSection extends BaseSection {
     this.scrollEnd3 = this.start + (this.viewportHeight * 9);
 
     this.sectionRanges = [
-      [0, this.scrollStart1],        // scrolling into view
-      [this.scrollStart1, this.scrollEnd1], // horizontal scrolling from section one to two
+      // [0, this.scrollStart1],        // scrolling into view
+      // [this.scrollStart1, this.scrollEnd1], // horizontal scrolling from section one to two
       [this.scrollEnd1, this.scrollStart2], // native scrolling while in section 2
-      [this.scrollStart2, this.scrollEnd2], // horizontal scrolling from section two to three
+      // [this.scrollStart2, this.scrollEnd2], // horizontal scrolling from section two to three
       [this.scrollEnd2, this.scrollStart3], // native scrolling while in section 3
     ];
 
@@ -86,23 +86,23 @@ update(scrollY: number): void {
     this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2;
     this.scrollGap2 = scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3; // we are sitting in the third section
 
-    // // declarative section activation
-    // let newActiveIndex: number | null = null;
+    // declarative section activation
+    let newActiveIndex: number | null = null;
 
-    // this.sectionRanges.forEach(([start, end], index) => {
-    //   if (scrollY >= start && scrollY < end)
-    //     newActiveIndex = index;
-    //   });
+    this.sectionRanges.forEach(([start, end], index) => {
+      if (scrollY >= start && scrollY < end)
+        newActiveIndex = index;
+      });
 
-    //  if (newActiveIndex !== this.activeSectionIndex) {
-    //     // deactivate previous section
-    //     if (this.activeSectionIndex !== null) this._deactivate(this.activeSectionIndex);
+     if (newActiveIndex !== this.activeSectionIndex) {
+        // deactivate previous section
+        if (this.activeSectionIndex !== null) this._deactivate(this.activeSectionIndex);
 
-    //     //activate new section
-    //     if (newActiveIndex !== null) this._activate(newActiveIndex);
+        //activate new section
+        if (newActiveIndex !== null) this._activate(newActiveIndex);
 
-    //     this.activeSectionIndex = newActiveIndex;
-    //   }
+        this.activeSectionIndex = newActiveIndex;
+      }
 
       if (this.beforeScroll) {
         this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
@@ -126,15 +126,15 @@ update(scrollY: number): void {
       }
     }
 
-    // private _activate(i: number): void {
-    //   this.bigTexts[i].classList.remove("active");
-    //   this.mediumBigTexts[i].classList.add("active");
-    //   this.productDescs[i].classList.add("active");
-    // }
+    private _activate(i: number): void {
+      this.bigTexts[i+1].classList.remove("active");
+      this.mediumBigTexts[+1].classList.add("active");
+      this.productDescs[i+1].classList.add("active");
+    }
 
-    // private _deactivate(i: number): void {
-    //   this.bigTexts[i].classList.add("active");
-    //   this.mediumBigTexts[i].classList.remove("active");
-    //   this.productDescs[i].classList.remove("active");
-    // }
+    private _deactivate(i: number): void {
+      this.bigTexts[i+1].classList.add("active");
+      this.mediumBigTexts[i+1].classList.remove("active");
+      this.productDescs[i+1].classList.remove("active");
+    }
 }
