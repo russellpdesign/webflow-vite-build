@@ -25,7 +25,8 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
-    this.bigTitle = document.querySelector(".product-title-big");
+    // this is actually the parent container of big-text
+    this.bigTitles = document.querySelectorAll(".product-title-big");
 
     // for our fist section, index 0, second 1, third 2
     this.bigTexts = document.querySelectorAll(".big-text");
@@ -80,9 +81,7 @@ update(scrollY: number): void {
     this.scrollRange1 = scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1;
     this.scrollGap1 = scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2; // we are sitting in second section
     this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2;
-    this.scrollGap2 = scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3;
-    this.scrollRange3 = scrollY >= this.scrollStart3 && scrollY <= this.scrollEnd3;
-    this.afterScroll = scrollY >= this.scrollEnd3;
+    this.scrollGap2 = scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3; // we are sitting in the third section
 
       if (this.beforeScroll) {
         this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
@@ -90,8 +89,6 @@ update(scrollY: number): void {
       } if (this.scrollRange1) {
         const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
         this.slideProgress = mapRange(t, 0, 1, 0, 100);
-        // this.scrollPosition1 = this.slideProgress1;
-        console.log(t, this.slideProgress);
         this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
         this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
       } if (this.scrollGap1) {
@@ -105,79 +102,6 @@ update(scrollY: number): void {
         this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
       } if (this.scrollGap2) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-      } if(this.scrollRange3) {
-        // const t = clamp01((scrollY - this.scrollStart3) / this.viewportHeight);
-        // this.slideProgress3 = mapRange(t, 0, 1, 200, 300)
-        // this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress3}vw)`;
-      } if (this.afterScroll) {
-        // this.horizontalScrollSectContainer.style.transform = `translateX(-300vw)`;
       }
-
-    // // Normalize scroll progress over the viewport height
-    
-    // const scaleProgress = mapRange(t, 0, 1, 0, 1);
-    // const marginTopShrink = 100 - (scaleProgress * 100);
-
-    // // scale container transforms
-    // const heightChangePercent = (this.heightRange / this.viewportHeight) * 100;
-    // const widthChangePercent = (this.widthRange / this.viewportWidth) * 100;
-
-    // const scaleDownImgContainerHeightPercent = 100 - scaleProgress * heightChangePercent;
-    // const scaleDownImgContainerWidthPercent = 100 - scaleProgress * widthChangePercent;
-
-    // const minHeightPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
-    // const minWidthPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
-    
-    // // scaledown image height (inside container)
-    // const scaleDownImgHeightPercent = this.scaleDownImgHeightStartingValue - (scaleProgress * (-((this.scaleDownImgHeightEndingValue - this.scaleDownImgHeightStartingValue) / 100)) * 100);
-
-    // // -------------------------------------------------------------
-    // // 2️⃣ Hard toggle the ending image using display
-    // // -------------------------------------------------------------
-    // const endingImageVisible = scrollY > this.opacityToggleEndpoint;
-
-    // this.endingImage.style.display = endingImageVisible ? "block" : "none";
-
-    // // ensure the container for scaling image is shown only while scaling
-    // // this.scaleDownImgContainer.style.display = endingImageVisible ? "none" : "flex";
-
-    // // -------------------------------------------------------------
-    // // 3️⃣ Apply scaling / transforms to container and inner image
-    // // -------------------------------------------------------------
-    // this.scaleDownImgContainer.style.height = `${scaleDownImgContainerHeightPercent}%`;
-    // this.scaleDownImgContainer.style.minHeight = `${minHeightPercent}%`;
-    // this.scaleDownImgContainer.style.width = `${scaleDownImgContainerWidthPercent}%`;
-    // this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
-
-    // // while we are scaling the image, we transform our big title headline from our section below up using margin top so we get smoothing effect (versus pure scroll)
-    // this.bigTitle.style.marginTop = `${marginTopShrink}vh`;
-
-    // // we enable the other supporting text and dropdown elements once scale down finishes
-    // const transitionHorizontalScrollSection = scrollY >= this.end;
-
-    // this.bigText[0].classList.toggle("active", transitionHorizontalScrollSection);
-
-    // this.supportingElements.forEach(nodeList => {
-    //   nodeList.forEach(el => {
-    //     el.classList.toggle("active", transitionHorizontalScrollSection);
-    //   });
-    // });
-
-    // // Ending image
-    // const showEndingImage = scrollY >= this.opacityToggleEndpoint;
-
-    // // this.endingImage.style.visibility = showEndingImage ? "visible" : "hidden";
-    // this.endingImage.style.pointerEvents = showEndingImage ? "auto" : "none";
-    // this.scaleDownImgContainer.style.position = showEndingImage ? "absolute" : "none";
-
-    // // Scaling image container
-    // // this.scaleDownImgContainer.style.visibility = showEndingImage ? "hidden" : "visible";
-    // this.scaleDownImgContainer.style.pointerEvents = showEndingImage ? "none" : "auto";
-
-    // //z index handling
-    // this.scaleDownImgContainer.style.zIndex = showEndingImage ? "0" : "2";
-    // this.endingImage.style.zIndex = showEndingImage ? "2" : "0";
-
-    // this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
     }
 }
