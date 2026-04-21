@@ -123,10 +123,6 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.scaleDownImgHeightStartingValue = 120; // in percentage hardcoded but can retreive like window.getComputedStyles(this.scaleDownImg); along with the parents styles and then converting to percentage. We know from webflow its 120%
     this.scaleDownImgHeightEndingValue = 150; // in percentage
-
-    // this.showtimeTriggers = this.supportingElements.map((_, i) => this.start + window.innerHeight * i);
-
-    this.supportingElements.forEach(item => console.log(item))
   }
 
 update(scrollY: number): void {
@@ -173,7 +169,7 @@ update(scrollY: number): void {
 
     // while we are scaling the image, we transform our big title headline from our section below up using margin top so we get smoothing effect (versus pure scroll)
     this.bigTitle.style.marginTop = `${marginTopShrink}vh`;
-    
+
     // once we've scrolled into position we toggle active on our supporting elements
     this.bigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
     this.mediumBigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
