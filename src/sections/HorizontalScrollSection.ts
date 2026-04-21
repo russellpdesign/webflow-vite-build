@@ -83,7 +83,7 @@ update(scrollY: number): void {
     this.beforeScroll = scrollY <= this.scrollStart1; // scrolling into view
     this.scrollRange1 = scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1; // scrolling from section one to section two
     this.scrollGap1 = scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2; // we are sitting in second section
-    this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2;
+    this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2; // scrolling from section two to three
     this.scrollGap2 = scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3; // we are sitting in the third section
 
     // declarative section activation
@@ -138,7 +138,7 @@ update(scrollY: number): void {
     }
 
     private _deactivate(i: number): void {
-      this.bigTexts[i].classList.toggle("active");
+      this.bigTexts[i-1].classList.remove("active");
       this.mediumBigTexts[i].classList.remove("active");
       this.productDescs[i].classList.remove("active");
     }
