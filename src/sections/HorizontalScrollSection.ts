@@ -86,23 +86,28 @@ update(scrollY: number): void {
     this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2;
     this.scrollGap2 = scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3; // we are sitting in the third section
 
-    // // declarative section activation
-    // let newActiveIndex: number | null = null;
+    // declarative section activation
+    let newActiveIndex: number | null = null;
 
-    // this.sectionRanges.forEach(([start, end], index) => {
-    //   if (scrollY >= start && scrollY < end)
-    //     newActiveIndex = index;
-    //   });
+    // returns which section we are in at runtime
+    this.sectionRanges.forEach(([start, end], index) => {
+      if (scrollY >= start && scrollY < end)
+        newActiveIndex = index;
+      });
 
-    //  if (newActiveIndex !== this.activeSectionIndex) {
-    //     // deactivate previous section
-    //     if (this.activeSectionIndex !== null) this._deactivate(this.activeSectionIndex);
-
-    //     //activate new section
-    //     if (newActiveIndex !== null) this._activate(newActiveIndex);
-
-    //     this.activeSectionIndex = newActiveIndex;
-    //   }
+      // this would mean we are scrolling into the first section
+      if(newActiveIndex !== null && this.activeSectionIndex === null) {
+        this._activate(newActiveIndex);
+      }
+      // if our current section is ahead of our previous
+     if (newActiveIndex !== null && newActiveIndex > this.activeSectionIndex) {
+        //activate new section
+        this._activate(newActiveIndex);
+        // deactivate previous
+        this._deactivate(this.activeSectionIndex);
+        // assign our this.activeSectionIndex to our newActiveIndex, which causes initial condition to run as true
+        this.activeSectionIndex = newActiveIndex;
+      }
 
       if (this.beforeScroll) {
         this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
@@ -117,7 +122,6 @@ update(scrollY: number): void {
       } if(this.scrollRange2) {
         const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
         this.slideProgress = mapRange(t, 0, 1, 100, 200);
-        console.log(t, this.slideProgress);
         this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
       } if (this.scrollGap2) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
