@@ -99,15 +99,16 @@ update(scrollY: number): void {
         newActiveIndex = index;
       });
 
-    // // if our current section is ahead of our previous
-    // if (newActiveIndex !== null && newActiveIndex > this.activeSectionIndex) {
-    //     //activate new section
-    //     this._activate(newActiveIndex);
-    //     // deactivate previous
-    //     this._deactivate(newActiveIndex + 1);
-    //     // assign our this.activeSectionIndex to our newActiveIndex, which causes initial condition to run as true
-    //     this.activeSectionIndex = newActiveIndex;
-    // }
+    if(newActiveIndex !== null) {
+      console.log(newActiveIndex)
+
+      if(newActiveIndex && this.activeSectionIndex) {
+        console.log(newActiveIndex, this.activeSectionIndex)
+      }
+      
+      this.activeSectionIndex = newActiveIndex;
+    }
+
 
       if (this.beforeScroll) {
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
