@@ -96,7 +96,7 @@ update(scrollY: number): void {
 
      if (newActiveIndex !== this.activeSectionIndex) {
         // deactivate previous section
-        if (this.activeSectionIndex !== null) this._deactivate(this.activeSectionIndex);
+        // if (this.activeSectionIndex !== null) this._deactivate(this.activeSectionIndex);
 
         //activate new section
         if (newActiveIndex !== null) this._activate(newActiveIndex);
