@@ -176,7 +176,7 @@ update(scrollY: number): void {
     this.bigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
     this.mediumBigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
     this.productDescs[0].classList.toggle("active", transitionHorizontalScrollSection);
-    // for(let i = 0; i<= 3; i++) { this.dropdownHeaders[i].classList.toggle("active", transitionHorizontalScrollSection) };
+    for(let i = 0; i<= 3; i++) { this.dropdownHeaders[i].classList.toggle("active", transitionHorizontalScrollSection) };
 
     // Ending image
     const showEndingImage = scrollY >= this.opacityToggleEndpoint;
