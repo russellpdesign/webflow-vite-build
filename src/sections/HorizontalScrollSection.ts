@@ -102,8 +102,9 @@ update(scrollY: number): void {
     if(newActiveIndex !== null) {
       console.log(newActiveIndex, this.activeSectionIndex)
 
-      if(newActiveIndex && this.activeSectionIndex) {
+      if(newActiveIndex && this.activeSectionIndex === null) {
         console.log(newActiveIndex, this.activeSectionIndex)
+        this.activeSectionIndex = newActiveIndex;
 
         if(newActiveIndex < this.activeSectionIndex) {
           console.log("i should do nothing!")
@@ -115,7 +116,7 @@ update(scrollY: number): void {
           this._activate(newActiveIndex);
         }
 
-        this.activeSectionIndex = newActiveIndex;
+        
       }
     }
 
