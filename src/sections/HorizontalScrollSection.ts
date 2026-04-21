@@ -67,7 +67,7 @@ export default class HorizontalScrollSection extends BaseSection {
     this.scrollStart3 = this.start + (this.viewportHeight * 8);
     this.scrollEnd3 = this.start + (this.viewportHeight * 9);
 
-    this.sectionRanges: number[] = [
+    this.sectionRanges = [
       // [0, this.scrollStart1],        // scrolling into view
       [this.scrollStart1, this.scrollEnd1], // horizontal scrolling from section one to two
       [this.scrollEnd1, this.scrollStart2], // native scrolling while in section 2
