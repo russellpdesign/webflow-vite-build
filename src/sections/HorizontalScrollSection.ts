@@ -104,7 +104,7 @@ update(scrollY: number): void {
         //activate new section
         this._activate(newActiveIndex);
         // deactivate previous
-        this._deactivate(this.activeSectionIndex);
+        this._deactivate(newActiveIndex - 1);
         // assign our this.activeSectionIndex to our newActiveIndex, which causes initial condition to run as true
         this.activeSectionIndex = newActiveIndex;
       }
@@ -138,7 +138,7 @@ update(scrollY: number): void {
     }
 
     private _deactivate(i: number): void {
-      // this.bigTexts[i+1].classList.remove("active");
+      this.bigTexts[i].classList.remove("active");
       this.mediumBigTexts[i].classList.remove("active");
       this.productDescs[i].classList.remove("active");
     }
