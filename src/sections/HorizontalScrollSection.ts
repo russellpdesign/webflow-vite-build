@@ -100,13 +100,14 @@ update(scrollY: number): void {
       });
 
     if(newActiveIndex !== null) {
-      console.log(newActiveIndex)
+      console.log(newActiveIndex, this.activeSectionIndex)
 
       if(newActiveIndex && this.activeSectionIndex) {
         console.log(newActiveIndex, this.activeSectionIndex)
 
         if(newActiveIndex > this.activeSectionIndex) {
-          this._activate(newActiveIndex)
+          console.log("i should animate our eyebrow, desc and dropdown in, and remove our big title")
+          this._activate(newActiveIndex);
         }
       }
       
