@@ -98,7 +98,8 @@ update(scrollY: number): void {
         this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
       } if(this.scrollRange2) {
         const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
-        this.slideProgress2 = mapRange(t, 0, 1, 100, 200)
+        this.slideProgress2 = mapRange(t, 0, 1, 100, 200);
+        console.log("I am in scrollrange 2");
         this.horizontalScrollSectContainer.style.transform = `translateX-${this.slideProgress2}vw)`;
       } if (this.scrollGap2) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
