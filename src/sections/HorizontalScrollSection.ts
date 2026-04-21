@@ -8,7 +8,6 @@ export default class HorizontalScrollSection extends BaseSection {
   range: number = 0;
   viewportWidth: number = 0;
   viewportHeight: number = 0;
-  supportingElements: HTMLElement[][];
 
   //flags
 
@@ -29,11 +28,13 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.bigTitle = document.querySelector(".product-title-big");
 
-    this.supportingElements = [
-      this.mediumBigTexts = document.querySelectorAll(".medium-big-text"),
-      this.productDescs = document.querySelectorAll(".product-desc"),
-      this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container"),
-    ];
+    // for our fist section, index 0, second 1, third 2
+    this.bigTexts = document.querySelectorAll(".big-text");
+    this.mediumBigTexts = document.querySelectorAll(".medium-big-text");
+    this.productDescs = document.querySelectorAll(".product-desc");
+
+    // for our first section, this is index 0-2, second 3-5, third 6-8
+    this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container");
 
     this.bigText = document.querySelectorAll(".big-text");
 
