@@ -99,13 +99,13 @@ update(scrollY: number): void {
       } if(this.scrollRange2) {
         const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
         this.slideProgress2 = mapRange(t, 0, 1, 100, 200)
-        this.horizontalScrollSectContainer.style.transform = `translateX(${this.slideProgress2}vw)`;
+        this.horizontalScrollSectContainer.style.transform = `translateX-${this.slideProgress2}vw)`;
       } if (this.scrollGap2) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
       } if(this.scrollRange3) {
         const t = clamp01((scrollY - this.scrollStart3) / this.viewportHeight);
         this.slideProgress3 = mapRange(t, 0, 1, 200, 300)
-        this.horizontalScrollSectContainer.style.transform = `translateX(${this.slideProgress3}vw)`;
+        this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress3}vw)`;
       } if (this.afterScroll) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-300vw)`;
       }
