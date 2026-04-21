@@ -112,6 +112,7 @@ update(scrollY: number): void {
       // scrolling back up the page
       if(newActiveIndex < this.activeSectionIndex) {
           console.log("i am scrolling backwards / up the page, so I should do nothing!")
+          this._activate(newActiveIndex);
           // this.otherIndices = [];
           // // dynamically get our other sections
           // this.sectionRanges.map((_, index) => { 
