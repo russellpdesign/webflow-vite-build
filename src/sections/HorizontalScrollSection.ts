@@ -89,26 +89,26 @@ update(scrollY: number): void {
         this.firstImage.style.transform = `translateX(0vw)`;
       } if (this.scrollRange1) {
         const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
-        this.slideProgress1 = mapRange(t, 0, 1, 0, 100);
-        this.scrollPosition1 = this.slideProgress1;
+        this.slideProgress = mapRange(t, 0, 1, 0, 100);
+        // this.scrollPosition1 = this.slideProgress1;
         console.log(t, this.slideProgress1);
-        this.horizontalScrollSectContainer.style.transform = `translateX(-${this.scrollPosition1}vw)`;
-        this.firstImage.style.transform = `translateX(-${this.scrollPosition1}vw)`;
+        this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+        this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
       } if (this.scrollGap1) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
       } if(this.scrollRange2) {
         const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
-        this.slideProgress2 = mapRange(t, 0, 1, 100, 200);
-        console.log("I am in scrollrange 2");
-        this.horizontalScrollSectContainer.style.transform = `translateX-${this.slideProgress2}vw)`;
+        this.slideProgress = mapRange(t, 0, 1, 100, 200);
+        console.log(t, this.slideProgress);
+        this.horizontalScrollSectContainer.style.transform = `translateX-${this.slideProgress}vw)`;
       } if (this.scrollGap2) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
       } if(this.scrollRange3) {
-        const t = clamp01((scrollY - this.scrollStart3) / this.viewportHeight);
-        this.slideProgress3 = mapRange(t, 0, 1, 200, 300)
-        this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress3}vw)`;
+        // const t = clamp01((scrollY - this.scrollStart3) / this.viewportHeight);
+        // this.slideProgress3 = mapRange(t, 0, 1, 200, 300)
+        // this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress3}vw)`;
       } if (this.afterScroll) {
-        this.horizontalScrollSectContainer.style.transform = `translateX(-300vw)`;
+        // this.horizontalScrollSectContainer.style.transform = `translateX(-300vw)`;
       }
 
     // // Normalize scroll progress over the viewport height
