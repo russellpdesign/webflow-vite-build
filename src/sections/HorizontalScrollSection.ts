@@ -2,6 +2,10 @@ import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug.js";
 import { clamp, clamp01, mapRange } from "../engine/utils.js";
 
+type HorizontalScrollSectionConfig = {
+  el: string | HTMLElement;
+};
+
 export default class HorizontalScrollSection extends BaseSection {
   // DOM collections
   progressBarHeight!: number;
@@ -11,7 +15,7 @@ export default class HorizontalScrollSection extends BaseSection {
   //flags
   private activeSectionIndex: number | null = null;
 
-  constructor({ el }: HorizontalScrollSection ) {
+  constructor({ el }: HorizontalScrollSectionConfig ) {
     super({ el });
 
     //  el = ".horizontal-scroll-product";
@@ -95,35 +99,43 @@ update(scrollY: number): void {
         newActiveIndex = index;
       });
 
-      // if our current section is ahead of our previous
-     if (newActiveIndex !== null && newActiveIndex > this.activeSectionIndex) {
-        //activate new section
-        this._activate(newActiveIndex);
-        // deactivate previous
-        this._deactivate(newActiveIndex + 1);
-        // assign our this.activeSectionIndex to our newActiveIndex, which causes initial condition to run as true
-        this.activeSectionIndex = newActiveIndex;
-      }
+    // // if our current section is ahead of our previous
+    // if (newActiveIndex !== null && newActiveIndex > this.activeSectionIndex) {
+    //     //activate new section
+    //     this._activate(newActiveIndex);
+    //     // deactivate previous
+    //     this._deactivate(newActiveIndex + 1);
+    //     // assign our this.activeSectionIndex to our newActiveIndex, which causes initial condition to run as true
+    //     this.activeSectionIndex = newActiveIndex;
+    // }
 
       if (this.beforeScroll) {
-        this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
-        this.firstImage.style.transform = `translateX(0vw)`;
-      } if (this.scrollRange1) {
-        const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
-        this.slideProgress = mapRange(t, 0, 1, 0, 100);
-        this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
-        this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
-        console.log("I should be horizontally scrolling to section two")
-      } if (this.scrollGap1) {
-        this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
-      } if(this.scrollRange2) {
-        const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
-        this.slideProgress = mapRange(t, 0, 1, 100, 200);
-        this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
-        console.log("I should be horizontally scrolling to section three")
-      } if (this.scrollGap2) {
-        this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-      }
+          this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
+          this.firstImage.style.transform = `translateX(0vw)`;
+        } 
+        
+      if (this.scrollRange1) {
+          const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
+          this.slideProgress = mapRange(t, 0, 1, 0, 100);
+          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
+          console.log("I should be horizontally scrolling to section two")
+        }
+        
+      if (this.scrollGap1) {
+          this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
+        }
+      
+      if(this.scrollRange2) {
+          const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
+          this.slideProgress = mapRange(t, 0, 1, 100, 200);
+          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+          console.log("I should be horizontally scrolling to section three")
+        }
+        
+      if (this.scrollGap2) {
+          this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
+        }
       }
 
     // we add one to the index for these since we start activating things starting in our second section
