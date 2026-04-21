@@ -76,15 +76,16 @@ export default class PhotoScaleDown extends BaseSection {
 
     this.fixedBackground = document.querySelector(".fixed-background");
 
-    this.bigTitle = document.querySelector(".product-title-big")
+    // this is actually the parent container of big-text
+    this.bigTitle = document.querySelector(".product-title-big");
 
-    this.supportingElements = [
-      this.mediumBigTexts = document.querySelector(".medium-big-text"),
-      this.productDescs = document.querySelector(".product-desc"),
-      this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container"),
-    ];
+    // for our fist section, index 0, second 1, third 2
+    this.bigTexts = document.querySelectorAll(".big-text");
+    this.mediumBigTexts = document.querySelectorAll(".medium-big-text");
+    this.productDescs = document.querySelectorAll(".product-desc");
 
-    this.bigText = document.querySelectorAll(".big-text")
+    // for our first section, this is index 0-2, second 3-5, third 6-8
+    this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container");
 
     this.enabled = true;
 
@@ -167,17 +168,17 @@ update(scrollY: number): void {
     this.scaleDownImgContainer.style.width = `${scaleDownImgContainerWidthPercent}%`;
     this.scaleDownImgContainer.style.minWidth = `${minWidthPercent}%`;
 
-    // while we are scaling the image, we transform our big title headline from our section below up using margin top so we get smoothing effect (versus pure scroll)
-    this.bigTitle.style.marginTop = `${marginTopShrink}vh`;
-
     // we enable the other supporting text and dropdown elements once scale down finishes
     const transitionHorizontalScrollSection = scrollY >= this.end;
 
-    this.bigText[0].classList.toggle("active", transitionHorizontalScrollSection);
-
-    this.supportingElements.forEach(el => {
-      el.classList.toggle("active", transitionHorizontalScrollSection);
-    });
+    // while we are scaling the image, we transform our big title headline from our section below up using margin top so we get smoothing effect (versus pure scroll)
+    this.bigTitle.style.marginTop = `${marginTopShrink}vh`;
+    
+    // once we've scrolled into position we toggle active on our supporting elements
+    this.bigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
+    this.mediumBigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
+    this.productDescs[0].classList.toggle("active", transitionHorizontalScrollSection);
+    for(let i = 0; i<= 3; i++) { this.dropdownHeaders[i].classList.toggle("active", transitionHorizontalScrollSection) };
 
     // Ending image
     const showEndingImage = scrollY >= this.opacityToggleEndpoint;
