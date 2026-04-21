@@ -100,7 +100,7 @@ update(scrollY: number): void {
         //activate new section
         this._activate(newActiveIndex);
         // deactivate previous
-        this._deactivate(newActiveIndex - 1);
+        this._deactivate(newActiveIndex + 1);
         // assign our this.activeSectionIndex to our newActiveIndex, which causes initial condition to run as true
         this.activeSectionIndex = newActiveIndex;
       }
