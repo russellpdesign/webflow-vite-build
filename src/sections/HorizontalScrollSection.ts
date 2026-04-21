@@ -113,18 +113,18 @@ update(scrollY: number): void {
       if(newActiveIndex < this.activeSectionIndex) {
           console.log("i am scrolling backwards / up the page, so I should do nothing!")
           this._activate(newActiveIndex);
-          this.otherIndices = [];
-          // dynamically get our other sections
-          this.sectionRanges.map((_, index) => { 
-          // if our section isn't our current one, we push their index value to a new array called otherIndices
-          if (index !== newActiveIndex) {this.otherIndices.push(index)}
-          });
-          // we then go through each and deactive their text elements
-          this.otherIndices.forEach(index => {
-            if(index > 1) {
-               this._deactive(index)
-            }
-          })
+          // this.otherIndices = [];
+          // // dynamically get our other sections
+          // this.sectionRanges.map((_, index) => { 
+          // // if our section isn't our current one, we push their index value to a new array called otherIndices
+          // if (index !== newActiveIndex) {this.otherIndices.push(index)}
+          // });
+          // // we then go through each and deactive their text elements
+          // this.otherIndices.forEach(index => {
+          //   if(index > 1) {
+          //      this._deactive(index)
+          //   }
+          // })
       }
 
       // scrolling down the page
