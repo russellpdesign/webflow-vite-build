@@ -132,4 +132,10 @@ update(scrollY: number): void {
       this.mediumBigTexts[i].classList.add("active");
       this.productDescs[i].classList.add("active");
     }
+
+    private _deactivate(i: number): void {
+      this.bigTexts[i].classList.add("active");
+      this.mediumBigTexts[i].classList.remove("active");
+      this.productDescs[i].classList.remove("active");
+    }
 }
