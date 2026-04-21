@@ -78,7 +78,7 @@ update(scrollY: number): void {
 
     this.beforeScroll = scrollY <= this.scrollStart1;
     this.scrollRange1 = scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1;
-    this.scrollGap1 = scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2;
+    this.scrollGap1 = scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2; // we are sitting in second section
     this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2;
     this.scrollGap2 = scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3;
     this.scrollRange3 = scrollY >= this.scrollStart3 && scrollY <= this.scrollEnd3;
@@ -96,11 +96,12 @@ update(scrollY: number): void {
         this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
       } if (this.scrollGap1) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
-        console.log("I am scrolling between the first section and second");
+        console.log("I am scrolling while in the second section");
       } if(this.scrollRange2) {
         const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
         this.slideProgress = mapRange(t, 0, 1, 100, 200);
         console.log(t, this.slideProgress);
+        console.log("I should scroll to the third section");
         this.horizontalScrollSectContainer.style.transform = `translateX-${this.slideProgress}vw)`;
       } if (this.scrollGap2) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
