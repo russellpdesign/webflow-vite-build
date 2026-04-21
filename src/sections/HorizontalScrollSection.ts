@@ -114,7 +114,6 @@ update(scrollY: number): void {
         this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
       } if (this.scrollGap1) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
-        _activate(1);
         console.log("I am scrolling while in the second section");
       } if(this.scrollRange2) {
         const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
