@@ -106,7 +106,7 @@ update(scrollY: number): void {
       if(newActiveIndex && this.activeSectionIndex === null) {
         console.log(newActiveIndex, this.activeSectionIndex);
         this.activeSectionIndex = newActiveIndex;
-        this._activate(newActiveIndex);
+        // this._activate(newActiveIndex);
       }
 
       // scrolling back up the page
