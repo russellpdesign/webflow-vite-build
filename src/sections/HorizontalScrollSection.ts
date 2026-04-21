@@ -9,7 +9,7 @@ export default class HorizontalScrollSection extends BaseSection {
   viewportWidth: number = 0;
   viewportHeight: number = 0;
   //flags
-
+  private activeSectionIndex: number | null = null;
 
   constructor({ el }: HorizontalScrollSection ) {
     super({ el });
@@ -67,21 +67,42 @@ export default class HorizontalScrollSection extends BaseSection {
     this.scrollStart3 = this.start + (this.viewportHeight * 8);
     this.scrollEnd3 = this.start + (this.viewportHeight * 9);
 
+    this.sectionRanges = [
+      [this.start, this.scrollStart1],        // scrolling into view
+      [this.scrollStart1, this.scrollEnd1], // horizontal scrolling from section one to two
+      [this.scrollEnd1, this.scrollStart2], // native scrolling while in section 2
+      [this.scrollStart2 this.scrollEnd2], // horizontal scrolling from section two to three
+      [this.scrollEnd2, this.scrollStart3], // native scrolling while in section 3
+    ];
 
-
-    console.log(`start scrolling 1 here: ${this.scrollStart1} then stop scrolling here: ${this.scrollEnd1}`)
-    console.log(`start scrolling 2 here: ${this.scrollStart2} then stop scrolling here: ${this.scrollEnd2}`)
-    console.log(`start scrolling 3 here: ${this.scrollStart3} then stop scrolling here: ${this.scrollEnd3}`)
   }
 
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    this.beforeScroll = scrollY <= this.scrollStart1;
-    this.scrollRange1 = scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1;
+    this.beforeScroll = scrollY <= this.scrollStart1; // scrolling into view
+    this.scrollRange1 = scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1; // scrolling from section one to section two
     this.scrollGap1 = scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2; // we are sitting in second section
     this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2;
     this.scrollGap2 = scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3; // we are sitting in the third section
+
+    // declarative section activation
+    let newActiveIndex: number | null = null;
+
+    this.sectionRanges.forEach(([start, end], index) => {
+      if (scrollY >= start && scrollY < end)
+        newActiveIndex = index;
+      });
+
+     if (newActiveIndex !== this.activeSectionIndex) {
+        // deactivate previous section
+        if (this.activeSectionIndex !== null) this._deactivate(this.activeSectionIndex);
+
+        //activate new section
+        if (newActiveIndex !== null) this._activate(newActiveIndex);
+
+        this.activeSectionIndex = newActiveIndex;
+      }
 
       if (this.beforeScroll) {
         this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
@@ -93,6 +114,7 @@ update(scrollY: number): void {
         this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
       } if (this.scrollGap1) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
+        _activate(1);
         console.log("I am scrolling while in the second section");
       } if(this.scrollRange2) {
         const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
@@ -103,5 +125,11 @@ update(scrollY: number): void {
       } if (this.scrollGap2) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
       }
+    }
+
+    private _activate(i: number): void {
+      this.bigTexts[i].classList.remove("active");
+      this.mediumBigTexts[i].classList.add("active");
+      this.productDescs[i].classList.add("active");
     }
 }
