@@ -36,7 +36,7 @@ export default class HorizontalScrollSection extends BaseSection {
     // for our first section, this is index 0-2, second 3-5, third 6-8
     this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container");
 
-    this.bigText = document.querySelectorAll(".big-text");
+    // this.bigText = document.querySelectorAll(".big-text");
 
     this.horizontalScrollSectContainer = document.querySelector(".horizontal-section-container");
 
@@ -67,7 +67,7 @@ export default class HorizontalScrollSection extends BaseSection {
     this.scrollStart3 = this.start + (this.viewportHeight * 8);
     this.scrollEnd3 = this.start + (this.viewportHeight * 9);
 
-    this.sectionRanges = [
+    this.sectionRanges: number[] = [
       // [0, this.scrollStart1],        // scrolling into view
       [this.scrollStart1, this.scrollEnd1], // horizontal scrolling from section one to two
       [this.scrollEnd1, this.scrollStart2], // native scrolling while in section 2
