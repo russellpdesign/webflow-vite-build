@@ -102,7 +102,7 @@ update(scrollY: number): void {
         this.slideProgress = mapRange(t, 0, 1, 100, 200);
         console.log(t, this.slideProgress);
         console.log("I should scroll to the third section");
-        this.horizontalScrollSectContainer.style.transform = `translateX-${this.slideProgress}vw)`;
+        this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
       } if (this.scrollGap2) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
       } if(this.scrollRange3) {
