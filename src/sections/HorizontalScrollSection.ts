@@ -91,7 +91,7 @@ update(scrollY: number): void {
         const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
         this.slideProgress = mapRange(t, 0, 1, 0, 100);
         // this.scrollPosition1 = this.slideProgress1;
-        console.log(t, this.slideProgress1);
+        console.log(t, this.slideProgress);
         this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
         this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
       } if (this.scrollGap1) {
