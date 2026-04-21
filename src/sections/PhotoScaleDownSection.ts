@@ -177,7 +177,7 @@ update(scrollY: number): void {
     this.mediumBigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
     this.productDescs[0].classList.toggle("active", transitionHorizontalScrollSection);
     for(let i = 0; i<= 2; i++) {
-      this.dropdownHeaders[i].classList.toggle("active", transitionHorizontalScrollSection);
+      setTimeout(this.dropdownHeaders[i].classList.toggle("active", transitionHorizontalScrollSection), 300);
     };
 
     // Ending image
