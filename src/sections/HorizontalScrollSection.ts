@@ -69,9 +69,9 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.sectionRanges = [
       // [0, this.scrollStart1],        // scrolling into view
-      // [this.scrollStart1, this.scrollEnd1], // horizontal scrolling from section one to two
+      [this.scrollStart1, this.scrollEnd1], // horizontal scrolling from section one to two
       [this.scrollEnd1, this.scrollStart2], // native scrolling while in section 2
-      // [this.scrollStart2, this.scrollEnd2], // horizontal scrolling from section two to three
+      [this.scrollStart2, this.scrollEnd2], // horizontal scrolling from section two to three
       [this.scrollEnd2, this.scrollStart3], // native scrolling while in section 3
     ];
 
@@ -96,7 +96,7 @@ update(scrollY: number): void {
 
      if (newActiveIndex !== this.activeSectionIndex) {
         // deactivate previous section
-        // if (this.activeSectionIndex !== null) this._deactivate(this.activeSectionIndex);
+        if (this.activeSectionIndex !== null) this._deactivate(this.activeSectionIndex);
 
         //activate new section
         if (newActiveIndex !== null) this._activate(newActiveIndex);
@@ -114,12 +114,10 @@ update(scrollY: number): void {
         this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
       } if (this.scrollGap1) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
-        console.log("I am scrolling while in the second section");
       } if(this.scrollRange2) {
         const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
         this.slideProgress = mapRange(t, 0, 1, 100, 200);
         console.log(t, this.slideProgress);
-        console.log("I should scroll to the third section");
         this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
       } if (this.scrollGap2) {
         this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
@@ -133,9 +131,9 @@ update(scrollY: number): void {
       this.productDescs[i+1].classList.add("active");
     }
 
-    // private _deactivate(i: number): void {
-    //   this.bigTexts[i+1].classList.remove("active");
-    //   this.mediumBigTexts[i+1].classList.remove("active");
-    //   this.productDescs[i+1].classList.remove("active");
-    // }
+    private _deactivate(i: number): void {
+      this.bigTexts[i].classList.remove("active");
+      this.mediumBigTexts[i].classList.remove("active");
+      this.productDescs[i].classList.remove("active");
+    }
 }
