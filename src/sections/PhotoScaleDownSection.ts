@@ -175,10 +175,8 @@ update(scrollY: number): void {
 
     this.bigText[0].classList.toggle("active", transitionHorizontalScrollSection);
 
-    this.supportingElements.forEach(nodeList => {
-      nodeList.forEach(el => {
-        el.classList.toggle("active", transitionHorizontalScrollSection);
-      });
+    this.supportingElements.forEach(el => {
+      el.classList.toggle("active", transitionHorizontalScrollSection);
     });
 
     // Ending image
