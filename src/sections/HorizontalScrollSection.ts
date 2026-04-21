@@ -136,7 +136,7 @@ update(scrollY: number): void {
     }
 
     private _deactivate(i: number): void {
-      this.bigTexts[i].classList.remove("active");
+      this.bigTexts[i].classList.toggle("active");
       this.mediumBigTexts[i].classList.remove("active");
       this.productDescs[i].classList.remove("active");
     }
