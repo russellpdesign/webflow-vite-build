@@ -107,13 +107,15 @@ update(scrollY: number): void {
         this.activeSectionIndex = newActiveIndex;        
       }
 
+      // scrolling back up the page
       if(newActiveIndex < this.activeSectionIndex) {
-          console.log("i should do nothing!")
+          console.log("i am scrolling backwards / up the page, so I should do nothing!")
           this._activate(newActiveIndex);
       }
 
+      // scrolling down the page
       if(newActiveIndex > this.activeSectionIndex) {
-          console.log("i should animate our eyebrow, desc and dropdown in, and remove our big title")
+          console.log("i am scrolling forward / down the page and should animate our eyebrow, desc and dropdown in, and remove our big title")
           this._activate(newActiveIndex);
       }
     }
