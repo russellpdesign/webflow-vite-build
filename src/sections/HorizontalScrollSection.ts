@@ -86,23 +86,23 @@ update(scrollY: number): void {
     this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2;
     this.scrollGap2 = scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3; // we are sitting in the third section
 
-    // declarative section activation
-    let newActiveIndex: number | null = null;
+    // // declarative section activation
+    // let newActiveIndex: number | null = null;
 
-    this.sectionRanges.forEach(([start, end], index) => {
-      if (scrollY >= start && scrollY < end)
-        newActiveIndex = index;
-      });
+    // this.sectionRanges.forEach(([start, end], index) => {
+    //   if (scrollY >= start && scrollY < end)
+    //     newActiveIndex = index;
+    //   });
 
-     if (newActiveIndex !== this.activeSectionIndex) {
-        // deactivate previous section
-        if (this.activeSectionIndex !== null) this._deactivate(this.activeSectionIndex);
+    //  if (newActiveIndex !== this.activeSectionIndex) {
+    //     // deactivate previous section
+    //     if (this.activeSectionIndex !== null) this._deactivate(this.activeSectionIndex);
 
-        //activate new section
-        if (newActiveIndex !== null) this._activate(newActiveIndex);
+    //     //activate new section
+    //     if (newActiveIndex !== null) this._activate(newActiveIndex);
 
-        this.activeSectionIndex = newActiveIndex;
-      }
+    //     this.activeSectionIndex = newActiveIndex;
+    //   }
 
       if (this.beforeScroll) {
         this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
@@ -124,16 +124,16 @@ update(scrollY: number): void {
       }
     }
 
-    // we add one to the index for these since we start activating things starting in our second section
-    private _activate(i: number): void {
-      this.bigTexts[i].classList.add("active"); // this is confusing because adding the active class actually hides the text
-      this.mediumBigTexts[i].classList.add("active"); // with these adding active reveals it
-      this.productDescs[i].classList.add("active");
-    }
+    // // we add one to the index for these since we start activating things starting in our second section
+    // private _activate(i: number): void {
+    //   this.bigTexts[i].classList.add("active"); // this is confusing because adding the active class actually hides the text
+    //   this.mediumBigTexts[i].classList.add("active"); // with these adding active reveals it
+    //   this.productDescs[i].classList.add("active");
+    // }
 
-    private _deactivate(i: number): void {
-      this.bigTexts[i].classList.remove("active");
-      this.mediumBigTexts[i].classList.remove("active");
-      this.productDescs[i].classList.remove("active");
-    }
+    // private _deactivate(i: number): void {
+    //   this.bigTexts[i].classList.remove("active");
+    //   this.mediumBigTexts[i].classList.remove("active");
+    //   this.productDescs[i].classList.remove("active");
+    // }
 }
