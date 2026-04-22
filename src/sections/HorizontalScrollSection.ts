@@ -85,16 +85,65 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    function getState(scrollY: number):string {
-      if (scrollY <= this.scrollStart1) {return "Before Scroll"} // scrolling into view
-      if (scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1) {return "Scroll Range 1"} // scrolling from section one to section two
-      if (scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2) {return "Scroll Gap 1"} // we are sitting in second section
-      if (scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2) {return "Scroll Range 2"} // scrolling from section two to three
-      if (scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3) {return "Scroll Gap 2"} // we are sitting in the third section
-      else {return "Scroll End"}; // we are scrolling down out of the horizontal scroll section
+    type ScrollState =
+  | "BEFORE_SCROLL"
+  | "SCROLL_RANGE_1"
+  | "SCROLL_GAP_1"
+  | "SCROLL_RANGE_2"
+  | "SCROLL_GAP_2"
+  | "AFTER_SCROLL"
+  | null;
+
+    const getState = (scrollY: number): ScrollState => {
+      let scrollState: string | null = null;
+      if(scrollY <= this.scrollStart1) {
+        scrollState = "BEFORE_SCROLL";  // we are scrolling before we enter our horizontal scroll section
+      } else if (scrollY <= this.scrollEnd1) {
+        scrollState = "SCROLL_RANGE_1"; // scrolling from section one to section two
+      } else if (scrollY <= this.scrollStart2) {
+        scrollState = "SCROLL_GAP_1"; // we are sitting in second section
+      } else if (scrollY <= this.scrollEnd2) {
+        scrollState = "SCROLL_RANGE_2"; // scrolling from section two to three
+      } else if (scrollY <= this.scrollStart3) {
+        scrollState = "SCROLL_GAP_2"; // we are sitting in the third section
+      } else {scrollState = "AFTER_SCROLL"; // we are scrolling down out of the horizontal scroll section
+      } 
+
+      return scrollState;
+    };
+
+    function doWork(state: string) {
+      if(state === null) {return};
+      switch (state) {
+          case "BEFORE_SCROLL":
+            this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
+            this.firstImage.style.transform = `translateX(0vw)`;
+            break;
+          case "SCROLL_RANGE_1":
+            const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
+            this.slideProgress = mapRange(t, 0, 1, 0, 100);
+            this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+            this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
+            console.log("I should be horizontally scrolling to section two")
+            break;
+          case "SCROLL_GAP_1":
+            this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
+            break;
+         case "SCROLL_RANGE_2":
+            const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
+            this.slideProgress = mapRange(t, 0, 1, 100, 200);
+            this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+            console.log("I should be horizontally scrolling to section three")
+            break;
+          case "SCROLL_GAP_2":
+            this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
+            break;
+          case "AFTER_SCROLL":
+            console.log("I am scrolling out of the horizontal scroll section");
+            break;
+      }
     }
 
-    console.log(getState(scrollY));
 
     // declarative section activation
     let activeIndex: number | null = null;
