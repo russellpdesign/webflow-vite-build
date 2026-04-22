@@ -66,12 +66,13 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.sections = []
 
+    // this construction of our start and stop values is dynamic and updates when new sections are add. The height of the parent will have to increase as well 300vh for each new section to allow 100vh for scrolling over and 200 for scrolling inside
     for(let i = 2; i <= 2 + (this.scrollSections.length * 3); i+= 3) {
        let boundaries = { start: this.start + this.viewportHeight * i, end: this.start + this.viewportHeight * ((i + 2) - 1) };
        this.sections.push(boundaries);
     };
 
-    console.log(...this.sections);
+    console.log(this.sections);
 
     this.scrollStart1 = this.start + this.viewportHeight * 2;
     this.scrollEnd1 = this.start + (this.viewportHeight * 3);
