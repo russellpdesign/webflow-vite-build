@@ -80,16 +80,16 @@ export default class HorizontalScrollSection extends BaseSection {
 
     console.log(this.scrollBoundaries);
 
-    // this.scrollStart1 = this.start + this.viewportHeight * 2;
-    // this.scrollEnd1 = this.start + (this.viewportHeight * 3);
-    // this.scrollGap1Start = this.start + (this.viewportHeight * 3);
-    // this.scrollGap1End = this.start + (this.viewportHeight * 5)
-    // this.scrollStart2 = this.start + (this.viewportHeight * 5);
-    // this.scrollEnd2 = this.start + (this.viewportHeight * 6);
-    // this.scrollGap2Start = this.start + (this.viewportHeight * 6);
-    // this.scrollGap2End = this.start + (this.viewportWidth * 8);
-    // this.scrollStart3 = this.start + (this.viewportHeight * 8);
-    // this.scrollEnd3 = this.start + (this.viewportHeight * 9);
+    this.scrollStart1 = this.start + this.viewportHeight * 2;
+    this.scrollEnd1 = this.start + (this.viewportHeight * 3);
+    this.scrollGap1Start = this.start + (this.viewportHeight * 3);
+    this.scrollGap1End = this.start + (this.viewportHeight * 5)
+    this.scrollStart2 = this.start + (this.viewportHeight * 5);
+    this.scrollEnd2 = this.start + (this.viewportHeight * 6);
+    this.scrollGap2Start = this.start + (this.viewportHeight * 6);
+    this.scrollGap2End = this.start + (this.viewportWidth * 8);
+    this.scrollStart3 = this.start + (this.viewportHeight * 8);
+    this.scrollEnd3 = this.start + (this.viewportHeight * 9);
 
     this.sectionRanges = [
       [0, this.scrollStart1], // scrolling into view
