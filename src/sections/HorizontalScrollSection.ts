@@ -104,8 +104,12 @@ update(scrollY: number): void {
       return state;
     };
 
+    this.currentState = getState(scrollY);
+
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
+      console.log(this.currentState, this.lastActiveState);
+      this.lastActiveState = this.currentState;
       switch (state) {
           case "BEFORE_SCROLL":
             this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
@@ -116,7 +120,7 @@ update(scrollY: number): void {
             this.slideProgress = mapRange(t, 0, 1, 0, 100);
             this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
             this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
-            console.log("I should be horizontally scrolling to section two")
+            console.log("I should be horizontally scrolling to section two");
             break;
           case "SCROLL_GAP_1":
             this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
@@ -137,6 +141,7 @@ update(scrollY: number): void {
     }
 
     doWork(getState(scrollY), scrollY); // gets our current state and applies changes
+
 
     // // declarative section activation
     // let activeIndex: number | null = null;
