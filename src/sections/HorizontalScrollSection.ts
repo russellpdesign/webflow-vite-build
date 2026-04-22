@@ -70,7 +70,12 @@ export default class HorizontalScrollSection extends BaseSection {
     for(let i = 2; i <= 2 + (this.scrollSections.length * 2); i+= 3) {
        let scrollRange = { start: this.start + this.viewportHeight * i, end: this.start + this.viewportHeight * ((i + 2) - 1) };
        let scrollGap = { start: scrollRange.end, end: scrollRange.end + (this.viewportHeight * 2) };
+       if (i >= 2 + (this.scrollSections.length * 2)) {
+       this.scrollBoundaries.push([scrollRange]);
+       } else {
        this.scrollBoundaries.push([scrollRange, scrollGap]);
+       }
+
     };
 
     console.log(this.scrollBoundaries);
@@ -81,6 +86,8 @@ export default class HorizontalScrollSection extends BaseSection {
     this.scrollGap1End = this.start + (this.viewportHeight * 5)
     this.scrollStart2 = this.start + (this.viewportHeight * 5);
     this.scrollEnd2 = this.start + (this.viewportHeight * 6);
+    this.scrollGap2Start = this.start + (this.viewportHeight * 6);
+    this.scrollGap2End = this.start + (this.viewportWidth * 8);
     this.scrollStart3 = this.start + (this.viewportHeight * 8);
     this.scrollEnd3 = this.start + (this.viewportHeight * 9);
 
