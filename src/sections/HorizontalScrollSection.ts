@@ -86,7 +86,7 @@ update(scrollY: number): void {
     if (!this.enabled) return;
 
     type ScrollState =
-  | "BEFORE_SCROLL"
+   "BEFORE_SCROLL"
   | "SCROLL_RANGE_1"
   | "SCROLL_GAP_1"
   | "SCROLL_RANGE_2"
