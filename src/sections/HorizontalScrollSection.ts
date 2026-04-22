@@ -86,11 +86,11 @@ update(scrollY: number): void {
     if (!this.enabled) return;
 
     function getState(scrollY: number):string {
-      if (scrollY <= this.scrollStart1) {return "Before Scroll"}; // scrolling into view
-      if (scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1) {return "Scroll Range 1"}; // scrolling from section one to section two
-      if (scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2) {return "Scroll Gap 1"}; // we are sitting in second section
-      if (scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2) {return "Scroll Range 2"}; // scrolling from section two to three
-      if (scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3) {return "Scroll Gap 2"}; // we are sitting in the third section
+      if (scrollY <= this.scrollStart1) {return "Before Scroll"} // scrolling into view
+      if (scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1) {return "Scroll Range 1"} // scrolling from section one to section two
+      if (scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2) {return "Scroll Gap 1"} // we are sitting in second section
+      if (scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2) {return "Scroll Range 2"} // scrolling from section two to three
+      if (scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3) {return "Scroll Gap 2"} // we are sitting in the third section
       else {return "Scroll End"}; // we are scrolling down out of the horizontal scroll section
     }
 
