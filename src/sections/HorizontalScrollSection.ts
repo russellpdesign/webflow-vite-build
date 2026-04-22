@@ -64,6 +64,15 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.start = this.el.getBoundingClientRect().top + scrollY;
 
+    this.sections = []
+
+    for(let i = 2; i <= this.scrollSections.length; i+= 3) {
+       let boundaries = { start: this.start + this.viewportHeight * i, end: this.start + this.viewportHeight * ((i + 2) - 1) };
+       this.sections.push(boundaries);
+    };
+
+    console.log(...this.sections);
+
     this.scrollStart1 = this.start + this.viewportHeight * 2;
     this.scrollEnd1 = this.start + (this.viewportHeight * 3);
     this.scrollStart2 = this.start + (this.viewportHeight * 5);
