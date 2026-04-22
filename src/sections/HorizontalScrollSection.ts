@@ -85,12 +85,17 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    this.beforeScroll = scrollY <= this.scrollStart1; // scrolling into view
-    this.scrollRange1 = scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1; // scrolling from section one to section two
-    this.scrollGap1 = scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2; // we are sitting in second section
-    this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2; // scrolling from section two to three
-    this.scrollGap2 = scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3; // we are sitting in the third section
-    this.scrollEnd = scrollY >= this.sectionRanges[5][0]; // we are scrolling down out of the horizontal scroll section
+    function getState(scrollY: number):string {
+      if (scrollY <= this.scrollStart1) {return "Before Scroll"}; // scrolling into view
+      if (scrollY >= this.scrollStart1 && scrollY <= this.scrollEnd1) {return "Scroll Range 1"}; // scrolling from section one to section two
+      if (scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2) {return "Scroll Gap 1"}; // we are sitting in second section
+      if (scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2) {return "Scroll Range 2"}; // scrolling from section two to three
+      if (scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3) {return "Scroll Gap 2"}; // we are sitting in the third section
+      else {return "Scroll End"}; // we are scrolling down out of the horizontal scroll section
+    }
+
+    console.log(getState(scrollY));
+
     // declarative section activation
     let activeIndex: number | null = null;
 
@@ -126,40 +131,39 @@ update(scrollY: number): void {
     // }
 
 
-      if (this.beforeScroll) {
-          this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
-          this.firstImage.style.transform = `translateX(0vw)`;
-        } 
+      // if (this.beforeScroll) {
+      //     this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
+      //     this.firstImage.style.transform = `translateX(0vw)`;
+      //   } 
         
-      if (this.scrollRange1) {
-          const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
-          this.slideProgress = mapRange(t, 0, 1, 0, 100);
-          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
-          this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
-          console.log("I should be horizontally scrolling to section two")
-        }
+      // if (this.scrollRange1) {
+      //     const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
+      //     this.slideProgress = mapRange(t, 0, 1, 0, 100);
+      //     this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+      //     this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
+      //     console.log("I should be horizontally scrolling to section two")
+      //   }
         
-      if (this.scrollGap1) {
-          this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
-        }
+      // if (this.scrollGap1) {
+      //     this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
+      //   }
       
-      if(this.scrollRange2) {
-          const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
-          this.slideProgress = mapRange(t, 0, 1, 100, 200);
-          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
-          console.log("I should be horizontally scrolling to section three")
-        }
+      // if(this.scrollRange2) {
+      //     const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
+      //     this.slideProgress = mapRange(t, 0, 1, 100, 200);
+      //     this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+      //     console.log("I should be horizontally scrolling to section three")
+      //   }
         
-      if (this.scrollGap2) {
-          this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-        }
+      // if (this.scrollGap2) {
+      //     this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
+      //   }
 
-      if (this.scrollGap2) {
-          this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-          console.log("I am scrolling out of the horizontal scroll section");
-          
-        }
-      }
+      // if (this.scrollEnd) {
+      //     console.log("I am scrolling out of the horizontal scroll section");
+      //     return;
+      //   }
+      } // ends update function
 
     // we add one to the index for these since we start activating things starting in our second section
     private _activate(i: number): void {
