@@ -120,7 +120,7 @@ update(scrollY: number): void {
             this.firstImage.style.transform = `translateX(0vw)`;
             break;
           case "SCROLL_RANGE_1":
-            const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
+            let t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
             this.slideProgress = mapRange(t, 0, 1, 0, 100);
             this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
             this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
@@ -130,7 +130,7 @@ update(scrollY: number): void {
             this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
             break;
          case "SCROLL_RANGE_2":
-            const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
+            t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
             this.slideProgress = mapRange(t, 0, 1, 100, 200);
             this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
             console.log("I should be horizontally scrolling to section three")
