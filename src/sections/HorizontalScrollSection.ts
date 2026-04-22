@@ -68,28 +68,28 @@ export default class HorizontalScrollSection extends BaseSection {
 
     // this construction of our start and stop values is dynamic and updates when new scrollBoundaries are add. The height of the parent will have to increase as well 300vh for each new section to allow 100vh for scrolling over and 200 for scrolling inside
     for(let i = 2; i <= 2 + (this.scrollSections.length * 2); i+= 3) {
-       let scrollRange = { start: this.start + this.viewportHeight * i, end: this.start + this.viewportHeight * ((i + 2) - 1) };
-       let scrollGap = { start: scrollRange.end, end: scrollRange.end + (this.viewportHeight * 2) };
-       if (i >= 2 + (this.scrollSections.length * 2)) {
-       this.scrollBoundaries.push([scrollRange]);
-       } else {
-       this.scrollBoundaries.push([scrollRange, scrollGap]);
-       }
 
+      this.scrollBoundaries.push({
+        section: i/i + 1, 
+        scrollRangeStart: this.start + this.viewportHeight * i,
+        scrollRangeEnd: this.start + this.viewportHeight * ((i + 2) - 1),
+        scrollGapStart: this.start + this.viewportHeight * ((i + 2) - 1),
+        scrollGapEnd: this.start + this.viewportHeight * ((i + 2) - 1) + (this.viewportHeight * 2)
+      });
     };
 
     console.log(this.scrollBoundaries);
 
-    this.scrollStart1 = this.start + this.viewportHeight * 2;
-    this.scrollEnd1 = this.start + (this.viewportHeight * 3);
-    this.scrollGap1Start = this.start + (this.viewportHeight * 3);
-    this.scrollGap1End = this.start + (this.viewportHeight * 5)
-    this.scrollStart2 = this.start + (this.viewportHeight * 5);
-    this.scrollEnd2 = this.start + (this.viewportHeight * 6);
-    this.scrollGap2Start = this.start + (this.viewportHeight * 6);
-    this.scrollGap2End = this.start + (this.viewportWidth * 8);
-    this.scrollStart3 = this.start + (this.viewportHeight * 8);
-    this.scrollEnd3 = this.start + (this.viewportHeight * 9);
+    // this.scrollStart1 = this.start + this.viewportHeight * 2;
+    // this.scrollEnd1 = this.start + (this.viewportHeight * 3);
+    // this.scrollGap1Start = this.start + (this.viewportHeight * 3);
+    // this.scrollGap1End = this.start + (this.viewportHeight * 5)
+    // this.scrollStart2 = this.start + (this.viewportHeight * 5);
+    // this.scrollEnd2 = this.start + (this.viewportHeight * 6);
+    // this.scrollGap2Start = this.start + (this.viewportHeight * 6);
+    // this.scrollGap2End = this.start + (this.viewportWidth * 8);
+    // this.scrollStart3 = this.start + (this.viewportHeight * 8);
+    // this.scrollEnd3 = this.start + (this.viewportHeight * 9);
 
     this.sectionRanges = [
       [0, this.scrollStart1], // scrolling into view
