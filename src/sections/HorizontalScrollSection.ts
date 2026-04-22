@@ -104,12 +104,15 @@ update(scrollY: number): void {
       return state;
     };
 
-    this.currentState = getState(scrollY);
+    const state = getState(scrollY);
+    if (state !== this.lastActiveState) {
+      this.previousState = this.lastActiveState;
+      this.lastActiveState = state;
+    }
 
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
-      console.log(this.currentState, this.lastActiveState);
-      this.lastActiveState = this.currentState;
+      console.log(state, this.lastActiveState);
       switch (state) {
           case "BEFORE_SCROLL":
             this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
