@@ -70,11 +70,11 @@ export default class HorizontalScrollSection extends BaseSection {
     for(let i = 2; i <= 2 + (this.scrollSections.length * 3); i+= 3) {
        let scrollRange = { start: this.start + this.viewportHeight * i, end: this.start + this.viewportHeight * ((i + 2) - 1) };
        let scrollGap = { start: scrollRange.end, end: scrollRange.end + i };
-      //  if we are on our last section, remove the last scrollGap object, otherwise push both range and gap
-       if(i >= (this.scrollSections.length * 3) - 1) {
-        this.scrollSectionBoundaries.push([scrollRange]);
-       } else {
+       //  if we are on our last section, remove the last scrollGap object, otherwise push both range and gap
+       if(i < (this.scrollSections.length * 3) - 2) {
         this.scrollSectionBoundaries.push([scrollRange, scrollGap]);
+       } else if (i > (this.scrollSections.length * 3) - 2) {
+        this.scrollSectionBoundaries.push([scrollRange]);
        }
     };
 
