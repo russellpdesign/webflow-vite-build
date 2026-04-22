@@ -85,17 +85,10 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    type ScrollState =
-   "BEFORE_SCROLL"
-  | "SCROLL_RANGE_1"
-  | "SCROLL_GAP_1"
-  | "SCROLL_RANGE_2"
-  | "SCROLL_GAP_2"
-  | "AFTER_SCROLL"
-  | null;
+    type ScrollState = "BEFORE_SCROLL" | "SCROLL_RANGE_1" | "SCROLL_GAP_1" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
 
     const getState = (scrollY: number): ScrollState => {
-      let scrollState: string | null = null;
+      let scrollState: ScrollState;
       if(scrollY <= this.scrollStart1) {
         scrollState = "BEFORE_SCROLL";  // we are scrolling before we enter our horizontal scroll section
       } else if (scrollY <= this.scrollEnd1) {
@@ -112,15 +105,15 @@ update(scrollY: number): void {
       return scrollState;
     };
 
-    function doWork(state: string) {
-      if(state === null) {return};
+    function doWork(state: ScrollState, scrollY: number) {
+      let t: number;
       switch (state) {
           case "BEFORE_SCROLL":
             this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
             this.firstImage.style.transform = `translateX(0vw)`;
             break;
           case "SCROLL_RANGE_1":
-            let t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
+            t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
             this.slideProgress = mapRange(t, 0, 1, 0, 100);
             this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
             this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
