@@ -88,21 +88,20 @@ update(scrollY: number): void {
     type ScrollState = "BEFORE_SCROLL" | "SCROLL_RANGE_1" | "SCROLL_GAP_1" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
 
     const getState = (scrollY: number): ScrollState => {
-      let scrollState: ScrollState;
+      let state: ScrollState;
       if(scrollY <= this.scrollStart1) {
-        scrollState = "BEFORE_SCROLL";  // we are scrolling before we enter our horizontal scroll section
+        state = "BEFORE_SCROLL";  // we are scrolling before we enter our horizontal scroll section
       } else if (scrollY <= this.scrollEnd1) {
-        scrollState = "SCROLL_RANGE_1"; // scrolling from section one to section two
+        state = "SCROLL_RANGE_1"; // scrolling from section one to section two
       } else if (scrollY <= this.scrollStart2) {
-        scrollState = "SCROLL_GAP_1"; // we are sitting in second section
+        state = "SCROLL_GAP_1"; // we are sitting in second section
       } else if (scrollY <= this.scrollEnd2) {
-        scrollState = "SCROLL_RANGE_2"; // scrolling from section two to three
+        state = "SCROLL_RANGE_2"; // scrolling from section two to three
       } else if (scrollY <= this.scrollStart3) {
-        scrollState = "SCROLL_GAP_2"; // we are sitting in the third section
-      } else {scrollState = "AFTER_SCROLL"; // we are scrolling down out of the horizontal scroll section
+        state = "SCROLL_GAP_2"; // we are sitting in the third section
+      } else {state = "AFTER_SCROLL"; // we are scrolling down out of the horizontal scroll section
       } 
-
-      return scrollState;
+      return state;
     };
 
     function doWork(state: ScrollState, scrollY: number) {
@@ -137,6 +136,7 @@ update(scrollY: number): void {
       }
     }
 
+    doWork(getState(scrollY), scrollY) // gets our current state and applies changes
 
     // declarative section activation
     let activeIndex: number | null = null;
