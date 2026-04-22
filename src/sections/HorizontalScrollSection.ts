@@ -72,11 +72,12 @@ export default class HorizontalScrollSection extends BaseSection {
     this.scrollEnd3 = this.start + (this.viewportHeight * 9);
 
     this.sectionRanges = [
-      // [0, this.scrollStart1],        // scrolling into view
+      [0, this.scrollStart1], // scrolling into view
       [this.scrollStart1, this.scrollEnd1], // horizontal scrolling from section one to two
       [this.scrollEnd1, this.scrollStart2], // native scrolling while in section 2
       [this.scrollStart2, this.scrollEnd2], // horizontal scrolling from section two to three
       [this.scrollEnd2, this.scrollStart3], // native scrolling while in section 3
+      [this.scrollEnd3, document.documentElement.scrollHeight],
     ];
 
   }
@@ -89,52 +90,40 @@ update(scrollY: number): void {
     this.scrollGap1 = scrollY >= this.scrollEnd1 && scrollY <= this.scrollStart2; // we are sitting in second section
     this.scrollRange2 = scrollY >= this.scrollStart2 && scrollY <= this.scrollEnd2; // scrolling from section two to three
     this.scrollGap2 = scrollY >= this.scrollEnd2 && scrollY <= this.scrollStart3; // we are sitting in the third section
-
+    this.scrollEnd = scrollY >= this.sectionRanges[5][0]; // we are scrolling down out of the horizontal scroll section
     // declarative section activation
-    let newActiveIndex: number | null = null;
+    let activeIndex: number | null = null;
 
-    // returns which section we are in at runtime
-    this.sectionRanges.forEach(([start, end], index) => {
-      if (scrollY >= start && scrollY < end)
-        newActiveIndex = index;
-      });
+    // // returns which section we are in at runtime
+    // this.sectionRanges.forEach(([start, end], index) => {
+    //   if (scrollY >= start && scrollY < end)
+    //     newActiveIndex = index;
+    //   });
 
-    if(newActiveIndex !== null) {
-      console.log(newActiveIndex, this.activeSectionIndex)
+    // if(newActiveIndex !== null) {
+    //   console.log(newActiveIndex, this.activeSectionIndex)
 
-      // we refreshed the page and have no previously store state for what section index we are in
-      if(newActiveIndex && this.activeSectionIndex === null) {
-        console.log(newActiveIndex, this.activeSectionIndex);
-        this.activeSectionIndex = newActiveIndex;
-        // this._activate(newActiveIndex);
-      }
+    //   // we refreshed the page and have no previously store state for what section index we are in
+    //   if(newActiveIndex && this.activeSectionIndex === null) {
+    //     console.log(newActiveIndex, this.activeSectionIndex);
+    //     this.activeSectionIndex = newActiveIndex;
+    //     // this._activate(newActiveIndex);
+    //   }
 
-      // scrolling back up the page
-      if(newActiveIndex < this.activeSectionIndex) {
-          console.log("i am scrolling backwards / up the page, so I should do nothing!")
-          this.activeSectionIndex = newActiveIndex;
-          this._activate(newActiveIndex);
-          // this.otherIndices = [];
-          // // dynamically get our other sections
-          // this.sectionRanges.map((_, index) => { 
-          // // if our section isn't our current one, we push their index value to a new array called otherIndices
-          // if (index !== newActiveIndex) {this.otherIndices.push(index)}
-          // });
-          // // we then go through each and deactive their text elements
-          // this.otherIndices.forEach(index => {
-          //   if(index > 1) {
-          //      this._deactive(index)
-          //   }
-          // })
-      }
+    //   // scrolling back up the page
+    //   if(newActiveIndex < this.activeSectionIndex) {
+    //       console.log("i am scrolling backwards / up the page, so I should do nothing!")
+    //       this.activeSectionIndex = newActiveIndex;
+    //       this._activate(newActiveIndex);
+    //   }
 
-      // scrolling down the page
-      if(newActiveIndex > this.activeSectionIndex) {
-          console.log("i am scrolling forward / down the page and should animate our eyebrow, desc and dropdown in, and remove our big title");
-          this.activeSectionIndex = newActiveIndex;
-          this._activate(newActiveIndex);
-      }
-    }
+    //   // scrolling down the page
+    //   if(newActiveIndex > this.activeSectionIndex) {
+    //       console.log("i am scrolling forward / down the page and should animate our eyebrow, desc and dropdown in, and remove our big title");
+    //       this.activeSectionIndex = newActiveIndex;
+    //       this._activate(newActiveIndex);
+    //   }
+    // }
 
 
       if (this.beforeScroll) {
