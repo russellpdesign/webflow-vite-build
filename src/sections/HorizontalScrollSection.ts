@@ -104,7 +104,7 @@ update(scrollY: number): void {
       return state;
     };
 
-    const doWork = (state: ScrollState, scrollY: number) => {
+    const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
       switch (state) {
           case "BEFORE_SCROLL":
