@@ -73,9 +73,10 @@ export default class HorizontalScrollSection extends BaseSection {
       //  if we are on our last section, remove the last scrollGap object, otherwise push both range and gap
        if(i = (this.scrollSections.length * 3) - 1) {
         this.scrollSectionBoundaries.push([scrollRange]);
-        return;
-       }
+        break;
+       } else {
         this.scrollSectionBoundaries.push([scrollRange, scrollGap]);
+       }
     };
 
     console.log(this.scrollSectionBoundaries);
