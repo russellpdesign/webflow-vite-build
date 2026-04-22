@@ -155,7 +155,9 @@ update(scrollY: number): void {
         }
 
       if (this.scrollGap2) {
-          console.log("I am scrolling out of the horizontal scroll section")
+          this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
+          console.log("I am scrolling out of the horizontal scroll section");
+          
         }
       }
 
