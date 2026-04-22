@@ -104,7 +104,7 @@ update(scrollY: number): void {
       return state;
     };
 
-    function doWork(state: ScrollState, scrollY: number) {
+    const doWork = (state: ScrollState, scrollY: number) => {
       let t: number;
       switch (state) {
           case "BEFORE_SCROLL":
@@ -136,10 +136,10 @@ update(scrollY: number): void {
       }
     }
 
-    doWork(getState(scrollY), scrollY) // gets our current state and applies changes
+    doWork(getState(scrollY), scrollY); // gets our current state and applies changes
 
-    // declarative section activation
-    let activeIndex: number | null = null;
+    // // declarative section activation
+    // let activeIndex: number | null = null;
 
     // // returns which section we are in at runtime
     // this.sectionRanges.forEach(([start, end], index) => {
