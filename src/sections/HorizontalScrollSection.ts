@@ -110,8 +110,6 @@ update(scrollY: number): void {
     type ScrollState = "BEFORE_SCROLL" | "SCROLL_RANGE_1" | "SCROLL_GAP_1" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
 
     const getState = (scrollY: number): ScrollState => {
-      let state: ScrollState;
-
       return (
         (scrollY <= this.scrollStart1 && "BEFORE_SCROLL") || // we are scrolling before we enter our horizontal scroll section
         (scrollY <= this.scrollEnd1 && "SCROLL_RANGE_1") || // we are scrolling to second section
