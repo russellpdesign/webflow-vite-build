@@ -64,23 +64,23 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.start = this.el.getBoundingClientRect().top + scrollY;
 
-    this.scrollBoundaries = []
+    // this.scrollBoundaries = []
 
-    // this construction of our start and stop values is dynamic and updates when new scrollBoundaries are add. The height of the parent will have to increase as well 300vh for each new section to allow 100vh for scrolling over and 200 for scrolling inside
-    for(let i = 2; i <= 2 + (this.scrollSections.length * 2); i+= 3) {
+    // // this construction of our start and stop values is dynamic and updates when new scrollBoundaries are add. The height of the parent will have to increase as well 300vh for each new section to allow 100vh for scrolling over and 200 for scrolling inside
+    // for(let i = 2; i <= 2 + (this.scrollSections.length * 2); i+= 3) {
 
-      const newSection: {section: number, scrollRangeStart: number, scrollRangeEnd: number, scrollGapStart: number, scrollGapEnd: number } = {
-        section: (i + 1) / 3, 
-        scrollRangeStart: this.start + this.viewportHeight * i,
-        scrollRangeEnd: this.start + this.viewportHeight * ((i + 2) - 1),
-        scrollGapStart: this.start + this.viewportHeight * ((i + 2) - 1),
-        scrollGapEnd: this.start + this.viewportHeight * ((i + 2) - 1) + (this.viewportHeight * 2)
-      };
+    //   const newSection: {section: number, scrollRangeStart: number, scrollRangeEnd: number, scrollGapStart: number, scrollGapEnd: number } = {
+    //     section: (i + 1) / 3, 
+    //     scrollRangeStart: this.start + this.viewportHeight * i,
+    //     scrollRangeEnd: this.start + this.viewportHeight * ((i + 2) - 1),
+    //     scrollGapStart: this.start + this.viewportHeight * ((i + 2) - 1),
+    //     scrollGapEnd: this.start + this.viewportHeight * ((i + 2) - 1) + (this.viewportHeight * 2)
+    //   };
 
-      this.scrollBoundaries.push(newSection)
-    };
+    //   this.scrollBoundaries.push(newSection)
+    // };
 
-    console.log(this.scrollBoundaries);
+    // console.log(this.scrollBoundaries);
 
     this.scrollStart1 = this.start + this.viewportHeight * 2;
     this.scrollEnd1 = this.start + (this.viewportHeight * 3);
@@ -111,19 +111,15 @@ update(scrollY: number): void {
 
     const getState = (scrollY: number): ScrollState => {
       let state: ScrollState;
-      if(scrollY <= this.scrollBoundaries.find(boundaries => boundaries.section === 1)?.scrollRangeStart) {
-        state = "BEFORE_SCROLL";  // we are scrolling before we enter our horizontal scroll section
-      } else if (scrollY <= this.scrollEnd1) {
-        state = "SCROLL_RANGE_1"; // scrolling from section one to section two
-      } else if (scrollY <= this.scrollStart2) {
-        state = "SCROLL_GAP_1"; // we are sitting in second section
-      } else if (scrollY <= this.scrollEnd2) {
-        state = "SCROLL_RANGE_2"; // scrolling from section two to three
-      } else if (scrollY <= this.scrollStart3) {
-        state = "SCROLL_GAP_2"; // we are sitting in the third section
-      } else {state = "AFTER_SCROLL"; // we are scrolling down out of the horizontal scroll section
-      } 
-      return state;
+
+      return (
+        (scrollY <= this.scrollStart1 && "BEFORE_SCROLL") || // we are scrolling before we enter our horizontal scroll section
+        (scrollY <= this.scrollEnd1 && "SCROLL_RANGE_1") || // we are scrolling to second section
+        (scrollY <= this.scrollStart2 && "SCROLL_GAP_1") || // we are sitting in second section, natively scrolling but no movement
+        (scrollY <= this.scrollEnd && "SCROLL_RANGE_2") || // scrolling from section two to three
+        (scrollY <= this.scrollStart3 && "SCROLL_GAP_2") || // we are sitting in the third section
+        "AFTER_SCROLL" // we are scrolling down out of the horizontal scroll section
+      );
     };
 
     const doWork = (state: ScrollState, scrollY: number): void => {
@@ -154,6 +150,7 @@ update(scrollY: number): void {
             this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
             break;
           case "AFTER_SCROLL":
+            // if we refresh the page and measure in our after scroll, we still need to apply a transform to the horizontal scroll section
             this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
             console.log("I am scrolling out of the horizontal scroll section");
             break;
