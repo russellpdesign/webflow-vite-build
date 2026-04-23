@@ -128,7 +128,7 @@ update(scrollY: number): void {
 
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
-      console.log(state, this.lastActiveState);
+      console.log(this.lastActiveState, state);
       switch (state) {
           case "BEFORE_SCROLL":
             this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
@@ -154,6 +154,7 @@ update(scrollY: number): void {
             this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
             break;
           case "AFTER_SCROLL":
+            this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
             console.log("I am scrolling out of the horizontal scroll section");
             break;
         }
