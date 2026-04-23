@@ -69,13 +69,15 @@ export default class HorizontalScrollSection extends BaseSection {
     // this construction of our start and stop values is dynamic and updates when new scrollBoundaries are add. The height of the parent will have to increase as well 300vh for each new section to allow 100vh for scrolling over and 200 for scrolling inside
     for(let i = 2; i <= 2 + (this.scrollSections.length * 2); i+= 3) {
 
-      this.scrollBoundaries.push({
+      const newSection: {section: number, scrollRangeStart: number, scrollRangeEnd: number, scrollGapStart: number, scrollGapEnd: number } = {
         section: (i + 1) / 3, 
         scrollRangeStart: this.start + this.viewportHeight * i,
         scrollRangeEnd: this.start + this.viewportHeight * ((i + 2) - 1),
         scrollGapStart: this.start + this.viewportHeight * ((i + 2) - 1),
         scrollGapEnd: this.start + this.viewportHeight * ((i + 2) - 1) + (this.viewportHeight * 2)
-      });
+      };
+
+      this.scrollBoundaries.push(newSection)
     };
 
     console.log(this.scrollBoundaries);
@@ -109,7 +111,7 @@ update(scrollY: number): void {
 
     const getState = (scrollY: number): ScrollState => {
       let state: ScrollState;
-      if(scrollY <= this.scrollStart1) {
+      if(scrollY <= this.scrollBoundaries.find(boundaries => boundaries.section === 1)?.scrollRangeStart) {
         state = "BEFORE_SCROLL";  // we are scrolling before we enter our horizontal scroll section
       } else if (scrollY <= this.scrollEnd1) {
         state = "SCROLL_RANGE_1"; // scrolling from section one to section two
