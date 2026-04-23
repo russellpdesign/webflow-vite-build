@@ -131,9 +131,10 @@ update(scrollY: number): void {
           this.firstImage.style.transform = `translateX(0vw)`;
           break;
         case "BEFORE_SCROLL BEFORE_SCROLL":
-          console.log("case is BEFORE_SCROLL BEFORE_SCROLL: I have scrolled the page and am before our section begins.");
-          // does not compute anything new
-          break;
+          // we essentially do nothing here but update our state
+          // console.log("case is BEFORE_SCROLL BEFORE_SCROLL: I have scrolled the page and am before our section begins.");
+          this.lastActiveState = state;
+          return;
         case "BEFORE_SCROLL SCROLL_RANGE_1":
           // needs to continuously update our section as we scroll
           console.log("case is BEFORE_SCROLL SCROLL_RANGE_1: I have transitioned from before scroll to scrolling into our first scroll range going from section one to section two.");
@@ -182,12 +183,10 @@ update(scrollY: number): void {
           // do that here
           break;
         case "SCROLL_GAP_1 SCROLL_GAP_1":
-          console.log("case is SCROLL_GAP_1 SCROLL_GAP_1: I am scrolling in our section section.");
-          // we set our transform to its static position
-          // this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
-          // we activate certain text and dropdown elements
-          // do that here
-          break;
+          // we essentially do nothing here but update our state
+          // console.log("case is SCROLL_GAP_1 SCROLL_GAP_1: I am scrolling in our section section.");
+          this.lastActiveState = state;
+          return;
         case "SCROLL_GAP_1 SCROLL_RANGE_1":
           console.log("case is SCROLL_GAP_1 SCROLL_RANGE_1: I have scrolled backwards from our second section and am heading backwards to the first.");
           // we set our transform to its static position
@@ -256,12 +255,10 @@ update(scrollY: number): void {
           // do that here
           break;
         case "SCROLL_GAP_2 SCROLL_GAP_2":
-          console.log("case is SCROLL_GAP_2 SCROLL_GAP_2: I have entered the third section.");
-          // we set our transform to its static position
-          // this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-          // we activate certain text and dropdown elements
-          // do that here
-          break;
+          // we essentially do nothing here, and exit our case switch and subsequently update, just updating our current state
+          // console.log("case is SCROLL_GAP_2 SCROLL_GAP_2: I have entered the third section.");
+          this.lastActiveState = state;
+          return;
         case "undefined AFTER_SCROLL":
           console.log("case is undefined AFTER_SCROLL: I have loaded the page and am past our last section.");
           // we set our transform to its static position
@@ -277,12 +274,10 @@ update(scrollY: number): void {
           // do that here
           break;
         case "AFTER_SCROLL AFTER_SCROLL":
-          console.log("case is AFTER_SCROLL AFTER_SCROLL: I am no longer scrolling in our horizontal scroll section, I am past it.");
-          // we set our transform to its static position
-          // this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-          // we activate certain text and dropdown elements
-          // do that here
-          break;
+          // we essentially do nothing here but update our state
+          // console.log("case is AFTER_SCROLL AFTER_SCROLL: I am no longer scrolling in our horizontal scroll section, I am past it.");
+          this.lastActiveState = state;
+          return;
         case "undefined AFTER_SCROLL":
           console.log("case is undefined AFTER_SCROLL: I have loaded the page and am past our horizontal scroll section.");
           // we set our transform to its static position
