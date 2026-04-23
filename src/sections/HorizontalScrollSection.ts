@@ -125,7 +125,7 @@ update(scrollY: number): void {
       // console.log(this.lastActiveState, state);
       console.log(this.previousScrollY, scrollY);
       // if we arent actively scrolling, exit
-      if(this.previousScrollY === scrollY) {return}
+      // if(this.previousScrollY === scrollY) {return}
 
       switch(this.lastActiveState + " " + state) {
         case "undefined BEFORE_SCROLL":
