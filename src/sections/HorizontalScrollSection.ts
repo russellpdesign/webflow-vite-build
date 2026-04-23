@@ -116,7 +116,7 @@ update(scrollY: number): void {
         (scrollY <= this.scrollStart1 && "BEFORE_SCROLL") || // we are scrolling before we enter our horizontal scroll section
         (scrollY <= this.scrollEnd1 && "SCROLL_RANGE_1") || // we are scrolling to second section
         (scrollY <= this.scrollStart2 && "SCROLL_GAP_1") || // we are sitting in second section, natively scrolling but no movement
-        (scrollY <= this.scrollEnd && "SCROLL_RANGE_2") || // scrolling from section two to three
+        (scrollY <= this.scrollEnd2 && "SCROLL_RANGE_2") || // scrolling from section two to three
         (scrollY <= this.scrollStart3 && "SCROLL_GAP_2") || // we are sitting in the third section
         "AFTER_SCROLL" // we are scrolling down out of the horizontal scroll section
       );
