@@ -70,7 +70,7 @@ export default class HorizontalScrollSection extends BaseSection {
     for(let i = 2; i <= 2 + (this.scrollSections.length * 2); i+= 3) {
 
       this.scrollBoundaries.push({
-        section: i/i + 1, 
+        section: (i + 1) / 3, 
         scrollRangeStart: this.start + this.viewportHeight * i,
         scrollRangeEnd: this.start + this.viewportHeight * ((i + 2) - 1),
         scrollGapStart: this.start + this.viewportHeight * ((i + 2) - 1),
