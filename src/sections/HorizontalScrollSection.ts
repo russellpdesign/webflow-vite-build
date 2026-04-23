@@ -184,7 +184,7 @@ update(scrollY: number): void {
         case "SCROLL_GAP_1 SCROLL_GAP_1":
           console.log("case is SCROLL_GAP_1 SCROLL_GAP_1: I am scrolling in our section section.");
           // we set our transform to its static position
-          this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
+          // this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
           // we activate certain text and dropdown elements
           // do that here
           break;
@@ -258,7 +258,7 @@ update(scrollY: number): void {
         case "SCROLL_GAP_2 SCROLL_GAP_2":
           console.log("case is SCROLL_GAP_2 SCROLL_GAP_2: I have entered the third section.");
           // we set our transform to its static position
-          this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
+          // this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
           // we activate certain text and dropdown elements
           // do that here
           break;
@@ -279,7 +279,7 @@ update(scrollY: number): void {
         case "AFTER_SCROLL AFTER_SCROLL":
           console.log("case is AFTER_SCROLL AFTER_SCROLL: I am no longer scrolling in our horizontal scroll section, I am past it.");
           // we set our transform to its static position
-          this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
+          // this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
           // we activate certain text and dropdown elements
           // do that here
           break;
