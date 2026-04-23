@@ -128,6 +128,7 @@ update(scrollY: number): void {
         case "undefined BEFORE_SCROLL":
         console.log("case is undefined BEFORE_SCROLL");
         this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
+        this.lastActiveState = state;
         return; 
       }
 
