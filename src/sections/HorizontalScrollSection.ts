@@ -160,7 +160,7 @@ update(scrollY: number): void {
         case "SCROLL_RANGE_1 SCROLL_RANGE_1":
           console.log("case is SCROLL_RANGE_1 SCROLL_RANGE_1: I am scrolling into our first section from the second.");
           // first check if we are scrolling or still, if still, exit, otherwise run logic
-          if(scrollY === previousScrollY) {return}
+          if(scrollY === previousScrollY) {break}
           // need to continuously update out position
           t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 0, 100);
@@ -221,7 +221,7 @@ update(scrollY: number): void {
           break;
         case "SCROLL_RANGE_2 SCROLL_RANGE_2":
           // if we arent actively scrolling, exit
-          if(scrollY === previousScrollY) {return}
+          if(scrollY === previousScrollY) {break}
           // otherwise we update our scroll position in real time
           console.log("case is SCROLL_RANGE_2 SCROLL_RANGE_2: I have scrolled from our second section and am heading towards the third.");
           t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
