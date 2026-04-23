@@ -109,6 +109,8 @@ update(scrollY: number): void {
 
     type ScrollState = "BEFORE_SCROLL" | "SCROLL_RANGE_1" | "SCROLL_GAP_1" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
 
+    let previousScrollY: number;
+
     const getState = (scrollY: number): ScrollState => {
       return (
         (scrollY <= this.scrollStart1 && "BEFORE_SCROLL") || // we are scrolling before we enter our horizontal scroll section
@@ -122,7 +124,6 @@ update(scrollY: number): void {
 
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
-      let previousScrollY: number;
       // console.log(this.lastActiveState, state);
       console.log(previousScrollY, scrollY);
 
@@ -292,11 +293,11 @@ update(scrollY: number): void {
           // do that here
           break;
       }
-
-      // once we've ran the state logic we update our previous state to our current and exit the function
-      this.lastActiveState = state;
       //update scroll position
       previousScrollY = scrollY;
+      // once we've ran the state logic we update our previous state to our current and exit the function
+      this.lastActiveState = state;
+
       return;
 
       switch (state) {
