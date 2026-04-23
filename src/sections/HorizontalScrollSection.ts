@@ -177,6 +177,7 @@ update(scrollY: number): void {
           console.log("case is SCROLL_RANGE_1 SCROLL_GAP_1: I have transitioned into our second section from the first.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
+          this.firstImage.style.transform = `translateX(-100vw)`;
           // we activate certain text and dropdown elements
           // do that here
           break;
@@ -184,6 +185,7 @@ update(scrollY: number): void {
           console.log("case is undefined SCROLL_GAP_1: I have loaded the page and am sitting in the second section.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
+          this.firstImage.style.transform = `translateX(0vw)`;
           // we activate certain text and dropdown elements
           // do that here
           break;
