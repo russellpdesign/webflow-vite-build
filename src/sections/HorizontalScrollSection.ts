@@ -122,7 +122,7 @@ update(scrollY: number): void {
 
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
-      console.log(this.lastActiveState, state);
+      // console.log(this.lastActiveState, state);
 
       switch(this.lastActiveState + " " + state) {
         case "undefined BEFORE_SCROLL":
