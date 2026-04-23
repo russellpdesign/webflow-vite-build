@@ -171,6 +171,7 @@ update(scrollY: number): void {
           console.log("case is SCROLL_RANGE_1 BEFORE_SCROLL: I have scrolled back into our first section from the second.");
           // we set our transform back to its starting position
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
+          this.firstImage.style.transform = `translateX(0vw)`;
           break;
         case "SCROLL_RANGE_1 SCROLL_GAP_1":
           console.log("case is SCROLL_RANGE_1 SCROLL_GAP_1: I have transitioned into our second section from the first.");
