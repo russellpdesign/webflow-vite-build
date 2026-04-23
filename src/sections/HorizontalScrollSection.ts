@@ -124,7 +124,7 @@ update(scrollY: number): void {
       let t: number;
       console.log(this.lastActiveState, state);
 
-      switch(this.lastActiveState + " " + state) {
+      switch(`${this.lastActiveState} ${state}`) {
         case "undefined SCROLL_RANGE_1":
         console.log(`case ${this.lastActiveState + "|" + state} is setting our horizontal section to be at 0`);
         this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
