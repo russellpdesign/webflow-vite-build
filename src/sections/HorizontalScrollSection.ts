@@ -124,7 +124,7 @@ update(scrollY: number): void {
       let t: number;
       let previousScrollY: number;
       // console.log(this.lastActiveState, state);
-      console.log(previousScrollY, scrolLY);
+      console.log(previousScrollY, scrollY);
 
       switch(this.lastActiveState + " " + state) {
         case "undefined BEFORE_SCROLL":
