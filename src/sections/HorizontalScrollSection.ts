@@ -123,6 +123,14 @@ update(scrollY: number): void {
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
       console.log(this.lastActiveState, state);
+      
+      switch(this.lastActiveState + "|" + state) {
+        case "SCROLL_RANGE_1|undefined":
+        console.log(`case ${this.lastActiveState + "|" + state} is setting our horizontal section to be at 0`);
+        this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
+        return; 
+      }
+
       switch (state) {
           case "BEFORE_SCROLL":
             this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
