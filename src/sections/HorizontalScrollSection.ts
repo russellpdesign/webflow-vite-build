@@ -82,6 +82,7 @@ export default class HorizontalScrollSection extends BaseSection {
 
     // console.log(this.scrollBoundaries);
 
+    this.sectionBoundaryIn = this.start + this.viewportHeight;
     this.scrollStart1 = this.start + this.viewportHeight * 2;
     this.scrollEnd1 = this.start + (this.viewportHeight * 3);
     this.scrollGap1Start = this.start + (this.viewportHeight * 3);
@@ -103,17 +104,18 @@ export default class HorizontalScrollSection extends BaseSection {
     ];
 
     // performance hints, in measure so they only run once, not every loop
-    this.horizontalScrollSectContainer.style.setProperty("will-change", "transform");
-    this.firstImage.style.setProperty("will-change", "transform");
+    this.horizontalScrollSectContainer.style.setProperty("will-change", "auto");
+    this.firstImage.style.setProperty("will-change", "auto");
   }
 
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    type ScrollState = "BEFORE_SCROLL" | "SCROLL_RANGE_1" | "SCROLL_GAP_1" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
+    type ScrollState = "SECTION_BOUNDARY_IN | BEFORE_SCROLL" | "SCROLL_RANGE_1" | "SCROLL_GAP_1" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
 
     const getState = (scrollY: number): ScrollState => {
       return (
+        (scrollY <= this.sectionBoundaryIn && "SECTION_BOUNDARY_IN") ||
         (scrollY <= this.scrollStart1 && "BEFORE_SCROLL") || // we are scrolling before we enter our horizontal scroll section
         (scrollY <= this.scrollEnd1 && "SCROLL_RANGE_1") || // we are scrolling to second section
         (scrollY <= this.scrollStart2 && "SCROLL_GAP_1") || // we are sitting in second section, natively scrolling but no movement
@@ -131,6 +133,10 @@ update(scrollY: number): void {
       // if(this.previousScrollY === scrollY) {return}
 
       switch(this.lastActiveState + " " + state) {
+        case "SECTION_BOUNDARY_IN BEFORE_SCROLL":
+          this.horizontalScrollSectContainer.style.willChange = "auto";
+          this.firstImage.style.willChange = "auto";
+          break;
         case "undefined BEFORE_SCROLL":
           // console.log("case is undefined BEFORE_SCROLL: I refreshed the page partway down the page, before our section begins.");
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
@@ -140,6 +146,8 @@ update(scrollY: number): void {
         case "BEFORE_SCROLL BEFORE_SCROLL":
           // we essentially do nothing here but update our state
           // console.log("case is BEFORE_SCROLL BEFORE_SCROLL: I have scrolled the page and am before our section begins.");
+          this.horizontalScrollSectContainer.style.willChange = "transform";
+          this.firstImage.style.willChange = "transform";
           this.lastActiveState = state;
           return;
         case "BEFORE_SCROLL SCROLL_RANGE_1":
