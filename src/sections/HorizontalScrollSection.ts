@@ -253,8 +253,8 @@ update(scrollY: number): void {
           // console.log("case is SCROLL_RANGE_2 SCROLL_GAP_2: I have entered the third section.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-          this.horizontalScrollSectContainer.toggle("will-change", "transform");
-          this.firstImage.style.style.toggle("will-change", "transform");
+          this.horizontalScrollSectContainer.style.toggle("will-change", "transform");
+          this.firstImage.style.toggle("will-change", "transform");
           // we activate certain text and dropdown elements
           // do that here
           break;
