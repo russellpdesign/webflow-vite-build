@@ -7,11 +7,11 @@ import BaseSection from "../engine/BaseSection.js";
 import { Debug } from "../engine/Debug.js";
 import { clamp, clamp01, mapRange } from "../engine/utils.js";
 
-type PhotoOverlapDeclarativeConfig = {
+type PhotoOverlapConfig = {
   el: string | HTMLElement;
 }
 
-export default class PhotoOverlapDeclarative extends BaseSection {
+export default class PhotoOverlapSection extends BaseSection {
   // DOM collections
   sectionTrigger: HTMLElement;
   initialImages: HTMLElement[] = [];
@@ -44,7 +44,7 @@ export default class PhotoOverlapDeclarative extends BaseSection {
 
   private isLeftSideHidden: boolean = false;
 
-  constructor({ el }: PhotoOverlapDeclarativeConfig ) {
+  constructor({ el }: PhotoOverlapConfig ) {
     super({ el });
 
     // el = ".photo-overlap-section";
