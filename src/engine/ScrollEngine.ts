@@ -23,8 +23,6 @@ export default class ScrollEngine {
 
   // this makes sure multiple animation loops cant be created
   private _running: boolean = false;
-
-  // private lastRawY: number;
   // private lastTimestamp: number;
 
   // private _onResize: () => void;
@@ -92,9 +90,6 @@ export default class ScrollEngine {
   // SMOOTHED SCROLL
   const currentY = this.smooth ? this.smooth.update() : rawY;
   ScrollEngine.smoothedY = currentY;
-
-  this.lastRawY = rawY;
-  this.lastTimestamp = timestamp;
 
   // UPDATE SECTIONS
   for (const section of this.sections) {
