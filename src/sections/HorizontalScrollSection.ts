@@ -268,6 +268,8 @@ update(scrollY: number): void {
         case "SCROLL_GAP_2 SCROLL_GAP_2":
           // we essentially do nothing here, and exit our case switch and subsequently update, just updating our current state
           // console.log("case is SCROLL_GAP_2 SCROLL_GAP_2: I have entered the third section.");
+          this.horizontalScrollSectContainer.style.willChange = "transform";
+          this.firstImage.style.willChange = "transform";
           this.lastActiveState = state;
           return;
         case "undefined AFTER_SCROLL":
@@ -281,8 +283,7 @@ update(scrollY: number): void {
           // console.log("case is SCROLL_GAP_2 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-          this.horizontalScrollSectContainer.style.willChange = "transform";
-          this.firstImage.style.willChange = "transform";
+
           // we activate certain text and dropdown elements
           // do that here
           break;
