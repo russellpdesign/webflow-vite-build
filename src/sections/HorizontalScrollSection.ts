@@ -133,7 +133,7 @@ update(scrollY: number): void {
       // if(this.previousScrollY === scrollY) {return}
 
       switch(this.lastActiveState + " " + state) {
-        case "SECTION_BOUNDARY_IN BEFORE_SCROLL":
+        case "BEFORE_SCROLL SECTION_BOUNDARY_IN":
           this.horizontalScrollSectContainer.style.willChange = "auto";
           this.firstImage.style.willChange = "auto";
           break;
