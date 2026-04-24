@@ -35,7 +35,7 @@ export default defineConfig({
       input: {
         home: path.resolve(__dirname, "src/pages/home.js"),
         about: path.resolve(__dirname, "src/pages/about.js"),
-        project1: path.resolve(__dirname, "src/pages/donovan-mitchell.js"),
+        donovan_mitchell: path.resolve(__dirname, "src/pages/donovan-mitchell.js"),
       },
 
       output: {
