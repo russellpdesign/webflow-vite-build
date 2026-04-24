@@ -87,8 +87,6 @@ export default class PhotoScaleDown extends BaseSection {
     // for our first section, this is index 0-2, second 3-5, third 6-8
     this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container");
 
-    console.log(this.dropdownHeaders[0]);
-
     this.enabled = true;
 
     window.addEventListener("resize", () => this.measure());
