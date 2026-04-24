@@ -57,22 +57,45 @@ export default class ScrollEngine {
     this.measureAll();
   }
 
+  // private _onLoad = () => {
+  // this.measureAll();
+  // }
+
   start(): void {
     if (this._running) return;
     this._running = true;
 
-    this.measureAll();
-    window.addEventListener("resize", this._onResize);
+    const init = () => {
+      this.measureAll();
 
-    ScrollEngine.rawY = window.scrollY;
-    ScrollEngine.smoothedY = ScrollEngine.rawY;
+      requestAnimationFrame(() => {
+        this.measureAll(); // second pass after layout settles
 
-    requestAnimationFrame(this._raf);
+        ScrollEngine.rawY = window.scrollY;
+        ScrollEngine.smoothedY = ScrollEngine.rawY;
+
+        requestAnimationFrame(this._raf);
+      });
+    };
+
+    if (document.readyState === "complete") {
+      init();
+    } else {
+      window.addEventListener("load", init, { once: true });
+    }
+
+  window.addEventListener("resize", this._onResize);
+
+    // ScrollEngine.rawY = window.scrollY;
+    // ScrollEngine.smoothedY = ScrollEngine.rawY;
+
+    // requestAnimationFrame(this._raf);
   }
 
   stop(): void {
     this._running = false;
     window.removeEventListener("resize", this._onResize);
+    window.removeEventListener("load", this._onLoad);
   }
 
   private _raf = (timestamp: number): void => {
