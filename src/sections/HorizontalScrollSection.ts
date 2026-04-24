@@ -253,8 +253,6 @@ update(scrollY: number): void {
           // console.log("case is SCROLL_RANGE_2 SCROLL_GAP_2: I have entered the third section.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-          this.horizontalScrollSectContainer.style.toggle("will-change", "transform");
-          this.firstImage.style.toggle("will-change", "transform");
           // we activate certain text and dropdown elements
           // do that here
           break;
@@ -283,12 +281,16 @@ update(scrollY: number): void {
           // console.log("case is SCROLL_GAP_2 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
+          this.horizontalScrollSectContainer.style.setProperty("will-change", "transform");
+          this.firstImage.style.setProperty("will-change", "transform");
           // we activate certain text and dropdown elements
           // do that here
           break;
         case "AFTER_SCROLL AFTER_SCROLL":
           // we essentially do nothing here but update our state
           // console.log("case is AFTER_SCROLL AFTER_SCROLL: I am no longer scrolling in our horizontal scroll section, I am past it.");
+          this.horizontalScrollSectContainer.style.setProperty("will-change", "auto");
+          this.firstImage.style.setProperty("will-change", "auto");
           this.lastActiveState = state;
           return;
         case "undefined AFTER_SCROLL":
