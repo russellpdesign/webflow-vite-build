@@ -103,8 +103,8 @@ export default class HorizontalScrollSection extends BaseSection {
     ];
 
     // performance hints, in measure so they only run once, not every loop
-    this.horizontalScrollSectContainer.setProperty("will-change", "transform");
-    this.firstImage.style.style.setProperty("will-change", "transform");
+    this.horizontalScrollSectContainer.style.setProperty("will-change", "transform");
+    this.firstImage.style.setProperty("will-change", "transform");
   }
 
 update(scrollY: number): void {
