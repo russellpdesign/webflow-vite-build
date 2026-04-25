@@ -69,8 +69,14 @@ export default class ScrollEngine {
       this.measureAll();
 
       requestAnimationFrame(() => {
+
+        function unlockScroll() {
+          document.body.style.overflow = "";
+          document.documentElement.style.overflow = "";
+        }
+
         unlockScroll();
-        
+
         this.measureAll(); // second pass after layout settles
 
         ScrollEngine.rawY = window.scrollY;
