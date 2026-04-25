@@ -69,6 +69,8 @@ export default class ScrollEngine {
       this.measureAll();
 
       requestAnimationFrame(() => {
+        unlockScroll();
+        
         this.measureAll(); // second pass after layout settles
 
         ScrollEngine.rawY = window.scrollY;
