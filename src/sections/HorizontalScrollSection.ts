@@ -208,7 +208,7 @@ update(scrollY: number): void {
           this.productDescs[0].classList.add("active");
           // animate out dropdown headers
           for(let i = 0; i<= 2; i++) {
-            setTimeout(() => this.dropdownHeaders[i].classList.add("active", transitionHorizontalScrollSection), i * 100);
+            setTimeout(() => this.dropdownHeaders[i].classList.add("active"), i * 100);
           };
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[1].style.marginTop = `0vh`;
@@ -225,7 +225,7 @@ update(scrollY: number): void {
           this.productDescs[0].classList.remove("active");
           // animate out dropdown headers
           for(let i = 0; i<= 2; i++) {
-            setTimeout(() => this.dropdownHeaders[i].classList.remove("active", transitionHorizontalScrollSection), i * 100);
+            setTimeout(() => this.dropdownHeaders[i].classList.remove("active"), i * 100);
           };
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[1].style.marginTop = `0vh`;
