@@ -24,6 +24,9 @@ export default class HorizontalScrollSection extends BaseSection {
      * DOM ELEMENTS
      * ------------------------------------------------------------- */
 
+    // when our image starts scaling down, is when this section starts, we use this div element to calc that starting position
+    this.previousSectionTrigger = document.querySelector<HTMLElement>(".photo-overlap-section-trigger")!;
+
     // All images that participate in the overlap animation
     this.endingImage = document.querySelector("#scale-down-img-after");
 
@@ -64,6 +67,12 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.start = this.el.getBoundingClientRect().top + scrollY;
 
+    this.previousSectionTriggerStart =
+      window.scrollY +
+      this.sectionTrigger.getBoundingClientRect().top +
+      window.innerHeight * 1.38 +
+      this.progressBarHeight;
+
     // this.scrollBoundaries = []
 
     // this construction of our start and stop values is dynamic and updates when new scrollBoundaries are add. The height of the parent will have to increase as well 300vh for each new section to allow 100vh for scrolling over and 200 for scrolling inside
@@ -82,6 +91,7 @@ export default class HorizontalScrollSection extends BaseSection {
 
     // console.log(this.scrollBoundaries);
 
+    this.sectionTransition = this.previousSectionTriggerStart;
     this.sectionBoundaryIn = this.start + this.viewportHeight;
     this.scrollStart1 = this.start + this.viewportHeight * 2;
     this.scrollEnd1 = this.start + (this.viewportHeight * 3);
@@ -134,6 +144,7 @@ update(scrollY: number): void {
 
       switch(this.lastActiveState + " " + state) {
         case "BEFORE_SCROLL SECTION_BOUNDARY_IN":
+          console.log("This is the SECTION_BOUNDARY_IN state")
           this.horizontalScrollSectContainer.style.willChange = "auto";
           this.firstImage.style.willChange = "auto";
           break;
