@@ -158,7 +158,7 @@ export default class PhotoOverlapSection extends BaseSection {
 
     console.log(headingShouldBeActive);
 
-    this.projectTextHeading.classList.toggle("is-active", headingShouldBeActive);
+    // this.projectTextHeading.classList.toggle("is-active", headingShouldBeActive);
 
     // handles the turn off all left side images once the right side reaches the top (this.end)
     const shouldHideAll = scrollY >= this.end;
@@ -168,7 +168,7 @@ export default class PhotoOverlapSection extends BaseSection {
         image.style.opacity = "0";
       });
       this.isLeftSideHidden = true;
-      this.projectTextHeading.classList.remove("is-active");
+      // this.projectTextHeading.classList.remove("is-active");
     }
 
     // optional: if you want them to reappear when scrolling back above end

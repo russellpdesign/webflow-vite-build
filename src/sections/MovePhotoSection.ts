@@ -138,26 +138,26 @@ export default class MovePhotoSection extends BaseSection {
     }
   }
 
-  _activate(i: number): void {
-    this.sectionHeaderText[i]?.classList.add("is-active");
-    this.projectTextHeading[i]?.classList.add("is-active");
-    this.bodyText[i]?.classList.add("is-active");
-    this.itemNumberText[i]?.classList.add("is-active");
-  }
+  // _activate(i: number): void {
+  //   this.sectionHeaderText[i]?.classList.add("is-active");
+  //   this.projectTextHeading[i]?.classList.add("is-active");
+  //   this.bodyText[i]?.classList.add("is-active");
+  //   this.itemNumberText[i]?.classList.add("is-active");
+  // }
 
-  _deactivate(i: number): void {
-    this.sectionHeaderText[i]?.classList.remove("is-active");
-    // this.projectTextHeading[i]?.classList.remove("is-active");
-    this.bodyText[i]?.classList.remove("is-active");
-    this.itemNumberText[i]?.classList.remove("is-active");
-  }
+  // _deactivate(i: number): void {
+  //   this.sectionHeaderText[i]?.classList.remove("is-active");
+  //   // this.projectTextHeading[i]?.classList.remove("is-active");
+  //   this.bodyText[i]?.classList.remove("is-active");
+  //   this.itemNumberText[i]?.classList.remove("is-active");
+  // }
 
-  _deactivateAll(): void {
-    this.sectionHeaderText.forEach(el => el.classList.remove("is-active"));
-    this.projectTextHeading.forEach(el => el.classList.remove("is-active"));
-    this.bodyText.forEach(el => el.classList.remove("is-active"));
-    this.itemNumberText.forEach(el => el.classList.remove("is-active"));
-  }
+  // _deactivateAll(): void {
+  //   this.sectionHeaderText.forEach(el => el.classList.remove("is-active"));
+  //   this.projectTextHeading.forEach(el => el.classList.remove("is-active"));
+  //   this.bodyText.forEach(el => el.classList.remove("is-active"));
+  //   this.itemNumberText.forEach(el => el.classList.remove("is-active"));
+  // }
 }
 
 
