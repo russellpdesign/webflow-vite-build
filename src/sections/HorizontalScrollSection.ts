@@ -131,7 +131,7 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    type ScrollState = "BEFORE_SECTION" | "TRANSITION_IN" | "SCALE_TRANSITION" | "SECTION_1" | "SCROLL_RANGE_1" | "SCROLL_GAP_1" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
+    type ScrollState = "BEFORE_SECTION" | "TRANSITION_IN" | "SCALE_TRANSITION" | "SECTION_1" | "SCROLL_RANGE_1" | "SECTION_2" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
 
     const getState = (scrollY: number): ScrollState => {
       return (
@@ -139,7 +139,7 @@ update(scrollY: number): void {
         (scrollY <= this.section1 && "SCALE_TRANSITION") ||
         (scrollY <= this.scrollStart1 && "SECTION_1") || // we are scrolling before we enter our horizontal scroll section
         (scrollY <= this.scrollEnd1 && "SCROLL_RANGE_1") || // we are scrolling to second section
-        (scrollY <= this.scrollStart2 && "SCROLL_GAP_1") || // we are sitting in second section, natively scrolling but no movement
+        (scrollY <= this.scrollStart2 && "SECTION_2") || // we are sitting in second section, natively scrolling but no movement
         (scrollY <= this.scrollEnd2 && "SCROLL_RANGE_2") || // scrolling from section two to three
         (scrollY <= this.scrollStart3 && "SCROLL_GAP_2") || // we are sitting in the third section
         "AFTER_SCROLL" // we are scrolling down out of the horizontal scroll section
@@ -206,29 +206,29 @@ update(scrollY: number): void {
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
           break;
-        case "SCROLL_RANGE_1 SCROLL_GAP_1":
-          // console.log("case is SCROLL_RANGE_1 SCROLL_GAP_1: I have transitioned into our second section from the first.");
+        case "SCROLL_RANGE_1 SECTION_2":
+          // console.log("case is SCROLL_RANGE_1 SECTION_2: I have transitioned into our second section from the first.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
           this.firstImage.style.transform = `translateX(-100vw)`;
           // we activate certain text and dropdown elements
           // do that here
           break;
-        case "undefined SCROLL_GAP_1":
-          console.log("case is undefined SCROLL_GAP_1: I have loaded the page and am sitting in the second section.");
+        case "undefined SECTION_2":
+          console.log("case is undefined SECTION_2: I have loaded the page and am sitting in the second section.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
           // we activate certain text and dropdown elements
           // do that here
           break;
-        case "SCROLL_GAP_1 SCROLL_GAP_1":
+        case "SECTION_2 SECTION_2":
           // we essentially do nothing here but update our state
-          // console.log("case is SCROLL_GAP_1 SCROLL_GAP_1: I am scrolling in our section section.");
+          // console.log("case is SECTION_2 SECTION_2: I am scrolling in our section section.");
           this.lastActiveState = state;
           return;
-        case "SCROLL_GAP_1 SCROLL_RANGE_1":
-          // console.log("case is SCROLL_GAP_1 SCROLL_RANGE_1: I have scrolled backwards from our second section and am heading backwards to the first.");
+        case "SECTION_2 SCROLL_RANGE_1":
+          // console.log("case is SECTION_2 SCROLL_RANGE_1: I have scrolled backwards from our second section and am heading backwards to the first.");
           // we set our transform to its static position
           t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 0, 100);
@@ -246,8 +246,8 @@ update(scrollY: number): void {
           // we activate certain text and dropdown elements
           // do that here
           break;
-        case "SCROLL_GAP_1 SCROLL_RANGE_2":
-          // console.log("case is SCROLL_GAP_1 SCROLL_RANGE_2: I have scrolled from our second section and am heading towards the third.");
+        case "SECTION_2 SCROLL_RANGE_2":
+          // console.log("case is SECTION_2 SCROLL_RANGE_2: I have scrolled from our second section and am heading towards the third.");
           // we set our transform to its static position
           t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
@@ -264,8 +264,8 @@ update(scrollY: number): void {
           // we activate certain text and dropdown elements
           // do that here
           break;
-        case "SCROLL_RANGE_2 SCROLL_GAP_1":
-          // console.log("case is SCROLL_RANGE_2 SCROLL_GAP_1: I have backtracked from our second scrollable section and have reentered section one again.");
+        case "SCROLL_RANGE_2 SECTION_2":
+          // console.log("case is SCROLL_RANGE_2 SECTION_2: I have backtracked from our second scrollable section and have reentered section one again.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
           // we activate certain text and dropdown elements
@@ -350,7 +350,7 @@ update(scrollY: number): void {
             this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
             console.log("I should be horizontally scrolling to section two");
             break;
-          case "SCROLL_GAP_1":
+          case "SECTION_2":
             this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
             break;
          case "SCROLL_RANGE_2":
