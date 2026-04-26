@@ -168,12 +168,8 @@ update(scrollY: number): void {
           // no action needed
           return;
         case "BEFORE_TRANSITION BEFORE_TRANSITION":
-          // we are and were in our previous photo overlap section
-          // no action needed
-          return;
-        case "SCALE TRANSITION BEFORE_SCALE":
-          // we have just backtracked into our image scaling portion
-          // we should reset top margin of our big Title text to 100vh
+          // we are and were in our previous photo overlap section, no image scaling done yet
+          // we ensure our top margin is ready to animate
           this.bigTitles[0].style.marginTop = `100vh`;
           return;
         case "BEFORE_TRANSITION SCALE_TRANSITION":
