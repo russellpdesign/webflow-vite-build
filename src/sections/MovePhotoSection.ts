@@ -147,7 +147,7 @@ export default class MovePhotoSection extends BaseSection {
 
   _deactivate(i: number): void {
     this.sectionHeaderText[i]?.classList.remove("is-active");
-    // this.projectTextHeading[i]?.classList.remove("is-active");
+   this.projectTextHeading[i]?.classList.remove("is-active");
     this.bodyText[i]?.classList.remove("is-active");
     this.itemNumberText[i]?.classList.remove("is-active");
   }
