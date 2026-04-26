@@ -146,8 +146,6 @@ update(scrollY: number): void {
       );
     };
 
-    console.log(getState(scrollY));
-
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
       // console.log(this.lastActiveState, state);
@@ -157,8 +155,9 @@ update(scrollY: number): void {
 
       switch(this.lastActiveState + " " + state) {
         case "SECTION_1 SECTION_1":
+          // we are actively scrolling in our first section, staying stationary of course
+          // we update will change settings to prep for the horizontal scrolling
           this.horizontalScrollSectContainer.style.willChange = "auto";
-          this.firstImage.style.willChange = "auto";
           break;
         case "undefined SECTION_1":
           // console.log("case is undefined SECTION_1: I refreshed the page partway down the page, before our section begins.");
