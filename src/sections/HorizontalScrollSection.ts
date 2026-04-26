@@ -206,6 +206,10 @@ update(scrollY: number): void {
           this.bigTexts[0].classList.add("active");
           this.mediumBigTexts[0].classList.add("active");
           this.productDescs[0].classList.add("active");
+          // animate out dropdown headers
+          for(let i = 0; i<= 2; i++) {
+            setTimeout(() => this.dropdownHeaders[i].classList.add("active", transitionHorizontalScrollSection), i * 100);
+          };
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[1].style.marginTop = `0vh`;
           this.bigTitles[2].style.marginTop = `0vh`;
@@ -213,12 +217,16 @@ update(scrollY: number): void {
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
           break;
-        case "SCALE_TRANSITION SECTION_1":
+        case "SECTION_1 SCALE_TRANSITION":
           // we have scrolled from our scale transition into our first section and need to toggle on our classes
           // we activate our text elements
           this.bigTexts[0].classList.remove("active");
           this.mediumBigTexts[0].classList.remove("active");
           this.productDescs[0].classList.remove("active");
+          // animate out dropdown headers
+          for(let i = 0; i<= 2; i++) {
+            setTimeout(() => this.dropdownHeaders[i].classList.remove("active", transitionHorizontalScrollSection), i * 100);
+          };
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[1].style.marginTop = `0vh`;
           this.bigTitles[2].style.marginTop = `0vh`;
