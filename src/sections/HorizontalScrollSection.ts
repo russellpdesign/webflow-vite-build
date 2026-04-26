@@ -102,7 +102,7 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.sectionTransitionIn = this.startScale;
     this.sectionTransitionEnd = this.endScale;
-    this.section1 = this.start;
+    this.section1 = this.start + this.viewportHeight;
     this.scrollStart1 = this.start + this.viewportHeight * 2;
     this.scrollEnd1 = this.start + (this.viewportHeight * 3);
     this.scrollGap1Start = this.start + (this.viewportHeight * 3);
