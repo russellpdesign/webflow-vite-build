@@ -136,7 +136,7 @@ update(scrollY: number): void {
     const getState = (scrollY: number): ScrollState => {
       return (
         (scrollY <= this.sectionTransitionIn && "BEFORE_SECTION") ||
-        (scrollY <= this.sectionTransitionEnd && "SECTION_TRANSITION") ||
+        (scrollY <= this.sectionTransitionEnd && "TRANSITION_END") ||
         (scrollY <= this.section1 && "SECTION_1") ||
         (scrollY <= this.scrollStart1 && "SECTION_1") || // we are scrolling before we enter our horizontal scroll section
         (scrollY <= this.scrollEnd1 && "SCROLL_RANGE_1") || // we are scrolling to second section
