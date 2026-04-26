@@ -157,7 +157,7 @@ update(scrollY: number): void {
 
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
-      // console.log(this.lastActiveState, state);
+      console.log(this.lastActiveState, state);
       // console.log(this.previousScrollY, scrollY);
       // if we arent actively scrolling, exit
       // if(this.previousScrollY === scrollY) {return}
@@ -235,9 +235,9 @@ update(scrollY: number): void {
           // console.log("case is undefined SECTION_1: I refreshed the page partway down the page, before our section begins.");
           // we've just transitioned from our photo scaling into our first section
           // we activate our text elements
-          this.bigTexts[0].classList.toggle("active");
-          this.mediumBigTexts[0].classList.toggle("active");
-          this.productDescs[0].classList.toggle("active");
+          this.bigTexts[0].classList.add("active");
+          this.mediumBigTexts[0].classList.add("active");
+          this.productDescs[0].classList.add("active");
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[1].style.marginTop = `0vh`;
           this.bigTitles[2].style.marginTop = `0vh`;
