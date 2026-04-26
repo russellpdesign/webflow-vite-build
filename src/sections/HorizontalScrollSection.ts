@@ -114,8 +114,6 @@ export default class HorizontalScrollSection extends BaseSection {
     this.scrollStart3 = this.start + (this.viewportHeight * 8);
     this.scrollEnd3 = this.start + (this.viewportHeight * 9);
 
-    console.log(this.section1, this.scrollStart1)
-
     this.sectionRanges = [
       [0, this.scrollStart1], // scrolling into view
       [this.scrollStart1, this.scrollEnd1], // horizontal scrolling from section one to two
@@ -157,6 +155,7 @@ update(scrollY: number): void {
       // if(this.previousScrollY === scrollY) {return}
 
       console.log(state);
+      console.log(`Section one starts: ${this.section1}, or here ${this.scrollStart1}`)
 
       switch(this.lastActiveState + " " + state) {
         case "SECTION_1 BEFORE_SCROLL":
