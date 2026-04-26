@@ -143,7 +143,7 @@ update(scrollY: number): void {
       // if(this.previousScrollY === scrollY) {return}
 
       switch(this.lastActiveState + " " + state) {
-        case "BEFORE_SCROLL SECTION_BOUNDARY_IN":
+        case "SECTION_BOUNDARY_IN BEFORE_SCROLL":
           console.log("This is the SECTION_BOUNDARY_IN state");
           this.horizontalScrollSectContainer.style.willChange = "auto";
           this.firstImage.style.willChange = "auto";
@@ -152,7 +152,6 @@ update(scrollY: number): void {
           // console.log("case is undefined BEFORE_SCROLL: I refreshed the page partway down the page, before our section begins.");
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
-
           break;
         case "BEFORE_SCROLL BEFORE_SCROLL":
           // we essentially do nothing here but update our state
