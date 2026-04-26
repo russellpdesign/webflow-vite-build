@@ -179,25 +179,25 @@ update(scrollY: number): void {
         case "BEFORE_TRANSITION SCALE_TRANSITION":
           // our previous sections photo is now starting to scale and we are scrolling toward our current section's first section
           // we need to animate the top margin of our big title to simulate scrolling the section into view
-          const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
-          const scaleProgress = mapRange(t, 0, 1, 0, 1);
-          const marginTopShrink = 100 - (scaleProgress * 100);
+          t = clamp01((scrollY - this.startScale) / this.viewportHeight);
+          this.scaleProgress = mapRange(t, 0, 1, 0, 1);
+          this.marginTopShrink = 100 - (this.scaleProgress * 100);
           this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
           break;
       case "undefined SCALE_TRANSITION":
           // we just backtracked from our scaling portion of our previous section to no more scaling
           // we need to animate the top margin of our big title to simulate scrolling the section into view
-          const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
-          const scaleProgress = mapRange(t, 0, 1, 0, 1);
-          const marginTopShrink = 100 - (scaleProgress * 100);
+          t = clamp01((scrollY - this.startScale) / this.viewportHeight);
+          this.scaleProgress = mapRange(t, 0, 1, 0, 1);
+          this.marginTopShrink = 100 - (this.scaleProgress * 100);
           this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
           return;
         case "SCALE_TRANSITION SCALE_TRANSITION":
           // we are in the transition between our previous section and current, where the photo is scaling and we are now seeing our current section first section's  big title scroll into view
           // we need to animate the top margin of our big title to simulate scrolling the section into view
-          const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
-          const scaleProgress = mapRange(t, 0, 1, 0, 1);
-          const marginTopShrink = 100 - (scaleProgress * 100);
+          t = clamp01((scrollY - this.startScale) / this.viewportHeight);
+          this.scaleProgress = mapRange(t, 0, 1, 0, 1);
+          this.marginTopShrink = 100 - (this.scaleProgress * 100);
           this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
           break;
         case "SCALE_TRANSITION SECTION_1":
