@@ -173,7 +173,7 @@ update(scrollY: number): void {
           this.bigTitles[0].style.marginTop = `100vh`;
           return;
         case "BEFORE_TRANSITION SCALE_TRANSITION":
-          // our previous sections photo is scaling and we are scrolling into our current section
+          // our previous sections photo is now starting to scale and we are scrolling toward our current section's first section
           // we need to animate the top margin of our big title to simulate scrolling the section into view
           const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
           const scaleProgress = mapRange(t, 0, 1, 0, 1);
@@ -181,7 +181,7 @@ update(scrollY: number): void {
           this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
           break;
         case "SCALE_TRANSITION SCALE_TRANSITION":
-          // our previous sections photo is scaling and we are scrolling into our current section
+          // we are in the transition between our previous section and current, where the photo is scaling and we are now seeing our current section first section's  big title scroll into view
           // we need to animate the top margin of our big title to simulate scrolling the section into view
           const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
           const scaleProgress = mapRange(t, 0, 1, 0, 1);
