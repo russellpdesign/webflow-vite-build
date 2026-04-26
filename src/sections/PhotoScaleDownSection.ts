@@ -68,6 +68,7 @@ export default class PhotoScaleDown extends BaseSection {
     this.scaleDownImg = document.querySelector("#scale-down-img");
     this.scaleDownImgContainer = document.querySelector("#scale-down-img-container");
 
+    // this represents the container size of our image in our horizontal scroll section, its dimensions are used to dictate scale, height and width of image in current section
     this.itemImageWrap = document.querySelector(".single-item-image-wrap");
 
     this.endingImage = document.querySelector("#scale-down-img-after");
@@ -169,14 +170,14 @@ update(scrollY: number): void {
 
     // while we are scaling the image, we transform our big title headline from our section below up using margin top so we get smoothing effect (versus pure scroll)
     // we also then put all the other ones at margin-top 0 as well.
-    this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
-    this.bigTitles[1].style.marginTop = `0vh`;
-    this.bigTitles[2].style.marginTop = `0vh`;
+    // this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
+    // this.bigTitles[1].style.marginTop = `0vh`;
+    // this.bigTitles[2].style.marginTop = `0vh`;
 
     // once we've scrolled into position we toggle active on our supporting elements
-    this.bigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
-    this.mediumBigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
-    this.productDescs[0].classList.toggle("active", transitionHorizontalScrollSection);
+    // this.bigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
+    // this.mediumBigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
+    // this.productDescs[0].classList.toggle("active", transitionHorizontalScrollSection);
     for(let i = 0; i<= 2; i++) {
       setTimeout(() => this.dropdownHeaders[i].classList.toggle("active", transitionHorizontalScrollSection), i * 100);
     };
