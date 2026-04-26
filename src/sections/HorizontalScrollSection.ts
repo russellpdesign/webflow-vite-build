@@ -182,7 +182,7 @@ update(scrollY: number): void {
           t = clamp01((scrollY - this.startScale) / this.viewportHeight);
           this.scaleProgress = mapRange(t, 0, 1, 0, 1);
           this.marginTopShrink = 100 - (this.scaleProgress * 100);
-          this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
+          this.bigTitles[0].style.marginTop = `${this.marginTopShrink}vh`;
           break;
       case "undefined SCALE_TRANSITION":
           // we just backtracked from our scaling portion of our previous section to no more scaling
@@ -190,7 +190,7 @@ update(scrollY: number): void {
           t = clamp01((scrollY - this.startScale) / this.viewportHeight);
           this.scaleProgress = mapRange(t, 0, 1, 0, 1);
           this.marginTopShrink = 100 - (this.scaleProgress * 100);
-          this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
+          this.bigTitles[0].style.marginTop = `${this.marginTopShrink}vh`;
           return;
         case "SCALE_TRANSITION SCALE_TRANSITION":
           // we are in the transition between our previous section and current, where the photo is scaling and we are now seeing our current section first section's  big title scroll into view
@@ -198,7 +198,7 @@ update(scrollY: number): void {
           t = clamp01((scrollY - this.startScale) / this.viewportHeight);
           this.scaleProgress = mapRange(t, 0, 1, 0, 1);
           this.marginTopShrink = 100 - (this.scaleProgress * 100);
-          this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
+          this.bigTitles[0].style.marginTop = `${this.marginTopShrink}vh`;
           break;
         case "SCALE_TRANSITION SECTION_1":
           // we've just transitioned from our photo scaling into our first section
