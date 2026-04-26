@@ -203,9 +203,9 @@ update(scrollY: number): void {
         case "SCALE_TRANSITION SECTION_1":
           // we've just transitioned from our photo scaling into our first section
           // we activate our text elements
-          this.bigTexts[0].classList.toggle("active");
-          this.mediumBigTexts[0].classList.toggle("active");
-          this.productDescs[0].classList.toggle("active");
+          this.bigTexts[0].classList.add("active");
+          this.mediumBigTexts[0].classList.add("active");
+          this.productDescs[0].classList.add("active");
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[1].style.marginTop = `0vh`;
           this.bigTitles[2].style.marginTop = `0vh`;
@@ -216,9 +216,9 @@ update(scrollY: number): void {
         case "SCALE_TRANSITION SECTION_1":
           // we have scrolled from our scale transition into our first section and need to toggle on our classes
           // we activate our text elements
-          this.bigTexts[0].classList.toggle("active");
-          this.mediumBigTexts[0].classList.toggle("active");
-          this.productDescs[0].classList.toggle("active");
+          this.bigTexts[0].classList.remove("active");
+          this.mediumBigTexts[0].classList.remove("active");
+          this.productDescs[0].classList.remove("active");
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[1].style.marginTop = `0vh`;
           this.bigTitles[2].style.marginTop = `0vh`;
