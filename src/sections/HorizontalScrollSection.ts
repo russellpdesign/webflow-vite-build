@@ -69,7 +69,7 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.previousSectionTriggerStart =
       window.scrollY +
-      this.sectionTrigger.getBoundingClientRect().top +
+      this.previousSectionTrigger.getBoundingClientRect().top +
       window.innerHeight * 1.38 +
       this.progressBarHeight;
 
