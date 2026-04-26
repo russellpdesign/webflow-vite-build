@@ -147,6 +147,8 @@ update(scrollY: number): void {
       );
     };
 
+    console.log(getState(scrollY));
+
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
       // console.log(this.lastActiveState, state);
