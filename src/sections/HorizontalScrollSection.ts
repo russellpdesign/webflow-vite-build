@@ -24,32 +24,34 @@ export default class HorizontalScrollSection extends BaseSection {
      * DOM ELEMENTS
      * ------------------------------------------------------------- */
 
-    // when our image starts scaling down, is when this section starts, we use this div element to calc that starting position
+    // PREVIOUS SECTION ELEMENTS FOR TRANSITION PHASE
+
+    // helps anchor our triggers to the start of the previous section
     this.previousSectionTrigger = document.querySelector<HTMLElement>(".photo-overlap-section-trigger")!;
-
     // All images that participate in the overlap animation
-    this.endingImage = document.querySelector("#scale-down-img-after");
-
+    this.initialImages = Array.from(this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
+    // this is the parent of the actual scaled image container. It ensures our image scales center-wise because it's parent is absolute + is centering children w/ flexbox.
+    this.firstImage = document.querySelector(".sticky-big-img-reveal");
+    // not really exclusive to our previous section, but to our previous sections mathematics.
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
-    // this is actually the parent container of big-text
+    // CURRENT SECTION ELEMENTS
+
+    // this is our big section div (we animate transformX to mimic horizontal scrolling)
+    this.horizontalScrollSectContainer = document.querySelector(".horizontal-section-container");
+    // these are our individual three sections inside of our bigger container
+    this.scrollSections = document.querySelectorAll("#horizontal_scroll");
+    // this is the parent container of our big title text element, which we animate the margin top from 100-0 to mimic the act of scrolling and give it smoothing effect.
     this.bigTitles = document.querySelectorAll(".product-title-big");
 
-    // for our fist section, index 0, second 1, third 2
+    // these are our individual text elements, for activating / deactivating by toggling "active" class
     this.bigTexts = document.querySelectorAll(".big-text");
     this.mediumBigTexts = document.querySelectorAll(".medium-big-text");
     this.productDescs = document.querySelectorAll(".product-desc");
-
-    // for our first section, this is index 0-2, second 3-5, third 6-8
+    // these are our dropdown row headers, which we animate on entering in a new section with a time delay stagger
     this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container");
-
-    // this.bigText = document.querySelectorAll(".big-text");
-
-    this.horizontalScrollSectContainer = document.querySelector(".horizontal-section-container");
-
-    this.scrollSections = document.querySelectorAll("#horizontal_scroll");
-
-    this.firstImage = document.querySelector(".sticky-big-img-reveal");
+    // this is the image in our first horizontal scroll section, which is actually hidden but used as a reference for determining how our previous image scales and sizes down.
+    this.endingImage = document.querySelector("#scale-down-img-after");
 
     console.log(`The amount of sections in our horizontal scroll section is: ${this.scrollSections.length}`);
 
@@ -60,18 +62,25 @@ export default class HorizontalScrollSection extends BaseSection {
 
   measure(): void {
     super.measure();
-
+    
+    // helper variables
+    this.viewportHeight = window.innerHeight;
     this.progressBarHeight = this.progressBar!.getBoundingClientRect().height;
 
-    this.viewportHeight = window.innerHeight;
-
-    this.start = this.el.getBoundingClientRect().top + scrollY;
-
+    // Previous Section - animation variables
     this.previousSectionTriggerStart =
       window.scrollY +
       this.previousSectionTrigger.getBoundingClientRect().top +
       window.innerHeight * 1.38 +
       this.progressBarHeight;
+
+    this.triggers = this.initialImages.map((_, i) => this.previousSectionTriggerStart + this.viewportHeight * i);
+
+    this.startScale = this.triggers[this.triggers.length - 1] + this.viewportHeight;
+    this.scaleEnd = this.startScale + this.viewportHeight;
+
+    // Current Section - animation variables
+    this.start = this.el.getBoundingClientRect().top + scrollY;
 
     // this.scrollBoundaries = []
 
@@ -91,8 +100,9 @@ export default class HorizontalScrollSection extends BaseSection {
 
     // console.log(this.scrollBoundaries);
 
-    this.sectionTransition = this.previousSectionTriggerStart;
-    this.sectionBoundaryIn = this.start + this.viewportHeight;
+    this.sectionTransitionIn = this.startScale;
+    this.sectionTransitionEnd = this.endScale;
+    this.section1 = this.start;
     this.scrollStart1 = this.start + this.viewportHeight * 2;
     this.scrollEnd1 = this.start + (this.viewportHeight * 3);
     this.scrollGap1Start = this.start + (this.viewportHeight * 3);
@@ -121,11 +131,13 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    type ScrollState = "SECTION_BOUNDARY_IN | BEFORE_SCROLL" | "SCROLL_RANGE_1" | "SCROLL_GAP_1" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
+    type ScrollState = "BEFORE_SECTION" | "TRANSITION_IN" | "TRANSITION_END" | "SECTION_1" | "BEFORE_SCROLL" | "SCROLL_RANGE_1" | "SCROLL_GAP_1" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
 
     const getState = (scrollY: number): ScrollState => {
       return (
-        (scrollY <= this.sectionBoundaryIn && "SECTION_BOUNDARY_IN") ||
+        (scrollY <= this.sectionTransitionIn && "BEFORE_SECTION") ||
+        (scrollY <= this.sectionTransitionEnd && "SECTION_TRANSITION") ||
+        (scrollY <= this.section1 && "SECTION_1") ||
         (scrollY <= this.scrollStart1 && "BEFORE_SCROLL") || // we are scrolling before we enter our horizontal scroll section
         (scrollY <= this.scrollEnd1 && "SCROLL_RANGE_1") || // we are scrolling to second section
         (scrollY <= this.scrollStart2 && "SCROLL_GAP_1") || // we are sitting in second section, natively scrolling but no movement
@@ -142,9 +154,10 @@ update(scrollY: number): void {
       // if we arent actively scrolling, exit
       // if(this.previousScrollY === scrollY) {return}
 
+      console.log(state);
+
       switch(this.lastActiveState + " " + state) {
-        case "SECTION_BOUNDARY_IN BEFORE_SCROLL":
-          console.log("This is the SECTION_BOUNDARY_IN state");
+        case "SECTION_1 BEFORE_SCROLL":
           this.horizontalScrollSectContainer.style.willChange = "auto";
           this.firstImage.style.willChange = "auto";
           break;
@@ -155,7 +168,6 @@ update(scrollY: number): void {
           break;
         case "BEFORE_SCROLL BEFORE_SCROLL":
           // we essentially do nothing here but update our state
-          console.log("case is BEFORE_SCROLL BEFORE_SCROLL");
           this.horizontalScrollSectContainer.style.willChange = "transform";
           this.firstImage.style.willChange = "transform";
           this.lastActiveState = state;
