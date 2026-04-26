@@ -156,6 +156,8 @@ export default class PhotoOverlapSection extends BaseSection {
     // handles animating out the header
     const headingShouldBeActive = scrollY <= this.triggers[this.triggers.length - 1];
 
+    console.log(headingShouldBeActive);
+
     this.projectTextHeading.classList.toggle("is-active", headingShouldBeActive);
 
     // handles the turn off all left side images once the right side reaches the top (this.end)
