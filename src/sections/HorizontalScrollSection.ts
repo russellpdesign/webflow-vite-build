@@ -155,7 +155,7 @@ update(scrollY: number): void {
       // if(this.previousScrollY === scrollY) {return}
 
       console.log(state);
-      console.log(`Section one starts: ${this.section1}, or here ${this.scrollStart1}`)
+      console.log(`Section one starts: ${this.section1}, or here aka scrollStart1 ${this.scrollStart1}`)
 
       switch(this.lastActiveState + " " + state) {
         case "SECTION_1 BEFORE_SCROLL":
