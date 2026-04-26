@@ -29,7 +29,7 @@ export default class HorizontalScrollSection extends BaseSection {
     // helps anchor our triggers to the start of the previous section
     this.previousSectionTrigger = document.querySelector<HTMLElement>(".photo-overlap-section-trigger")!;
     // All images that participate in the overlap animation
-    this.initialImages = Array.from(this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
+    this.initialImages = Array.from(this.previousSectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
     // this is the parent of the actual scaled image container. It ensures our image scales center-wise because it's parent is absolute + is centering children w/ flexbox.
     this.firstImage = document.querySelector(".sticky-big-img-reveal");
     // not really exclusive to our previous section, but to our previous sections mathematics.
