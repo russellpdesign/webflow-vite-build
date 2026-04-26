@@ -184,6 +184,14 @@ update(scrollY: number): void {
           const marginTopShrink = 100 - (scaleProgress * 100);
           this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
           break;
+      case "undefined SCALE_TRANSITION":
+          // we just backtracked from our scaling portion of our previous section to no more scaling
+          // we need to animate the top margin of our big title to simulate scrolling the section into view
+          const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
+          const scaleProgress = mapRange(t, 0, 1, 0, 1);
+          const marginTopShrink = 100 - (scaleProgress * 100);
+          this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
+          return;
         case "SCALE_TRANSITION SCALE_TRANSITION":
           // we are in the transition between our previous section and current, where the photo is scaling and we are now seeing our current section first section's  big title scroll into view
           // we need to animate the top margin of our big title to simulate scrolling the section into view
@@ -202,6 +210,19 @@ update(scrollY: number): void {
           this.bigTitles[1].style.marginTop = `0vh`;
           this.bigTitles[2].style.marginTop = `0vh`;
           // we ensure our parent div is at 0
+          this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
+          this.firstImage.style.transform = `translateX(0vw)`;
+          break;
+        case "SCALE_TRANSITION SECTION_1":
+          // we have scrolled from our scale transition into our first section and need to toggle on our classes
+          // we activate our text elements
+          this.bigTexts[0].classList.toggle("active");
+          this.mediumBigTexts[0].classList.toggle("active");
+          this.productDescs[0].classList.toggle("active");
+          // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
+          this.bigTitles[1].style.marginTop = `0vh`;
+          this.bigTitles[2].style.marginTop = `0vh`;
+          // we reset our horizontal section parent to its starting point
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
           break;
