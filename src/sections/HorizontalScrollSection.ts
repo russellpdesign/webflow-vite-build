@@ -131,12 +131,12 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    type ScrollState = "BEFORE_SECTION" | "TRANSITION_IN" | "TRANSITION_END" | "SECTION_1" | "SCROLL_RANGE_1" | "SCROLL_GAP_1" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
+    type ScrollState = "BEFORE_SECTION" | "TRANSITION_IN" | "SCALE_TRANSITION" | "SECTION_1" | "SCROLL_RANGE_1" | "SCROLL_GAP_1" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
 
     const getState = (scrollY: number): ScrollState => {
       return (
         (scrollY <= this.sectionTransitionIn && "BEFORE_SECTION") ||
-        (scrollY <= this.sectionTransitionEnd && "TRANSITION_END") ||
+        (scrollY <= this.sectionTransitionEnd && "SCALE_TRANSITION") ||
         (scrollY <= this.section1 && "SECTION_1") ||
         (scrollY <= this.scrollStart1 && "SECTION_1") || // we are scrolling before we enter our horizontal scroll section
         (scrollY <= this.scrollEnd1 && "SCROLL_RANGE_1") || // we are scrolling to second section
