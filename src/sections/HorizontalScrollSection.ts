@@ -131,7 +131,7 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    type ScrollState = "BEFORE_SECTION" | "TRANSITION_IN" | "SCALE_TRANSITION" | "SECTION_1" | "SCROLL_RANGE_1" | "SECTION_2" | "SCROLL_RANGE_2" | "SCROLL_GAP_2" | "AFTER_SCROLL";
+    type ScrollState = "BEFORE_SECTION" | "TRANSITION_IN" | "SCALE_TRANSITION" | "SECTION_1" | "SCROLL_RANGE_1" | "SECTION_2" | "SCROLL_RANGE_2" | "SECTION_3" | "AFTER_SCROLL";
 
     const getState = (scrollY: number): ScrollState => {
       return (
@@ -141,7 +141,7 @@ update(scrollY: number): void {
         (scrollY <= this.scrollEnd1 && "SCROLL_RANGE_1") || // we are scrolling to second section
         (scrollY <= this.scrollStart2 && "SECTION_2") || // we are sitting in second section, natively scrolling but no movement
         (scrollY <= this.scrollEnd2 && "SCROLL_RANGE_2") || // scrolling from section two to three
-        (scrollY <= this.scrollStart3 && "SCROLL_GAP_2") || // we are sitting in the third section
+        (scrollY <= this.scrollStart3 && "SECTION_3") || // we are sitting in the third section
         "AFTER_SCROLL" // we are scrolling down out of the horizontal scroll section
       );
     };
@@ -271,22 +271,22 @@ update(scrollY: number): void {
           // we activate certain text and dropdown elements
           // do that here
           break;
-        case "undefined SCROLL_GAP_2":
-          // console.log("case is undefined SCROLL_GAP_2: I have loaded the page and am sitting section three aka our second scroll gap.");
+        case "undefined SECTION_3":
+          // console.log("case is undefined SECTION_3: I have loaded the page and am sitting section three aka our second scroll gap.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
           // we activate certain text and dropdown elements
           // do that here
           break;
-        case "SCROLL_RANGE_2 SCROLL_GAP_2":
-          // console.log("case is SCROLL_RANGE_2 SCROLL_GAP_2: I have entered the third section.");
+        case "SCROLL_RANGE_2 SECTION_3":
+          // console.log("case is SCROLL_RANGE_2 SECTION_3: I have entered the third section.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
           // we activate certain text and dropdown elements
           // do that here
           break;
-        case "SCROLL_GAP_2 SCROLL_RANGE_2":
-          // console.log("case is SCROLL_GAP_2 SCROLL_RANGE_2: I have scrolled back towards section two, and entered scroll range 2.");
+        case "SECTION_3 SCROLL_RANGE_2":
+          // console.log("case is SECTION_3 SCROLL_RANGE_2: I have scrolled back towards section two, and entered scroll range 2.");
           // we set our transform to its static position
           t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
@@ -294,9 +294,9 @@ update(scrollY: number): void {
           // we activate certain text and dropdown elements
           // do that here
           break;
-        case "SCROLL_GAP_2 SCROLL_GAP_2":
+        case "SECTION_3 SECTION_3":
           // we essentially do nothing here, and exit our case switch and subsequently update, just updating our current state
-          // console.log("case is SCROLL_GAP_2 SCROLL_GAP_2: I have entered the third section.");
+          // console.log("case is SECTION_3 SECTION_3: I have entered the third section.");
           this.horizontalScrollSectContainer.style.willChange = "transform";
           this.firstImage.style.willChange = "transform";
           this.lastActiveState = state;
@@ -308,8 +308,8 @@ update(scrollY: number): void {
           // we activate certain text and dropdown elements
           // do that here
           break;
-        case "SCROLL_GAP_2 AFTER_SCROLL":
-          // console.log("case is SCROLL_GAP_2 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
+        case "SECTION_3 AFTER_SCROLL":
+          // console.log("case is SECTION_3 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
 
@@ -359,7 +359,7 @@ update(scrollY: number): void {
             this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
             console.log("I should be horizontally scrolling to section three")
             break;
-          case "SCROLL_GAP_2":
+          case "SECTION_3":
             this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
             break;
           case "AFTER_SCROLL":
