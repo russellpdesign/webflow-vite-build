@@ -144,7 +144,7 @@ update(scrollY: number): void {
 
       switch(this.lastActiveState + " " + state) {
         case "BEFORE_SCROLL SECTION_BOUNDARY_IN":
-          console.log("This is the SECTION_BOUNDARY_IN state")
+          console.log("This is the SECTION_BOUNDARY_IN state");
           this.horizontalScrollSectContainer.style.willChange = "auto";
           this.firstImage.style.willChange = "auto";
           break;
@@ -156,7 +156,7 @@ update(scrollY: number): void {
           break;
         case "BEFORE_SCROLL BEFORE_SCROLL":
           // we essentially do nothing here but update our state
-          // console.log("case is BEFORE_SCROLL BEFORE_SCROLL: I have scrolled the page and am before our section begins.");
+          console.log("case is BEFORE_SCROLL BEFORE_SCROLL");
           this.horizontalScrollSectContainer.style.willChange = "transform";
           this.firstImage.style.willChange = "transform";
           this.lastActiveState = state;
