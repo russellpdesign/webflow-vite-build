@@ -172,6 +172,10 @@ update(scrollY: number): void {
           // we ensure our top margin is ready to animate
           this.bigTitles[0].style.marginTop = `100vh`;
           return;
+        case "SCALE_TRANSITION BEFORE_TRANSITION":
+          // we just backtracked from our scaling portion of our previous section to no more scaling
+          // we need to animate the top margin of our big title to simulate scrolling the section into view
+          return;
         case "BEFORE_TRANSITION SCALE_TRANSITION":
           // our previous sections photo is now starting to scale and we are scrolling toward our current section's first section
           // we need to animate the top margin of our big title to simulate scrolling the section into view
