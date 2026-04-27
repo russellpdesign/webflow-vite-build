@@ -216,9 +216,9 @@ update(scrollY: number): void {
           // we activate our text elements
           this._activate(activeSectionIndex);
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
-          this.bigTitles[0].style.marginTop = `0vh`;
-          this.bigTitles[1].style.marginTop = `0vh`;
-          this.bigTitles[2].style.marginTop = `0vh`;
+          // this.bigTitles[0].style.marginTop = `0vh`;
+          // this.bigTitles[1].style.marginTop = `0vh`;
+          // this.bigTitles[2].style.marginTop = `0vh`;
           // we ensure our parent div is at 0
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
@@ -228,9 +228,9 @@ update(scrollY: number): void {
           this._deactivate(activeSectionIndex);
           // this._deactivate(activeSectionIndex);
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
-          this.bigTitles[0].style.marginTop = `0vh`;
-          this.bigTitles[1].style.marginTop = `0vh`;
-          this.bigTitles[2].style.marginTop = `0vh`;
+          // this.bigTitles[0].style.marginTop = `0vh`;
+          // this.bigTitles[1].style.marginTop = `0vh`;
+          // this.bigTitles[2].style.marginTop = `0vh`;
           // we reset our horizontal section parent to its starting point
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
@@ -246,8 +246,8 @@ update(scrollY: number): void {
           // we activate our text elements
           this._activate(activeSectionIndex);
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
-          this.bigTitles[1].style.marginTop = `0vh`;
-          this.bigTitles[2].style.marginTop = `0vh`;
+          // this.bigTitles[1].style.marginTop = `0vh`;
+          // this.bigTitles[2].style.marginTop = `0vh`;
           // we reset our horizontal section parent to its starting point
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
