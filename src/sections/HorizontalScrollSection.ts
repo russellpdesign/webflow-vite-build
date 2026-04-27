@@ -166,15 +166,18 @@ update(scrollY: number): void {
         case "undefined BEFORE_TRANSITION":
           // we reloaded the page and are located (scrollY) in our previous photo overlap section
           // no action needed
+          this.lastActiveState = state;
           return;
         case "BEFORE_TRANSITION BEFORE_TRANSITION":
           // we are and were in our previous photo overlap section, no image scaling done yet
           // we ensure our top margin is ready to animate
           this.bigTitles[0].style.marginTop = `100vh`;
+          this.lastActiveState = state;
           return;
         case "SCALE_TRANSITION BEFORE_TRANSITION":
           // we just backtracked from our scaling portion of our previous section to no more scaling
           // we need to animate the top margin of our big title to simulate scrolling the section into view
+          this.lastActiveState = state;
           return;
         case "BEFORE_TRANSITION SCALE_TRANSITION":
           // our previous sections photo is now starting to scale and we are scrolling toward our current section's first section
@@ -191,6 +194,7 @@ update(scrollY: number): void {
           this.scaleProgress = mapRange(t, 0, 1, 0, 1);
           this.marginTopShrink = 100 - (this.scaleProgress * 100);
           this.bigTitles[0].style.marginTop = `${this.marginTopShrink}vh`;
+          this.lastActiveState = state;
           return;
         case "SCALE_TRANSITION SCALE_TRANSITION":
           // we are in the transition between our previous section and current, where the photo is scaling and we are now seeing our current section first section's  big title scroll into view
@@ -400,7 +404,6 @@ update(scrollY: number): void {
           // console.log("case is SECTION_3 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-
           // we activate certain text and dropdown elements
           // do that here
           break;
