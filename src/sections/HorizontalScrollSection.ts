@@ -57,6 +57,7 @@ export default class HorizontalScrollSection extends BaseSection {
 
     this.enabled = true;
 
+    window.addEventListener("resize", () => console.log("Horizontal Scroll Section: window was resized!"));
     window.addEventListener("resize", () => this.measure());
   }
 

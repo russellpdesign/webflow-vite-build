@@ -73,6 +73,7 @@ export default class MovePhotoSection extends BaseSection {
 
     this.enabled = true;
 
+    window.addEventListener("resize", () => console.log("Move Photo Section: window was resized!"));
     window.addEventListener("resize", () => this.measure());
   }
 

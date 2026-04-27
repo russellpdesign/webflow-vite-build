@@ -81,6 +81,7 @@ export default class PhotoOverlapSection extends BaseSection {
 
     this.enabled = true;
 
+    window.addEventListener("resize", () => console.log("PhotoOverlapSection: window was resized!"));
     window.addEventListener("resize", () => this.measure());
   }
 
