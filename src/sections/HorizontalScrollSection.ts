@@ -308,6 +308,7 @@ update(scrollY: number): void {
         case "SECTION_2 SECTION_2":
           // we essentially do nothing here but update our state
           // console.log("case is SECTION_2 SECTION_2: I am scrolling in our section section.");
+          this._deactivate(activeSectionIndex + 1);
           this.lastActiveState = state;
           return;
         case "SECTION_2 SCROLL_RANGE_1":
