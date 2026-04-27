@@ -239,6 +239,7 @@ update(scrollY: number): void {
           // we are actively scrolling in our first section, staying stationary of course
           // we update will change settings to prep for the horizontal scrolling
           this.horizontalScrollSectContainer.style.willChange = "auto";
+          this._deactivate(activeSectionIndex + 1);
           break;
         case "undefined SECTION_1":
           // console.log("case is undefined SECTION_1: I refreshed the page partway down the page, before our section begins.");
