@@ -276,7 +276,7 @@ update(scrollY: number): void {
           this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
           this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
           // also need to activate certain text / dropdown components once
-          // do that here
+          this._activate(activeSectionIndex)
           break;
         case "SCROLL_RANGE_1 SCROLL_RANGE_1":
           // console.log("case is SCROLL_RANGE_1 SCROLL_RANGE_1: I am scrolling into our first section from the second.");
