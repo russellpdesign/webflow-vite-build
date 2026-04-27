@@ -58,7 +58,7 @@ export default class PhotoOverlapSection extends BaseSection {
     this.initialImages = Array.from(this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
     this.leftSideImages = this.initialImages.slice(0, -1);
 
-    console.log(this.leftSideImages)
+    console.log(this.initialImages);
 
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
@@ -74,7 +74,7 @@ export default class PhotoOverlapSection extends BaseSection {
     this.textElements.push(this.sectionHeaderText, this.projectTextHeading, this.bodyText, this.itemNumberText);
     this.textElementsMinusTitle.push(this.sectionHeaderText, this.bodyText, this.itemNumberText);
 
-    console.log(this.textElements);
+    // console.log(this.textElements);
     
     // this.textElements = [...this.sectionTrigger.querySelectorAll("")]
 
