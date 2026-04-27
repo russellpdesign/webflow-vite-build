@@ -110,7 +110,7 @@ export default class PhotoOverlapSection extends BaseSection {
     // this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
     this.end = this.triggers[this.triggers.length - 1] + window.innerHeight;
 
-    this.initialImages.forEach((image, _) => {
+    this.initialImages.forEach((image) => {
       // Performance hints
       image.style.willChange = "transform";
     });
@@ -134,7 +134,7 @@ export default class PhotoOverlapSection extends BaseSection {
 
     // handles images sliding up on triggers
     this.initialImages.forEach((image, index) => {
-      const trigger = this.triggers[index];
+      let trigger = this.triggers[index];
 
       // Normalized progress for this image
       const t = clamp01(
