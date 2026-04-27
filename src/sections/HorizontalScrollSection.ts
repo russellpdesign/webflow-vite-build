@@ -244,7 +244,7 @@ update(scrollY: number): void {
           // console.log("case is undefined SECTION_1: I refreshed the page partway down the page, before our section begins.");
           // I have refreshed the page and am in the first section
           // we activate our text elements
-          this._activate(newActiveIndex);
+          this._activate(activeSectionIndex);
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[1].style.marginTop = `0vh`;
           this.bigTitles[2].style.marginTop = `0vh`;
