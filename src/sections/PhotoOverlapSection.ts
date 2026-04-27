@@ -58,7 +58,7 @@ export default class PhotoOverlapSection extends BaseSection {
     this.initialImages = Array.from(this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
     this.leftSideImages = this.initialImages.slice(0, -1);
 
-    console.log(this.initialImages);
+    // console.log(this.initialImages);
 
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
 
@@ -103,6 +103,7 @@ export default class PhotoOverlapSection extends BaseSection {
 
     // Declarative trigger generation: Each image animates over exactly one viewport height - the image dom node value is not important aka "_", just creating the trigger values array is priority
     this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
+    console.log(`this is this.triggers: ${this.triggers}`);
 
     this.behindImageToggleCheckpoint = this.triggers[1];
 
