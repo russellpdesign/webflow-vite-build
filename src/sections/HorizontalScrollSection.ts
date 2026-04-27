@@ -226,7 +226,7 @@ update(scrollY: number): void {
         case "SECTION_1 SCALE_TRANSITION":
           // we have backtrack scrolled from our first section into our scaling transition section
           // we de-activate our text elements
-          this._deactivate(activeSectionIndex);
+          // this._deactivate(activeSectionIndex);
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[0].style.marginTop = `0vh`;
           this.bigTitles[1].style.marginTop = `0vh`;
@@ -244,7 +244,7 @@ update(scrollY: number): void {
           // console.log("case is undefined SECTION_1: I refreshed the page partway down the page, before our section begins.");
           // I have refreshed the page and am in the first section
           // we activate our text elements
-          this._activate(0);
+          this._activate(newActiveIndex);
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[1].style.marginTop = `0vh`;
           this.bigTitles[2].style.marginTop = `0vh`;
@@ -322,7 +322,7 @@ update(scrollY: number): void {
           this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
           this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
           // we activate certain text and dropdown elements
-          this._deactivate(activeSectionIndex);
+          // this._deactivate(activeSectionIndex);
           break;
         case "undefined SCROLL_RANGE_2":
           // console.log("case is undefined SCROLL_RANGE_2: I have loaded the page and am sitting in the scrollable portion of the section section.");
@@ -340,7 +340,7 @@ update(scrollY: number): void {
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
           this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
           // we activate certain text and dropdown elements
-          this._deactivate(activeSectionIndex);
+          // this._deactivate(activeSectionIndex);
           break;
         case "SCROLL_RANGE_2 SCROLL_RANGE_2":
           // otherwise we update our scroll position in real time
@@ -385,7 +385,7 @@ update(scrollY: number): void {
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
           this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
           // we activate certain text and dropdown elements
-          this._deactivate(activeSectionIndex);
+          // this._deactivate(activeSectionIndex);
           break;
         case "SECTION_3 SECTION_3":
           // we essentially do nothing here, and exit our case switch and subsequently update, just updating our current state
@@ -410,7 +410,7 @@ update(scrollY: number): void {
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
           // we activate certain text and dropdown elements
-          this._deactivate(activeSectionIndex);
+          // this._deactivate(activeSectionIndex);
           break;
         case "AFTER_SCROLL AFTER_SCROLL":
           // console.log("case is AFTER_SCROLL AFTER_SCROLL: I am no longer scrolling in our horizontal scroll section, I am past it.");
