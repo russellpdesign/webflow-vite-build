@@ -306,8 +306,9 @@ update(scrollY: number): void {
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
-          // we activate certain text and dropdown elements
+          // we activate certain text and dropdown elements, including previous sections
           this._activate(activeSectionIndex);
+          this._activate(activeSectionIndex - 1);
           break;
         case "SECTION_2 SECTION_2":
           // we essentially do nothing here but update our state
@@ -370,6 +371,8 @@ update(scrollY: number): void {
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
           // we activate certain text and dropdown elements
           this._activate(activeSectionIndex);
+          this._activate(activeSectionIndex - 1);
+          this._activate(activeSectionIndex - 2);
           break;
         case "SCROLL_RANGE_2 SECTION_3":
           // console.log("case is SCROLL_RANGE_2 SECTION_3: I have entered the third section.");
