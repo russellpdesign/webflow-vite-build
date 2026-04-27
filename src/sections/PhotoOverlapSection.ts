@@ -104,7 +104,7 @@ export default class PhotoOverlapSection extends BaseSection {
     // Declarative trigger generation: Each image animates over exactly one viewport height - the image dom node value is not important aka "_", just creating the trigger values array is priority
     this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
     this.typeofTriggers = this.triggers.typeof;
-    console.log(`this is the type of this.triggers: ${this.typeofTriggersf}`);
+    console.log(`this is the type of this.triggers: ${this.typeofTriggers}. this is the type of initial images: ${this.initialImages.typeof}`);
 
     this.behindImageToggleCheckpoint = this.triggers[1];
 
