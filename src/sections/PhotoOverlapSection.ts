@@ -56,7 +56,7 @@ export default class PhotoOverlapSection extends BaseSection {
 
     // All images that participate in the overlap animation
     this.initialImages = Array.from(this.sectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
-    console.log(typeof initialImages);
+    console.log(typeof this.initialImages);
     this.leftSideImages = this.initialImages.slice(0, -1);
 
     // console.log(this.initialImages);
