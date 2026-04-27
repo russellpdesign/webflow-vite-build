@@ -331,8 +331,9 @@ update(scrollY: number): void {
           t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
           this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
-          // we activate certain text and dropdown elements
+          // we our current section text items and our previous since they will not have been activated via scrolling into them
           this._activate(activeSectionIndex);
+          this._activate(activeSectionIndex - 1);
           break;
         case "SECTION_2 SCROLL_RANGE_2":
           // console.log("case is SECTION_2 SCROLL_RANGE_2: I have scrolled from our second section and am heading towards the third.");
@@ -341,7 +342,6 @@ update(scrollY: number): void {
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
           this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
           // we activate certain text and dropdown elements
-          // this._deactivate(activeSectionIndex);
           break;
         case "SCROLL_RANGE_2 SCROLL_RANGE_2":
           // otherwise we update our scroll position in real time
