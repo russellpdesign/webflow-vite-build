@@ -102,7 +102,6 @@ export default class PhotoOverlapSection extends BaseSection {
       this.progressBarHeight;
 
     // Declarative trigger generation: Each image animates over exactly one viewport height - the image dom node value is not important aka "_", just creating the trigger values array is priority
-    if(!this.initialImages) { return }
 
     this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
     this.typeofTriggers = this.triggers.typeof;
