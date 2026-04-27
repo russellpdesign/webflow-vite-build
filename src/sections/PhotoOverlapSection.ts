@@ -104,7 +104,8 @@ export default class PhotoOverlapSection extends BaseSection {
     // Declarative trigger generation: Each image animates over exactly one viewport height - the image dom node value is not important aka "_", just creating the trigger values array is priority
 
     this.triggers = this.initialImages.map((_, i) => this.start + window.innerHeight * i);
-    console.log(`inside of class instance measure this.initialImages: ${this.initialImages.typeof}`);
+    this.typeofTriggers = this.triggers.typeof;
+    console.log(`inside of class instance measure this.initialImages: ${this.typeofTriggers}`);
 
     this.behindImageToggleCheckpoint = this.triggers[1];
 
@@ -128,9 +129,6 @@ export default class PhotoOverlapSection extends BaseSection {
 
   update(scrollY: number): void {
     if (!this.enabled) return;
-
-    this.typeofTriggers = this.triggers.typeof;
-    console.log(`this is the type of this.triggers: ${this.typeofTriggers}. this is the type of initial images: ${this.initialImages.typeof}`);
 
     // handles previous move photo section image toggle off on
     const shouldBeVisible = scrollY <= this.behindImageToggleCheckpoint;
