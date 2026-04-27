@@ -85,12 +85,12 @@ export default class ScrollEngine {
       window.addEventListener("load", init, { once: true });
     }
 
-  window.addEventListener("resize", this._onResize);
+    window.addEventListener("resize", this._onResize);
 
-    // ScrollEngine.rawY = window.scrollY;
-    // ScrollEngine.smoothedY = ScrollEngine.rawY;
+    ScrollEngine.rawY = window.scrollY;
+    ScrollEngine.smoothedY = ScrollEngine.rawY;
 
-    // requestAnimationFrame(this._raf);
+    requestAnimationFrame(this._raf);
   }
 
   stop(): void {
