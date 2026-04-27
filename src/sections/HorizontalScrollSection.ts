@@ -224,7 +224,7 @@ update(scrollY: number): void {
         case "SECTION_1 SCALE_TRANSITION":
           // we have backtrack scrolled from our first section into our scaling transition section
           // we de-activate our text elements
-          this.bigTexts[0].classList.add("active");
+          this.bigTexts[0].classList.remove("active");
           this.mediumBigTexts[0].classList.remove("active");
           this.productDescs[0].classList.remove("active");
           // animate out dropdown headers
