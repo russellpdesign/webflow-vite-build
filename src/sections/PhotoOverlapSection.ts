@@ -129,7 +129,7 @@ export default class PhotoOverlapSection extends BaseSection {
 
   update(scrollY: number): void {
     if (!this.enabled) return;
-    if(!this.triggers) return;
+    if (!this.triggers) return;
     // handles previous move photo section image toggle off on
     const shouldBeVisible = scrollY <= this.behindImageToggleCheckpoint;
     this.behindImageWrapper.style.opacity = shouldBeVisible ? "1" : "0";
