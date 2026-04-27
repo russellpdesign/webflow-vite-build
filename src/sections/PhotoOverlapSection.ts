@@ -168,7 +168,7 @@ export default class PhotoOverlapSection extends BaseSection {
         image.style.opacity = "0";
       });
       this.isLeftSideHidden = true;
-      // this.projectTextHeading.classList.remove("is-active");
+      this.projectTextHeading.classList.remove("is-active");
     }
 
     // optional: if you want them to reappear when scrolling back above end
