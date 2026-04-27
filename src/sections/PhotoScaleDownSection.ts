@@ -132,7 +132,6 @@ update(scrollY: number): void {
     // Normalize scroll progress over the viewport height
     const t = clamp01((scrollY - this.startScale) / this.viewportHeight);
     const scaleProgress = mapRange(t, 0, 1, 0, 1);
-    const marginTopShrink = 100 - (scaleProgress * 100);
 
     // scale container transforms
     const heightChangePercent = (this.heightRange / this.viewportHeight) * 100;
@@ -152,11 +151,6 @@ update(scrollY: number): void {
     // -------------------------------------------------------------
     const endingImageVisible = scrollY > this.opacityToggleEndpoint;
 
-    // this.endingImage.style.display = endingImageVisible ? "block" : "none";
-
-    // ensure the container for scaling image is shown only while scaling
-    // this.scaleDownImgContainer.style.display = endingImageVisible ? "none" : "flex";
-
     // -------------------------------------------------------------
     // 3️⃣ Apply scaling / transforms to container and inner image
     // -------------------------------------------------------------
@@ -168,34 +162,18 @@ update(scrollY: number): void {
     // we enable the other supporting text and dropdown elements once scale down finishes
     const transitionHorizontalScrollSection = scrollY >= this.end;
 
-    // while we are scaling the image, we transform our big title headline from our section below up using margin top so we get smoothing effect (versus pure scroll)
-    // we also then put all the other ones at margin-top 0 as well.
-    // this.bigTitles[0].style.marginTop = `${marginTopShrink}vh`;
-    // this.bigTitles[1].style.marginTop = `0vh`;
-    // this.bigTitles[2].style.marginTop = `0vh`;
-
-    // once we've scrolled into position we toggle active on our supporting elements
-    // this.bigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
-    // this.mediumBigTexts[0].classList.toggle("active", transitionHorizontalScrollSection);
-    // this.productDescs[0].classList.toggle("active", transitionHorizontalScrollSection);
-    // for(let i = 0; i<= 2; i++) {
-    //   setTimeout(() => this.dropdownHeaders[i].classList.toggle("active", transitionHorizontalScrollSection), i * 100);
-    // };
+    this.
 
     // Ending image
     const showEndingImage = scrollY >= this.opacityToggleEndpoint;
 
-    // this.endingImage.style.visibility = showEndingImage ? "visible" : "hidden";
-    // this.endingImage.style.pointerEvents = showEndingImage ? "auto" : "none";
     this.scaleDownImgContainer.style.position = showEndingImage ? "absolute" : "none";
 
     // Scaling image container
-    // this.scaleDownImgContainer.style.visibility = showEndingImage ? "hidden" : "visible";
     this.scaleDownImgContainer.style.pointerEvents = showEndingImage ? "none" : "auto";
 
     //z index handling
     this.scaleDownImgContainer.style.zIndex = showEndingImage ? "0" : "2";
-    // this.endingImage.style.zIndex = showEndingImage ? "2" : "0";
 
     this.scaleDownImg.style.height = `${scaleDownImgHeightPercent}%`;
     }
