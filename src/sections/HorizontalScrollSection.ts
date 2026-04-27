@@ -253,12 +253,6 @@ update(scrollY: number): void {
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
           break;
-        case "SECTION_1 SECTION_1":
-          // we essentially do nothing here but update our state
-          // this.horizontalScrollSectContainer.style.willChange = "transform";
-          // this.firstImage.style.willChange = "transform";
-          this.lastActiveState = state;
-          return;
         case "SECTION_1 SCROLL_RANGE_1":
           // needs to continuously update our section as we scroll
           // console.log("case is SECTION_1 SCROLL_RANGE_1: I have transitioned from before scroll to scrolling into our first scroll range going from section one to section two.");
