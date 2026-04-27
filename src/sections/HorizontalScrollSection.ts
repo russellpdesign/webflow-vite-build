@@ -332,7 +332,7 @@ update(scrollY: number): void {
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
           this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
           // we activate certain text and dropdown elements
-          this._deactivate(activeSectionIndex);
+          // this._deactivate(activeSectionIndex);
           break;
         case "SECTION_2 SCROLL_RANGE_2":
           // console.log("case is SECTION_2 SCROLL_RANGE_2: I have scrolled from our second section and am heading towards the third.");
