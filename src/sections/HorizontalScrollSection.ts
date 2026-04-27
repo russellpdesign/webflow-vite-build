@@ -158,7 +158,7 @@ update(scrollY: number): void {
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
 
-      console.log(this.lastActiveState, state);
+      // console.log(this.lastActiveState, state);
 
       const getActiveSectionIndex = (state: ScrollState, lastActiveState: ScrollState): number | null => {
         return (state === "SECTION_1" || lastActiveState === "SECTION_1" || state === "SCROLL_RANGE_1") ? 0 :
