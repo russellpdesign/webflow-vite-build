@@ -162,8 +162,6 @@ update(scrollY: number): void {
     // we enable the other supporting text and dropdown elements once scale down finishes
     const transitionHorizontalScrollSection = scrollY >= this.end;
 
-    this.
-
     // Ending image
     const showEndingImage = scrollY >= this.opacityToggleEndpoint;
 
