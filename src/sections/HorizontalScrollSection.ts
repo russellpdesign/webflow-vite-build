@@ -161,9 +161,9 @@ update(scrollY: number): void {
       console.log(this.lastActiveState, state);
 
       const getActiveSectionIndex = (state: ScrollState, lastActiveState: ScrollState): number | null => {
-        return (state === "SECTION_1" || lastActiveState === "SECTION_1") ? 0 :
-               (state === "SECTION_2" || lastActiveState === "SECTION_2") ? 1 :
-               (state === "SECTION_3" || lastActiveState === "SECTION_3") ? 2 :
+        return (state === "SECTION_1" || lastActiveState === "SECTION_1" || state === "SCROLL_RANGE_1") ? 0 :
+               (state === "SECTION_2" || lastActiveState === "SECTION_2" || state === "SCROLL_RANGE_2") ? 1 :
+               (state === "SECTION_3" || lastActiveState === "SECTION_3" || state === "AFTER_SCROLL") ? 2 :
                null;
         };
 
