@@ -252,6 +252,9 @@ update(scrollY: number): void {
           this.bigTexts[0].classList.add("active");
           this.mediumBigTexts[0].classList.add("active");
           this.productDescs[0].classList.add("active");
+          for(let i = 0; i<= 2; i++) {
+            setTimeout(() => this.dropdownHeaders[i].classList.add("active"), i * 100);
+          };
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[1].style.marginTop = `0vh`;
           this.bigTitles[2].style.marginTop = `0vh`;
