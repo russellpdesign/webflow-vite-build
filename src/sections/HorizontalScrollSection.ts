@@ -207,7 +207,7 @@ update(scrollY: number): void {
         case "SCALE_TRANSITION SECTION_1":
           // we've just transitioned from our photo scaling into our first section
           // we activate our text elements
-          this.bigTexts[0].classList.add("active");
+          this.bigTexts[0].classList.remove("active");
           this.mediumBigTexts[0].classList.add("active");
           this.productDescs[0].classList.add("active");
           // animate out dropdown headers
@@ -224,7 +224,7 @@ update(scrollY: number): void {
         case "SECTION_1 SCALE_TRANSITION":
           // we have scrolled from our scale transition into our first section and need to toggle on our classes
           // we activate our text elements
-          this.bigTexts[0].classList.remove("active");
+          this.bigTexts[0].classList.add("active");
           this.mediumBigTexts[0].classList.remove("active");
           this.productDescs[0].classList.remove("active");
           // animate out dropdown headers
@@ -247,7 +247,7 @@ update(scrollY: number): void {
           // console.log("case is undefined SECTION_1: I refreshed the page partway down the page, before our section begins.");
           // we've just transitioned from our photo scaling into our first section
           // we activate our text elements
-          this.bigTexts[0].classList.add("active");
+          this.bigTexts[0].classList.remove("active");
           this.mediumBigTexts[0].classList.add("active");
           this.productDescs[0].classList.add("active");
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
