@@ -225,7 +225,7 @@ update(scrollY: number): void {
           break;
         case "SECTION_1 SCALE_TRANSITION":
           // we have backtrack scrolled from our first section into our scaling transition section
-          // we de-activate our text elements
+          this._deactivate(activeSectionIndex);
           // this._deactivate(activeSectionIndex);
           // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[0].style.marginTop = `0vh`;
