@@ -156,7 +156,7 @@ export default class PhotoOverlapSection extends BaseSection {
     // handles animating out the header
     const headingShouldBeActive = scrollY <= this.triggers[this.triggers.length - 1];
 
-    // console.log(headingShouldBeActive);
+    console.log(`our project text heading should be active, true or false: ${headingShouldBeActive}`);
 
     this.projectTextHeading.classList.toggle("is-active", headingShouldBeActive);
 
