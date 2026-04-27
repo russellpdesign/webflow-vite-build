@@ -68,15 +68,15 @@ export default class ScrollEngine {
     const init = () => {
       this.measureAll();
 
-    //   requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
 
-    //     this.measureAll(); // second pass after layout settles
+        this.measureAll(); // second pass after layout settles
 
-    //     ScrollEngine.rawY = window.scrollY;
-    //     ScrollEngine.smoothedY = ScrollEngine.rawY;
+        ScrollEngine.rawY = window.scrollY;
+        ScrollEngine.smoothedY = ScrollEngine.rawY;
 
-    //     requestAnimationFrame(this._raf);
-    //   });
+        requestAnimationFrame(this._raf);
+      });
     };
 
     if (document.readyState === "complete") {
@@ -87,10 +87,10 @@ export default class ScrollEngine {
 
   window.addEventListener("resize", this._onResize);
 
-    ScrollEngine.rawY = window.scrollY;
-    ScrollEngine.smoothedY = ScrollEngine.rawY;
+    // ScrollEngine.rawY = window.scrollY;
+    // ScrollEngine.smoothedY = ScrollEngine.rawY;
 
-    requestAnimationFrame(this._raf);
+    // requestAnimationFrame(this._raf);
   }
 
   stop(): void {
