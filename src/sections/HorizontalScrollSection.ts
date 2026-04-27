@@ -261,8 +261,8 @@ update(scrollY: number): void {
           break;
         case "SECTION_1 SECTION_1":
           // we essentially do nothing here but update our state
-          this.horizontalScrollSectContainer.style.willChange = "transform";
-          this.firstImage.style.willChange = "transform";
+          // this.horizontalScrollSectContainer.style.willChange = "transform";
+          // this.firstImage.style.willChange = "transform";
           this.lastActiveState = state;
           return;
         case "SECTION_1 SCROLL_RANGE_1":
