@@ -61,42 +61,35 @@ export default class ScrollEngine {
   //   this.measureAll();
   // }
 
-  start(): void {
-    if (this._running) return;
-    this._running = true;
+start(): void {
+  if (this._running) return;
+  this._running = true;
 
-    const init = () => {
+  const init = () => {
+    this.measureAll();
+
+    requestAnimationFrame(() => {
       this.measureAll();
 
-      requestAnimationFrame(() => {
+      ScrollEngine.rawY = window.scrollY;
+      ScrollEngine.smoothedY = ScrollEngine.rawY;
 
-        this.measureAll(); // second pass after layout settles
+      requestAnimationFrame(this._raf); // ✅ only start here
+    });
+  };
 
-        ScrollEngine.rawY = window.scrollY;
-        ScrollEngine.smoothedY = ScrollEngine.rawY;
-
-        requestAnimationFrame(this._raf);
-      });
-    };
-
-    if (document.readyState === "complete") {
-      init();
-    } else {
-      window.addEventListener("load", init, { once: true });
-    }
-
-    window.addEventListener("resize", this._onResize);
-
-    ScrollEngine.rawY = window.scrollY;
-    ScrollEngine.smoothedY = ScrollEngine.rawY;
-
-    requestAnimationFrame(this._raf);
+  if (document.readyState === "complete") {
+    init();
+  } else {
+    window.addEventListener("load", init, { once: true });
   }
+
+  window.addEventListener("resize", this._onResize);
+}
 
   stop(): void {
     this._running = false;
     window.removeEventListener("resize", this._onResize);
-    window.removeEventListener("load", this._onLoad);
   }
 
   private _raf = (timestamp: number): void => {
