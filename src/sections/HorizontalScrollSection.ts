@@ -540,7 +540,7 @@ update(scrollY: number): void {
       this.mediumBigTexts[i].classList.add("active"); // with these adding active reveals it
       this.productDescs[i].classList.add("active");
       for (let x = i * 3; x <= i * 3 + 2; x++) {
-        this.dropdownHeaders[x].classList.add("active");
+        setTimeout(this.dropdownHeaders[x].classList.add("active"), 200);
       }
     }
 
@@ -549,7 +549,7 @@ update(scrollY: number): void {
       this.mediumBigTexts[i].classList.remove("active");
       this.productDescs[i].classList.remove("active");
       for (let x = i * 3; x <= i * 3 + 2; x++) {
-        this.dropdownHeaders[x].classList.remove("active");
+        setTimeout(this.dropdownHeaders[x].classList.remove("active"), 200);
       }
     }
 }
