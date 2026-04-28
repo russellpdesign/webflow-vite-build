@@ -14,6 +14,7 @@ export default class HorizontalScrollSection extends BaseSection {
   viewportHeight: number = 0;
   //flags
   private activeSectionIndex: number | null = null;
+  private _willChangeActivated = false;
 
   constructor({ el }: HorizontalScrollSectionConfig ) {
     super({ el });
@@ -146,17 +147,13 @@ update(scrollY: number): void {
       // console.log(this.lastActiveState, state);
 
       // we check if we are in the range of our section, and if we are, we prep the dom for performance via willChange on our horizontal scroll section
-      const sectionRange = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3;
+      const isActive = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3;
 
-      const shouldActivate = sectionRange;
-
-      if (shouldActivate !== this._willChangeActivated) {
-        this.horizontalScrollSectContainer.style.willChange =
-          shouldActivate ? "transform" : "auto";
-
-        this._willChangeActivated = shouldActivate;
+      if(isActive !== this._willChangeActivated) {
+        this.horizontalScrollSectContainer.style.willChange = isActive ? 'transform' : 'auto';
+        this._willChangeActivated = isActive;
       }
-
+      
       const getActiveSectionIndex = (state: ScrollState, lastActiveState: ScrollState): number | null => {
         return (state === "SECTION_1" || lastActiveState === "SECTION_1" || state === "SCROLL_RANGE_1") ? 0 :
                (state === "SECTION_2" || lastActiveState === "SECTION_2" || state === "SCROLL_RANGE_2") ? 1 :
