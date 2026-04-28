@@ -477,7 +477,7 @@ update(scrollY: number): void {
       for (let x = i * 3; x <= i * 3 + 2; x++) {
         const el = this.dropdownHeaders[x];
         if (el) {
-          setTimeout(() => el.classList.add("active"), 200 + 100 * (x - 3 * Math.floor(x / 3)));
+          setTimeout(() => el.classList.add("active"), 0 + 100 * (x - 3 * Math.floor(x / 3)));
         }
       } // end for loop
     }
