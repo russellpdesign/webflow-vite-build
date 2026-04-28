@@ -388,38 +388,6 @@ update(scrollY: number): void {
       // once we've ran the state logic we update our previous state to our current and exit the function
       this.lastActiveState = state;
       return;
-
-      // switch (state) {
-      //     case "SECTION_1":
-      //       this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
-      //       this.firstImage.style.transform = `translateX(0vw)`;
-      //       break;
-      //     case "SCROLL_RANGE_1":
-      //       t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
-      //       this.slideProgress = mapRange(t, 0, 1, 0, 100);
-      //       this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
-      //       this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
-      //       console.log("I should be horizontally scrolling to section two");
-      //       break;
-      //     case "SECTION_2":
-      //       this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
-      //       break;
-      //    case "SCROLL_RANGE_2":
-      //       t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
-      //       this.slideProgress = mapRange(t, 0, 1, 100, 200);
-      //       this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
-      //       console.log("I should be horizontally scrolling to section three")
-      //       break;
-      //     case "SECTION_3":
-      //       this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-      //       break;
-      //     case "AFTER_SCROLL":
-      //       // if we refresh the page and measure in our after scroll, we still need to apply a transform to the horizontal scroll section
-      //       this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-      //       console.log("I am scrolling out of the horizontal scroll section");
-      //       break;
-      //   }
-      //   this.lastActiveState = state;
     }
 
     doWork(getState(scrollY), scrollY); // gets our current state and applies changes
@@ -430,12 +398,12 @@ update(scrollY: number): void {
     private _activate(i: number): void {
       this.bigTexts[i].classList.add("active"); // this is confusing because adding the active class actually hides the text
       this.mediumBigTexts[i].classList.add("active"); // with these adding active reveals it
-      this.productDescs[i].classList.add("active");
+      setTimeout(() => this.productDescs[i].classList.add("active"), 100);
       this.dropdownWrappers[i].style.pointerEvents = "auto";
       for (let x = i * 3; x <= i * 3 + 2; x++) {
         const el = this.dropdownHeaders[x];
         if (el) {
-          setTimeout(() => el.classList.add("active"), 100 * (x - 3 * Math.floor(x / 3)));
+          setTimeout(() => el.classList.add("active"), 200 * (x - 3 * Math.floor(x / 3)));
         }
       } // end for loop
     } // end activate
