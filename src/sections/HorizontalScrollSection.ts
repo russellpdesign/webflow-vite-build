@@ -111,7 +111,7 @@ export default class HorizontalScrollSection extends BaseSection {
       [this.scrollEnd1, this.scrollStart2], // native scrolling while in section 2
       [this.scrollStart2, this.scrollEnd2], // horizontal scrolling from section two to three
       [this.scrollEnd2, this.scrollStart3], // native scrolling while in section 3
-      [this.scrollEnd3, document.documentElement.scrollHeight],
+      [this.scrollEnd3, document.documentElement.scrollHeight - this.viewportHeight],
     ];
   }
 
