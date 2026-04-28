@@ -543,8 +543,10 @@ update(scrollY: number): void {
       this.productDescs[i].classList.add("active");
       this.dropdownWrappers[i].style.pointerEvents = "auto";
       for (let x = i * 3; x <= i * 3 + 2; x++) {
-        setTimeout(this.dropdownHeaders[x].classList.add("active"), 200);
-      }
+        const el = this.dropdownHeaders[x];
+        if (el) {
+          setTimeout(() => el.classList.add("active"), 200);
+        }
     }
 
     private _deactivate(i: number): void {
@@ -553,7 +555,10 @@ update(scrollY: number): void {
       this.productDescs[i].classList.remove("active");
       this.dropdownWrappers[i].style.pointerEvents = "none";
       for (let x = i * 3; x <= i * 3 + 2; x++) {
-        setTimeout(this.dropdownHeaders[x].classList.remove("active"), 200);
+        const el = this.dropdownHeaders[x];
+        if (el) {
+          setTimeout(() => el.classList.remove("active"), 200);
+        }
       }
     }
 }
