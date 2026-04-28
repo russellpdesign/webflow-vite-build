@@ -61,7 +61,7 @@ export default class ScrollEngine {
     console.log("I have sensed a window resize event");
   });
 
-  this._onResizeObserver.observe(document.documentElement);
+  _onResizeObserver.observe(document.documentElement);
 
   // private _onLoad = () => {
   //   this.measureAll();
