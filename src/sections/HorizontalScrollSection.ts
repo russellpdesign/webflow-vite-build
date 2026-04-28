@@ -365,6 +365,9 @@ update(scrollY: number): void {
           // console.log("case is undefined AFTER_SCROLL: I have loaded the page and am past our last section.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
+          this._activate(activeSectionIndex);
+          this._activate(activeSectionIndex - 1);
+          this._activate(activeSectionIndex - 2);
           // we activate certain text and dropdown elements
           // do that here
           break;
@@ -379,11 +382,6 @@ update(scrollY: number): void {
           // console.log("case is AFTER_SCROLL AFTER_SCROLL: I am no longer scrolling in our horizontal scroll section, I am past it.");
           this.lastActiveState = state;
           return;
-        case "undefined AFTER_SCROLL":
-          // console.log("case is undefined AFTER_SCROLL: I have loaded the page and am past our horizontal scroll section.");
-          // we set our transform of our last section to its static position in case we scroll backwards
-          this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-          break;
       }
       // once we've ran the state logic we update our previous state to our current and exit the function
       this.lastActiveState = state;
