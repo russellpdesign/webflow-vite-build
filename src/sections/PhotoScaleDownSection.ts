@@ -137,8 +137,8 @@ update(scrollY: number): void {
     const heightChangePercent = (this.heightRange / this.viewportHeight) * 100;
     const widthChangePercent = (this.widthRange / this.viewportWidth) * 100;
 
-    const scaleDownImgContainerHeightPercent = 100 - scaleProgress * heightChangePercent;
-    const scaleDownImgContainerWidthPercent = 100 - scaleProgress * widthChangePercent;
+    const scaleDownImgContainerHeightPercent = 100 - (scaleProgress * heightChangePercent);
+    const scaleDownImgContainerWidthPercent = 100 - (scaleProgress * widthChangePercent);
 
     const minHeightPercent = (this.imageWrapHeight / this.viewportHeight) * 100;
     const minWidthPercent = (this.imageWrapWidth / this.viewportWidth) * 100;
