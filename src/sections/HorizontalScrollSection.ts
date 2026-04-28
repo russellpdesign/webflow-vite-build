@@ -398,12 +398,12 @@ update(scrollY: number): void {
     private _activate(i: number): void {
       this.bigTexts[i].classList.add("active"); // this is confusing because adding the active class actually hides the text
       this.mediumBigTexts[i].classList.add("active"); // with these adding active reveals it
-      setTimeout(() => this.productDescs[i].classList.add("active"), 300);
+      setTimeout(() => this.productDescs[i].classList.add("active"), 200);
       this.dropdownWrappers[i].style.pointerEvents = "auto";
       for (let x = i * 3; x <= i * 3 + 2; x++) {
         const el = this.dropdownHeaders[x];
         if (el) {
-          setTimeout(() => el.classList.add("active"), 400 * (x - 3 * Math.floor(x / 3)));
+          setTimeout(() => el.classList.add("active"), 500 * (x - 3 * Math.floor(x / 3)));
         }
       } // end for loop
     } // end activate
