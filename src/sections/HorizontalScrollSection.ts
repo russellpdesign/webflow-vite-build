@@ -121,6 +121,7 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
+    let willChangeActivated;
     // our timeline for this section begins as our image from the previous section begins to scale down
     // it then progresses into our individual sections (SECTION_1, etc.) with a scroll range in between
     // the scroll range is the actual part where we scroll horizontally, the sections don't scroll at all, they appear static
@@ -146,7 +147,6 @@ update(scrollY: number): void {
       // console.log(this.lastActiveState, state);
 
       // we check if we are in the range of our section, and if we are, we prep the dom for performance via willChange on our horizontal scroll section
-      let willChangeActivated;
       console.log(willChangeActivated)
       const sectionRange = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3 ? true : false;
 
