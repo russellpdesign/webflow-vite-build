@@ -126,6 +126,6 @@ start(): void {
     }
   }
 
-  // requestAnimationFrame(this._raf);
+  requestAnimationFrame(this._raf);
   }
 } // ends scroll engine class instance
