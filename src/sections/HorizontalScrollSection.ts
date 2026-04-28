@@ -48,6 +48,8 @@ export default class HorizontalScrollSection extends BaseSection {
     this.bigTexts = document.querySelectorAll(".big-text");
     this.mediumBigTexts = document.querySelectorAll(".medium-big-text");
     this.productDescs = document.querySelectorAll(".product-desc");
+    // this is our dropdown container, which we set pointer events to none or auto to toggle on hover interaction when needed
+    this.dropdownWrappers = document.querySelectorAll(".dropdown-wrapper");
     // these are our dropdown row headers, which we animate on entering in a new section with a time delay stagger
     this.dropdownHeaders = document.querySelectorAll(".dropdown-header-container");
     // this is the image in our first horizontal scroll section, which is actually hidden but used as a reference for determining how our previous image scales and sizes down.
@@ -539,6 +541,7 @@ update(scrollY: number): void {
       this.bigTexts[i].classList.add("active"); // this is confusing because adding the active class actually hides the text
       this.mediumBigTexts[i].classList.add("active"); // with these adding active reveals it
       this.productDescs[i].classList.add("active");
+      this.dropdownWrappers[i].style.pointerEvents = "auto";
       for (let x = i * 3; x <= i * 3 + 2; x++) {
         setTimeout(this.dropdownHeaders[x].classList.add("active"), 200);
       }
@@ -548,6 +551,7 @@ update(scrollY: number): void {
       this.bigTexts[i].classList.remove("active");
       this.mediumBigTexts[i].classList.remove("active");
       this.productDescs[i].classList.remove("active");
+      this.dropdownWrappers[i].style.pointerEvents = "none";
       for (let x = i * 3; x <= i * 3 + 2; x++) {
         setTimeout(this.dropdownHeaders[x].classList.remove("active"), 200);
       }

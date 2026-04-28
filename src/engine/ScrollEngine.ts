@@ -89,12 +89,12 @@ start(): void {
   }
 
   window.addEventListener("resize", this._onResize);
+  this._onResizeObserver.observe(document.documentElement);
 }
 
   stop(): void {
     this._running = false;
     window.removeEventListener("resize", this._onResize);
-    this._onResizeObserver.observe(document.documentElement);
   }
 
   private _raf = (timestamp: number): void => {
