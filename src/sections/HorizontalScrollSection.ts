@@ -113,10 +113,6 @@ export default class HorizontalScrollSection extends BaseSection {
       [this.scrollEnd2, this.scrollStart3], // native scrolling while in section 3
       [this.scrollEnd3, document.documentElement.scrollHeight],
     ];
-
-    // performance hints, in measure so they only run once, not every loop
-    this.horizontalScrollSectContainer.style.setProperty("will-change", "auto");
-    this.firstImage.style.setProperty("will-change", "auto");
   }
 
 update(scrollY: number): void {
