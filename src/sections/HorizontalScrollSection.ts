@@ -140,7 +140,7 @@ update(scrollY: number): void {
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
 
-      // console.log(this.lastActiveState, state);
+      console.log(this.lastActiveState, state);
 
       // we check if we are in the range of our section, and if we are, we prep the dom for performance via willChange on our horizontal scroll section
       const isActive = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3;
