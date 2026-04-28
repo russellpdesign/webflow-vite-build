@@ -150,7 +150,7 @@ update(scrollY: number): void {
       const sectionRange = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3 ? true : false;
 
       if(this.willChangeActivated === 'undefined') {
-        this.willChangeActivated === false
+        this.willChangeActivated === false;
       }
 
       if(sectionRange && !this.willChangeActivated) {
