@@ -401,7 +401,7 @@ update(scrollY: number): void {
       setTimeout(() => this.productDescs[i].classList.add("active"), 300);
       this.dropdownWrappers[i].style.pointerEvents = "auto";
       this.productDescs[i].addEventListener("transitionend", startDropdown())
-      function startDropdown() {
+      function startDropdown(i) {
         for (let x = i * 3; x <= i * 3 + 2; x++) {
           const el = this.dropdownHeaders[x];
           if (el) {
