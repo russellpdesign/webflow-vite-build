@@ -144,7 +144,7 @@ update(scrollY: number): void {
 
       // we check if we are in the range of our section, and if we are, we prep the dom for performance via willChange on our horizontal scroll section
       const isActive = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3;
-      console.log(isActive, this._willChangeActivated);
+      // console.log(isActive, this._willChangeActivated);
 
       if(isActive !== this._willChangeActivated) {
         this.horizontalScrollSectContainer.style.willChange = isActive ? "transform" : "auto";
@@ -400,12 +400,12 @@ update(scrollY: number): void {
       this.mediumBigTexts[i].classList.add("active"); // with these adding active reveals it
       this.productDescs[i].classList.add("active");
       this.dropdownWrappers[i].style.pointerEvents = "auto";
-        for (let x = i * 3; x <= i * 3 + 2; x++) {
-          const el = this.dropdownHeaders[x];
-          if (el) {
-            setTimeout(() => el.classList.add("active"), 100 * (x - 3 * Math.floor(x / 3)));
-          }
-        } // end for loop
+      for (let x = i * 3; x <= i * 3 + 2; x++) {
+        const el = this.dropdownHeaders[x];
+        if (el) {
+          setTimeout(() => el.classList.add("active"), 100 * (x - 3 * Math.floor(x / 3)));
+        }
+      } // end for loop
     } // end activate
 
     private _deactivate(i: number): void {
