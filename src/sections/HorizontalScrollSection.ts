@@ -139,7 +139,7 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    // our timeline for this section begins as our image from the previous section begins to scroll down
+    // our timeline for this section begins as our image from the previous section begins to scale down
     // it then progresses into our individual sections (SECTION_1, etc.) with a scroll range in between
     // the scroll range is the actual part where we scroll horizontally, the sections don't scroll at all, they appear static
     // after scroll is when we start scrolling out of section 3 via native scrolling
@@ -466,75 +466,7 @@ update(scrollY: number): void {
 
     doWork(getState(scrollY), scrollY); // gets our current state and applies changes
 
-
-    // declarative section activation
-    // let activeIndex: number | null = null;
-
-    // returns which section we are in at runtime
-    // this.sectionRanges.forEach(([start, end], index) => {
-    //   if (scrollY >= start && scrollY < end)
-    //     newActiveIndex = index;
-    //   });
-
-    // if(newActiveIndex !== null) {
-    //   console.log(newActiveIndex, this.activeSectionIndex)
-
-    //   // we refreshed the page and have no previously store state for what section index we are in
-    //   if(newActiveIndex && this.activeSectionIndex === null) {
-    //     console.log(newActiveIndex, this.activeSectionIndex);
-    //     this.activeSectionIndex = newActiveIndex;
-    //     // this._activate(newActiveIndex);
-    //   }
-
-    //   // scrolling back up the page
-    //   if(newActiveIndex < this.activeSectionIndex) {
-    //       console.log("i am scrolling backwards / up the page, so I should do nothing!")
-    //       this.activeSectionIndex = newActiveIndex;
-    //       this._activate(newActiveIndex);
-    //   }
-
-    //   // scrolling down the page
-    //   if(newActiveIndex > this.activeSectionIndex) {
-    //       console.log("i am scrolling forward / down the page and should animate our eyebrow, desc and dropdown in, and remove our big title");
-    //       this.activeSectionIndex = newActiveIndex;
-    //       this._activate(newActiveIndex);
-    //   }
-    // }
-
-
-      // if (this.beforeScroll) {
-      //     this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
-      //     this.firstImage.style.transform = `translateX(0vw)`;
-      //   } 
-        
-      // if (this.scrollRange1) {
-      //     const t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
-      //     this.slideProgress = mapRange(t, 0, 1, 0, 100);
-      //     this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
-      //     this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
-      //     console.log("I should be horizontally scrolling to section two")
-      //   }
-        
-      // if (this.scrollGap1) {
-      //     this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
-      //   }
-      
-      // if(this.scrollRange2) {
-      //     const t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
-      //     this.slideProgress = mapRange(t, 0, 1, 100, 200);
-      //     this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
-      //     console.log("I should be horizontally scrolling to section three")
-      //   }
-        
-      // if (this.scrollGap2) {
-      //     this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
-      //   }
-
-      // if (this.scrollEnd) {
-      //     console.log("I am scrolling out of the horizontal scroll section");
-      //     return;
-      //   }
-      } // ends update function
+  } // ends update function
 
     // we add one to the index for these since we start activating things starting in our second section
     private _activate(i: number): void {
@@ -545,9 +477,9 @@ update(scrollY: number): void {
       for (let x = i * 3; x <= i * 3 + 2; x++) {
         const el = this.dropdownHeaders[x];
         if (el) {
-          setTimeout(() => el.classList.add("active"), 200);
+          setTimeout(() => el.classList.add("active"), 200 + 100 * (x - 3 * Math.floor(x / 3)));
         }
-      }
+      } // end for loop
     }
 
     private _deactivate(i: number): void {
@@ -560,6 +492,6 @@ update(scrollY: number): void {
         if (el) {
           setTimeout(() => el.classList.remove("active"), 200);
         }
-      }
+      } // end for loop
     }
 } // ends class constructor
