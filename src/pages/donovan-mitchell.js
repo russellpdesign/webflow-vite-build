@@ -11,15 +11,16 @@ window.addEventListener("DOMContentLoaded", () => {
   const smooth = new SmoothScroll({ ease: 0.12 }); // overriding default of .08 as defined in class constructor method
   
   const engine = new ScrollEngine({ smooth });
-  window.engine = engine;          // <-- expose the engine instance
+
+  // By bind the engine to the window object, we can now type "engine" in the console and view every variable value at once without needing to inject individual logs
+  window.engine = engine; // <-- expose the engine instance
   window.ScrollEngine = ScrollEngine; // <-- expose static class so console can access it
 
+  // to bind a specific class instance we can use the below code
   // const movePhoto = new MovePhotoSection({ el: ".sticky-section.heroic-members-wrapper.reversed" });
   // engine.register(movePhoto);
   // // expose to console
   // window.movePhoto = movePhoto;
-
-//  const section = new HomeScrollSection({ el: ".home-scroll-section.is-don" });
 
   engine.register(new HomeScrollSection({ el: ".home-scroll-section.is-don" }));
   engine.register(new MovePhotoSection({ el: ".home-scroll-visual" }));
