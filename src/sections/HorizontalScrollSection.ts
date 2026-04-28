@@ -14,6 +14,7 @@ export default class HorizontalScrollSection extends BaseSection {
   viewportHeight: number = 0;
   //flags
   private activeSectionIndex: number | null = null;
+  private willChangeActivated: boolean | undefined;
 
   constructor({ el }: HorizontalScrollSectionConfig ) {
     super({ el });
@@ -60,7 +61,7 @@ export default class HorizontalScrollSection extends BaseSection {
     this.enabled = true;
 
     window.addEventListener("resize", () => console.log("Horizontal Scroll Section: window was resized!"));
-    window.addEventListener("resize", () => this.measure());
+    // window.addEventListener("resize", () => this.measure());
   }
 
   measure(): void {
@@ -121,7 +122,6 @@ export default class HorizontalScrollSection extends BaseSection {
 update(scrollY: number): void {
     if (!this.enabled) return;
 
-    let willChangeActivated;
     // our timeline for this section begins as our image from the previous section begins to scale down
     // it then progresses into our individual sections (SECTION_1, etc.) with a scroll range in between
     // the scroll range is the actual part where we scroll horizontally, the sections don't scroll at all, they appear static
@@ -147,17 +147,17 @@ update(scrollY: number): void {
       // console.log(this.lastActiveState, state);
 
       // we check if we are in the range of our section, and if we are, we prep the dom for performance via willChange on our horizontal scroll section
-      console.log(willChangeActivated)
+      console.log(this.willChangeActivated)
       const sectionRange = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3 ? true : false;
 
-      if(sectionRange && !willChangeActivated) {
+      if(sectionRange && !this.willChangeActivated) {
         this.horizontalScrollSectContainer.style.willChange = "transform";
-        willChangeActivated === true;
+        this.willChangeActivated === true;
       } 
       
-      if(!sectionRange && willChangeActivated) {
+      if(!sectionRange && this.willChangeActivated) {
         this.horizontalScrollSectContainer.style.willChange = "auto";
-        willChangeActivated === false;
+        this.willChangeActivated === false;
       }
 
       const getActiveSectionIndex = (state: ScrollState, lastActiveState: ScrollState): number | null => {
