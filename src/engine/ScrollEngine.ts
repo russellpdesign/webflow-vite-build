@@ -55,13 +55,11 @@ export default class ScrollEngine {
 
   private _onResize = (): void => {
     this.measureAll();
-  }
+  };
 
   private _onResizeObserver = new ResizeObserver((entries) => {
     console.log("I have sensed a window resize event");
   });
-
-  _onResizeObserver.observe(document.documentElement);
 
   // private _onLoad = () => {
   //   this.measureAll();
@@ -96,6 +94,7 @@ start(): void {
   stop(): void {
     this._running = false;
     window.removeEventListener("resize", this._onResize);
+    this._onResizeObserver.observe(document.documentElement);
   }
 
   private _raf = (timestamp: number): void => {
@@ -123,4 +122,4 @@ start(): void {
 
   requestAnimationFrame(this._raf);
   }
-}
+} // ends scroll engine class instance
