@@ -57,12 +57,13 @@ export default class ScrollEngine {
     this.measureAll();
   };
 
+  // this checks for window resizing events not observed by the native resize event listener
+  // the main examples of this are using browser tools and resizing in responsive mode, it will often not trigger resize event
   private _onResizeObserver = new ResizeObserver((entries) => {
-    console.log("I have sensed a window resize event");
     if(document.readyState === "complete") {
-      this.measureAll();
+      console.log("The document.readyState === 'complete'")
     } else {
-      document.addEventListener("DOMContentLoaded", this.measureAll())
+      document.addEventListener("DOMContentLoaded", console.log("The DOMContentLoaded event was heard."))
     }
   });
 
