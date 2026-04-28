@@ -480,7 +480,7 @@ update(scrollY: number): void {
           setTimeout(() => el.classList.add("active"), 100 * (x - 3 * Math.floor(x / 3)));
         }
       } // end for loop
-    }
+    } // end activate
 
     private _deactivate(i: number): void {
       this.bigTexts[i].classList.remove("active");
@@ -490,8 +490,9 @@ update(scrollY: number): void {
       for (let x = i * 3; x <= i * 3 + 2; x++) {
         const el = this.dropdownHeaders[x];
         if (el) {
-          setTimeout(() => el.classList.add("active"), 100 * (x - 3 * Math.floor(x / 3)));
+          setTimeout(() => el.classList.remove("active"), 100 * (x - 3 * Math.floor(x / 3)));
         }
       } // end for loop
-    }
+    } // end deactivate
+
 } // ends class constructor
