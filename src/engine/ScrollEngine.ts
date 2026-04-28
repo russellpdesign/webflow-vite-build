@@ -76,6 +76,7 @@ export default class ScrollEngine {
 
   private _onResizeObserver = new ResizeObserver(() => {
     if (this._isInitializing) return;
+    console.log("Resize detected after initializing the page, scheduling a measure for next raf frame.");
     this._scheduleMeasure();
   });
 
