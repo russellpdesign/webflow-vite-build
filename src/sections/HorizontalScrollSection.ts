@@ -147,6 +147,7 @@ update(scrollY: number): void {
 
       // we check if we are in the range of our section, and if we are, we prep the dom for performance via willChange on our horizontal scroll section
       let willChangeActivated;
+      console.log(willChangeActivated)
       const sectionRange = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3 ? true : false;
 
       if(sectionRange && !willChangeActivated) {
