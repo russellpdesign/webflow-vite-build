@@ -85,24 +85,6 @@ export default class HorizontalScrollSection extends BaseSection {
     // Current Section - animation variables
     this.start = this.el.getBoundingClientRect().top + scrollY;
 
-    // this.scrollBoundaries = []
-
-    // this construction of our start and stop values is dynamic and updates when new scrollBoundaries are add. The height of the parent will have to increase as well 300vh for each new section to allow 100vh for scrolling over and 200 for scrolling inside
-    // for(let i = 2; i <= 2 + (this.scrollSections.length * 2); i+= 3) {
-
-    //   const newSection: {section: number, scrollRangeStart: number, scrollRangeEnd: number, scrollGapStart: number, scrollGapEnd: number } = {
-    //     section: (i + 1) / 3, 
-    //     scrollRangeStart: this.start + this.viewportHeight * i,
-    //     scrollRangeEnd: this.start + this.viewportHeight * ((i + 2) - 1),
-    //     scrollGapStart: this.start + this.viewportHeight * ((i + 2) - 1),
-    //     scrollGapEnd: this.start + this.viewportHeight * ((i + 2) - 1) + (this.viewportHeight * 2)
-    //   };
-
-    //   this.scrollBoundaries.push(newSection)
-    // };
-
-    // console.log(this.scrollBoundaries);
-
     // how much distance we scroll while not moving our section
     this.sectionScrollingVerticalDistance = this.viewportHeight * 2;
     // how much vertical distance we scroll while scrolling the parent section over -100% vwin order to view our next section
@@ -161,7 +143,19 @@ update(scrollY: number): void {
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
 
-      console.log(this.lastActiveState, state);
+      // console.log(this.lastActiveState, state);
+
+      // we check if we are in the range of our section, and if we are, we prep the dom for performance via willChange on our horizontal scroll section
+      let willChangeActivated;
+      const sectionRange = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3 ? true : false;
+      
+      if(sectionRange && !willChangeActivated) {
+        this.horizontalScrollSectContainer.style.willChange = "transform";
+        willChangeActivated === true;
+      } if(!sectionRange && willChangeActivated) {
+        this.horizontalScrollSectContainer.style.willChange = "auto";
+        willChangeActivated === false;
+      } else return;
 
       const getActiveSectionIndex = (state: ScrollState, lastActiveState: ScrollState): number | null => {
         return (state === "SECTION_1" || lastActiveState === "SECTION_1" || state === "SCROLL_RANGE_1") ? 0 :
@@ -218,10 +212,7 @@ update(scrollY: number): void {
           // we've just transitioned from our photo scaling into our first section
           // we activate our text elements
           this._activate(activeSectionIndex);
-          // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[0].style.marginTop = `0vh`;
-          // this.bigTitles[1].style.marginTop = `0vh`;
-          // this.bigTitles[2].style.marginTop = `0vh`;
           // we ensure our parent div is at 0
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
@@ -229,19 +220,14 @@ update(scrollY: number): void {
         case "SECTION_1 SCALE_TRANSITION":
           // we have backtrack scrolled from our first section into our scaling transition section
           this._deactivate(activeSectionIndex);
-          // this._deactivate(activeSectionIndex);
-          // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
           this.bigTitles[0].style.marginTop = `0vh`;
-          // this.bigTitles[1].style.marginTop = `0vh`;
-          // this.bigTitles[2].style.marginTop = `0vh`;
           // we reset our horizontal section parent to its starting point
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
           break;
         case "SECTION_1 SECTION_1":
           // we are actively scrolling in our first section, staying stationary of course
-          // we update will change settings to prep for the horizontal scrolling
-          this.horizontalScrollSectContainer.style.willChange = "auto";
+          // we deactivate the supporting text elements and dropdown for the section ahead of the one we are in, reseting it so it can animate in
           this._deactivate(activeSectionIndex + 1);
           break;
         case "undefined SECTION_1":
@@ -249,9 +235,6 @@ update(scrollY: number): void {
           // I have refreshed the page and am in the first section
           // we activate our text elements
           this._activate(activeSectionIndex);
-          // we set our other big titles to be at 0vh so when scrolling ahead they are in the correct position
-          // this.bigTitles[1].style.marginTop = `0vh`;
-          // this.bigTitles[2].style.marginTop = `0vh`;
           // we reset our horizontal section parent to its starting point
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
@@ -355,14 +338,6 @@ update(scrollY: number): void {
           this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
           // we activate certain text and dropdown elements
           this._activate(activeSectionIndex);
-          // we set willChange properties on our transform elements if they aren't there already
-          if (
-              this.firstImage.style.willChange !== "transform" ||
-              this.horizontalScrollSectContainer.style.willChange !== "transform"
-            ) {
-              this.firstImage.style.willChange = "transform";
-              this.horizontalScrollSectContainer.style.willChange = "transform";
-            }
           break;
         case "undefined SECTION_3":
           // console.log("case is undefined SECTION_3: I have loaded the page and am sitting section three aka our second scroll gap.");
@@ -392,13 +367,6 @@ update(scrollY: number): void {
         case "SECTION_3 SECTION_3":
           // we essentially do nothing here, and exit our case switch and subsequently update, just updating our current state
           // console.log("case is SECTION_3 SECTION_3: I am and have been in the third section.");
-          if (
-              this.firstImage.style.willChange !== "transform" ||
-              this.horizontalScrollSectContainer.style.willChange !== "transform"
-            ) {
-              this.firstImage.style.willChange = "transform";
-              this.horizontalScrollSectContainer.style.willChange = "transform";
-            }
           break;
         case "undefined AFTER_SCROLL":
           // console.log("case is undefined AFTER_SCROLL: I have loaded the page and am past our last section.");
@@ -416,9 +384,6 @@ update(scrollY: number): void {
           break;
         case "AFTER_SCROLL AFTER_SCROLL":
           // console.log("case is AFTER_SCROLL AFTER_SCROLL: I am no longer scrolling in our horizontal scroll section, I am past it.");
-          // we remove any will-change properties for browser performance
-          this.horizontalScrollSectContainer.style.willChange = "auto";
-          this.firstImage.style.willChange = "auto";
           this.lastActiveState = state;
           return;
         case "undefined AFTER_SCROLL":
