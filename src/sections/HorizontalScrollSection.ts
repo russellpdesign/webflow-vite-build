@@ -14,7 +14,6 @@ export default class HorizontalScrollSection extends BaseSection {
   viewportHeight: number = 0;
   //flags
   private activeSectionIndex: number | null = null;
-  private _willChangeActivated = false;
 
   constructor({ el }: HorizontalScrollSectionConfig ) {
     super({ el });
@@ -157,7 +156,7 @@ update(scrollY: number): void {
 
         this._willChangeActivated = shouldActivate;
       }
-      
+
       const getActiveSectionIndex = (state: ScrollState, lastActiveState: ScrollState): number | null => {
         return (state === "SECTION_1" || lastActiveState === "SECTION_1" || state === "SCROLL_RANGE_1") ? 0 :
                (state === "SECTION_2" || lastActiveState === "SECTION_2" || state === "SCROLL_RANGE_2") ? 1 :
