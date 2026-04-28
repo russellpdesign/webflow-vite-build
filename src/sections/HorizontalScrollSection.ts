@@ -147,7 +147,9 @@ update(scrollY: number): void {
 
       // we check if we are in the range of our section, and if we are, we prep the dom for performance via willChange on our horizontal scroll section
       const sectionRange = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3 ? true : false;
-      this.horizontalScrollSectContainer.style.willChange = sectionRange ? 'transform' : 'auto';
+
+      this.horizontalScrollSectContainer.style.willChange = sectionRange && !this.willChangeActivated ? 'transform' && this.willChangeActivated === true : 'auto' && this.willChangeActivated === false;
+
 
       const getActiveSectionIndex = (state: ScrollState, lastActiveState: ScrollState): number | null => {
         return (state === "SECTION_1" || lastActiveState === "SECTION_1" || state === "SCROLL_RANGE_1") ? 0 :
