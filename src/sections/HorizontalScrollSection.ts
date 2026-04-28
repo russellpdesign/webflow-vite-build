@@ -148,14 +148,16 @@ update(scrollY: number): void {
       // we check if we are in the range of our section, and if we are, we prep the dom for performance via willChange on our horizontal scroll section
       let willChangeActivated;
       const sectionRange = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3 ? true : false;
-      
+
       if(sectionRange && !willChangeActivated) {
         this.horizontalScrollSectContainer.style.willChange = "transform";
         willChangeActivated === true;
-      } if(!sectionRange && willChangeActivated) {
+      } 
+      
+      if(!sectionRange && willChangeActivated) {
         this.horizontalScrollSectContainer.style.willChange = "auto";
         willChangeActivated === false;
-      } else return;
+      }
 
       const getActiveSectionIndex = (state: ScrollState, lastActiveState: ScrollState): number | null => {
         return (state === "SECTION_1" || lastActiveState === "SECTION_1" || state === "SCROLL_RANGE_1") ? 0 :
@@ -169,7 +171,6 @@ update(scrollY: number): void {
       switch(this.lastActiveState + " " + state) {
         case "undefined BEFORE_TRANSITION":
           // we reloaded the page and are located (scrollY) in our previous photo overlap section
-          // no action needed
           this.lastActiveState = state;
           return;
         case "BEFORE_TRANSITION BEFORE_TRANSITION":
