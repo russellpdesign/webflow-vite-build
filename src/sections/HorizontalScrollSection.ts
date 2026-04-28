@@ -547,6 +547,7 @@ update(scrollY: number): void {
         if (el) {
           setTimeout(() => el.classList.add("active"), 200);
         }
+      }
     }
 
     private _deactivate(i: number): void {
@@ -561,4 +562,4 @@ update(scrollY: number): void {
         }
       }
     }
-}
+} // ends class constructor
