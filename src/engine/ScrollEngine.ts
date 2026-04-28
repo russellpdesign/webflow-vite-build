@@ -1,3 +1,19 @@
+/*
+
+INIT PHASE
+  measure → RAF settle → measure → start loop
+
+RUNTIME
+  RAF → update
+
+LAYOUT CHANGE SOURCES
+  resize ┐
+         ├→ _scheduleMeasure → RAF-batched measureAll()
+observer ┘
+
+*/
+
+
 type SmoothController = {
   update: () => number;
 };
@@ -23,21 +39,11 @@ export default class ScrollEngine {
 
   // this makes sure multiple animation loops cant be created
   private _running: boolean = false;
-  // private lastTimestamp: number;
 
-  // private _onResize: () => void;
-  // private _raf: (timestamp: number) => void;
 
   constructor({ smooth = null }: ScrollEngineConfig = {}) {
     this.smooth = smooth;
     ScrollEngine.smoothingEnabled = !!smooth;
-
-    // Init for velocity & prediction
-    // this.lastRawY = window.scrollY;
-    // this.lastTimestamp = performance.now();
-
-    // this._onResize = this._onResize.bind(this);
-    // this._raf = this._raf.bind(this);
   }
 
   register(section: ScrollSection): void {
@@ -53,23 +59,29 @@ export default class ScrollEngine {
     }
   }
 
-  private _onResize = (): void => {
-    this.measureAll();
+  private _isInitializing = true;
+
+  private _resizePending = false;
+
+  private _scheduleMeasure = () => {
+    if (this._resizePending) return;
+
+    this._resizePending = true;
+
+    requestAnimationFrame(() => {
+      this._resizePending = false;
+      this.measureAll();
+    });
   };
 
-  // this checks for window resizing events not observed by the native resize event listener
-  // the main examples of this are using browser tools and resizing in responsive mode, it will often not trigger resize event
-  private _onResizeObserver = new ResizeObserver((entries) => {
-    if(document.readyState === "complete") {
-      console.log("The document.readyState === 'complete'")
-    } else {
-      document.addEventListener("DOMContentLoaded", console.log("The DOMContentLoaded event was heard."))
-    }
+  private _onResizeObserver = new ResizeObserver(() => {
+    if (this._isInitializing) return;
+    this._scheduleMeasure();
   });
 
-  // private _onLoad = () => {
-  //   this.measureAll();
-  // }
+  private _onResize = (): void => {
+    this._scheduleMeasure();
+  };
 
 start(): void {
   if (this._running) return;
@@ -81,8 +93,12 @@ start(): void {
     requestAnimationFrame(() => {
       this.measureAll();
 
+      this._isInitializing = false;
+
       ScrollEngine.rawY = window.scrollY;
       ScrollEngine.smoothedY = ScrollEngine.rawY;
+
+      this._onResizeObserver.observe(document.documentElement);
 
       requestAnimationFrame(this._raf); // ✅ only start here
     });
@@ -95,21 +111,18 @@ start(): void {
   }
 
   window.addEventListener("resize", this._onResize);
-  this._onResizeObserver.observe(document.documentElement);
 }
 
   stop(): void {
     this._running = false;
+    this._isInitializing = true; 
+
     window.removeEventListener("resize", this._onResize);
+    this._onResizeObserver.disconnect();
   }
 
   private _raf = (timestamp: number): void => {
   if (!this._running) return;
-
-  // Ensure timestamp is valid
-  if (!Number.isFinite(timestamp)) {
-    timestamp = performance.now();
-  }
 
   // RAW SCROLL
   const rawY = window.scrollY;
@@ -126,6 +139,8 @@ start(): void {
     }
   }
 
+  // since we want a continuous raf loop, this is the raf call that instigates the next frames animation
+  // the raf call in start is what starts it all
   requestAnimationFrame(this._raf);
   }
 } // ends scroll engine class instance
