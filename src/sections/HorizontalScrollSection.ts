@@ -14,7 +14,7 @@ export default class HorizontalScrollSection extends BaseSection {
   viewportHeight: number = 0;
   //flags
   private activeSectionIndex: number | null = null;
-  private willChangeActivated: boolean | undefined;
+  private willChangeActivated: boolean | undefined = false;
 
   constructor({ el }: HorizontalScrollSectionConfig ) {
     super({ el });
@@ -155,7 +155,6 @@ update(scrollY: number): void {
           this.horizontalScrollSectContainer.style.willChange = "transform";
           return this.willChangeActivated === true;
         } 
-        
         if(!sectionRange && this.willChangeActivated) {
           this.horizontalScrollSectContainer.style.willChange = "auto";
           return this.willChangeActivated === false;
