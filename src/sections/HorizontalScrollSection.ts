@@ -276,7 +276,7 @@ update(scrollY: number): void {
           this._activate(activeSectionIndex);
           break;
         case "undefined SECTION_2":
-          console.log("case is undefined SECTION_2: I have loaded the page and am sitting in the second section.");
+          // console.log("case is undefined SECTION_2: I have loaded the page and am sitting in the second section.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-100vw)`;
           this.firstImage.style.transform = `translateX(0vw)`;
