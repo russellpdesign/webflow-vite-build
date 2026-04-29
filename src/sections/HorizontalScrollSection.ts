@@ -104,6 +104,7 @@ export default class HorizontalScrollSection extends BaseSection {
     this.scrollGap2End = this.start + (this.viewportWidth * 8);
     this.scrollStart3 = this.start + (this.viewportHeight * 8);
     this.scrollEnd3 = this.start + (this.viewportHeight * 9);
+    this.afterScrollStart = this.scrollEnd3;
 
     this.sectionRanges = [
       [0, this.scrollStart1], // scrolling into view
@@ -122,7 +123,7 @@ update(scrollY: number): void {
     // it then progresses into our individual sections (SECTION_1, etc.) with a scroll range in between
     // the scroll range is the actual part where we scroll horizontally, the sections don't scroll at all, they appear static
     // after scroll is when we start scrolling out of section 3 via native scrolling
-    type ScrollState = "BEFORE_TRANSITION" | "SCALE_TRANSITION" | "SECTION_1" | "SCROLL_RANGE_1" | "SECTION_2" | "SCROLL_RANGE_2" | "SECTION_3" | "SCROLL_RANGE_3";
+    type ScrollState = "BEFORE_TRANSITION" | "SCALE_TRANSITION" | "SECTION_1" | "SCROLL_RANGE_1" | "SECTION_2" | "SCROLL_RANGE_2" | "SECTION_3" | "SCROLL_RANGE_3" | "AFTER_SCROLL";
 
     const getState = (scrollY: number): ScrollState => {
       return (
@@ -351,7 +352,6 @@ update(scrollY: number): void {
           break;
         case "SECTION_3 SCROLL_RANGE_2":
           // console.log("case is SECTION_3 SCROLL_RANGE_2: I have scrolled back towards section two, and entered scroll range 2.");
-          // we set our transform to its static position
           t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
           this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw, 0, 0)`;
@@ -365,7 +365,7 @@ update(scrollY: number): void {
         case "undefined SCROLL_RANGE_3":
           // console.log("case is undefined SCROLL_RANGE_3: I have loaded the page and am past our last section.");
           // we set our transform to its static position
-          this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, 0, 0)`;
           this._activate(activeSectionIndex);
           this._activate(activeSectionIndex - 1);
           this._activate(activeSectionIndex - 2);
@@ -375,7 +375,7 @@ update(scrollY: number): void {
         case "SECTION_3 SCROLL_RANGE_3":
           // console.log("case is SECTION_3 SCROLL_RANGE_3: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
           // we set our transform to its static position
-          this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, 0, 0)`;
           // we activate certain text and dropdown elements
           // this._deactivate(activeSectionIndex);
           break;
@@ -383,6 +383,22 @@ update(scrollY: number): void {
           // console.log("case is AFTER_SCROLL AFTER_SCROLL: I am no longer scrolling in our horizontal scroll section, I am past it.");
           this.lastActiveState = state;
           return;
+        case "SECTION_3 AFTER_SCROLL":
+          // console.log("case is SECTION_3 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
+          t = clamp01((scrollY - this.afterScrollStart) / this.viewportHeight);
+          this.scrollProgress = mapRange(t, 0, 1, 0, 100);
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, -${this.scrollProgress}vw, 0)`;
+          // we activate certain text and dropdown elements
+          // this._deactivate(activeSectionIndex);
+          break;
+        case "AFTER_SCROLL AFTER_SCROLL":
+          // console.log("case is SECTION_3 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
+          t = clamp01((scrollY - this.afterScrollStart) / this.viewportHeight);
+          this.scrollProgress = mapRange(t, 0, 1, 0, 100);
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, -${this.scrollProgress}vw, 0)`;
+          // we activate certain text and dropdown elements
+          // this._deactivate(activeSectionIndex);
+          break;
       }
       // once we've ran the state logic we update our previous state to our current and exit the function
       this.lastActiveState = state;
