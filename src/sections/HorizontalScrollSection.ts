@@ -122,7 +122,7 @@ update(scrollY: number): void {
     // it then progresses into our individual sections (SECTION_1, etc.) with a scroll range in between
     // the scroll range is the actual part where we scroll horizontally, the sections don't scroll at all, they appear static
     // after scroll is when we start scrolling out of section 3 via native scrolling
-    type ScrollState = "BEFORE_TRANSITION" | "SCALE_TRANSITION" | "SECTION_1" | "SCROLL_RANGE_1" | "SECTION_2" | "SCROLL_RANGE_2" | "SECTION_3" | "AFTER_SCROLL";
+    type ScrollState = "BEFORE_TRANSITION" | "SCALE_TRANSITION" | "SECTION_1" | "SCROLL_RANGE_1" | "SECTION_2" | "SCROLL_RANGE_2" | "SECTION_3" | "SCROLL_RANGE_3";
 
     const getState = (scrollY: number): ScrollState => {
       return (
@@ -133,7 +133,9 @@ update(scrollY: number): void {
         (scrollY <= this.scrollStart2 && "SECTION_2") || // we are sitting in second section, natively scrolling but no movement
         (scrollY <= this.scrollEnd2 && "SCROLL_RANGE_2") || // scrolling from section two to three
         (scrollY <= this.scrollStart3 && "SECTION_3") || // we are sitting in the third section
-        (scrollY <= this.scrollEnd3 && "AFTER_SCROLL") || // we are scrolling down out of the horizontal scroll section
+        (scrollY <= this.scrollEnd3 && "SCROLL_RANGE_3") ||
+        "AFTER_SCROLL"
+       ) // we are scrolling down out of the horizontal scroll section
     };
 
     const doWork = (state: ScrollState, scrollY: number): void => {
@@ -153,7 +155,7 @@ update(scrollY: number): void {
       const getActiveSectionIndex = (state: ScrollState, lastActiveState: ScrollState): number | null => {
         return (state === "SECTION_1" || lastActiveState === "SECTION_1" || state === "SCROLL_RANGE_1") ? 0 :
                (state === "SECTION_2" || lastActiveState === "SECTION_2" || state === "SCROLL_RANGE_2") ? 1 :
-               (state === "SECTION_3" || lastActiveState === "SECTION_3" || state === "AFTER_SCROLL") ? 2 :
+               (state === "SECTION_3" || lastActiveState === "SECTION_3" || state === "SCROLL_RANGE_3") ? 2 :
                null;
         };
 
@@ -360,8 +362,8 @@ update(scrollY: number): void {
           // we essentially do nothing here, and exit our case switch and subsequently update, just updating our current state
           // console.log("case is SECTION_3 SECTION_3: I am and have been in the third section.");
           break;
-        case "undefined AFTER_SCROLL":
-          // console.log("case is undefined AFTER_SCROLL: I have loaded the page and am past our last section.");
+        case "undefined SCROLL_RANGE_3":
+          // console.log("case is undefined SCROLL_RANGE_3: I have loaded the page and am past our last section.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
           this._activate(activeSectionIndex);
@@ -370,14 +372,14 @@ update(scrollY: number): void {
           // we activate certain text and dropdown elements
           // do that here
           break;
-        case "SECTION_3 AFTER_SCROLL":
-          // console.log("case is SECTION_3 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
+        case "SECTION_3 SCROLL_RANGE_3":
+          // console.log("case is SECTION_3 SCROLL_RANGE_3: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
           // we set our transform to its static position
           this.horizontalScrollSectContainer.style.transform = `translateX(-200vw)`;
           // we activate certain text and dropdown elements
           // this._deactivate(activeSectionIndex);
           break;
-        case "AFTER_SCROLL AFTER_SCROLL":
+        case "SCROLL_RANGE_3 SCROLL_RANGE_3":
           // console.log("case is AFTER_SCROLL AFTER_SCROLL: I am no longer scrolling in our horizontal scroll section, I am past it.");
           this.lastActiveState = state;
           return;
