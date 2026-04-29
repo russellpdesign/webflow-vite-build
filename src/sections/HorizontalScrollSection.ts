@@ -142,7 +142,7 @@ update(scrollY: number): void {
     const doWork = (state: ScrollState, scrollY: number): void => {
       let t: number;
 
-      console.log(this.lastActiveState, state);
+      // console.log(this.lastActiveState, state);
 
       // we check if we are in the range of our section, and if we are, we prep the dom for performance via willChange on our horizontal scroll section
       const isActive = scrollY >= this.sectionTransitionIn && scrollY <= this.scrollEnd3;
@@ -386,8 +386,7 @@ update(scrollY: number): void {
           t = clamp01((scrollY - this.scrollStart3) / this.viewportHeight);
           this.scrollProgress = mapRange(t, 0, 1, 0, 100);
           this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, 0, 0)`;
-          this.lastActiveState = state;
-          return;
+          break;
         case "SECTION_3 AFTER_SCROLL":
           // console.log("case is SECTION_3 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
           this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, 0, 0)`;
