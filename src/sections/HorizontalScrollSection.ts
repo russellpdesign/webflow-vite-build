@@ -377,7 +377,7 @@ update(scrollY: number): void {
           // console.log("case is SECTION_3 SCROLL_RANGE_3: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
           t = clamp01((scrollY - this.scrollStart3) / this.viewportHeight);
           this.scrollProgress = mapRange(t, 0, 1, 0, 100);
-          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, -${this.scrollProgress}vh, 0)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, 0, 0)`;
           // we activate certain text and dropdown elements
           // this._deactivate(activeSectionIndex);
           break;
@@ -385,12 +385,12 @@ update(scrollY: number): void {
           // console.log("case is SCROLL_RANGE_3 SCROLL_RANGE_3: I need to fake scroll now.");
           t = clamp01((scrollY - this.scrollStart3) / this.viewportHeight);
           this.scrollProgress = mapRange(t, 0, 1, 0, 100);
-          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, -${this.scrollProgress}vh, 0)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, 0, 0)`;
           this.lastActiveState = state;
           return;
         case "SECTION_3 AFTER_SCROLL":
           // console.log("case is SECTION_3 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
-          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, -100vh, 0)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, 0, 0)`;
           // this._deactivate(activeSectionIndex);
           break;
         case "AFTER_SCROLL AFTER_SCROLL":
