@@ -361,6 +361,7 @@ update(scrollY: number): void {
         case "SECTION_3 SECTION_3":
           // we essentially do nothing here, and exit our case switch and subsequently update, just updating our current state
           // console.log("case is SECTION_3 SECTION_3: I am and have been in the third section.");
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, 0, 0)`;
           break;
         case "undefined SCROLL_RANGE_3":
           // console.log("case is undefined SCROLL_RANGE_3: I have loaded the page and am past our last section.");
@@ -381,7 +382,7 @@ update(scrollY: number): void {
           // this._deactivate(activeSectionIndex);
           break;
         case "SCROLL_RANGE_3 SCROLL_RANGE_3":
-          // console.log("case is AFTER_SCROLL AFTER_SCROLL: I am no longer scrolling in our horizontal scroll section, I am past it.");
+          // console.log("case is SCROLL_RANGE_3 SCROLL_RANGE_3: I need to fake scroll now.");
           t = clamp01((scrollY - this.scrollStart3) / this.viewportHeight);
           this.scrollProgress = mapRange(t, 0, 1, 0, 100);
           this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, -${this.scrollProgress}vw, 0)`;
@@ -389,7 +390,7 @@ update(scrollY: number): void {
           return;
         case "SECTION_3 AFTER_SCROLL":
           // console.log("case is SECTION_3 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
-          // we activate certain text and dropdown elements
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-200vw, -100vw, 0)`;
           // this._deactivate(activeSectionIndex);
           break;
         case "AFTER_SCROLL AFTER_SCROLL":
