@@ -133,7 +133,7 @@ update(scrollY: number): void {
         (scrollY <= this.scrollStart2 && "SECTION_2") || // we are sitting in second section, natively scrolling but no movement
         (scrollY <= this.scrollEnd2 && "SCROLL_RANGE_2") || // scrolling from section two to three
         (scrollY <= this.scrollStart3 && "SECTION_3") || // we are sitting in the third section
-        "AFTER_SCROLL" // we are scrolling down out of the horizontal scroll section
+        (scrollY <= this.scrollEnd3 && "AFTER_SCROLL") || // we are scrolling down out of the horizontal scroll section
       );
     };
 
