@@ -209,7 +209,7 @@ update(scrollY: number): void {
           this.bigTitles[0].style.marginTop = `0vh`;
           // we ensure our parent div is at 0
           this.horizontalScrollSectContainer.style.transform = `translate3d(0vw, 0, 0)`;
-          // this.firstImage.style.transform = `translateX(0vw)`;
+          this.firstImage.style.transform = `translate3d(0vw, 0, 0)`;
           break;
         case "SECTION_1 SCALE_TRANSITION":
           // we have backtrack scrolled from our first section into our scaling transition section
@@ -217,7 +217,7 @@ update(scrollY: number): void {
           this.bigTitles[0].style.marginTop = `0vh`;
           // we reset our horizontal section parent to its starting point
           this.horizontalScrollSectContainer.style.transform = `translate3d(0vw, 0, 0)`;
-          // this.firstImage.style.transform = `translateX(0vw)`;
+          this.firstImage.style.transform = `translate3d(0vw, 0, 0)`;
           break;
         case "SECTION_1 SECTION_1":
           // we are actively scrolling in our first section, staying stationary of course
@@ -231,7 +231,7 @@ update(scrollY: number): void {
           this._activate(activeSectionIndex);
           // we reset our horizontal section parent to its starting point
           this.horizontalScrollSectContainer.style.transform = `translateX(0vw)`;
-          // this.firstImage.style.transform = `translateX(0vw)`;
+          this.firstImage.style.transform = `translate3d(0vw, 0, 0)`;
           break;
         case "SECTION_1 SCROLL_RANGE_1":
           // needs to continuously update our section as we scroll
@@ -239,7 +239,7 @@ update(scrollY: number): void {
           t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 0, 100);
           this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw, 0, 0)`;
-          // this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.firstImage.style.transform = `translate3d(-${this.slideProgress}vw, 0, 0)`;
           // also need to activate certain text / dropdown components once
           // do that here
           break;
@@ -249,7 +249,7 @@ update(scrollY: number): void {
           t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 0, 100);
           this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw, 0, 0)`;
-          // this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.firstImage.style.transform = `translate3d(-${this.slideProgress}vw, 0, 0)`;
           // also need to activate certain text / dropdown components once
           this._activate(activeSectionIndex)
           break;
@@ -260,7 +260,7 @@ update(scrollY: number): void {
           t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 0, 100);
           this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw, 0, 0)`;
-          // this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.firstImage.style.transform = `translate3d(-${this.slideProgress}vw, 0, 0)`;
           break;
         case "SCROLL_RANGE_1 SECTION_1":
           // console.log("case is SCROLL_RANGE_1 SECTION_1: I have scrolled back into our first section from the second.");
@@ -297,7 +297,7 @@ update(scrollY: number): void {
           t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 0, 100);
           this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw, 0, 0)`;
-          // this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.firstImage.style.transform = `translate3d(-${this.slideProgress}vw, 0, 0)`;
           // we activate certain text and dropdown elements
           // this._deactivate(activeSectionIndex);
           break;
