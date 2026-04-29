@@ -238,7 +238,7 @@ update(scrollY: number): void {
           // console.log("case is SECTION_1 SCROLL_RANGE_1: I have transitioned from before scroll to scrolling into our first scroll range going from section one to section two.");
           t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 0, 100);
-          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw), 0, 0`;
           this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
           // also need to activate certain text / dropdown components once
           // do that here
@@ -248,7 +248,7 @@ update(scrollY: number): void {
           // console.log("case is undefined SCROLL_RANGE_1: I have loaded the page and am in the scrollable portion between section one and two.");
           t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 0, 100);
-          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw), 0, 0`;
           this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
           // also need to activate certain text / dropdown components once
           this._activate(activeSectionIndex)
@@ -259,7 +259,7 @@ update(scrollY: number): void {
           // need to continuously update out position
           t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 0, 100);
-          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw), 0, 0`;
           this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
           break;
         case "SCROLL_RANGE_1 SECTION_1":
@@ -296,8 +296,8 @@ update(scrollY: number): void {
           // we set our transform to its static position
           t = clamp01((scrollY - this.scrollStart1) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 0, 100);
-          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
-          this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw), 0, 0`;
+          // this.firstImage.style.transform = `translateX(-${this.slideProgress}vw)`;
           // we activate certain text and dropdown elements
           // this._deactivate(activeSectionIndex);
           break;
@@ -306,7 +306,7 @@ update(scrollY: number): void {
           // we set our transform to its static position
           t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
-          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw), 0, 0`;
           // we our current section text items and our previous since they will not have been activated via scrolling into them
           this._activate(activeSectionIndex);
           this._activate(activeSectionIndex - 1);
@@ -316,7 +316,7 @@ update(scrollY: number): void {
           // we set our transform to its static position
           t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
-          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw), 0, 0`;
           // we activate certain text and dropdown elements
           break;
         case "SCROLL_RANGE_2 SCROLL_RANGE_2":
@@ -324,7 +324,7 @@ update(scrollY: number): void {
           // console.log("case is SCROLL_RANGE_2 SCROLL_RANGE_2: I have scrolled from our second section and am heading towards the third.");
           t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
-          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw), 0, 0`;
           break;
         case "SCROLL_RANGE_2 SECTION_2":
           // console.log("case is SCROLL_RANGE_2 SECTION_2: I have backtracked from our second scrollable section and have reentered section two again.");
@@ -354,7 +354,7 @@ update(scrollY: number): void {
           // we set our transform to its static position
           t = clamp01((scrollY - this.scrollStart2) / this.viewportHeight);
           this.slideProgress = mapRange(t, 0, 1, 100, 200);
-          this.horizontalScrollSectContainer.style.transform = `translateX(-${this.slideProgress}vw)`;
+          this.horizontalScrollSectContainer.style.transform = `translate3d(-${this.slideProgress}vw), 0, 0`;
           // we activate certain text and dropdown elements
           // this._deactivate(activeSectionIndex);
           break;
