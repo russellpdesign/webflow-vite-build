@@ -134,7 +134,6 @@ update(scrollY: number): void {
         (scrollY <= this.scrollEnd2 && "SCROLL_RANGE_2") || // scrolling from section two to three
         (scrollY <= this.scrollStart3 && "SECTION_3") || // we are sitting in the third section
         (scrollY <= this.scrollEnd3 && "AFTER_SCROLL") || // we are scrolling down out of the horizontal scroll section
-      );
     };
 
     const doWork = (state: ScrollState, scrollY: number): void => {
