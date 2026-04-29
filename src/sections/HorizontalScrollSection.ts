@@ -157,6 +157,7 @@ update(scrollY: number): void {
         return (state === "SECTION_1" || lastActiveState === "SECTION_1" || state === "SCROLL_RANGE_1") ? 0 :
                (state === "SECTION_2" || lastActiveState === "SECTION_2" || state === "SCROLL_RANGE_2") ? 1 :
                (state === "SECTION_3" || lastActiveState === "SECTION_3" || state === "SCROLL_RANGE_3") ? 2 :
+               (state === "AFTER_SCROLL" || lastActiveState === "AFTER_SCROLL" || state === "AFTER_SCROLL") ? 2 :
                null;
         };
 
