@@ -394,7 +394,9 @@ update(scrollY: number): void {
           break;
         case "AFTER_SCROLL AFTER_SCROLL":
           // console.log("case is SECTION_3 AFTER_SCROLL: I have scrolled out of our third section and am exiting the horizontal scrolling section as a whole.");
-
+          this._activate(activeSectionIndex);
+          this._activate(activeSectionIndex - 1);
+          this._activate(activeSectionIndex - 2);
           // we activate certain text and dropdown elements
           // this._deactivate(activeSectionIndex);
           break;
