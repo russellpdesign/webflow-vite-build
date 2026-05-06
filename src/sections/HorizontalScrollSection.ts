@@ -32,6 +32,7 @@ export default class HorizontalScrollSection extends BaseSection {
     // All images that participate in the overlap animation
     this.initialImages = Array.from(this.previousSectionTrigger.querySelectorAll<HTMLElement>(".sticky-img-container"));
     // this is the parent of the actual scaled image container. It ensures our image scales center-wise because it's parent is absolute + is centering children w/ flexbox.
+    // the variable is called firstImage, but its actually the image from our scale down previous section that we are just leaving in place and then animating horizontally when we scroll from section 1 -> 2
     this.firstImage = document.querySelector(".sticky-big-img-reveal");
     // not really exclusive to our previous section, but to our previous sections mathematics.
     this.progressBar = document.querySelector<HTMLElement>(".progress-container")!;
@@ -85,6 +86,24 @@ export default class HorizontalScrollSection extends BaseSection {
 
     // Current Section - animation variables
     this.start = this.el.getBoundingClientRect().top + scrollY;
+
+    // this.scrollBoundaries = []
+
+    // // this construction of our start and stop values is dynamic and updates when new scroll sections are added. The height of the parent will have to increase as well 300vh for each new section to allow 100vh for scrolling horizontally and 200vh for scrolling inside a section
+    // for(let i = 2; i <= 2 + (this.scrollSections.length * 2); i+= 3) {
+
+    //   const newSection: {section: number, scrollRangeStart: number, scrollRangeEnd: number, scrollGapStart: number, scrollGapEnd: number } = {
+    //     section: (i + 1) / 3, 
+    //     scrollRangeStart: this.start + this.viewportHeight * i,
+    //     scrollRangeEnd: this.start + this.viewportHeight * ((i + 2) - 1),
+    //     scrollGapStart: this.start + this.viewportHeight * ((i + 2) - 1),
+    //     scrollGapEnd: this.start + this.viewportHeight * ((i + 2) - 1) + (this.viewportHeight * 2)
+    //   };
+
+    //   this.scrollBoundaries.push(newSection)
+    // };
+
+    // console.log(this.scrollBoundaries);
 
     // how much distance we scroll while not moving our section
     this.sectionScrollingVerticalDistance = this.viewportHeight * 2;
@@ -157,7 +176,7 @@ update(scrollY: number): void {
         return (state === "SECTION_1" || lastActiveState === "SECTION_1" || state === "SCROLL_RANGE_1") ? 0 :
                (state === "SECTION_2" || lastActiveState === "SECTION_2" || state === "SCROLL_RANGE_2") ? 1 :
                (state === "SECTION_3" || lastActiveState === "SECTION_3" || state === "SCROLL_RANGE_3") ? 2 :
-               (state === "AFTER_SCROLL" || lastActiveState === "AFTER_SCROLL" || state === "AFTER_SCROLL") ? 2 :
+               (state === "AFTER_SCROLL" || lastActiveState === "AFTER_SCROLL") ? 2 :
                null;
         };
 
@@ -182,6 +201,7 @@ update(scrollY: number): void {
         case "BEFORE_TRANSITION SCALE_TRANSITION":
           // our previous sections photo is now starting to scale and we are scrolling toward our current section's first section
           // we need to animate the top margin of our big title to simulate scrolling the section into view
+          // we use our scaleProgress variable to derive our margin Top value
           t = clamp01((scrollY - this.startScale) / this.viewportHeight);
           this.scaleProgress = mapRange(t, 0, 1, 0, 1);
           this.marginTopShrink = 100 - (this.scaleProgress * 100);

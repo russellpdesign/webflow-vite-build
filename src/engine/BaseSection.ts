@@ -1,4 +1,6 @@
-import { ElementConfig } from "./types"
+type ElementConfig = {
+    el: string | HTMLElement;
+}
 
 export default class BaseSection {
   el!: HTMLElement;
@@ -10,10 +12,12 @@ export default class BaseSection {
 
   constructor( { el }: ElementConfig ) {
 
+    // this checks to see if el was passed, if not throw an error
     if (!el) {
       throw new Error("BaseSection requires { el }")
     }
 
+    // this checks to see if el actual converts to an existing HTMLElement, if it doesn't we stop this section from running by disabling the enable flag and exiting the global block
     const resolvedEl = typeof el === "string" ? document.querySelector<HTMLElement>(el): el;
 
     if (!resolvedEl) {
@@ -22,7 +26,7 @@ export default class BaseSection {
       return;
     }
 
-    // Accept selector or element
+    // Once we validate DOM presence, we cache as this.el
     this.el = resolvedEl;
 
     // // Enable/disable flag, can set on all animations here, generally set on a specific module to help troubleshoot and isolate issues
@@ -30,8 +34,7 @@ export default class BaseSection {
   }
 
   measure(): void {
-    // Override in subclass
-    // Standard scroll bounds
+    // Override in subclass, initialzes as 0
     this.start = 0;
     this.end = 0;
     this.length = 0;
